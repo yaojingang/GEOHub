@@ -749,7 +749,7 @@ def _load_source_html(
         if declared_digest and declared_digest != digest:
             raise ValueError(f"source_html[{index}] digest does not match its file snapshot")
         source_uri = _normalize_provenance_uri(
-            value.get("source_uri", f"urn:yao-geo:input:source-html:{index + 1}"),
+            value.get("source_uri", f"urn:geo-seo-hub:input:source-html:{index + 1}"),
             f"source_html[{index}].source_uri",
         )
         return (
@@ -760,7 +760,7 @@ def _load_source_html(
         )
     return (
         value,
-        f"urn:yao-geo:input:source-html:{index + 1}",
+        f"urn:geo-seo-hub:input:source-html:{index + 1}",
         f"source-html-{index + 1}",
         "source_html",
     )
@@ -1245,7 +1245,7 @@ def diagnose(
         "protocol_version": PROTOCOL_VERSION,
         "run_id": run_id,
         "created_at": created_at,
-        "generator": {"name": "yao-geo-diagnose", "version": GENERATOR_VERSION},
+        "generator": {"name": "geo-seo-hub-diagnose", "version": GENERATOR_VERSION},
         "input_artifact": "input/diagnosis-brief.json",
         "artifacts": manifest_paths,
         "status": "completed-with-warnings" if warnings or degraded else "completed",

@@ -285,7 +285,7 @@ def _read_relative_source(source: dict[str, Any], input_path: Path) -> tuple[str
     digest = hashlib.sha256(body.encode("utf-8")).hexdigest()
     if source.get("sha256") and source["sha256"] != digest:
         raise ValueError("source_content digest does not match its file snapshot")
-    return body, source.get("source_uri", "urn:yao-geo:input:source-content")
+    return body, source.get("source_uri", "urn:geo-seo-hub:input:source-content")
 
 
 def _normalize_brief(brief: dict[str, Any], input_path: Path) -> tuple[dict[str, Any], str | None]:
@@ -322,7 +322,7 @@ def _normalize_brief(brief: dict[str, Any], input_path: Path) -> tuple[dict[str,
         source = brief["source_content"]
         if isinstance(source, str):
             source_text = source
-            source_uri = "urn:yao-geo:input:source-content"
+            source_uri = "urn:geo-seo-hub:input:source-content"
         else:
             source_text, source_uri = _read_relative_source(source, input_path)
         digest = hashlib.sha256(source_text.encode("utf-8")).hexdigest()
@@ -1131,7 +1131,7 @@ def content(input_path: Path, output_path: Path, *, clock: Clock | None = None) 
         "protocol_version": PROTOCOL_VERSION,
         "run_id": run_id,
         "created_at": created_at,
-        "generator": {"name": "yao-geo-content", "version": GENERATOR_VERSION},
+        "generator": {"name": "geo-seo-hub-content", "version": GENERATOR_VERSION},
         "input_artifact": "input/content-brief.json",
         "artifacts": artifacts,
         "status": "completed-with-warnings" if warnings else "completed",

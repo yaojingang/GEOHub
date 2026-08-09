@@ -244,7 +244,7 @@ def source_digest_paths() -> list[Path]:
         "reports/yao-meta-gates.schema.json",
         *DETERMINISTIC_EVIDENCE_PATHS,
     }
-    prefixes = ("registry/", "schemas/", "src/yao_geo/", "evals/")
+    prefixes = ("registry/", "schemas/", "src/geo_seo_hub/", "evals/")
     paths = []
     for raw in tracked:
         if not raw:

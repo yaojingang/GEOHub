@@ -3,8 +3,8 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "yao-geo"
-version = "0.1.0"
+name = "geo-seo-hub"
+version = "0.2.0"
 description = "Experimental, GEO-first agent skill hub with an SEO-ready architecture"
 readme = "README.md"
 requires-python = ">=3.11,<3.15"
@@ -31,18 +31,18 @@ render = [
 ]
 
 [project.scripts]
-yao-geo = "yao_geo.cli:main"
+geo-seo-hub = "geo_seo_hub.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.data-files]
-"share/yao-geo/skills" = ["skills/RESOLVER.md"]
-"share/yao-geo/registry" = [
+"share/geo-seo-hub/skills" = ["skills/RESOLVER.md"]
+"share/geo-seo-hub/registry" = [
   "registry/skills.yaml",
   "registry/skills.schema.json",
 ]
-"share/yao-geo/schemas" = [
+"share/geo-seo-hub/schemas" = [
   "schemas/brand-fact-card.schema.json",
   "schemas/content-spec.schema.json",
   "schemas/evidence-ledger.schema.json",
@@ -52,46 +52,46 @@ where = ["src"]
   "schemas/query-map.schema.json",
   "schemas/run-manifest.schema.json",
 ]
-"share/yao-geo/skills/geo" = [
+"share/geo-seo-hub/skills/geo" = [
   "skills/geo/SKILL.md",
   "skills/geo/manifest.json",
 ]
-"share/yao-geo/skills/geo/agents" = ["skills/geo/agents/interface.yaml"]
-"share/yao-geo/skills/geo/references" = ["skills/geo/references/routing-contract.md"]
-"share/yao-geo/skills/geo/scripts" = ["skills/geo/scripts/run_route.py"]
-"share/yao-geo/skills/geo-discover" = [
+"share/geo-seo-hub/skills/geo/agents" = ["skills/geo/agents/interface.yaml"]
+"share/geo-seo-hub/skills/geo/references" = ["skills/geo/references/routing-contract.md"]
+"share/geo-seo-hub/skills/geo/scripts" = ["skills/geo/scripts/run_route.py"]
+"share/geo-seo-hub/skills/geo-discover" = [
   "skills/geo-discover/SKILL.md",
   "skills/geo-discover/manifest.json",
 ]
-"share/yao-geo/skills/geo-discover/agents" = ["skills/geo-discover/agents/interface.yaml"]
-"share/yao-geo/skills/geo-discover/references" = [
+"share/geo-seo-hub/skills/geo-discover/agents" = ["skills/geo-discover/agents/interface.yaml"]
+"share/geo-seo-hub/skills/geo-discover/references" = [
   "skills/geo-discover/references/discovery-method.md",
   "skills/geo-discover/references/input-example.json",
 ]
-"share/yao-geo/skills/geo-discover/scripts" = ["skills/geo-discover/scripts/run_discover.py"]
-"share/yao-geo/skills/geo-diagnose" = [
+"share/geo-seo-hub/skills/geo-discover/scripts" = ["skills/geo-discover/scripts/run_discover.py"]
+"share/geo-seo-hub/skills/geo-diagnose" = [
   "skills/geo-diagnose/SKILL.md",
   "skills/geo-diagnose/manifest.json",
 ]
-"share/yao-geo/skills/geo-diagnose/agents" = ["skills/geo-diagnose/agents/interface.yaml"]
-"share/yao-geo/skills/geo-diagnose/references" = [
+"share/geo-seo-hub/skills/geo-diagnose/agents" = ["skills/geo-diagnose/agents/interface.yaml"]
+"share/geo-seo-hub/skills/geo-diagnose/references" = [
   "skills/geo-diagnose/references/diagnosis-method.md",
   "skills/geo-diagnose/references/input-example.json",
 ]
-"share/yao-geo/skills/geo-diagnose/scripts" = ["skills/geo-diagnose/scripts/run_diagnose.py"]
-"share/yao-geo/skills/geo-content" = [
+"share/geo-seo-hub/skills/geo-diagnose/scripts" = ["skills/geo-diagnose/scripts/run_diagnose.py"]
+"share/geo-seo-hub/skills/geo-content" = [
   "skills/geo-content/SKILL.md",
   "skills/geo-content/manifest.json",
 ]
-"share/yao-geo/skills/geo-content/agents" = ["skills/geo-content/agents/interface.yaml"]
-"share/yao-geo/skills/geo-content/references" = [
+"share/geo-seo-hub/skills/geo-content/agents" = ["skills/geo-content/agents/interface.yaml"]
+"share/geo-seo-hub/skills/geo-content/references" = [
   "skills/geo-content/references/content-method.md",
   "skills/geo-content/references/modes.md",
   "skills/geo-content/references/evidence-policy.md",
   "skills/geo-content/references/output-contract.md",
   "skills/geo-content/references/input-example.json",
 ]
-"share/yao-geo/skills/geo-content/scripts" = ["skills/geo-content/scripts/run_content.py"]
+"share/geo-seo-hub/skills/geo-content/scripts" = ["skills/geo-content/scripts/run_content.py"]
 
 [tool.pytest.ini_options]
 addopts = "-q"

@@ -2,6 +2,12 @@
 
 Read-only source baseline: `yaojingang/yao-geo-skills` commit `201c0c45dcf09bb37bc46a467b4baf4d721db205`. The 21 source skills map as follows.
 
+## Runtime namespace migration
+
+Pre-release 0.1 development snapshots used the distribution and CLI `yao-geo`, Python module `yao_geo`, installed data root `share/yao-geo`, generator prefix `yao-geo-*`, and URN prefix `urn:yao-geo:*`. Version 0.2 replaces those surfaces with `geo-seo-hub`, `geo_seo_hub`, `share/geo-seo-hub`, `geo-seo-hub-*`, and `urn:geo-seo-hub:*` respectively. No runtime alias ships in 0.2.
+
+An existing development environment may remove the retired distribution with `python3 -m pip uninstall yao-geo` before installing 0.2. The `geo-*` Skill IDs and Artifact Bus protocol `1.0.0` remain unchanged.
+
 | # | Source skill | Destination | Decision |
 | ---: | --- | --- | --- |
 | 1 | yao-geo-intent-miner | geo-discover | implemented |

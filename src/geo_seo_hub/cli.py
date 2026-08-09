@@ -23,13 +23,13 @@ class JsonArgumentParser(argparse.ArgumentParser):
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = JsonArgumentParser(prog="yao-geo")
+    parser = JsonArgumentParser(prog="geo-seo-hub")
     parser.add_argument(
         "--version",
         action="version",
         version=json.dumps(
             {
-                "distribution": "yao-geo",
+                "distribution": "geo-seo-hub",
                 "name": "GEO SEO Hub",
                 "version": package_version(),
             },

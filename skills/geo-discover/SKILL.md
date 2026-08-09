@@ -8,7 +8,7 @@ description: Discover evidence-aware GEO questions, query rewrites, intent clust
 ## Workflow
 
 1. Read 'references/discovery-method.md' and prepare a protocol '1.0.0' GEO brief.
-2. Run the deterministic `python3 scripts/run_discover.py --input <brief.json> --output <runs-root>` wrapper or `python -m yao_geo discover --input <brief.json> --output <runs-root>`.
+2. Run the deterministic `python3 scripts/run_discover.py --input <brief.json> --output <runs-root>` wrapper or `python -m geo_seo_hub discover --input <brief.json> --output <runs-root>`.
 3. Inspect 'quality-report.json'; surface all warnings and failed checks.
 4. Deliver the Artifact Bus directory as the output contract.
 

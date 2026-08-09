@@ -9,7 +9,7 @@ def repository_root() -> Path:
     source_root = Path(__file__).resolve().parents[2]
     if (source_root / "registry" / "skills.yaml").is_file():
         return source_root
-    installed_root = Path(sys.prefix) / "share" / "yao-geo"
+    installed_root = Path(sys.prefix) / "share" / "geo-seo-hub"
     if (installed_root / "registry" / "skills.yaml").is_file():
         return installed_root
     raise FileNotFoundError(

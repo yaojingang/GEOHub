@@ -8,7 +8,7 @@ description: Route GEO and generative engine optimization requests to an availab
 ## Workflow
 
 1. Read `references/routing-contract.md` and the suite resolver contract at `../RESOLVER.md`.
-2. Run the deterministic `python3 scripts/run_route.py --text "<request>"` wrapper or `python -m yao_geo route --text "<request>"`.
+2. Run the deterministic `python3 scripts/run_route.py --text "<request>"` wrapper or `python -m geo_seo_hub route --text "<request>"`.
 3. Dispatch only when the JSON result has 'runnable: true' and a non-null 'entry'.
 4. For 'pending-implementation' or 'planned', return the registry status and suggested available route exactly as reported.
 

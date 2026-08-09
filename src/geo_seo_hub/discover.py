@@ -194,7 +194,7 @@ def discover(
         "protocol_version": PROTOCOL_VERSION,
         "run_id": run_id,
         "created_at": created_at,
-        "generator": {"name": "yao-geo-discover", "version": GENERATOR_VERSION},
+        "generator": {"name": "geo-seo-hub-discover", "version": GENERATOR_VERSION},
         "input_artifact": "input/geo-brief.json",
         "artifacts": manifest_paths,
         "status": "completed-with-warnings" if warnings else "completed",

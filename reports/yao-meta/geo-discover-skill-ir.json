@@ -24,7 +24,7 @@
   "workflow": {
     "steps": [
       "Read 'references/discovery-method.md' and prepare a protocol '1.0.0' GEO brief.",
-      "Run the deterministic `python3 scripts/run_discover.py --input <brief.json> --output <runs-root>` wrapper or `python -m yao_geo discover --input <brief.json> --output <runs-root>`.",
+      "Run the deterministic `python3 scripts/run_discover.py --input <brief.json> --output <runs-root>` wrapper or `python -m geo_seo_hub discover --input <brief.json> --output <runs-root>`.",
       "Inspect 'quality-report.json'; surface all warnings and failed checks.",
       "Deliver the Artifact Bus directory as the output contract."
     ],

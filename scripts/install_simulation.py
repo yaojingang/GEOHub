@@ -65,7 +65,7 @@ def install_extracted(source_root: Path, venv: Path, wheelhouse: Path, clean_env
     run([sys.executable, "-m", "venv", str(venv)], source_root, clean_env)
     python = venv / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
     run([str(python), "-m", "pip", "install", "--no-index", "--find-links", str(wheelhouse), "."], source_root, clean_env)
-    run([str(python), "-c", "from pathlib import Path; import sys, yao_geo; assert Path(yao_geo.__file__).resolve().is_relative_to(Path(sys.prefix).resolve())"], source_root, clean_env)
+    run([str(python), "-c", "from pathlib import Path; import sys, geo_seo_hub; assert Path(geo_seo_hub.__file__).resolve().is_relative_to(Path(sys.prefix).resolve())"], source_root, clean_env)
     return python
 
 
@@ -89,16 +89,16 @@ def source_smoke(source_zip: Path, temp_root: Path, wheelhouse: Path) -> dict:
     content.write_text(json.dumps({"mode":"explainer","topic":"Synthetic GEO topic","evidence":[],"desired_formats":["markdown","json","html"]}, allow_nan=False), encoding="utf-8")
     runs = temp_root / "runs"
     commands = [
-        [str(python), "-m", "yao_geo", "--version"],
-        [str(python), "-m", "yao_geo", "route", "--text", "Discover AI search questions"],
-        [str(python), "-m", "yao_geo", "discover", "--input", str(brief), "--output", str(runs)],
-        [str(python), "-m", "yao_geo", "diagnose", "--input", str(diagnosis), "--output", str(runs)],
-        [str(python), "-m", "yao_geo", "content", "--input", str(content), "--output", str(runs)],
+        [str(python), "-m", "geo_seo_hub", "--version"],
+        [str(python), "-m", "geo_seo_hub", "route", "--text", "Discover AI search questions"],
+        [str(python), "-m", "geo_seo_hub", "discover", "--input", str(brief), "--output", str(runs)],
+        [str(python), "-m", "geo_seo_hub", "diagnose", "--input", str(diagnosis), "--output", str(runs)],
+        [str(python), "-m", "geo_seo_hub", "content", "--input", str(content), "--output", str(runs)],
     ]
     results = [run(command, temp_root, clean_env) for command in commands]
     version_payload = json.loads(results[0].stdout)
     if version_payload != {
-        "distribution": "yao-geo",
+        "distribution": "geo-seo-hub",
         "name": "GEO SEO Hub",
         "version": VERSION,
     }:
@@ -136,7 +136,7 @@ def structural_smoke(path: Path, temp_root: Path, wheelhouse: Path) -> dict:
     venv.parent.mkdir(exist_ok=True)
     python = install_extracted(destination, venv, wheelhouse, clean_env)
     prefix_run = run([str(python), "-c", "import sys; print(sys.prefix)"], destination, clean_env)
-    installed_root = Path(prefix_run.stdout.strip()) / "share" / "yao-geo"
+    installed_root = Path(prefix_run.stdout.strip()) / "share" / "geo-seo-hub"
     installed_registry = installed_root / "registry" / "skills.yaml"
     installed_skill = installed_root / "SKILL.md"
     if not installed_registry.is_file() or not installed_skill.is_file():
@@ -184,9 +184,9 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--target", choices=("all",), default="all")
     parser.parse_args()
-    source = DIST / f"yao-geo-source-{VERSION}.zip"
+    source = DIST / f"geo-seo-hub-source-{VERSION}.zip"
     packages = sorted(path for path in DIST.glob("*.zip") if path.name != source.name)
-    with tempfile.TemporaryDirectory(prefix="yao-geo-install-") as raw:
+    with tempfile.TemporaryDirectory(prefix="geo-seo-hub-install-") as raw:
         temp_root = Path(raw)
         clean_env = os.environ.copy()
         clean_env.pop("PYTHONPATH", None)

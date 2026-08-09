@@ -8,7 +8,7 @@ description: Diagnose a brand, website, or page for evidence-backed GEO gaps and
 ## Workflow
 
 1. Read `references/diagnosis-method.md` and prepare the diagnosis brief contract.
-2. Run the deterministic `python3 scripts/run_diagnose.py --input <brief.json> --output <runs-root>` wrapper or `python -m yao_geo diagnose --input <brief.json> --output <runs-root>`.
+2. Run the deterministic `python3 scripts/run_diagnose.py --input <brief.json> --output <runs-root>` wrapper or `python -m geo_seo_hub diagnose --input <brief.json> --output <runs-root>`.
 3. Inspect `quality-report.json`, `source_status`, and `limitations` before using findings.
 4. Deliver the complete Artifact Bus run directory.
 

@@ -9,9 +9,9 @@ import pytest
 import yaml
 from jsonschema import Draft202012Validator
 
-from yao_geo.paths import repository_root
-from yao_geo.registry import RegistryError, load_registry
-from yao_geo.validation import (
+from geo_seo_hub.paths import repository_root
+from geo_seo_hub.registry import RegistryError, load_registry
+from geo_seo_hub.validation import (
     ArtifactValidationError,
     load_schema,
     strict_json_loads,
@@ -41,7 +41,7 @@ def test_all_eight_protocol_schemas_are_valid():
 
 def test_all_runtime_and_gate_json_writers_emit_standard_json():
     root = repository_root()
-    for source in [*(root / "src" / "yao_geo").glob("*.py"), *(root / "scripts").glob("*.py")]:
+    for source in [*(root / "src" / "geo_seo_hub").glob("*.py"), *(root / "scripts").glob("*.py")]:
         tree = ast.parse(source.read_text(encoding="utf-8"))
         for node in ast.walk(tree):
             if not isinstance(node, ast.Call) or not isinstance(node.func, ast.Attribute):
@@ -53,7 +53,7 @@ def test_all_runtime_and_gate_json_writers_emit_standard_json():
 
 
 def test_runtime_json_loads_are_centralized_in_strict_helper():
-    runtime = repository_root() / "src" / "yao_geo"
+    runtime = repository_root() / "src" / "geo_seo_hub"
     observed = []
     for source in runtime.glob("*.py"):
         tree = ast.parse(source.read_text(encoding="utf-8"))
@@ -101,7 +101,7 @@ def test_run_manifest_accepts_explicit_optional_renderer_degradation():
             "protocol_version": "1.0.0",
             "run_id": "run-degraded",
             "created_at": "2026-08-08T00:00:00Z",
-            "generator": {"name": "yao-geo-content", "version": "0.1.0"},
+            "generator": {"name": "geo-seo-hub-content", "version": "0.2.0"},
             "input_artifact": "input/content-brief.json",
             "artifacts": ["content.md"],
             "status": "completed-with-warnings",
@@ -304,7 +304,7 @@ def test_package_uses_exact_tracked_regular_file_allowlist(tmp_path):
     repo = tmp_path / "repo"
     repo.mkdir()
     _git(repo, "init", "-b", "main")
-    (repo / "VERSION").write_text("0.1.0\n", encoding="utf-8")
+    (repo / "VERSION").write_text("0.2.0\n", encoding="utf-8")
     (repo / ".gitignore").write_text("ignored.txt\n", encoding="utf-8")
     (repo / "tracked.txt").write_text("trusted\n", encoding="utf-8")
     (repo / "untracked.txt").write_text("untrusted\n", encoding="utf-8")
@@ -320,9 +320,9 @@ def test_package_uses_exact_tracked_regular_file_allowlist(tmp_path):
     with zipfile.ZipFile(archive) as package:
         names = package.namelist()
     assert names == [
-        "yao-geo-0.1.0/.gitignore",
-        "yao-geo-0.1.0/VERSION",
-        "yao-geo-0.1.0/tracked.txt",
+        "geo-seo-hub-0.2.0/.gitignore",
+        "geo-seo-hub-0.2.0/VERSION",
+        "geo-seo-hub-0.2.0/tracked.txt",
     ]
     assert all(name not in "\n".join(names) for name in ("untracked.txt", "ignored.txt", "external-link"))
 
@@ -343,7 +343,7 @@ def test_package_rejects_tracked_file_beneath_external_parent_symlink(tmp_path):
     repo = tmp_path / "repo"
     repo.mkdir()
     _git(repo, "init", "-b", "main")
-    (repo / "VERSION").write_text("0.1.0\n", encoding="utf-8")
+    (repo / "VERSION").write_text("0.2.0\n", encoding="utf-8")
     nested = repo / "nested"
     nested.mkdir()
     (nested / "file.txt").write_text("trusted\n", encoding="utf-8")

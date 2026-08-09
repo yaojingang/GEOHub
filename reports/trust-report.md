@@ -1,6 +1,6 @@
 # Trust Report
 
-Scope: GEO SEO Hub 0.1.0 local CLI and four active Library-engineered GEO skill packages.
+Scope: GEO SEO Hub 0.2.0 local CLI and four active Library-engineered GEO skill packages.
 
 - Permissions: router read-only; active executors read explicit inputs and write the user-selected runs root.
 - Network: discovery and content are offline. Diagnosis permits only explicit public canonical HTTP(S) sources behind SSRF, redirect, content-type, size, timeout, and file-descriptor gates.

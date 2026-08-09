@@ -5,7 +5,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from yao_geo.paths import repository_root
+from geo_seo_hub.paths import repository_root
 
 
 def _run(arguments, *, cwd, env):
@@ -44,7 +44,7 @@ def test_offline_wheel_install_runs_diagnose_outside_repository(tmp_path):
         cwd=root,
         env=environment,
     )
-    wheel = next(wheels.glob(f"yao_geo-{expected_version}-*.whl"))
+    wheel = next(wheels.glob(f"geo_seo_hub-{expected_version}-*.whl"))
     virtualenv = tmp_path / "venv"
     _run(
         [sys.executable, "-m", "venv", "--system-site-packages", str(virtualenv)],
@@ -52,7 +52,7 @@ def test_offline_wheel_install_runs_diagnose_outside_repository(tmp_path):
         env=environment,
     )
     python = virtualenv / "bin" / "python"
-    console = virtualenv / "bin" / "yao-geo"
+    console = virtualenv / "bin" / "geo-seo-hub"
     dependency_site = next(
         Path(candidate).resolve()
         for candidate in site.getsitepackages()
@@ -66,7 +66,7 @@ def test_offline_wheel_install_runs_diagnose_outside_repository(tmp_path):
             env=environment,
         ).stdout.strip()
     )
-    (child_site / "yao_geo_test_dependencies.pth").write_text(
+    (child_site / "geo_seo_hub_test_dependencies.pth").write_text(
         f"{dependency_site}\n",
         encoding="utf-8",
     )
@@ -92,13 +92,13 @@ def test_offline_wheel_install_runs_diagnose_outside_repository(tmp_path):
             str(python),
             "-c",
             (
-                "import sys; from pathlib import Path; import yao_geo; "
+                "import sys; from pathlib import Path; import geo_seo_hub; "
                 "prefix=Path(sys.prefix).resolve(); "
-                "assert Path(yao_geo.__file__).resolve().is_relative_to(prefix); "
-                "assert (prefix/'share/yao-geo/registry/skills.yaml').is_file(); "
-                "assert (prefix/'share/yao-geo/skills/geo-diagnose/SKILL.md').is_file(); "
-                "assert (prefix/'share/yao-geo/skills/geo-content/SKILL.md').is_file(); "
-                "assert (prefix/'share/yao-geo/skills/geo-content/references/modes.md').is_file(); "
+                "assert Path(geo_seo_hub.__file__).resolve().is_relative_to(prefix); "
+                "assert (prefix/'share/geo-seo-hub/registry/skills.yaml').is_file(); "
+                "assert (prefix/'share/geo-seo-hub/skills/geo-diagnose/SKILL.md').is_file(); "
+                "assert (prefix/'share/geo-seo-hub/skills/geo-content/SKILL.md').is_file(); "
+                "assert (prefix/'share/geo-seo-hub/skills/geo-content/references/modes.md').is_file(); "
                 "print(prefix)"
             ),
         ],
@@ -111,7 +111,7 @@ def test_offline_wheel_install_runs_diagnose_outside_repository(tmp_path):
         _run([str(console), "--version"], cwd=outside, env=environment).stdout
     )
     assert version_payload == {
-        "distribution": "yao-geo",
+        "distribution": "geo-seo-hub",
         "name": "GEO SEO Hub",
         "version": expected_version,
     }

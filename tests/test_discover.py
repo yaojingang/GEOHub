@@ -6,9 +6,9 @@ from pathlib import Path
 
 import pytest
 
-from yao_geo.artifact_bus import ArtifactBus
-from yao_geo.discover import _build_query_map, discover
-from yao_geo.validation import ArtifactValidationError, validate_artifact
+from geo_seo_hub.artifact_bus import ArtifactBus
+from geo_seo_hub.discover import _build_query_map, discover
+from geo_seo_hub.validation import ArtifactValidationError, validate_artifact
 
 FIXTURES = Path(__file__).parent / "fixtures"
 

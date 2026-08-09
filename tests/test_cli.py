@@ -6,9 +6,9 @@ from pathlib import Path
 
 import pytest
 
-from yao_geo.cli import main
-from yao_geo.paths import repository_root
-from yao_geo.registry import RegistryError
+from geo_seo_hub.cli import main
+from geo_seo_hub.paths import repository_root
+from geo_seo_hub.registry import RegistryError
 
 
 def test_route_cli_prints_json(capsys):
@@ -55,7 +55,7 @@ def test_registry_error_is_json(monkeypatch, capsys):
     def fail_route(_text):
         raise RegistryError("invalid test registry")
 
-    monkeypatch.setattr("yao_geo.cli.route", fail_route)
+    monkeypatch.setattr("geo_seo_hub.cli.route", fail_route)
     assert main(["route", "--text", "GEO"]) == 2
     payload = json.loads(capsys.readouterr().err)
     assert payload == {"status": "error", "message": "invalid test registry"}
@@ -65,7 +65,7 @@ def _run_cli(*arguments: str) -> subprocess.CompletedProcess[str]:
     environment = os.environ.copy()
     environment["PYTHONPATH"] = str(repository_root() / "src")
     return subprocess.run(
-        [sys.executable, "-m", "yao_geo", *arguments],
+        [sys.executable, "-m", "geo_seo_hub", *arguments],
         cwd=repository_root(),
         env=environment,
         capture_output=True,
@@ -95,7 +95,7 @@ def test_help_remains_standard_stdout():
     result = _run_cli("--help")
     assert result.returncode == 0
     assert result.stderr == ""
-    assert result.stdout.startswith("usage: yao-geo")
+    assert result.stdout.startswith("usage: geo-seo-hub")
 
 
 def test_version_is_installed_distribution_json():
@@ -103,7 +103,7 @@ def test_version_is_installed_distribution_json():
     assert result.returncode == 0
     assert result.stderr == ""
     assert json.loads(result.stdout) == {
-        "distribution": "yao-geo",
+        "distribution": "geo-seo-hub",
         "name": "GEO SEO Hub",
         "version": (repository_root() / "VERSION").read_text(encoding="utf-8").strip(),
     }

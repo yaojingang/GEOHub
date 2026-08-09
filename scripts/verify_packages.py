@@ -17,11 +17,11 @@ DIST = ROOT / "dist"
 REPORTS = ROOT / "reports"
 VERSION = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
 EXPECTED = {
-    f"yao-geo-source-{VERSION}.zip",
-    f"yao-geo-unified-community-{VERSION}.zip",
+    f"geo-seo-hub-source-{VERSION}.zip",
+    f"geo-seo-hub-unified-community-{VERSION}.zip",
     *(f"{skill}-community-{VERSION}.zip" for skill in ("geo", "geo-discover", "geo-diagnose", "geo-content")),
-    f"yao-geo-codex-community-{VERSION}.zip",
-    f"yao-geo-claude-community-{VERSION}.zip",
+    f"geo-seo-hub-codex-community-{VERSION}.zip",
+    f"geo-seo-hub-claude-community-{VERSION}.zip",
 }
 REQUIRED_LEGAL = {"VERSION", "LICENSE", "LICENSE-SCOPE.md", "COMMERCIAL-LICENSING.md", "THIRD_PARTY_NOTICES.md"}
 FORBIDDEN_NAMES = re.compile(r"(?:^|/)(?:\.env|id_rsa|credentials|secrets?)(?:\.|/|$)", re.I)
@@ -56,16 +56,16 @@ def verify_archive(path: Path) -> dict:
                 payload = b"\n".join(line for line in payload.splitlines() if not line.startswith(b"FORBIDDEN_CONTENT ="))
             if any(marker in payload for marker in FORBIDDEN_CONTENT):
                 raise ValueError(f"sensitive or machine-local content in {path.name}: {info.filename}")
-        stripped = [name.split("/", 1)[1] if path.name.startswith("yao-geo-source-") and "/" in name else name for name in names]
+        stripped = [name.split("/", 1)[1] if path.name.startswith("geo-seo-hub-source-") and "/" in name else name for name in names]
         members = dict(zip(stripped, infos, strict=True))
         for legal in REQUIRED_LEGAL:
             if legal not in stripped:
                 raise ValueError(f"{path.name} missing {legal}")
         skill_count = sum(name.endswith("SKILL.md") for name in names)
-        if not path.name.startswith("yao-geo-source-") and skill_count != 1:
+        if not path.name.startswith("geo-seo-hub-source-") and skill_count != 1:
             raise ValueError(f"{path.name} must contain exactly one SKILL.md; found {skill_count}")
         skill_ids = ("geo", "geo-discover", "geo-diagnose", "geo-content")
-        if path.name.startswith("yao-geo-source-"):
+        if path.name.startswith("geo-seo-hub-source-"):
             if "SECURITY.md" not in stripped:
                 raise ValueError(f"{path.name} missing SECURITY.md")
             expected_manifests = {f"skills/{skill_id}/manifest.json": skill_id for skill_id in skill_ids}
@@ -93,7 +93,7 @@ def verify_archive(path: Path) -> dict:
             raise ValueError(f"{path.name} missing runtime registry or pyproject")
         self_installable = True
         resolved_entries = 0
-        if not path.name.startswith("yao-geo-source-"):
+        if not path.name.startswith("geo-seo-hub-source-"):
             project = tomllib.loads(archive.read(members["pyproject.toml"]).decode("utf-8"))
             if project["project"].get("requires-python") != ">=3.11,<3.15":
                 raise ValueError(f"{path.name} has unsupported Python contract")
@@ -128,7 +128,7 @@ def verify_archive(path: Path) -> dict:
 
 
 def load_packager():
-    spec = importlib.util.spec_from_file_location("yao_geo_packager", ROOT / "scripts" / "package.py")
+    spec = importlib.util.spec_from_file_location("geo_seo_hub_packager", ROOT / "scripts" / "package.py")
     module = importlib.util.module_from_spec(spec)
     assert spec.loader
     spec.loader.exec_module(module)

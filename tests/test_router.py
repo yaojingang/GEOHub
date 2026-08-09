@@ -3,10 +3,10 @@ from copy import deepcopy
 import pytest
 import yaml
 
-import yao_geo.router as router_module
-from yao_geo.paths import repository_root
-from yao_geo.registry import load_registry
-from yao_geo.router import build_action_phrase_index, route
+import geo_seo_hub.router as router_module
+from geo_seo_hub.paths import repository_root
+from geo_seo_hub.registry import load_registry
+from geo_seo_hub.router import build_action_phrase_index, route
 
 
 def test_routes_chinese_discovery_request():

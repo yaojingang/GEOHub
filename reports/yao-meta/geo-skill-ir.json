@@ -21,7 +21,7 @@
   "workflow": {
     "steps": [
       "Read `references/routing-contract.md` and the suite resolver contract at `../RESOLVER.md`.",
-      "Run the deterministic `python3 scripts/run_route.py --text \"<request>\"` wrapper or `python -m yao_geo route --text \"<request>\"`.",
+      "Run the deterministic `python3 scripts/run_route.py --text \"<request>\"` wrapper or `python -m geo_seo_hub route --text \"<request>\"`.",
       "Dispatch only when the JSON result has 'runnable: true' and a non-null 'entry'.",
       "For 'pending-implementation' or 'planned', return the registry status and suggested available route exactly as reported."
     ],

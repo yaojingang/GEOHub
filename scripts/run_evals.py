@@ -11,10 +11,10 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from yao_geo.content import content  # noqa: E402
-from yao_geo.diagnose import diagnose  # noqa: E402
-from yao_geo.discover import discover  # noqa: E402
-from yao_geo.router import route  # noqa: E402
+from geo_seo_hub.content import content  # noqa: E402
+from geo_seo_hub.diagnose import diagnose  # noqa: E402
+from geo_seo_hub.discover import discover  # noqa: E402
+from geo_seo_hub.router import route  # noqa: E402
 
 
 ARTIFACTS = {
@@ -110,7 +110,7 @@ def fabricated_citation_count(run_dir: Path) -> int:
 def evaluate_outputs() -> dict:
     cases = read_json(ROOT / "evals" / "output_cases.json")
     results = []
-    with tempfile.TemporaryDirectory(prefix="yao-geo-evals-") as raw:
+    with tempfile.TemporaryDirectory(prefix="geo-seo-hub-evals-") as raw:
         temp_root = Path(raw)
         invalid = temp_root / "invalid.json"
         invalid.write_text("{}\n", encoding="utf-8")

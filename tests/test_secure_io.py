@@ -6,11 +6,11 @@ from pathlib import Path
 
 import pytest
 
-import yao_geo.validation as validation_module
-from yao_geo.content import content
-from yao_geo.diagnose import diagnose
-from yao_geo.discover import discover
-from yao_geo.validation import read_bounded_regular_file
+import geo_seo_hub.validation as validation_module
+from geo_seo_hub.content import content
+from geo_seo_hub.diagnose import diagnose
+from geo_seo_hub.discover import discover
+from geo_seo_hub.validation import read_bounded_regular_file
 
 
 def _discover_payload():
@@ -72,7 +72,7 @@ def test_brief_reader_rejects_final_and_parent_symlinks(runner, payload, tmp_pat
     ],
 )
 def test_macos_lexical_var_alias_accepts_three_entry_briefs(runner, payload):
-    with tempfile.TemporaryDirectory(prefix="yao-geo-lexical-") as raw:
+    with tempfile.TemporaryDirectory(prefix="geo-seo-hub-lexical-") as raw:
         assert raw.startswith("/var/folders/")
         root = Path(raw)
         brief = root / "brief.json"

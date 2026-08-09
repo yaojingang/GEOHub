@@ -4,8 +4,8 @@
   "deterministic_repeat": true,
   "packages": [
     {
-      "name": "geo-community-0.1.0.zip",
-      "sha256": "16df80f75ccf74e19c9f38950df258d0d6492fa8c04282b051cdb247776cadd1",
+      "name": "geo-community-0.2.0.zip",
+      "sha256": "03288afcd5296972821cd3d3ecca712251d440ff39d619d43c6f50892106fa4d",
       "members": 53,
       "skill_count": 1,
       "self_installable": true,
@@ -13,8 +13,8 @@
       "status": "pass"
     },
     {
-      "name": "geo-content-community-0.1.0.zip",
-      "sha256": "3d4933f753f189c14e635f9ecda05f4339cc33bec09945e19039c71fa7a9742d",
+      "name": "geo-content-community-0.2.0.zip",
+      "sha256": "b7d149ce4c34fab2c0d7c59dcb08588eb7cd7def8537a132998cc083dc8d9ad3",
       "members": 56,
       "skill_count": 1,
       "self_installable": true,
@@ -22,8 +22,8 @@
       "status": "pass"
     },
     {
-      "name": "geo-diagnose-community-0.1.0.zip",
-      "sha256": "20aaf066e0b4cdcc460f4299192a26a1504e82c57c433dc907e5437fc89a3710",
+      "name": "geo-diagnose-community-0.2.0.zip",
+      "sha256": "cec6a2cea80d9518c3467a8aca73dc88eb383c29dbbe8ae3f6b0f5e58a2f3c52",
       "members": 53,
       "skill_count": 1,
       "self_installable": true,
@@ -31,8 +31,8 @@
       "status": "pass"
     },
     {
-      "name": "geo-discover-community-0.1.0.zip",
-      "sha256": "72920a089cee4e49b9c870f638d3bf8e5dc8b24bfd17249439cf0ad368de244c",
+      "name": "geo-discover-community-0.2.0.zip",
+      "sha256": "2d3f57dd479d9385616085cdaaf84cd1e4a41fbc8be55ca00b89e050179d1a7a",
       "members": 53,
       "skill_count": 1,
       "self_installable": true,
@@ -40,8 +40,8 @@
       "status": "pass"
     },
     {
-      "name": "yao-geo-claude-community-0.1.0.zip",
-      "sha256": "eb5a3e99e0ddcc450eb77ad5f40b6c62fe24ece340d8dd95d4be652ebd94af5f",
+      "name": "geo-seo-hub-claude-community-0.2.0.zip",
+      "sha256": "a8546a27115ab358719f999b57e0ef22cd9373df56e25b85c2648b6ec7c64a35",
       "members": 57,
       "skill_count": 1,
       "self_installable": true,
@@ -49,8 +49,8 @@
       "status": "pass"
     },
     {
-      "name": "yao-geo-codex-community-0.1.0.zip",
-      "sha256": "0d71cbd3b048adb7bfac679314c25eb19ed368c5fc1f366a03648f05d5fc38af",
+      "name": "geo-seo-hub-codex-community-0.2.0.zip",
+      "sha256": "8e08def7fad62e6c6a7486c1b29d050f342aeaa5a3b7b987e6c9ad6066200d2d",
       "members": 57,
       "skill_count": 1,
       "self_installable": true,
@@ -58,8 +58,8 @@
       "status": "pass"
     },
     {
-      "name": "yao-geo-source-0.1.0.zip",
-      "sha256": "fe6761e80c1f70e7cefa498a229ee95906e1842cbf7d6ca6562f5eb4cc1fc37e",
+      "name": "geo-seo-hub-source-0.2.0.zip",
+      "sha256": "48ca7c147fe3470235bd3de59e642a904fdb3a7c4e61bc908a9a93ae423061dc",
       "members": 78,
       "skill_count": 4,
       "self_installable": true,
@@ -67,8 +67,8 @@
       "status": "pass"
     },
     {
-      "name": "yao-geo-unified-community-0.1.0.zip",
-      "sha256": "d675489ae4dabd4a5b28ee2b823b6336e72b07ecda4eb08f15783d57eab2cbeb",
+      "name": "geo-seo-hub-unified-community-0.2.0.zip",
+      "sha256": "fdcbbcfa44bf51606ebcee439632a10f758126972eede96dbd2ce00483ce26bb",
       "members": 56,
       "skill_count": 1,
       "self_installable": true,

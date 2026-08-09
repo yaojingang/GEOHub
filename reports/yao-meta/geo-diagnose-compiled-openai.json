@@ -35,7 +35,7 @@
       "compiled_contract": {
         "name": "geo-diagnose",
         "title": "GEO SEO Hub Diagnose",
-        "version": "0.1.0",
+        "version": "0.2.0",
         "description": "Diagnose a brand, website, or page for evidence-backed GEO gaps and opportunities from user-supplied URLs, HTML, or evidence. Use for brand diagnosis, website or page audits, GEO gap analysis, and 品牌诊断、网站诊断、页面诊断. Excludes live AI-platform recall, ranking, and citation-share measurement.",
         "job_to_be_done": "Diagnose a brand, website, or page for evidence-backed GEO gaps and opportunities from user-supplied URLs, HTML, or evidence. Use for brand diagnosis, website or page audits, GEO gap analysis, and 品牌诊断、网站诊断、页面诊断. Excludes live AI-platform recall, ranking, and citation-share measurement.",
         "trigger": {
@@ -56,7 +56,7 @@
         "workflow": {
           "steps": [
             "Read `references/diagnosis-method.md` and prepare the diagnosis brief contract.",
-            "Run the deterministic `python3 scripts/run_diagnose.py --input <brief.json> --output <runs-root>` wrapper or `python -m yao_geo diagnose --input <brief.json> --output <runs-root>`.",
+            "Run the deterministic `python3 scripts/run_diagnose.py --input <brief.json> --output <runs-root>` wrapper or `python -m geo_seo_hub diagnose --input <brief.json> --output <runs-root>`.",
             "Inspect `quality-report.json`, `source_status`, and `limitations` before using findings.",
             "Deliver the complete Artifact Bus run directory."
           ],

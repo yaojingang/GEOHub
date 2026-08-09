@@ -14,8 +14,8 @@ from jsonschema import Draft202012Validator, FormatChecker
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from yao_geo.registry import load_registry  # noqa: E402
-from yao_geo.router import (  # noqa: E402
+from geo_seo_hub.registry import load_registry  # noqa: E402
+from geo_seo_hub.router import (  # noqa: E402
     GOVERNED_ACTION_OBJECT_ARTICLES,
     GOVERNED_ADDITIVE_CONNECTORS,
     GOVERNED_EN_ACTION_LEAD_INS,
@@ -39,7 +39,7 @@ from yao_geo.router import (  # noqa: E402
     build_action_phrase_index,
     build_intent_index,
 )
-from yao_geo.validation import load_schema  # noqa: E402
+from geo_seo_hub.validation import load_schema  # noqa: E402
 
 
 def fail(message: str) -> None:
@@ -99,6 +99,71 @@ EXPECTED_ZH_ACTION_LEAD_IN_PATTERN = (
 )
 EXPECTED_ACTION_OBJECT_ARTICLE_PATTERN = r"(?:(?:a|an|the)\b|一个|个)\s*"
 ACTIVE_SKILLS = ("geo", "geo-discover", "geo-diagnose", "geo-content")
+CANONICAL_DISTRIBUTION = "geo-seo-hub"
+CANONICAL_MODULE = "geo_seo_hub"
+LEGACY_DISTRIBUTION = "yao" + "-geo"
+LEGACY_MODULE = "yao" + "_geo"
+HISTORICAL_NAMESPACE_FILES = {
+    "THIRD_PARTY_NOTICES.md",
+    "docs/migration-source-ledger.md",
+}
+NAMESPACE_TEXT_SUFFIXES = {".html", ".json", ".jsonl", ".md", ".py", ".toml", ".txt", ".yaml", ".yml"}
+
+
+def verify_namespace_consistency(root: Path = ROOT) -> None:
+    project_path = root / "pyproject.toml"
+    if not project_path.is_file():
+        fail("pyproject.toml is missing")
+    project = tomllib.loads(project_path.read_text(encoding="utf-8"))
+    metadata = project.get("project", {})
+    if metadata.get("name") != CANONICAL_DISTRIBUTION:
+        fail("distribution name must be geo-seo-hub")
+    if metadata.get("scripts") != {CANONICAL_DISTRIBUTION: f"{CANONICAL_MODULE}.cli:main"}:
+        fail("CLI and module entrypoint must use the canonical namespace")
+    if not (root / "src" / CANONICAL_MODULE).is_dir() or (root / "src" / LEGACY_MODULE).exists():
+        fail("Python package directory must use only geo_seo_hub")
+
+    data_files = project.get("tool", {}).get("setuptools", {}).get("data-files", {})
+    if not data_files or any(
+        destination != "share/geo-seo-hub" and not destination.startswith("share/geo-seo-hub/")
+        for destination in data_files
+    ):
+        fail("installed data destinations must use share/geo-seo-hub")
+
+    candidates = [
+        root / name
+        for name in (
+            "README.md",
+            "SECURITY.md",
+            "COMMERCIAL-LICENSING.md",
+            "CONTRIBUTING.md",
+            "LICENSE-SCOPE.md",
+            "Makefile",
+            "VERSION",
+            "pyproject.toml",
+        )
+    ]
+    for directory in (".github", "docs", "reports", "scripts", "skills", "src", "tests"):
+        base = root / directory
+        if base.is_dir():
+            candidates.extend(
+                path
+                for path in base.rglob("*")
+                if path.is_file() and path.suffix.casefold() in NAMESPACE_TEXT_SUFFIXES
+            )
+
+    offenders = []
+    for path in candidates:
+        if not path.is_file():
+            continue
+        relative = path.relative_to(root).as_posix()
+        if relative in HISTORICAL_NAMESPACE_FILES:
+            continue
+        text = path.read_text(encoding="utf-8")
+        if LEGACY_DISTRIBUTION in text or LEGACY_MODULE in text:
+            offenders.append(relative)
+    if offenders:
+        fail("legacy namespace marker found outside historical evidence: " + ", ".join(sorted(set(offenders))))
 
 
 def verify_version_consistency(root: Path = ROOT) -> str:
@@ -188,6 +253,7 @@ def main() -> int:
     verify_additive_connector_parity()
     verify_sequence_connector_parity()
     verify_action_language_parity()
+    verify_namespace_consistency()
     verify_version_consistency()
     if "GNU AFFERO GENERAL PUBLIC LICENSE" not in (ROOT / "LICENSE").read_text(encoding="utf-8"):
         fail("LICENSE is not the GNU AGPLv3 text")

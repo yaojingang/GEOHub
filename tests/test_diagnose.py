@@ -7,8 +7,8 @@ from pathlib import Path
 
 import pytest
 
-import yao_geo.validation as validation_module
-from yao_geo.diagnose import (
+import geo_seo_hub.validation as validation_module
+from geo_seo_hub.diagnose import (
     FetchResult,
     SourceUnavailable,
     URLPolicyError,
@@ -22,7 +22,7 @@ from yao_geo.diagnose import (
     validate_diagnosis_brief,
     validate_public_url,
 )
-from yao_geo.validation import validate_artifact
+from geo_seo_hub.validation import validate_artifact
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -276,8 +276,8 @@ def test_dns_time_reduces_per_source_fetch_budget(tmp_path, monkeypatch):
         captured.update(kwargs)
         return FetchResult(url, b"<title>Timed</title><h1>Timed</h1><h2>Facts</h2>", "text/html")
 
-    monkeypatch.setattr("yao_geo.diagnose.time.monotonic", monotonic)
-    monkeypatch.setattr("yao_geo.diagnose._default_fetch", fake_default_fetch)
+    monkeypatch.setattr("geo_seo_hub.diagnose.time.monotonic", monotonic)
+    monkeypatch.setattr("geo_seo_hub.diagnose._default_fetch", fake_default_fetch)
     diagnose(brief, tmp_path / "runs", clock=_clock, resolver=slow_resolver)
     assert captured["deadline"] == 8.0
     assert captured["timeout"] == 5.0
@@ -318,7 +318,7 @@ def test_private_redirect_becomes_source_gap_policy_error(monkeypatch):
         def close(self):
             pass
 
-    monkeypatch.setattr("yao_geo.diagnose.http.client.HTTPConnection", FakeConnection)
+    monkeypatch.setattr("geo_seo_hub.diagnose.http.client.HTTPConnection", FakeConnection)
     with pytest.raises(SourceUnavailable, match="redirect target rejected"):
         _default_fetch("http://example.com", resolver=_public_resolver)
 
@@ -368,7 +368,7 @@ def test_http_fetch_pins_the_validated_public_ip(monkeypatch):
         def close(self):
             pass
 
-    monkeypatch.setattr("yao_geo.diagnose.http.client.HTTPConnection", Connection)
+    monkeypatch.setattr("geo_seo_hub.diagnose.http.client.HTTPConnection", Connection)
     result = _default_fetch(
         normalized,
         resolver=changing_resolver,
@@ -405,8 +405,8 @@ def test_https_binding_preserves_hostname_sni_and_default_cert_context(monkeypat
         connected.append((endpoint, timeout, source_address))
         return raw_socket
 
-    monkeypatch.setattr("yao_geo.diagnose.ssl.create_default_context", create_default_context)
-    monkeypatch.setattr("yao_geo.diagnose.socket.create_connection", create_connection)
+    monkeypatch.setattr("geo_seo_hub.diagnose.ssl.create_default_context", create_default_context)
+    monkeypatch.setattr("geo_seo_hub.diagnose.socket.create_connection", create_connection)
     connection = _BoundHTTPSConnection(
         "example.com",
         "93.184.216.34",
@@ -526,7 +526,7 @@ def test_fd_reader_detects_growth_after_fstat_and_closes_all_fds(tmp_path, monke
         closed.append(descriptor)
         return real_close(descriptor)
 
-    monkeypatch.setattr("yao_geo.diagnose.MAX_FETCH_BYTES", 8)
+    monkeypatch.setattr("geo_seo_hub.diagnose.MAX_FETCH_BYTES", 8)
     monkeypatch.setattr(validation_module.os, "open", tracked_open)
     monkeypatch.setattr(validation_module.os, "fstat", growing_fstat)
     monkeypatch.setattr(validation_module.os, "close", tracked_close)
@@ -610,7 +610,7 @@ def test_exhausted_total_budget_skips_dns_for_all_remaining_urls(tmp_path, monke
         dns_calls.append((args, kwargs))
         return _public_resolver(*args, **kwargs)
 
-    monkeypatch.setattr("yao_geo.diagnose.TOTAL_FETCH_SECONDS", 0)
+    monkeypatch.setattr("geo_seo_hub.diagnose.TOTAL_FETCH_SECONDS", 0)
     result = diagnose(brief, tmp_path / "runs", clock=_clock, resolver=resolver)
     diagnosis_artifact = _load(Path(result["output"]) / "diagnosis.json")
     assert dns_calls == []

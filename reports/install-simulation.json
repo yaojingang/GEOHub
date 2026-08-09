@@ -2,7 +2,7 @@
   "status": "pass",
   "target": "all",
   "source": {
-    "package": "yao-geo-source-0.1.0.zip",
+    "package": "geo-seo-hub-source-0.2.0.zip",
     "installed_from": ".",
     "cli_smokes": [
       "version",
@@ -15,7 +15,7 @@
   },
   "structural_packages": [
     {
-      "package": "geo-community-0.1.0.zip",
+      "package": "geo-community-0.2.0.zip",
       "installed_from": ".",
       "entries": [
         "references/providers/geo-discover.md",
@@ -33,7 +33,7 @@
       "status": "pass"
     },
     {
-      "package": "geo-content-community-0.1.0.zip",
+      "package": "geo-content-community-0.2.0.zip",
       "installed_from": ".",
       "entries": [
         "references/providers/geo-discover.md",
@@ -51,7 +51,7 @@
       "status": "pass"
     },
     {
-      "package": "geo-diagnose-community-0.1.0.zip",
+      "package": "geo-diagnose-community-0.2.0.zip",
       "installed_from": ".",
       "entries": [
         "references/providers/geo-discover.md",
@@ -69,7 +69,7 @@
       "status": "pass"
     },
     {
-      "package": "geo-discover-community-0.1.0.zip",
+      "package": "geo-discover-community-0.2.0.zip",
       "installed_from": ".",
       "entries": [
         "SKILL.md",
@@ -87,7 +87,7 @@
       "status": "pass"
     },
     {
-      "package": "yao-geo-claude-community-0.1.0.zip",
+      "package": "geo-seo-hub-claude-community-0.2.0.zip",
       "installed_from": ".",
       "entries": [
         "references/providers/geo-discover.md",
@@ -105,7 +105,7 @@
       "status": "pass"
     },
     {
-      "package": "yao-geo-codex-community-0.1.0.zip",
+      "package": "geo-seo-hub-codex-community-0.2.0.zip",
       "installed_from": ".",
       "entries": [
         "references/providers/geo-discover.md",
@@ -123,7 +123,7 @@
       "status": "pass"
     },
     {
-      "package": "yao-geo-unified-community-0.1.0.zip",
+      "package": "geo-seo-hub-unified-community-0.2.0.zip",
       "installed_from": ".",
       "entries": [
         "references/providers/geo-discover.md",

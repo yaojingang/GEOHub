@@ -7,14 +7,14 @@
       "python": "3.12.3",
       "environment": "fresh venv",
       "install": "pip install -e .[dev]",
-      "tests": "333 targeted router/library integration tests passed",
+      "tests": "335 targeted router/library integration tests passed",
       "evals": "373 router cases and deterministic output gates passed"
     },
     {
       "python": "3.14.6",
       "environment": "fresh venv",
       "install": "pip install -e .[dev]",
-      "tests": "333 targeted router/library integration tests passed",
+      "tests": "335 targeted router/library integration tests passed",
       "evals": "373 router cases and deterministic output gates passed"
     }
   ],

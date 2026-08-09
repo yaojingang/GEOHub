@@ -8,16 +8,16 @@ from pathlib import Path
 
 import pytest
 
-from yao_geo.artifact_bus import ArtifactBus
-from yao_geo.cli import main
-from yao_geo.content import (
+from geo_seo_hub.artifact_bus import ArtifactBus
+from geo_seo_hub.cli import main
+from geo_seo_hub.content import (
     MAX_INPUT_BYTES,
     UNSUPPORTED_TITLE_PATTERNS,
     content,
     validate_content_brief,
 )
 
-content_module = importlib.import_module("yao_geo.content")
+content_module = importlib.import_module("geo_seo_hub.content")
 
 
 def _write(tmp_path: Path, payload: dict, name: str = "brief.json") -> Path:

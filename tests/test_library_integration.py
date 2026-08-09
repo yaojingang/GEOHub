@@ -12,8 +12,8 @@ from pathlib import Path
 import pytest
 import yaml
 
-from yao_geo.registry import load_registry
-from yao_geo import __version__
+from geo_seo_hub.registry import load_registry
+from geo_seo_hub import __version__
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = ("geo", "geo-discover", "geo-diagnose", "geo-content")
@@ -30,13 +30,49 @@ def test_geo_seo_hub_brand_and_compatibility_names_are_consistent():
     assert readme.startswith("# GEO SEO Hub\n")
     assert "GEO-first · SEO-ready" in readme
     assert "Dedicated SEO workflows and outcome claims" in readme
-    assert project["name"] == "yao-geo"
-    assert project["scripts"] == {"yao-geo": "yao_geo.cli:main"}
+    assert project["name"] == "geo-seo-hub"
+    assert project["scripts"] == {"geo-seo-hub": "geo_seo_hub.cli:main"}
+    assert (ROOT / "src" / "geo_seo_hub").is_dir()
+    assert not (ROOT / "src" / ("yao" + "_geo")).exists()
     assert project["urls"] == {
         "Homepage": "https://github.com/yaojingang/geo-seo-hub",
         "Repository": "https://github.com/yaojingang/geo-seo-hub",
     }
     assert all(item["interface"]["display_name"].startswith("GEO SEO Hub ") for item in interfaces)
+
+
+@pytest.mark.parametrize("legacy_marker", ("yao" + "-geo", "yao" + "_geo"))
+def test_repository_verifier_rejects_legacy_runtime_namespace(tmp_path, legacy_marker):
+    verifier = load_script("verify_repository")
+    (tmp_path / "src" / "geo_seo_hub").mkdir(parents=True)
+    (tmp_path / "docs").mkdir()
+    (tmp_path / "reports").mkdir()
+    (tmp_path / "pyproject.toml").write_text(
+        "\n".join(
+            (
+                "[project]",
+                'name = "geo-seo-hub"',
+                "[project.scripts]",
+                'geo-seo-hub = "geo_seo_hub.cli:main"',
+                "[tool.setuptools.data-files]",
+                '"share/geo-seo-hub" = []',
+            )
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (tmp_path / "README.md").write_text(f"legacy {legacy_marker}\n", encoding="utf-8")
+    (tmp_path / "THIRD_PARTY_NOTICES.md").write_text(
+        "yaojingang/" + legacy_marker + "-skills\n",
+        encoding="utf-8",
+    )
+    (tmp_path / "docs" / "migration-source-ledger.md").write_text(
+        legacy_marker + "-title-optimizer\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(SystemExit, match="legacy namespace marker"):
+        verifier.verify_namespace_consistency(tmp_path)
 
 
 def test_version_is_consistent_across_distribution_and_active_manifests():
@@ -49,9 +85,9 @@ def test_version_is_consistent_across_distribution_and_active_manifests():
         assert manifest["version"] == expected
 
     for module_name in ("content", "discover", "diagnose"):
-        module = __import__(f"yao_geo.{module_name}", fromlist=[module_name])
+        module = __import__(f"geo_seo_hub.{module_name}", fromlist=[module_name])
         assert module.GENERATOR_VERSION == expected
-        assert '"version": "0.1.0"' not in inspect.getsource(module)
+        assert '"version": "0.2.0"' not in inspect.getsource(module)
 
 
 @pytest.mark.parametrize(
@@ -64,7 +100,7 @@ def test_version_is_consistent_across_distribution_and_active_manifests():
 )
 def test_repository_verifier_rejects_version_drift(tmp_path, attack, message):
     verifier = load_script("verify_repository")
-    version = "0.1.0"
+    version = "0.2.0"
     (tmp_path / "VERSION").write_text(
         "release-one\n" if attack == "invalid-version" else f"{version}\n",
         encoding="utf-8",
@@ -208,7 +244,7 @@ def test_repository_verifier_rejects_action_lead_in_or_article_drift(monkeypatch
 
 
 def test_router_source_has_no_prefix_only_action_boolean():
-    from yao_geo import router
+    from geo_seo_hub import router
 
     source = inspect.getsource(router)
     assert "def _starts_registered_action" not in source
@@ -370,11 +406,11 @@ def test_non_source_packages_have_self_contained_install_and_route_entries():
         ).decode()
     )
     collision_groups = collision_project["tool"]["setuptools"]["data-files"]
-    assert collision_groups["share/yao-geo/references/providers/a"] == ["references/providers/a/shared.md"]
-    assert collision_groups["share/yao-geo/references/providers/b"] == ["references/providers/b/shared.md"]
+    assert collision_groups["share/geo-seo-hub/references/providers/a"] == ["references/providers/a/shared.md"]
+    assert collision_groups["share/geo-seo-hub/references/providers/b"] == ["references/providers/b/shared.md"]
     archives = package.build("all")
     for path in archives:
-        if path.name.startswith("yao-geo-source-"):
+        if path.name.startswith("geo-seo-hub-source-"):
             continue
         with zipfile.ZipFile(path) as archive:
             names = set(archive.namelist())
@@ -385,7 +421,7 @@ def test_non_source_packages_have_self_contained_install_and_route_entries():
                 assert set(sources) <= names
                 for source in sources:
                     relative_parent = Path(source).parent.as_posix()
-                    expected_destination = "share/yao-geo" if relative_parent == "." else f"share/yao-geo/{relative_parent}"
+                    expected_destination = "share/geo-seo-hub" if relative_parent == "." else f"share/geo-seo-hub/{relative_parent}"
                     assert destination == expected_destination
             registry = yaml.safe_load(archive.read("registry/skills.yaml"))
             for skill in registry["skills"]:

@@ -9,7 +9,7 @@ description: Create evidence-lined GEO titles, explainers, neutral comparisons, 
 
 1. Read `references/content-method.md`, then select one mode from `references/modes.md`.
 2. Prepare a strict content brief using `references/input-example.json` and `references/evidence-policy.md`.
-3. Run the deterministic `python3 scripts/run_content.py --input <brief.json> --output <runs-root>` wrapper or `python -m yao_geo content --input <brief.json> --output <runs-root>`.
+3. Run the deterministic `python3 scripts/run_content.py --input <brief.json> --output <runs-root>` wrapper or `python -m geo_seo_hub content --input <brief.json> --output <runs-root>`.
 4. Inspect `quality-report.json`, `evidence-ledger.json`, content status, and supplement requests.
 5. Deliver the complete run described by `references/output-contract.md`.
 

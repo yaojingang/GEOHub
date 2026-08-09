@@ -35,7 +35,7 @@
       "compiled_contract": {
         "name": "geo",
         "title": "GEO SEO Hub Router",
-        "version": "0.1.0",
+        "version": "0.2.0",
         "description": "Route GEO and generative engine optimization requests to an available GEO SEO Hub capability. Use for broad GEO requests, workflow selection, capability checks, or requests spanning discovery, brand/site/page diagnosis, content, strategy, knowledge, publishing, and measurement.",
         "job_to_be_done": "Route GEO and generative engine optimization requests to an available GEO SEO Hub capability. Use for broad GEO requests, workflow selection, capability checks, or requests spanning discovery, brand/site/page diagnosis, content, strategy, knowledge, publishing, and measurement.",
         "trigger": {
@@ -56,7 +56,7 @@
         "workflow": {
           "steps": [
             "Read `references/routing-contract.md` and the suite resolver contract at `../RESOLVER.md`.",
-            "Run the deterministic `python3 scripts/run_route.py --text \"<request>\"` wrapper or `python -m yao_geo route --text \"<request>\"`.",
+            "Run the deterministic `python3 scripts/run_route.py --text \"<request>\"` wrapper or `python -m geo_seo_hub route --text \"<request>\"`.",
             "Dispatch only when the JSON result has 'runnable: true' and a non-null 'entry'.",
             "For 'pending-implementation' or 'planned', return the registry status and suggested available route exactly as reported."
           ],

@@ -105,7 +105,7 @@ def packaged_pyproject(entries: dict[str, bytes]) -> bytes:
         if name not in runtime_roots and not name.startswith(runtime_prefixes):
             continue
         parent = Path(name).parent.as_posix()
-        destination = "share/yao-geo" if parent == "." else f"share/yao-geo/{parent}"
+        destination = "share/geo-seo-hub" if parent == "." else f"share/geo-seo-hub/{parent}"
         groups.setdefault(destination, []).append(name)
     lines = [base.rstrip(), "", "[tool.setuptools.data-files]"]
     for destination, sources in groups.items():
@@ -146,9 +146,9 @@ def zip_write(output: Path, entries: dict[str, bytes], prefix: str = "") -> None
 
 
 def source_package(files: list[Path]) -> Path:
-    output = DIST / f"yao-geo-source-{VERSION}.zip"
+    output = DIST / f"geo-seo-hub-source-{VERSION}.zip"
     entries = {path.as_posix(): (ROOT / path).read_bytes() for path in files}
-    zip_write(output, entries, prefix=f"yao-geo-{VERSION}/")
+    zip_write(output, entries, prefix=f"geo-seo-hub-{VERSION}/")
     return output
 
 
@@ -162,7 +162,7 @@ def unified_package(files: list[Path]) -> Path:
         entries[f"manifests/{skill_id}.json"] = (skill_root / "manifest.json").read_bytes()
     entries["PACKAGE-METADATA.json"] = json.dumps({"channel": "community", "license": "AGPL-3.0-only", "commercial_license_status": "inquiry_only", "kind": "unified"}, indent=2, allow_nan=False).encode() + b"\n"
     entries["pyproject.toml"] = packaged_pyproject(entries)
-    output = DIST / f"yao-geo-unified-community-{VERSION}.zip"
+    output = DIST / f"geo-seo-hub-unified-community-{VERSION}.zip"
     zip_write(output, entries)
     return output
 
@@ -196,7 +196,7 @@ def target_package(files: list[Path], target: str) -> Path:
     entries["TARGET.md"] = f"# {target.title()} adapter\n\nInstall this directory as one GEO SEO Hub skill. Runtime contracts remain protocol 1.0.0.\n".encode()
     entries["PACKAGE-METADATA.json"] = json.dumps({"channel": "community", "license": "AGPL-3.0-only", "commercial_license_status": "inquiry_only", "kind": "target", "target": target}, indent=2, allow_nan=False).encode() + b"\n"
     entries["pyproject.toml"] = packaged_pyproject(entries)
-    output = DIST / f"yao-geo-{target}-community-{VERSION}.zip"
+    output = DIST / f"geo-seo-hub-{target}-community-{VERSION}.zip"
     zip_write(output, entries)
     return output
 

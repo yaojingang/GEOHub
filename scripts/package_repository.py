@@ -11,11 +11,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 VERSION = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
-OUTPUT = ROOT / "dist" / f"yao-geo-source-{VERSION}.zip"
+OUTPUT = ROOT / "dist" / f"geo-seo-hub-source-{VERSION}.zip"
 
 
 def load_current_packager():
-    spec = importlib.util.spec_from_file_location("yao_geo_current_packager", ROOT / "scripts" / "package.py")
+    spec = importlib.util.spec_from_file_location("geo_seo_hub_current_packager", ROOT / "scripts" / "package.py")
     module = importlib.util.module_from_spec(spec)
     assert spec.loader
     spec.loader.exec_module(module)
@@ -65,7 +65,7 @@ def build_archive(root: Path, output: Path) -> list[Path]:
         for relative in files:
             path = root / relative
             info = zipfile.ZipInfo(
-                f"yao-geo-{version}/{relative.as_posix()}",
+                f"geo-seo-hub-{version}/{relative.as_posix()}",
                 date_time=(2026, 8, 8, 0, 0, 0),
             )
             info.compress_type = zipfile.ZIP_DEFLATED
