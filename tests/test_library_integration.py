@@ -293,6 +293,7 @@ def test_repository_governance_and_verification_entrypoints_are_actionable():
     issue_template = yaml.safe_load(
         (ROOT / ".github" / "ISSUE_TEMPLATE" / "commercial-licensing.yml").read_text(encoding="utf-8")
     )
+    dependabot = yaml.safe_load((ROOT / ".github" / "dependabot.yml").read_text(encoding="utf-8"))
     makefile = (ROOT / "Makefile").read_text(encoding="utf-8")
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
 
@@ -300,6 +301,7 @@ def test_repository_governance_and_verification_entrypoints_are_actionable():
     assert "SECURITY.md" in contributing
     assert "issues/new?template=commercial-licensing.yml" in commercial
     assert issue_template["labels"] == ["commercial-licensing"]
+    assert all(update["open-pull-requests-limit"] == 0 for update in dependabot["updates"])
     assert "verify:\n\t$(PYTHON) scripts/verify_all.py" in makefile
     assert "repo-verify:\n\t$(PYTHON) scripts/verify_repository.py" in makefile
     assert "git clone https://github.com/yaojingang/geo-seo-hub.git" in readme
