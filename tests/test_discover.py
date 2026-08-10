@@ -39,6 +39,7 @@ def test_discover_happy_path_writes_valid_artifact_bus(tmp_path):
         "query-map.json",
         "opportunity-map.json",
         "quality-report.json",
+        "research-context.json",
     }
     actual = {
         str(path.relative_to(output))
@@ -52,12 +53,19 @@ def test_discover_happy_path_writes_valid_artifact_bus(tmp_path):
         "query-map.json": "query-map",
         "opportunity-map.json": "opportunity-map",
         "quality-report.json": "quality-report",
+        "research-context.json": "research-context",
     }.items():
         validate_artifact(schema_name, _load(output / filename))
 
     ledger = _load(output / "evidence-ledger.json")
     assert ledger["records"][0]["status"] == "provided"
     assert ledger["missing_evidence"] == []
+    research = _load(output / "research-context.json")
+    assert research["surface"] == "geo-discover"
+    assert research["effect_guarantee"] is False
+    assert "query-diversity-is-conditional" in {
+        item["principle_id"] for item in research["principles"]
+    }
 
 
 def test_discover_records_missing_evidence_without_fabrication(tmp_path):
@@ -182,3 +190,29 @@ def test_query_builder_rejects_seed_empty_after_normalization():
             },
             "run-test",
         )
+
+
+def test_discover_deduplicates_normalized_query_dimensions(tmp_path):
+    source = _load(FIXTURES / "brief.json")
+    source["seed_queries"] = [
+        "GEO Optimization",
+        " geo   optimization ",
+        "ＧＥＯ　Ｏｐｔｉｍｉｚａｔｉｏｎ",
+    ]
+    source["audiences"] = ["Buyer", " buyer "]
+    source["scenarios"] = ["Research", " research "]
+    brief = tmp_path / "normalized.json"
+    brief.write_text(json.dumps(source, ensure_ascii=False), encoding="utf-8")
+
+    result = discover(brief, tmp_path / "runs", clock=_clock)
+    output = Path(result["output"])
+    normalized = _load(output / "input/geo-brief.json")
+    queries = _load(output / "query-map.json")["queries"]
+
+    assert len(normalized["seed_queries"]) == 1
+    assert len(normalized["audiences"]) == 1
+    assert len(normalized["scenarios"]) == 1
+    assert result["query_count"] == 4
+    assert {item["intent"] for item in queries} == {"learn", "compare", "evaluate", "act"}
+    normalized_questions = {" ".join(item["question"].casefold().split()) for item in queries}
+    assert len(normalized_questions) == len(queries)

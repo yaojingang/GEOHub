@@ -2,11 +2,13 @@ from __future__ import annotations
 
 import hashlib
 import json
+import unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
 
 from .artifact_bus import ArtifactBus
+from .research import build_research_context
 from .validation import load_bounded_json, validate_artifact
 from .version import package_version
 
@@ -20,12 +22,50 @@ def _stable_id(prefix: str, *parts: str) -> str:
     return f"{prefix}-{hashlib.sha256(canonical).hexdigest()[:12]}"
 
 
+def _normalize_text(value: str) -> str:
+    return " ".join(unicodedata.normalize("NFKC", value).split())
+
+
 def _ordered(values: list[str] | None, fallback: str | None = None) -> list[str]:
-    cleaned = {value.strip() for value in (values or []) if value.strip()}
-    ordered = sorted(cleaned, key=lambda value: (value.casefold(), value))
+    unique: dict[str, str] = {}
+    for value in values or []:
+        cleaned = _normalize_text(value)
+        if not cleaned:
+            continue
+        key = cleaned.casefold()
+        current = unique.get(key)
+        if current is None or cleaned < current:
+            unique[key] = cleaned
+    ordered = sorted(unique.values(), key=lambda value: (value.casefold(), value))
     if ordered or fallback is None:
         return ordered
     return [fallback]
+
+
+def _normalize_brief(brief: dict[str, Any]) -> dict[str, Any]:
+    normalized = dict(brief)
+    for field in ("brief_id", "subject", "brand", "locale"):
+        if field in normalized:
+            normalized[field] = _normalize_text(normalized[field])
+    for field in ("seed_queries", "audiences", "scenarios", "competitors"):
+        if field in normalized:
+            normalized[field] = _ordered(normalized[field])
+    evidence = []
+    for record in brief.get("evidence", []):
+        item = {
+            "evidence_id": _normalize_text(record["evidence_id"]),
+            "claim": _normalize_text(record["claim"]),
+            "source_uri": record["source_uri"].strip(),
+        }
+        if "observed_at" in record:
+            item["observed_at"] = record["observed_at"].strip()
+        evidence.append(item)
+    if "evidence" in normalized:
+        normalized["evidence"] = sorted(
+            evidence,
+            key=lambda item: (item["evidence_id"].casefold(), item["evidence_id"]),
+        )
+    return normalized
 
 
 def _question(
@@ -88,6 +128,12 @@ def _build_query_map(brief: dict[str, Any], run_id: str) -> dict[str, Any]:
                             "evidence_status": evidence_status,
                         }
                     )
+    query_ids = [item["query_id"] for item in queries]
+    normalized_questions = [_normalize_text(item["question"]).casefold() for item in queries]
+    if len(query_ids) != len(set(query_ids)):
+        raise ValueError("query generation produced duplicate query IDs")
+    if len(normalized_questions) != len(set(normalized_questions)):
+        raise ValueError("query generation produced duplicate normalized questions")
     return {"protocol_version": PROTOCOL_VERSION, "run_id": run_id, "queries": queries}
 
 
@@ -150,6 +196,8 @@ def discover(
     """Generate one validated discover run and return a compact run summary."""
     brief = load_bounded_json(input_path, max_bytes=1024 * 1024, field="GEO brief")
     validate_artifact("geo-brief", brief)
+    brief = _normalize_brief(brief)
+    validate_artifact("geo-brief", brief)
     evidence_ids = [item["evidence_id"] for item in brief.get("evidence", [])]
     if len(evidence_ids) != len(set(evidence_ids)):
         raise ValueError("GEO brief contains duplicate evidence_id values")
@@ -163,6 +211,7 @@ def discover(
     query_map = _build_query_map(brief, run_id)
     opportunity_map = _build_opportunity_map(query_map)
     evidence_ledger = _build_evidence_ledger(brief, run_id)
+    research_context = build_research_context(run_id, "geo-discover")
     warnings = []
     if evidence_ledger["missing_evidence"]:
         warnings.append("missing evidence: review evidence-ledger.json before downstream use")
@@ -172,8 +221,10 @@ def discover(
         "passed_checks": [
             "geo brief schema valid",
             "query map generated deterministically",
+            "query dimensions normalized and deduplicated",
             "opportunity map preserves query lineage",
             "evidence status recorded",
+            "research context is source-resolved and effect-bounded",
         ],
         "warnings": warnings,
         "failed_checks": [],
@@ -185,6 +236,7 @@ def discover(
         "query-map.json": (query_map, "query-map"),
         "opportunity-map.json": (opportunity_map, "opportunity-map"),
         "quality-report.json": (quality_report, "quality-report"),
+        "research-context.json": (research_context, "research-context"),
     }
     for artifact, schema_name in artifacts.values():
         validate_artifact(schema_name, artifact)

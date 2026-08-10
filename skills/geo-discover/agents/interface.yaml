@@ -4,7 +4,7 @@ interface:
   default_prompt: "Use $geo-discover to create an evidence-aware query and opportunity map from this brief under the requested runs root."
   input_contract:
     required: {brief: "protocol 1.0.0 file-backed GEO brief JSON"}
-  output_contract: ["Artifact Bus run directory", "query-map", "opportunity-map", "evidence-ledger", "quality-report", "run-manifest"]
+  output_contract: ["Artifact Bus run directory", "query-map", "opportunity-map", "evidence-ledger", "research-context", "quality-report", "run-manifest"]
   permission_contract: {filesystem: "read brief and write selected runs root", network: "forbid"}
 compatibility:
   canonical_format: "agent-skills"

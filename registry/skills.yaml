@@ -25,7 +25,7 @@ skills:
     entry: skills/geo-discover/SKILL.md
     summary: Deterministic query and opportunity discovery from evidence-aware briefs.
     intents: [discover, discovery, intent mining, query research, query expansion, keyword expansion, keyword research, 意图挖掘, 问题挖掘, AI搜索问题, AI 搜索问题, 查询拓展, 关键词拓展, 关键词扩展, 拓词, 选题发现]
-    outputs: [query-map, opportunity-map, evidence-ledger, run-manifest, quality-report]
+    outputs: [query-map, opportunity-map, evidence-ledger, research-context, run-manifest, quality-report]
   - id: geo-diagnose
     status: active
     active_placeholder: false

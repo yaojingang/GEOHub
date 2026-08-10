@@ -19,7 +19,7 @@
   "copyright_owner": "姚金刚 / Yao",
   "third_party_notice_required": true,
   "input_files": ["file-backed fixture: protocol 1.0.0 geo-brief JSON"],
-  "output_contract": ["Artifact Bus run directory", "query-map", "opportunity-map", "evidence-ledger", "quality-report"],
+  "output_contract": ["Artifact Bus run directory", "query-map", "opportunity-map", "evidence-ledger", "research-context", "quality-report"],
   "rollback_boundary": "Remove the generated run directory and revert discover, Artifact Bus, schemas, and registry together.",
   "factory_components": ["references", "scripts", "evals", "reports", "agents"]
 }
