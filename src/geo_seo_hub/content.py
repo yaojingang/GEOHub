@@ -16,6 +16,7 @@ from typing import Any, Callable
 from urllib.parse import urlsplit
 
 from .artifact_bus import ArtifactBus
+from .research import build_research_context
 from .validation import read_bounded_regular_file, strict_json_loads, validate_artifact
 from .version import package_version
 
@@ -814,6 +815,99 @@ def _content_spec(brief: dict[str, Any], content: dict[str, Any]) -> dict[str, A
     }
 
 
+def _content_evidence_units(
+    content: dict[str, Any],
+    research_context: dict[str, Any],
+) -> dict[str, Any]:
+    units: list[dict[str, Any]] = []
+
+    def add(
+        lineage_type: str,
+        text: str,
+        status: str,
+        *,
+        evidence_ids: list[str] | None = None,
+        research_source_ids: list[str] | None = None,
+        causal_status: str = "not-applicable",
+        limitations: list[str],
+    ) -> None:
+        evidence = sorted(set(evidence_ids or []))
+        research_sources = sorted(set(research_source_ids or []))
+        unit_id = _stable_id(
+            "unit",
+            lineage_type,
+            text,
+            "|".join(evidence),
+            "|".join(research_sources),
+        )
+        units.append(
+            {
+                "unit_id": unit_id,
+                "lineage_type": lineage_type,
+                "text": text,
+                "status": status,
+                "evidence_ids": evidence,
+                "research_source_ids": research_sources,
+                "causal_status": causal_status,
+                "limitations": sorted(set(limitations)),
+            }
+        )
+
+    for claim in content["factual_claims"]:
+        add(
+            "input-evidence",
+            claim["text"],
+            "provided",
+            evidence_ids=claim["evidence_ids"],
+            limitations=["Claim support is limited to the supplied evidence and its stated scope."],
+        )
+    refinement = content["mode_data"].get("refinement")
+    if refinement:
+        for claim in refinement["source_claims"]:
+            add(
+                "source-preserved",
+                claim["text"],
+                "provided" if claim["evidence_ids"] else "unverified",
+                evidence_ids=claim["evidence_ids"],
+                limitations=["Preserved source text remains unverified unless it resolves to supplied evidence."],
+            )
+    for guidance in content["guidance"]:
+        add(
+            "operational-guidance",
+            guidance,
+            "guidance",
+            limitations=["Operational guidance is not a factual or effectiveness claim."],
+        )
+    for request in content["supplement_requests"]:
+        add(
+            "evidence-gap",
+            request,
+            "blocked",
+            limitations=["The requested evidence is missing from the current run."],
+        )
+    for principle in research_context["principles"]:
+        for control in principle["required_controls"]:
+            add(
+                "research-method",
+                control,
+                "guidance",
+                research_source_ids=principle["source_ids"],
+                causal_status=principle["causal_status"],
+                limitations=principle["limitations"],
+            )
+
+    unique_units = {unit["unit_id"]: unit for unit in units}
+    artifact = {
+        "protocol_version": PROTOCOL_VERSION,
+        "run_id": content["run_id"],
+        "mode": content["mode"],
+        "effect_guarantee": False,
+        "units": [unique_units[key] for key in sorted(unique_units)],
+    }
+    validate_artifact("content-evidence-units", artifact)
+    return artifact
+
+
 def _surface_title(content: dict[str, Any]) -> str:
     if content["mode"] == "title":
         title = content["mode_data"]["title_candidates"][0]["title"]
@@ -1065,6 +1159,8 @@ def content(input_path: Path, output_path: Path, *, clock: Clock | None = None) 
     ledger = _evidence_ledger(normalized, run_id)
     generated_content = _build_content(normalized, run_id, source_text)
     spec = _content_spec(normalized, generated_content)
+    research_context = build_research_context(run_id, f"geo-content:{normalized['mode']}")
+    evidence_units = _content_evidence_units(generated_content, research_context)
     markdown = _markdown(generated_content, ledger)
     html_document = _html_document(generated_content, ledger)
     validate_artifact("evidence-ledger", ledger)
@@ -1107,6 +1203,8 @@ def content(input_path: Path, output_path: Path, *, clock: Clock | None = None) 
         "passed_checks": [
             "content brief contract valid",
             "factual claim evidence lineage resolved",
+            "content units classify input evidence, preserved source text, method guidance, and evidence gaps",
+            "research context is source-resolved and effect-bounded",
             "HTML generated locally with escaped user text",
             "Artifact Bus file set prepared atomically",
         ],
@@ -1121,10 +1219,12 @@ def content(input_path: Path, output_path: Path, *, clock: Clock | None = None) 
         *( ["input/source.md"] if source_text is not None else [] ),
         "content-spec.json",
         "content.json",
+        "content-evidence-units.json",
         "content.md",
         "content.html",
         "evidence-ledger.json",
         "quality-report.json",
+        "research-context.json",
         *sorted(binary_artifacts),
     ]
     manifest = {
@@ -1147,10 +1247,12 @@ def content(input_path: Path, output_path: Path, *, clock: Clock | None = None) 
             bus.write_text("input/source.md", source_text)
         bus.write_json("content-spec.json", spec, "content-spec")
         bus.write_json("content.json", generated_content)
+        bus.write_json("content-evidence-units.json", evidence_units, "content-evidence-units")
         bus.write_text("content.md", markdown)
         bus.write_text("content.html", html_document)
         bus.write_json("evidence-ledger.json", ledger, "evidence-ledger")
         bus.write_json("quality-report.json", quality, "quality-report")
+        bus.write_json("research-context.json", research_context, "research-context")
         for relative, payload in binary_artifacts.items():
             bus.write_bytes(relative, payload)
         bus.write_json("run-manifest.json", manifest, "run-manifest")

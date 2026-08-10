@@ -123,6 +123,16 @@ def test_explainer_has_required_structure_and_lineage(tmp_path):
     assert ledger["records"][0]["evidence_id"] != "user-ref"
     normalized = _read(run / "input" / "content-brief.json")
     assert normalized["evidence"][0]["label"] == ledger["records"][0]["evidence_id"]
+    units = _read(run / "content-evidence-units.json")
+    factual = [item for item in units["units"] if item["lineage_type"] == "input-evidence"]
+    assert factual[0]["evidence_ids"] == [ledger["records"][0]["evidence_id"]]
+    assert factual[0]["research_source_ids"] == []
+    research_method = [item for item in units["units"] if item["lineage_type"] == "research-method"]
+    assert research_method
+    assert all(item["research_source_ids"] for item in research_method)
+    research = _read(run / "research-context.json")
+    assert research["surface"] == "geo-content:explainer"
+    assert research["effect_guarantee"] is False
 
 
 def test_comparison_blocks_without_evidence_and_stays_neutral_with_evidence(tmp_path):
@@ -804,10 +814,12 @@ def test_core_artifacts_and_manifest_exact_file_set(tmp_path):
         "input/content-brief.json",
         "content-spec.json",
         "content.json",
+        "content-evidence-units.json",
         "content.md",
         "content.html",
         "evidence-ledger.json",
         "quality-report.json",
+        "research-context.json",
         "run-manifest.json",
     }
     actual = {path.relative_to(run).as_posix() for path in run.rglob("*") if path.is_file()}
@@ -815,6 +827,34 @@ def test_core_artifacts_and_manifest_exact_file_set(tmp_path):
     manifest = _read(run / "run-manifest.json")
     assert set(manifest["artifacts"]) == expected - {"run-manifest.json"}
     assert run.parent.name == "runs" and run.name == result["run_id"]
+
+
+@pytest.mark.parametrize(
+    "payload",
+    (
+        {"mode": "title", "topic": "标题方法"},
+        {"mode": "explainer", "topic": "解释方法"},
+        {"mode": "comparison", "topic": "比较方法", "entities": ["A", "B"]},
+        {"mode": "ranking", "topic": "榜单方法", "entities": ["A", "B"]},
+        {"mode": "page-blueprint", "topic": "页面方法"},
+        {"mode": "refine", "topic": "优化方法", "source_content": "待核验原始主张。"},
+        {"mode": "article-friendly", "topic": "发布格式", "source_content": "待核验原始主张。"},
+    ),
+)
+def test_all_content_modes_publish_research_and_unit_lineage(tmp_path, payload):
+    _, run = _run(tmp_path, payload, f"mode-{payload['mode']}")
+    research = _read(run / "research-context.json")
+    units = _read(run / "content-evidence-units.json")
+
+    assert research["surface"] == f"geo-content:{payload['mode']}"
+    assert research["effect_guarantee"] is False
+    assert units["mode"] == payload["mode"]
+    assert units["effect_guarantee"] is False
+    assert units["units"]
+    assert all(
+        item["evidence_ids"] or item["research_source_ids"] or item["lineage_type"] in {"operational-guidance", "evidence-gap", "source-preserved"}
+        for item in units["units"]
+    )
 
 
 def test_strict_contract_limits_and_cli_json_error(tmp_path, capsys):

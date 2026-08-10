@@ -18,9 +18,9 @@ from geo_seo_hub.router import route  # noqa: E402
 
 
 ARTIFACTS = {
-    "geo-discover": {"query-map.json", "opportunity-map.json", "evidence-ledger.json", "quality-report.json", "run-manifest.json"},
-    "geo-diagnose": {"diagnosis.json", "report.md", "evidence-ledger.json", "quality-report.json", "run-manifest.json"},
-    "geo-content": {"content-spec.json", "content.json", "content.md", "content.html", "evidence-ledger.json", "quality-report.json", "run-manifest.json"},
+    "geo-discover": {"query-map.json", "opportunity-map.json", "evidence-ledger.json", "research-context.json", "quality-report.json", "run-manifest.json"},
+    "geo-diagnose": {"diagnosis.json", "diagnosis-funnel.json", "report.md", "evidence-ledger.json", "research-context.json", "quality-report.json", "run-manifest.json"},
+    "geo-content": {"content-spec.json", "content.json", "content-evidence-units.json", "content.md", "content.html", "evidence-ledger.json", "research-context.json", "quality-report.json", "run-manifest.json"},
 }
 
 

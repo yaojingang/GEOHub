@@ -52,7 +52,7 @@
     {
       "principle_id": "semantic-relevance-precedes-format-tactics",
       "summary": "Semantic relevance and evidence fidelity have stronger support than broad formatting recipes.",
-      "surfaces": ["geo-content", "geo-content:title", "geo-content:explainer", "geo-content:refine"],
+      "surfaces": ["geo-content", "geo-content:title", "geo-content:explainer", "geo-content:refine", "geo-content:article-friendly"],
       "source_ids": ["P01", "P05", "P06", "P07", "P09", "P10", "P16", "P25", "P45"],
       "claim_classes": ["benchmark", "mechanism", "observational-correlation"],
       "causal_status": "mixed",

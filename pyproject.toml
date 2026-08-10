@@ -46,6 +46,7 @@ where = ["src"]
 "share/geo-seo-hub/schemas" = [
   "schemas/brand-fact-card.schema.json",
   "schemas/content-spec.schema.json",
+  "schemas/content-evidence-units.schema.json",
   "schemas/diagnosis-funnel.schema.json",
   "schemas/evidence-ledger.schema.json",
   "schemas/geo-brief.schema.json",

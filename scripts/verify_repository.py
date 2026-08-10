@@ -262,6 +262,7 @@ def main() -> int:
     expected_schema_names = {
         "brand-fact-card.schema.json",
         "content-spec.schema.json",
+        "content-evidence-units.schema.json",
         "diagnosis-funnel.schema.json",
         "evidence-ledger.schema.json",
         "geo-brief.schema.json",
@@ -452,11 +453,13 @@ def main() -> int:
         "input/source.md",
         "content-spec.json",
         "content.json",
+        "content-evidence-units.json",
         "content.md",
         "content.html",
         "content.docx",
         "content.pdf",
         "evidence-ledger.json",
+        "research-context.json",
         "quality-report.json",
         "run-manifest.json",
     }
