@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yao.example/geo/schemas/research-context.schema.json",
+  "title": "Research Context",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol_version",
+    "run_id",
+    "registry_version",
+    "source_commit",
+    "surface",
+    "effect_guarantee",
+    "applied_source_ids",
+    "principles",
+    "limitations"
+  ],
+  "properties": {
+    "protocol_version": {"const": "1.0.0"},
+    "run_id": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "registry_version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"},
+    "source_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "surface": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "effect_guarantee": {"const": false},
+    "applied_source_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^(?:P\\d{2}|D\\d{2})$"}
+    },
+    "principles": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "research-evidence-registry.schema.json#/$defs/principle"}
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1, "pattern": "\\S"}
+    }
+  }
+}

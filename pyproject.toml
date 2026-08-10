@@ -39,6 +39,7 @@ where = ["src"]
 [tool.setuptools.data-files]
 "share/geo-seo-hub/skills" = ["skills/RESOLVER.md"]
 "share/geo-seo-hub/registry" = [
+  "registry/research-evidence.json",
   "registry/skills.yaml",
   "registry/skills.schema.json",
 ]
@@ -50,6 +51,8 @@ where = ["src"]
   "schemas/opportunity-map.schema.json",
   "schemas/quality-report.schema.json",
   "schemas/query-map.schema.json",
+  "schemas/research-context.schema.json",
+  "schemas/research-evidence-registry.schema.json",
   "schemas/run-manifest.schema.json",
 ]
 "share/geo-seo-hub/skills/geo" = [

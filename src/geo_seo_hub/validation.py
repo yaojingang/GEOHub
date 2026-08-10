@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from jsonschema import Draft202012Validator, FormatChecker
+from referencing import Registry, Resource
 
 from .paths import repository_root
 
@@ -127,8 +128,23 @@ def load_schema(name: str) -> dict[str, Any]:
     return load_json(repository_root() / "schemas" / f"{name}.schema.json")
 
 
+def _local_schema_registry() -> Registry[Any]:
+    registry: Registry[Any] = Registry()
+    for path in sorted((repository_root() / "schemas").glob("*.schema.json")):
+        schema = load_json(path)
+        schema_id = schema.get("$id")
+        if not isinstance(schema_id, str) or not schema_id:
+            raise ArtifactValidationError(f"Schema has no $id: {path}")
+        registry = registry.with_resource(schema_id, Resource.from_contents(schema))
+    return registry
+
+
 def validate_artifact(name: str, artifact: dict[str, Any]) -> None:
-    validator = Draft202012Validator(load_schema(name), format_checker=FormatChecker())
+    validator = Draft202012Validator(
+        load_schema(name),
+        format_checker=FormatChecker(),
+        registry=_local_schema_registry(),
+    )
     errors = sorted(validator.iter_errors(artifact), key=lambda item: list(item.path))
     if errors:
         details = "; ".join(

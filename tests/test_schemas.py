@@ -20,7 +20,7 @@ from geo_seo_hub.validation import (
 from scripts.package_repository import build_archive, trusted_files
 
 
-def test_all_eight_protocol_schemas_are_valid():
+def test_all_protocol_schemas_are_valid():
     expected = {
         "geo-brief",
         "run-manifest",
@@ -30,13 +30,18 @@ def test_all_eight_protocol_schemas_are_valid():
         "opportunity-map",
         "content-spec",
         "quality-report",
+        "research-context",
+        "research-evidence-registry",
     }
     actual = {path.name.removesuffix(".schema.json") for path in (repository_root() / "schemas").glob("*.schema.json")}
     assert actual == expected
     for name in expected:
         schema = load_schema(name)
         Draft202012Validator.check_schema(schema)
-        assert schema["properties"]["protocol_version"]["const"] == "1.0.0"
+        if name == "research-evidence-registry":
+            assert "registry_version" in schema["properties"]
+        else:
+            assert schema["properties"]["protocol_version"]["const"] == "1.0.0"
 
 
 def test_all_runtime_and_gate_json_writers_emit_standard_json():

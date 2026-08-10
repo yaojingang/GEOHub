@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yao.example/geo/schemas/research-evidence-registry.schema.json",
+  "title": "Research Evidence Registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["registry_version", "source_commit", "source_ids", "principles"],
+  "properties": {
+    "registry_version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"},
+    "source_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "source_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^(?:P\\d{2}|D\\d{2})$"}
+    },
+    "principles": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/principle"}
+    }
+  },
+  "$defs": {
+    "principle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "principle_id",
+        "summary",
+        "surfaces",
+        "source_ids",
+        "claim_classes",
+        "causal_status",
+        "platform_scope",
+        "proxy_variables",
+        "allowed_use",
+        "required_controls",
+        "limitations"
+      ],
+      "properties": {
+        "principle_id": {"type": "string", "pattern": "^[a-z][a-z0-9-]+$"},
+        "summary": {"type": "string", "minLength": 1, "pattern": "\\S"},
+        "surfaces": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "\\S"}
+        },
+        "source_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^(?:P\\d{2}|D\\d{2})$"}
+        },
+        "claim_classes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": ["causal", "benchmark", "observational-correlation", "mechanism", "governance", "null-result"]
+          }
+        },
+        "causal_status": {
+          "enum": ["causal-estimate", "observational", "benchmark-conditional", "governance", "mixed"]
+        },
+        "platform_scope": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1, "pattern": "\\S"}
+        },
+        "proxy_variables": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1, "pattern": "\\S"}
+        },
+        "allowed_use": {
+          "enum": ["guardrail", "planning-hypothesis", "measurement-design", "governance-control", "boundary-only"]
+        },
+        "required_controls": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1, "pattern": "\\S"}
+        },
+        "limitations": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1, "pattern": "\\S"}
+        }
+      }
+    }
+  }
+}

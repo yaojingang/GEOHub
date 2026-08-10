@@ -259,12 +259,32 @@ def main() -> int:
         fail("LICENSE is not the GNU AGPLv3 text")
 
     schemas = sorted((ROOT / "schemas").glob("*.schema.json"))
-    if len(schemas) != 8:
-        fail(f"expected 8 protocol schemas, found {len(schemas)}")
+    expected_schema_names = {
+        "brand-fact-card.schema.json",
+        "content-spec.schema.json",
+        "evidence-ledger.schema.json",
+        "geo-brief.schema.json",
+        "opportunity-map.schema.json",
+        "quality-report.schema.json",
+        "query-map.schema.json",
+        "research-context.schema.json",
+        "research-evidence-registry.schema.json",
+        "run-manifest.schema.json",
+    }
+    actual_schema_names = {path.name for path in schemas}
+    if actual_schema_names != expected_schema_names:
+        fail(
+            "protocol schema inventory differs; "
+            f"missing={sorted(expected_schema_names - actual_schema_names)}, "
+            f"extra={sorted(actual_schema_names - expected_schema_names)}"
+        )
     for path in schemas:
         schema = json.loads(path.read_text(encoding="utf-8"))
         Draft202012Validator.check_schema(schema)
-        if schema.get("properties", {}).get("protocol_version", {}).get("const") != "1.0.0":
+        if (
+            path.name != "research-evidence-registry.schema.json"
+            and schema.get("properties", {}).get("protocol_version", {}).get("const") != "1.0.0"
+        ):
             fail(f"{path.name} does not pin protocol_version 1.0.0")
 
     registry = load_registry(ROOT / "registry" / "skills.yaml")
