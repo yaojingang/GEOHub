@@ -1,0 +1,534 @@
+{
+  "schema_version": "research-evidence-matrix-v1",
+  "audit_date": "2026-08-10",
+  "status": "pre-confirmation",
+  "research_source": {
+    "repository": "https://github.com/yaojingang/geo-citation-lab",
+    "commit": "90ad40cf059f300f23fd874353767e1d19ccb815",
+    "source_map": "geo-assessment/database/seeds/geo-30-v1.1.json",
+    "source_map_frozen_at": "2026-08-04",
+    "scope": "Only files tracked at the pinned commit were reviewed. Untracked material was excluded."
+  },
+  "definitions": {
+    "verification_state": {
+      "reproduced": "The audit independently recalculated the stated descriptive result from committed source data.",
+      "source-reported": "The result is stated by a committed dataset or report source and was checked for internal consistency without recomputing raw records.",
+      "paper-reported": "The method and result were checked in the paper, but the audit did not rerun the experiment.",
+      "not-reproducible": "The evidence is conceptual, relies on unavailable proprietary inputs, or has insufficient method or provenance for independent reproduction."
+    },
+    "claim_class": {
+      "causal": "A randomized or quasi-experimental design is used to estimate an intervention effect.",
+      "benchmark": "A fixed task, corpus, simulator, or evaluation harness is used for comparison.",
+      "observational-correlation": "Associations are measured without intervention assignment.",
+      "mechanism": "The work describes or tests a process that may explain retrieval, citation, ranking, or evaluation behavior.",
+      "governance": "The work addresses policy, safety, provenance, evaluation, or operational controls.",
+      "null-result": "A tested intervention or relationship is absent, weak, inconsistent, or negative in a reported condition."
+    },
+    "disposition": {
+      "retain-guardrail": "Supports an existing boundary or evidence control.",
+      "candidate-guidance": "May inform future guidance after confirmation and explicit product review.",
+      "boundary-only": "Relevant context that does not justify an active GEO tactic.",
+      "exclude-effect-claim": "Must not be used as product effectiveness evidence."
+    },
+    "paper_title_fields": {
+      "title": "Formal title printed in the pinned PDF, normalized only for spacing and ASCII hyphens.",
+      "catalog_title": "Catalog alias copied exactly from the pinned geo-assessment source map."
+    }
+  },
+  "coverage": {
+    "datasets": 2,
+    "papers": 54,
+    "total_sources": 56,
+    "paper_titles_checked": 54,
+    "catalog_pdf_title_conflicts": 18,
+    "surface_summary_entries": 17,
+    "surface_statuses": {
+      "active": 12,
+      "planned": 4,
+      "boundary": 1
+    },
+    "verification_states": {
+      "reproduced": 1,
+      "source-reported": 1,
+      "paper-reported": 43,
+      "not-reproducible": 11
+    }
+  },
+  "surface_summary": [
+    {"surface": "geo", "status": "active", "evidence_judgment": "Routing and contract behavior only; no research-backed outcome claim is made.", "priority": "P0", "action": "Retain the evidence boundary."},
+    {"surface": "geo-discover", "status": "active", "evidence_judgment": "Query diversity and repeated sampling have benchmark support; the four task forms remain deterministic heuristics.", "priority": "P1", "action": "Label opportunity output as a planning heuristic and keep volume, rank, and conversion out of scope."},
+    {"surface": "geo-diagnose", "status": "active", "evidence_judgment": "Structural and brand signals are observational or benchmark proxies.", "priority": "P0", "action": "Keep observed, provided, inferred, and input-gap labels; never present readiness scores as effectiveness."},
+    {"surface": "geo-content", "status": "active", "evidence_judgment": "The seven-mode content generator has no aggregate effect estimate; research supports evidence fidelity, semantic preservation, explicit uncertainty, and safety as governance requirements.", "priority": "P0", "action": "Keep all mode outputs bounded to evidence-backed drafting and free of citation, ranking, traffic, or conversion promises."},
+    {"surface": "geo-content:title", "status": "active", "evidence_judgment": "Clear framing can aid retrieval tasks, while broad visibility lift is unvalidated.", "priority": "P1", "action": "Retain claim-safe title drafting without rank promises."},
+    {"surface": "geo-content:explainer", "status": "active", "evidence_judgment": "Semantic relevance is repeatedly associated with selection and citation, with confounding still present.", "priority": "P1", "action": "Use evidence-linked explanations and treat format choices as hypotheses."},
+    {"surface": "geo-content:comparison", "status": "active", "evidence_judgment": "No reviewed source establishes an effect for the comparison mode. P13 and P42 constrain effect extrapolation, while P25 supports conflict and evidence governance only.", "priority": "P0", "action": "Treat consistent criteria, transparent methods, and the prohibition on unsupported winners as governance rules."},
+    {"surface": "geo-content:ranking", "status": "active", "evidence_judgment": "Ranking tasks expose manipulation and retrieval-stage risks.", "priority": "P0", "action": "Keep method transparency, evidence traceability, and safety warnings mandatory."},
+    {"surface": "geo-content:page-blueprint", "status": "active", "evidence_judgment": "Structure can affect benchmark retrieval, but live platform effects are unstable and platform-specific.", "priority": "P1", "action": "Present page structure as a testable blueprint."},
+    {"surface": "geo-content:refine", "status": "active", "evidence_judgment": "Many rewriting benchmarks show tradeoffs, degradation, or small gains.", "priority": "P0", "action": "Prioritize semantic preservation, factual fidelity, and reversible edits."},
+    {"surface": "geo-content:article-friendly", "status": "active", "evidence_judgment": "Publication formatting is operationally useful; an effect on citation is unproven.", "priority": "P1", "action": "Keep formatting claims separate from outcome claims."},
+    {"surface": "shared-kernel", "status": "active", "evidence_judgment": "Typed evidence, provenance, quality gates, and run manifests align with governance research.", "priority": "P0", "action": "Treat engineering tests as contract evidence only."},
+    {"surface": "strategy", "status": "planned", "evidence_judgment": "Observational and benchmark evidence can shape hypotheses, not a universal playbook.", "priority": "P0", "action": "Keep non-runnable until confirmation and evidence policy review."},
+    {"surface": "knowledge", "status": "planned", "evidence_judgment": "RAG and conflict research supports provenance and conflict handling.", "priority": "P1", "action": "Plan source lineage, conflict records, freshness, and rights metadata before activation."},
+    {"surface": "publish", "status": "planned", "evidence_judgment": "Publication outcome evidence is platform-dependent and frequently proprietary.", "priority": "P0", "action": "Keep non-runnable; require reversible actions and explicit authority."},
+    {"surface": "measure", "status": "planned", "evidence_judgment": "Repeated trials, distributions, intervention labels, missing-answer accounting, and platform drift are essential.", "priority": "P0", "action": "Keep non-runnable until connectors and timestamps exist and every metric records trial_count, eligible_trial_count, answered_count, missing_answer_count, missing_answer_reason, numerator, denominator, inclusion_criteria, exclusion_criteria, interval_lower, interval_upper, and interval_method."},
+    {"surface": "SEO-GEO-boundary", "status": "boundary", "evidence_judgment": "Conventional SEO metrics and operations remain separate; Discover retains offline query and keyword variant generation as a planning function.", "priority": "P0", "action": "Exclude search volume, keyword difficulty, SERP rank, traffic attribution, indexation, Core Web Vitals, internal-link operations, and Search Console. Retain query and keyword variants without volume, difficulty, or ranking inference."}
+  ],
+  "conflicts": [
+    {"id": "C01", "sources": ["D01"], "detail": "The quick report lists earlier means of influence_score, a constructed answer-participation proxy, while the final report and CSV recomputation yield 0.2713 for ChatGPT, 0.0584 for Google, and 0.0646 for Perplexity.", "resolution": "Use the recomputed proxy means, mark the quick report figures as stale, and do not treat the proxy as an independent ground-truth outcome."},
+    {"id": "C02", "sources": ["D01", "P16"], "detail": "P16 analyzes the D01 data family.", "resolution": "Do not count P16 as independent replication of D01."},
+    {"id": "C03", "sources": ["D02", "P22"], "detail": "P22 analyzes the CN-GEO data family represented by D02.", "resolution": "Do not count P22 as independent replication of D02."},
+    {"id": "C04", "sources": ["P01", "P05", "P07", "P09", "P10", "P13", "P18", "P42"], "detail": "Optimization benchmarks report gains under selected setups alongside weak, negative, or structurally degraded outcomes in other setups.", "resolution": "Keep tactics conditional, preserve source semantics, and require platform-specific evaluation."},
+    {"id": "C05", "sources": ["P14", "P17", "P21", "P23"], "detail": "Visibility and source sets vary by time, engine, interface, query wording, language, and brand stature.", "resolution": "Use repeated distributions and stratified reporting."},
+    {"id": "C06", "sources": ["P19", "P28"], "detail": "Publication metadata or cited references contain placeholders and the supporting materials are insufficient for the stated effect claims.", "resolution": "Exclude the effect claims from product guidance pending independent evidence."},
+    {
+      "id": "C07",
+      "sources": ["P02", "P05", "P09", "P10", "P12", "P14", "P16", "P18", "P19", "P23", "P27", "P28", "P29", "P30", "P32", "P34", "P40", "P41"],
+      "detail": "The pinned source map uses catalog aliases that differ materially from the titles printed in these PDFs.",
+      "resolution": "Use title for the formal PDF title, catalog_title for the exact source-map alias, and url and id for stable source identity.",
+      "aliases": [
+        {"id": "P02", "catalog_title": "Generative Engine Optimization in Digital Repositories: Optimizing Visibility for Generative AI", "pdf_title": "Generative Engine Optimization en repositorios digitales: optimización de la visibilidad para la IA generativa [Generative Engine Optimization in digital repositories: optimizing visibility for generative AI]"},
+        {"id": "P05", "catalog_title": "Beyond Keywords: Driving Generative Search Engine Optimization with Content-Centric Agents", "pdf_title": "CC-GSEO-Bench: A Content-Centric Benchmark for Measuring Source Influence in Generative Search Engines"},
+        {"id": "P09", "catalog_title": "Think Before Writing: Feature-Level Optimization for Generative Engine Optimization", "pdf_title": "Think Before Writing: Feature-Level Multi-Objective Optimization for Generative Citation Visibility"},
+        {"id": "P10", "catalog_title": "What Generative Search Engines Like: Explaining and Optimizing Website Visibility in Generative Search", "pdf_title": "What Generative Search Engines Like and How to Optimize Web Content Cooperatively"},
+        {"id": "P12", "catalog_title": "AI Answer Engine Citation Behavior: A Longitudinal Study of GEO in 16 Generative Engines", "pdf_title": "AI Answer Engine Citation Behavior: Bringing the GEO-16 Framework in B2B SaaS"},
+        {"id": "P14", "catalog_title": "Don’t Measure Once: Reliable AI Search Visibility Requires Repeated Trials and Structure-Aware Metrics", "pdf_title": "Don’t Measure Once: Measuring Visibility in AI Search (GEO)"},
+        {"id": "P16", "catalog_title": "From Citation Selection to Citation Absorption: Understanding Source Influence in LLM-Generated Answers", "pdf_title": "From Citation Selection to Citation Absorption: A Measurement Framework for Generative Engine Optimization Across AI Search Platforms"},
+        {"id": "P18", "catalog_title": "SAGEO: A Search Arena for Generative Engine Optimization in a Realistic Environment", "pdf_title": "SAGEO Arena: A Realistic Environment for Evaluating Search-Augmented Generative Engine Optimization"},
+        {"id": "P19", "catalog_title": "Structural Feature Engineering for Generative Engine Optimization", "pdf_title": "Structural Feature Engineering for Generative Engine Optimization: How Content Structure Shapes Citation Behavior"},
+        {"id": "P23", "catalog_title": "How Generative AI Disrupts Search: Consumer Behavior, Website Traffic, and the Impact of Google AI Overviews", "pdf_title": "How Generative AI Disrupts Search: An Empirical Study of Google Search, Gemini, and AI Overviews"},
+        {"id": "P27", "catalog_title": "Optimizing for the Artificial Intelligence-Driven Search Era: An Integrated Framework for SEO, GEO, and AEO", "pdf_title": "Optimizing for the Artificial Intelligence Driven Search Era: An Integrated Framework for Search Engine Optimization, Generative Engine Optimization, and Answer Engine Optimization"},
+        {"id": "P28", "catalog_title": "Smart Search Optimization: A Theoretical Framework Integrating SEO, AEO and GEO in the Era of Generative AI", "pdf_title": "Smart Search Optimization: A Theoretical Framework Integrating SEO, AEO and GEO in the Era of Genetic AI"},
+        {"id": "P29", "catalog_title": "How the Transition from SEO to GEO, AEO, and AIO is Impacting Digital Marketing Strategies", "pdf_title": "How The Transition From SEO To GEO/AEO/AIO Is Impacting Digital Marketing Strategies"},
+        {"id": "P30", "catalog_title": "Zero-Click Search and Answer Engines: A Literature Review on SEO Transformation in Digital Marketing", "pdf_title": "Zero-Click Search dan Answer Engines: Tinjauan Literatur Sistematis dalam Perspektif Pemasaran"},
+        {"id": "P32", "catalog_title": "CONFLICTBANK: A Benchmark for Evaluating the Influence of Knowledge Conflicts in LLMs", "pdf_title": "CONFLICTBANK: A Benchmark for Evaluating Knowledge Conflicts in Large Language Models"},
+        {"id": "P34", "catalog_title": "GASLITEing the Retrieval: Exploring Vulnerabilities in Dense Embedding-Based Search", "pdf_title": "GASLITEing the Retrieval: Poisoning Knowledge DBs to Mislead Embedding-Based Search"},
+        {"id": "P40", "catalog_title": "Unveiling the Resilience of LLM-Enhanced Search Engines Against Adversarial Attacks", "pdf_title": "Unveiling the Resilience of LLM-Enhanced Search Engines against Black-Hat SEO Manipulation"},
+        {"id": "P41", "catalog_title": "Caption Injection for Optimization in Generative Search Engines", "pdf_title": "Caption Injection for Optimization in Generative Search Engine"}
+      ]
+    }
+  ],
+  "recommendations": [
+    {"priority": "P0", "recommendation": "Keep all active outputs free of citation, ranking, traffic, conversion, or revenue guarantees."},
+    {"priority": "P0", "recommendation": "Preserve evidence-state labels and prevent observational associations from being rendered as causal advice."},
+    {"priority": "P0", "recommendation": "Keep strategy, knowledge, publish, and measure non-runnable until a separate confirmation decision."},
+    {"priority": "P0", "recommendation": "Treat engineering tests as contract and regression evidence only."},
+    {"priority": "P0", "recommendation": "Exclude unverifiable private outcome claims and weak-provenance papers from core tactic guidance."},
+    {"priority": "P1", "recommendation": "Add intervention, comparator, engine, interface, language, geography, collected_at, model_version, sample_unit, trial_count, eligible_trial_count, answered_count, missing_answer_count, missing_answer_reason, numerator, denominator, inclusion_criteria, exclusion_criteria, interval_lower, interval_upper, and interval_method to future measurement artifacts."},
+    {"priority": "P1", "recommendation": "Add explicit null-result and degradation recording to future evaluations."},
+    {"priority": "P1", "recommendation": "Add manipulation, prompt-injection, poisoning, and semantic-drift checks to future content evaluation."},
+    {"priority": "P2", "recommendation": "Run preregistered, randomized content interventions with repeated platform sampling and human factuality review."},
+    {"priority": "P2", "recommendation": "Create a longitudinal, timestamped CN benchmark with stable run boundaries and platform metadata."}
+  ],
+  "sources": [
+    {
+      "id": "P01", "kind": "paper", "title": "GEO: Generative Engine Optimization", "catalog_title": "GEO: Generative Engine Optimization", "url": "https://arxiv.org/pdf/2311.09735", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism"],
+      "study_design": "Controlled GEO-Bench rewriting experiments with visibility metrics and a limited deployed-engine evaluation.",
+      "finding": "Quotations, statistics, and fluency can improve measured visibility in selected conditions; keyword stuffing can degrade it.",
+      "surfaces": ["geo-content:explainer", "geo-content:refine", "shared-kernel"], "disposition": "candidate-guidance",
+      "limitations": ["Synthetic benchmark conditions", "Limited deployed-engine subset", "No universal live-platform effect"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P02", "kind": "paper", "title": "Generative Engine Optimization en repositorios digitales: optimización de la visibilidad para la IA generativa [Generative Engine Optimization in digital repositories: optimizing visibility for generative AI]", "catalog_title": "Generative Engine Optimization in Digital Repositories: Optimizing Visibility for Generative AI", "url": "https://infonomy.scimagoepi.com/index.php/infonomy/en/article/download/115/153/217", "verification_state": "not-reproducible", "claim_classes": ["mechanism", "governance"],
+      "study_design": "Conceptual guidance for repository metadata, accessibility, and semantic organization.",
+      "finding": "Provides a governance checklist for machine-readable repositories without an intervention evaluation.",
+      "surfaces": ["geo-content:page-blueprint", "knowledge", "SEO-GEO-boundary"], "disposition": "boundary-only",
+      "limitations": ["No primary experiment", "No measured GEO outcome"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P03", "kind": "paper", "title": "Generative Engine Optimization: How to Dominate AI Search", "catalog_title": "Generative Engine Optimization: How to Dominate AI Search", "url": "https://arxiv.org/pdf/2509.08919", "verification_state": "paper-reported", "claim_classes": ["observational-correlation", "mechanism"],
+      "study_design": "Cross-engine observational comparison across queries, languages, regions, and domain categories.",
+      "finding": "Citation patterns vary materially by engine, language, and source type.",
+      "surfaces": ["geo-discover", "geo-diagnose", "strategy", "measure"], "disposition": "candidate-guidance",
+      "limitations": ["Black-box engines", "Subjective source categorization", "Snapshot timing"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P04", "kind": "paper", "title": "Navigating the Shift: A Comparative Analysis of Web Search and Generative AI Response Generation", "catalog_title": "Navigating the Shift: A Comparative Analysis of Web Search and Generative AI Response Generation", "url": "https://arxiv.org/pdf/2601.16858", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism"],
+      "study_design": "Comparison of web-search and generative responses with controlled context manipulation.",
+      "finding": "Provenance, freshness, and pretrained familiarity can affect which evidence appears in generated responses.",
+      "surfaces": ["geo-discover", "knowledge", "SEO-GEO-boundary"], "disposition": "boundary-only",
+      "limitations": ["Model and prompt sensitivity", "Controlled contexts differ from production search"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P05", "kind": "paper", "title": "CC-GSEO-Bench: A Content-Centric Benchmark for Measuring Source Influence in Generative Search Engines", "catalog_title": "Beyond Keywords: Driving Generative Search Engine Optimization with Content-Centric Agents", "url": "https://arxiv.org/pdf/2509.05607", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism"],
+      "study_design": "CC-GSEO-Bench with more than one thousand articles and more than five thousand query-article pairs, including source-removal ablations.",
+      "evaluation_framework": {
+        "dimensions": ["Exposure", "Faithful Credit", "Causal Impact", "Readability & Structure", "Trustworthiness & Safety"],
+        "article_level_aggregations": ["strength", "coverage", "stability"],
+        "aggregation_scope": ["Exposure", "Faithful Credit", "Causal Impact"]
+      },
+      "finding": "The framework has five dimensions: Exposure, Faithful Credit, Causal Impact, Readability & Structure, and Trustworthiness & Safety. Strength, coverage, and stability aggregate the first three influence dimensions at article level.",
+      "surfaces": ["geo-content:explainer", "geo-content:refine", "shared-kernel"], "disposition": "candidate-guidance",
+      "limitations": ["Automated judging", "Benchmark outcomes do not establish live citation lift"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P06", "kind": "paper", "title": "Beyond SEO: A Transformer-Based Approach for Reinventing Web Content Optimisation", "catalog_title": "Beyond SEO: A Transformer-Based Approach for Reinventing Web Content Optimisation", "url": "https://arxiv.org/pdf/2507.03169", "verification_state": "paper-reported", "claim_classes": ["benchmark"],
+      "study_design": "Fine-tuned BART evaluation on 1,905 synthetic travel-domain instances.",
+      "finding": "The model improves a simulated visibility metric within the constructed travel benchmark.",
+      "surfaces": ["geo-content:refine"], "disposition": "boundary-only",
+      "limitations": ["Synthetic data", "Narrow domain", "No deployed-engine validation"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P07", "kind": "paper", "title": "IF-GEO: Conflict-Aware Instruction Fusion for Multi-Query Generative Engine Optimization", "catalog_title": "IF-GEO: Conflict-Aware Instruction Fusion for Multi-Query Generative Engine Optimization", "url": "https://arxiv.org/pdf/2601.13938", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism"],
+      "study_design": "Multi-query benchmark evaluating conflict-aware instruction fusion and cross-query stability.",
+      "finding": "Jointly considering query conflicts can improve benchmark stability compared with isolated rewriting.",
+      "surfaces": ["geo-discover", "geo-content:refine"], "disposition": "candidate-guidance",
+      "limitations": ["LLM judging", "High optimization cost", "No live measurement"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P08", "kind": "paper", "title": "Role-Augmented Intent-Driven Generative Search Engine Optimization", "catalog_title": "Role-Augmented Intent-Driven Generative Search Engine Optimization", "url": "https://arxiv.org/pdf/2508.11158", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism"],
+      "study_design": "GEO-Bench extension using inferred user intent and roles with human-aligned evaluation.",
+      "finding": "Intent and role conditioning can improve benchmark content alignment under the tested prompts.",
+      "surfaces": ["geo-discover", "geo-content:explainer", "geo-content:refine"], "disposition": "candidate-guidance",
+      "limitations": ["Inferred personas", "Automated evaluation", "Code availability was conditional at publication"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P09", "kind": "paper", "title": "Think Before Writing: Feature-Level Multi-Objective Optimization for Generative Citation Visibility", "catalog_title": "Think Before Writing: Feature-Level Optimization for Generative Engine Optimization", "url": "https://arxiv.org/pdf/2604.19113", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism"],
+      "study_design": "Multi-objective feature-level optimization over structural, content, and linguistic dimensions.",
+      "finding": "Interpretable feature planning can outperform direct rewriting in selected benchmark conditions.",
+      "surfaces": ["geo-content:page-blueprint", "geo-content:refine"], "disposition": "candidate-guidance",
+      "limitations": ["Conditional on benchmark retrieval", "High model cost", "No independent live-platform replication"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P10", "kind": "paper", "title": "What Generative Search Engines Like and How to Optimize Web Content Cooperatively", "catalog_title": "What Generative Search Engines Like: Explaining and Optimizing Website Visibility in Generative Search", "url": "https://arxiv.org/pdf/2510.11438", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism"],
+      "study_design": "Preference-rule extraction and rule-guided rewriting across three datasets and multiple engines.",
+      "finding": "Learned preference rules improve selected benchmark visibility measures and vary by model.",
+      "surfaces": ["geo-content:title", "geo-content:refine", "strategy"], "disposition": "candidate-guidance",
+      "limitations": ["Preprint work in progress", "No independent source-fact verification", "Model-specific rules"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P11", "kind": "paper", "title": "White Hat Search Engine Optimization using Large Language Models", "catalog_title": "White Hat Search Engine Optimization using Large Language Models", "url": "https://arxiv.org/pdf/2502.07315", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism"],
+      "study_design": "Dense and sparse retrieval ranking experiments with context from previous rankings.",
+      "finding": "LLM edits can change conventional retrieval rank while creating preservation tradeoffs.",
+      "surfaces": ["geo-content:refine", "SEO-GEO-boundary"], "disposition": "boundary-only",
+      "limitations": ["Conventional retrieval task", "Direct GEO effect not measured", "Content preservation risks"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P12", "kind": "paper", "title": "AI Answer Engine Citation Behavior: Bringing the GEO-16 Framework in B2B SaaS", "catalog_title": "AI Answer Engine Citation Behavior: A Longitudinal Study of GEO in 16 Generative Engines", "url": "https://arxiv.org/pdf/2509.10762", "verification_state": "paper-reported", "claim_classes": ["observational-correlation"],
+      "study_design": "Cross-sectional audit of 70 B2B SaaS prompts, 1,702 citations, and 1,100 unique URLs across three engines: Brave, Google AIO, and Perplexity. GEO-16 denotes sixteen audit pillars.",
+      "finding": "A constructed sixteen-pillar GEO score is associated with citation in this narrow three-engine sample; engine and page-signal effects were not causally tested.",
+      "surfaces": ["geo-diagnose", "strategy", "measure"], "disposition": "candidate-guidance",
+      "limitations": ["Small English B2B sample", "Constructed score", "No intervention assignment"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P13", "kind": "paper", "title": "C-SEO Bench: Does Conversational SEO Work?", "catalog_title": "C-SEO Bench: Does Conversational SEO Work?", "url": "https://arxiv.org/pdf/2506.11097", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism", "null-result"],
+      "study_design": "About 1,900 queries and 16,000 documents across six domains, two tasks, and competitive actor settings.",
+      "finding": "Many content rewrites show no significant gain or reduce ranking; retrieval position and competition dominate several conditions.",
+      "surfaces": ["geo-content:comparison", "geo-content:ranking", "geo-content:refine", "SEO-GEO-boundary"], "disposition": "retain-guardrail",
+      "limitations": ["Benchmark rankers", "Effects depend on actor adoption", "No universal deployed-engine estimate"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P14", "kind": "paper", "title": "Don’t Measure Once: Measuring Visibility in AI Search (GEO)", "catalog_title": "Don’t Measure Once: Reliable AI Search Visibility Requires Repeated Trials and Structure-Aware Metrics", "url": "https://arxiv.org/pdf/2604.07585", "verification_state": "paper-reported", "claim_classes": ["observational-correlation", "mechanism"],
+      "study_design": "Four engines and four Swiss-German campaigns observed daily for about forty-five days with repeat trials.",
+      "finding": "Source sets and visibility vary across days and repeated runs, making one-shot measurement unreliable.",
+      "surfaces": ["geo-discover", "measure", "shared-kernel"], "disposition": "retain-guardrail",
+      "limitations": ["Narrow locales and campaigns", "Missing data for one engine", "Observational design"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P15", "kind": "paper", "title": "Disentangling Answer Engine Optimization from Platform Growth: A Log-Based Natural Experiment on ChatGPT Referral Traffic", "catalog_title": "Disentangling Answer Engine Optimization from Platform Growth: A Log-Based Natural Experiment on ChatGPT Referral Traffic", "url": "https://arxiv.org/pdf/2606.04362", "verification_state": "paper-reported", "claim_classes": ["causal", "observational-correlation", "null-result"],
+      "study_design": "Single-domain interrupted time series and treated-control comparison around a ChatGPT referral change.",
+      "finding": "A level break appears, while the post-change slope is not significant; pretrends and nonrandom rollout limit attribution.",
+      "surfaces": ["strategy", "measure"], "disposition": "retain-guardrail",
+      "limitations": ["One domain", "Nonrandom rollout", "Significant pretrend", "Referral changes mix platform growth and optimization"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P16", "kind": "paper", "title": "From Citation Selection to Citation Absorption: A Measurement Framework for Generative Engine Optimization Across AI Search Platforms", "catalog_title": "From Citation Selection to Citation Absorption: Understanding Source Influence in LLM-Generated Answers", "url": "https://arxiv.org/pdf/2604.25707", "verification_state": "paper-reported", "claim_classes": ["observational-correlation", "mechanism", "null-result"],
+      "study_design": "Descriptive analysis of the same cross-platform data family as D01, separating source selection and answer absorption.",
+      "finding": "Semantic relevance and content quality correlate with the constructed answer-participation proxy; Q&A formatting has a weak negative contrast in the analyzed sample.",
+      "surfaces": ["geo-diagnose", "geo-content:explainer", "geo-content:article-friendly", "measure"], "disposition": "retain-guardrail",
+      "limitations": ["Same data family as D01", "The outcome is a constructed proxy rather than independent ground truth", "Correlational features", "Static platform snapshot"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P17", "kind": "paper", "title": "Generative Engine Optimization at Scale: Measuring Brand Visibility Across AI Search Engines", "catalog_title": "Generative Engine Optimization at Scale: Measuring Brand Visibility Across AI Search Engines", "url": "https://arxiv.org/pdf/2606.20065", "verification_state": "not-reproducible", "claim_classes": ["observational-correlation", "mechanism"],
+      "study_design": "Production telemetry and a 102-brand cohort across AI search engines.",
+      "finding": "Brand stature and cohort tiers are associated with measured visibility; the authors do not identify a causal recommendation effect.",
+      "surfaces": ["strategy", "measure"], "disposition": "exclude-effect-claim",
+      "limitations": ["Private telemetry", "Convenience cohort", "No intervention assignment", "Independent reproduction unavailable"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P18", "kind": "paper", "title": "SAGEO Arena: A Realistic Environment for Evaluating Search-Augmented Generative Engine Optimization", "catalog_title": "SAGEO: A Search Arena for Generative Engine Optimization in a Realistic Environment", "url": "https://arxiv.org/pdf/2602.12187", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism", "null-result"],
+      "study_design": "End-to-end search arena comparing structural preservation and content-only optimization.",
+      "finding": "Body-text-only optimization and unrestricted query variation often degrade performance; structural scope mitigates some loss.",
+      "surfaces": ["geo-content:page-blueprint", "geo-content:refine", "shared-kernel", "SEO-GEO-boundary"], "disposition": "retain-guardrail",
+      "limitations": ["Arena-specific rankers", "Generated optimization content", "No direct business outcome"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P19", "kind": "paper", "title": "Structural Feature Engineering for Generative Engine Optimization: How Content Structure Shapes Citation Behavior", "catalog_title": "Structural Feature Engineering for Generative Engine Optimization", "url": "https://arxiv.org/pdf/2603.29979", "verification_state": "not-reproducible", "claim_classes": ["benchmark"],
+      "study_design": "Claims a structural-feature evaluation over two hundred articles and six architectures.",
+      "finding": "Reports an aggregate improvement from structural features, with insufficient public material for verification.",
+      "surfaces": ["geo-diagnose", "geo-content:page-blueprint"], "disposition": "exclude-effect-claim",
+      "limitations": ["Placeholder publication metadata", "No public replication package", "Method detail insufficient for stated aggregate effect"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P20", "kind": "paper", "title": "A Survey of Generative Search and Recommendation in the Era of Large Language Models", "catalog_title": "A Survey of Generative Search and Recommendation in the Era of Large Language Models", "url": "https://generative-rec.github.io/assets/files/survey.pdf", "verification_state": "paper-reported", "claim_classes": ["mechanism", "governance"],
+      "study_design": "Survey and taxonomy of generative search and recommendation systems.",
+      "finding": "Organizes retrieval, generation, recommendation, evaluation, and safety mechanisms without a primary GEO intervention.",
+      "surfaces": ["geo-discover", "shared-kernel", "SEO-GEO-boundary"], "disposition": "boundary-only",
+      "limitations": ["Secondary synthesis", "No primary effect estimate"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P21", "kind": "paper", "title": "Characterizing Web Search in the Age of Generative AI", "catalog_title": "Characterizing Web Search in the Age of Generative AI", "url": "https://arxiv.org/pdf/2510.11560", "verification_state": "paper-reported", "claim_classes": ["benchmark", "observational-correlation", "mechanism"],
+      "study_design": "Google organic search compared with five generative engines across source breadth, overlap, and stability.",
+      "finding": "Generative systems draw on both internal and external knowledge and can surface domains outside conventional top results.",
+      "surfaces": ["geo-discover", "measure", "shared-kernel", "SEO-GEO-boundary"], "disposition": "retain-guardrail",
+      "limitations": ["English queries", "Two-country scope", "Time-bounded snapshot", "No causal traffic estimate"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P22", "kind": "paper", "title": "What Do Chinese-Language Generative Search Engines Cite and Surface? A Large-Scale Empirical Study", "catalog_title": "What Do Chinese-Language Generative Search Engines Cite and Surface? A Large-Scale Empirical Study", "url": "https://arxiv.org/pdf/2607.15771v1", "verification_state": "paper-reported", "claim_classes": ["observational-correlation", "mechanism", "null-result"],
+      "study_design": "Large-scale analysis of Chinese generative search interfaces using correlations, random forests, and SHAP.",
+      "finding": "Citation position, source type, and quality signals vary by interface; several feature relationships are weak or absent.",
+      "surfaces": ["geo-diagnose", "strategy", "measure"], "disposition": "retain-guardrail",
+      "limitations": ["Same data family as D02", "Observational feature attribution", "Interface codes include inferred mappings"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P23", "kind": "paper", "title": "How Generative AI Disrupts Search: An Empirical Study of Google Search, Gemini, and AI Overviews", "catalog_title": "How Generative AI Disrupts Search: Consumer Behavior, Website Traffic, and the Impact of Google AI Overviews", "url": "https://web.njit.edu/~borcea/papers/acm-sigir26.pdf", "verification_state": "paper-reported", "claim_classes": ["benchmark", "observational-correlation", "mechanism"],
+      "study_design": "Google Search, AI Overview, and Gemini comparison across about 11,500 queries with query perturbations.",
+      "finding": "Source composition and response behavior differ across Google surfaces and change with query wording.",
+      "surfaces": ["geo-discover", "measure", "SEO-GEO-boundary"], "disposition": "retain-guardrail",
+      "limitations": ["Google-family snapshot", "No causal website-traffic intervention", "Query sampling constraints"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P24", "kind": "paper", "title": "NExT-Search: Rebuilding User Feedback Ecosystem for Generative AI Search", "catalog_title": "NExT-Search: Rebuilding User Feedback Ecosystem for Generative AI Search", "url": "https://arxiv.org/pdf/2505.14680", "verification_state": "not-reproducible", "claim_classes": ["mechanism", "governance"],
+      "study_design": "Perspective proposing fine-grained feedback loops for generative search.",
+      "finding": "Defines feedback and governance components that could support evaluation and correction.",
+      "surfaces": ["geo-diagnose", "measure", "shared-kernel"], "disposition": "boundary-only",
+      "limitations": ["No empirical validation", "Proposed architecture only"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P25", "kind": "paper", "title": "What Evidence Do Language Models Find Convincing?", "catalog_title": "What Evidence Do Language Models Find Convincing?", "url": "https://arxiv.org/pdf/2402.11782", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism", "null-result"],
+      "study_design": "Conflict-evidence question answering benchmark testing evidence features and model sensitivity.",
+      "finding": "Semantic relevance is a stronger predictor than many stylistic features, and model responses remain sensitive to conflicting evidence.",
+      "surfaces": ["geo-diagnose", "geo-content:explainer", "geo-content:comparison", "knowledge"], "disposition": "retain-guardrail",
+      "limitations": ["QA benchmark differs from live generative search", "Model-specific sensitivity", "Style effects often null"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P26", "kind": "paper", "title": "From SEO to Answer Engine Optimization (AEO): Generative AI and the Transformation of Search Visibility", "catalog_title": "From SEO to Answer Engine Optimization (AEO): Generative AI and the Transformation of Search Visibility", "url": "https://www.researchgate.net/publication/399872181_From_SEO_to_Answer_Engine_Optimization_AEO_Generative_Ai_and_the_Transformation_of_Search_Visibility", "verification_state": "not-reproducible", "claim_classes": ["mechanism", "governance"],
+      "study_design": "Conceptual chapter synthesizing SEO and answer-engine measurement ideas.",
+      "finding": "Proposes visibility concepts and measurement directions without a primary intervention dataset.",
+      "surfaces": ["strategy", "measure", "SEO-GEO-boundary"], "disposition": "boundary-only",
+      "limitations": ["Secondary claims", "No primary empirical validation", "External click statistics are heterogeneous"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P27", "kind": "paper", "title": "Optimizing for the Artificial Intelligence Driven Search Era: An Integrated Framework for Search Engine Optimization, Generative Engine Optimization, and Answer Engine Optimization", "catalog_title": "Optimizing for the Artificial Intelligence-Driven Search Era: An Integrated Framework for SEO, GEO, and AEO", "url": "https://ijsrem.com/uploads/production/Optimizing-for-the-Artificial-Intelligence-Driven-Search-Era-An-Integrated-Framework-for-Search-Engine-Optimization-Generative-Engine-Optimization-and-Answer-Engine-Optimization.pdf", "verification_state": "not-reproducible", "claim_classes": ["mechanism", "governance"],
+      "study_design": "Integrated conceptual framework for SEO, GEO, and AEO.",
+      "finding": "Provides taxonomy and process guidance while acknowledging the absence of empirical validation.",
+      "surfaces": ["strategy", "SEO-GEO-boundary"], "disposition": "boundary-only",
+      "limitations": ["No primary data", "No intervention evaluation", "Broad framework"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P28", "kind": "paper", "title": "Smart Search Optimization: A Theoretical Framework Integrating SEO, AEO and GEO in the Era of Genetic AI", "catalog_title": "Smart Search Optimization: A Theoretical Framework Integrating SEO, AEO and GEO in the Era of Generative AI", "url": "https://lorojournals.com/index.php/emsj/en/article/download/1728/1679/2401", "verification_state": "not-reproducible", "claim_classes": ["observational-correlation"],
+      "study_design": "Small article set presented as an integrated SEO, AEO, and GEO evaluation.",
+      "finding": "Reports large traffic effects without sufficient traceable data or method to support product use.",
+      "surfaces": ["strategy", "measure", "SEO-GEO-boundary"], "disposition": "exclude-effect-claim",
+      "limitations": ["Placeholder references", "Weak provenance", "Unverifiable effect attribution", "Insufficient raw evidence"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P29", "kind": "paper", "title": "How The Transition From SEO To GEO/AEO/AIO Is Impacting Digital Marketing Strategies", "catalog_title": "How the Transition from SEO to GEO, AEO, and AIO is Impacting Digital Marketing Strategies", "url": "https://www.ijcrt.org/papers/IJCRT2510315.pdf", "verification_state": "not-reproducible", "claim_classes": ["mechanism"],
+      "study_design": "Qualitative review and case discussion.",
+      "finding": "Summarizes marketing practice shifts without a reproducible outcome study.",
+      "surfaces": ["strategy", "SEO-GEO-boundary"], "disposition": "boundary-only",
+      "limitations": ["No primary experiment", "Case claims lack comparable controls"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P30", "kind": "paper", "title": "Zero-Click Search dan Answer Engines: Tinjauan Literatur Sistematis dalam Perspektif Pemasaran", "catalog_title": "Zero-Click Search and Answer Engines: A Literature Review on SEO Transformation in Digital Marketing", "url": "https://ejurnal.kampusakademik.co.id/index.php/jiem/article/download/9040/7646/32415", "verification_state": "paper-reported", "claim_classes": ["observational-correlation", "mechanism"],
+      "study_design": "Literature review of thirty academic and industry sources.",
+      "finding": "Synthesizes zero-click behavior and answer-engine changes as context for measurement design.",
+      "surfaces": ["strategy", "measure", "SEO-GEO-boundary"], "disposition": "boundary-only",
+      "limitations": ["Heterogeneous secondary sources", "No pooled causal estimate", "Rapidly changing platform context"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P31", "kind": "paper", "title": "Adversarial Search Engine Optimization for Large Language Models", "catalog_title": "Adversarial Search Engine Optimization for Large Language Models", "url": "https://arxiv.org/pdf/2406.18382", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism", "governance"],
+      "study_design": "Adversarial optimization on fifty controlled pages with tests on production search and plugin settings.",
+      "finding": "Strategic content can manipulate selected LLM search settings and creates competitive adoption dynamics.",
+      "surfaces": ["geo-diagnose", "geo-content:ranking", "geo-content:refine", "shared-kernel"], "disposition": "retain-guardrail",
+      "limitations": ["Small controlled corpus", "Platform behavior can drift", "Adversarial objective"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P32", "kind": "paper", "title": "CONFLICTBANK: A Benchmark for Evaluating Knowledge Conflicts in Large Language Models", "catalog_title": "CONFLICTBANK: A Benchmark for Evaluating the Influence of Knowledge Conflicts in LLMs", "url": "https://openreview.net/pdf?id=wjHVmgBDzc", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism", "governance"],
+      "study_design": "Benchmark for conflicts between model knowledge and supplied evidence.",
+      "finding": "Models vary in their response to conflicting knowledge, supporting explicit conflict records and source provenance.",
+      "surfaces": ["geo-diagnose", "knowledge", "measure", "shared-kernel"], "disposition": "retain-guardrail",
+      "limitations": ["Knowledge-conflict benchmark", "No GEO visibility effect", "Model-specific behavior"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P33", "kind": "paper", "title": "Dynamics of Adversarial Attacks on Large Language Model-Based Search Engines", "catalog_title": "Dynamics of Adversarial Attacks on Large Language Model-Based Search Engines", "url": "https://arxiv.org/pdf/2501.00745", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism", "governance", "null-result"],
+      "study_design": "Competitive simulation of adversarial content adoption in LLM-based search.",
+      "finding": "Attack effects change as competing actors adopt similar tactics and can diminish under competition.",
+      "surfaces": ["geo-content:ranking", "geo-content:refine", "measure", "shared-kernel"], "disposition": "retain-guardrail",
+      "limitations": ["Simulated dynamics", "Adversarial objective", "No general business effect"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P34", "kind": "paper", "title": "GASLITEing the Retrieval: Poisoning Knowledge DBs to Mislead Embedding-Based Search", "catalog_title": "GASLITEing the Retrieval: Exploring Vulnerabilities in Dense Embedding-Based Search", "url": "https://openreview.net/pdf?id=LBd87fWerd", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism", "governance"],
+      "study_design": "Dense-retrieval poisoning across nine embedding models using small injected corpora.",
+      "finding": "Optimized injections can promote target content in dense retrieval under tested conditions.",
+      "surfaces": ["geo-diagnose", "knowledge", "shared-kernel", "SEO-GEO-boundary"], "disposition": "retain-guardrail",
+      "limitations": ["Retrieval attack benchmark", "White-box or surrogate access", "No legitimate content-effect estimate"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P35", "kind": "paper", "title": "Manipulating Large Language Models to Increase Product Visibility", "catalog_title": "Manipulating Large Language Models to Increase Product Visibility", "url": "https://arxiv.org/pdf/2404.07981", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism", "governance"],
+      "study_design": "Controlled ranking experiments on ten fictitious products using strategically optimized text.",
+      "finding": "Strategic text can change product visibility in the tested white-box ranking setup.",
+      "surfaces": ["geo-content:ranking", "geo-content:refine", "shared-kernel"], "disposition": "retain-guardrail",
+      "limitations": ["Fictitious products", "Narrow white-box setup", "Manipulation objective"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P36", "kind": "paper", "title": "Persistent Pre-Training Poisoning of LLMs", "catalog_title": "Persistent Pre-Training Poisoning of LLMs", "url": "https://arxiv.org/pdf/2410.13722", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism", "governance", "null-result"],
+      "study_design": "From-scratch training experiments from 600M to 7B parameters with small poisoned pretraining fractions.",
+      "finding": "Several poisoning objectives persist after instruction tuning, while some objectives weaken or fail.",
+      "surfaces": ["knowledge", "shared-kernel"], "disposition": "retain-guardrail",
+      "limitations": ["Pretraining security task", "Outside normal GEO content workflow", "Model-scale constraints"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P37", "kind": "paper", "title": "PoisonArena: Uncovering Competing Poisoning Attacks in Retrieval-Augmented Generation", "catalog_title": "PoisonArena: Uncovering Competing Poisoning Attacks in Retrieval-Augmented Generation", "url": "https://arxiv.org/pdf/2505.12574", "verification_state": "paper-reported", "claim_classes": ["benchmark", "governance", "null-result"],
+      "study_design": "Multi-attacker RAG poisoning benchmark.",
+      "finding": "Single-attacker success frequently declines when several attackers compete for retrieval.",
+      "surfaces": ["knowledge", "measure", "shared-kernel"], "disposition": "retain-guardrail",
+      "limitations": ["Adversarial benchmark", "Competition assumptions", "No legitimate visibility effect"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P38", "kind": "paper", "title": "Ranking Manipulation for Conversational Search Engines", "catalog_title": "Ranking Manipulation for Conversational Search Engines", "url": "https://arxiv.org/pdf/2406.03589v1.pdf", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism", "governance"],
+      "study_design": "RAGDOLL product-page attacks across LLM and recommender configurations, including an online engine probe.",
+      "finding": "Prompt-like page content can manipulate rankings in selected conversational search settings.",
+      "surfaces": ["geo-diagnose", "geo-content:ranking", "shared-kernel"], "disposition": "retain-guardrail",
+      "limitations": ["Product-domain focus", "Adversarial content", "Online engine behavior is transient"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P39", "kind": "paper", "title": "StealthRank: LLM Ranking Manipulation via Stealthy Prompt Optimization", "catalog_title": "StealthRank: LLM Ranking Manipulation via Stealthy Prompt Optimization", "url": "https://arxiv.org/pdf/2504.05804", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism", "governance"],
+      "study_design": "Energy-based adversarial prompt optimization across datasets and four LLMs with human stealth evaluation.",
+      "finding": "Optimized prompts can change ranking while remaining less obvious to human reviewers.",
+      "surfaces": ["geo-content:ranking", "geo-content:refine", "shared-kernel"], "disposition": "retain-guardrail",
+      "limitations": ["Adversarial objective", "Benchmark-specific rankers", "Human stealth preferences are subjective"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P40", "kind": "paper", "title": "Unveiling the Resilience of LLM-Enhanced Search Engines against Black-Hat SEO Manipulation", "catalog_title": "Unveiling the Resilience of LLM-Enhanced Search Engines Against Adversarial Attacks", "url": "https://arxiv.org/pdf/2603.25500", "verification_state": "paper-reported", "claim_classes": ["benchmark", "governance", "null-result"],
+      "study_design": "SEO-Bench with one thousand real black-hat sites across ten LLM-enhanced search systems.",
+      "finding": "Traditional black-hat patterns are mostly filtered, while rewritten-query and segmented-text attacks remain more effective.",
+      "surfaces": ["geo-diagnose", "shared-kernel", "SEO-GEO-boundary"], "disposition": "retain-guardrail",
+      "limitations": ["Adversarial benchmark", "Rapid system drift", "No positive content-effect guidance"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P41", "kind": "paper", "title": "Caption Injection for Optimization in Generative Search Engine", "catalog_title": "Caption Injection for Optimization in Generative Search Engines", "url": "https://arxiv.org/pdf/2511.04080", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism", "null-result"],
+      "study_design": "Multimodal ranking benchmark with 4,800 image-text pairs and caption interventions.",
+      "finding": "A small multimodal gain appears in one condition, while unimodal and several baseline conditions are negative.",
+      "surfaces": ["geo-content:page-blueprint", "geo-content:refine"], "disposition": "retain-guardrail",
+      "limitations": ["Simulated single-turn ranking", "Retrieval removed", "LLM judging", "Small and inconsistent effects"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P42", "kind": "paper", "title": "E-GEO: A Testbed for Generative Engine Optimization in E-Commerce", "catalog_title": "E-GEO: A Testbed for Generative Engine Optimization in E-Commerce", "url": "https://arxiv.org/pdf/2511.20867", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism", "null-result"],
+      "study_design": "E-commerce testbed using 7,151 Reddit queries, 52,165 Amazon products, and fifteen rewrite heuristics.",
+      "finding": "Most heuristics have small, absent, or negative effects; optimized prompts yield a modest best-case gain.",
+      "surfaces": ["geo-content:comparison", "geo-content:ranking", "geo-content:refine", "measure"], "disposition": "retain-guardrail",
+      "limitations": ["E-commerce benchmark", "Retrieval and ranking separated", "Small best-case improvement", "No live sales outcome"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P43", "kind": "paper", "title": "Multimodal Generative Engine Optimization: Rank Manipulation for Vision-Language Model Rankers", "catalog_title": "Multimodal Generative Engine Optimization: Rank Manipulation for Vision-Language Model Rankers", "url": "https://www.researchgate.net/publication/399931268_Multimodal_Generative_Engine_Optimization_Rank_Manipulation_for_Vision-Language_Model_Rankers", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism", "governance"],
+      "study_design": "Joint image and text rank manipulation on product datasets using one vision-language model family.",
+      "finding": "Subtle multimodal edits can change ranks in the tested vision-language ranking setup.",
+      "surfaces": ["geo-content:ranking", "geo-content:page-blueprint", "shared-kernel"], "disposition": "retain-guardrail",
+      "limitations": ["Single model family", "Static product lists", "Adversarial objective", "No live-platform replication"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P44", "kind": "paper", "title": "Generative Engine Optimization: A VLM and Agent Framework for Pinterest Acquisition Growth", "catalog_title": "Generative Engine Optimization: A VLM and Agent Framework for Pinterest Acquisition Growth", "url": "https://arxiv.org/pdf/2602.02961", "verification_state": "not-reproducible", "claim_classes": ["benchmark", "observational-correlation", "mechanism"],
+      "study_design": "Proprietary VLM and agent framework with offline, human, and production outcome reporting.",
+      "finding": "Reports large acquisition outcomes from a Pinterest deployment, with underlying logs and attribution unavailable.",
+      "surfaces": ["geo-content:page-blueprint", "publish", "measure", "SEO-GEO-boundary"], "disposition": "exclude-effect-claim",
+      "limitations": ["Proprietary data", "Independent reproduction unavailable", "Attribution cannot be audited", "Platform-specific deployment"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P45", "kind": "paper", "title": "When Content is Goliath and Algorithm is David: The Style and Semantic Effects of Generative Search Engine", "catalog_title": "When Content is Goliath and Algorithm is David: The Style and Semantic Effects of Generative Search Engine", "url": "https://www.researchgate.net/publication/395651066_When_Content_is_Goliath_and_Algorithm_is_David_The_Style_and_Semantic_Effects_of_Generative_Search_Engine", "verification_state": "paper-reported", "claim_classes": ["causal", "benchmark", "observational-correlation", "mechanism"],
+      "study_design": "Large website observation, controlled RAG tests, and a randomized human content experiment.",
+      "finding": "Style and semantic presentation affect selection and human preference under tested conditions, with algorithms and content interacting.",
+      "surfaces": ["geo-content:title", "geo-content:explainer", "geo-content:refine", "strategy"], "disposition": "candidate-guidance",
+      "limitations": ["Preprint", "Custom RAG setup", "Human preference does not equal live citation", "Cross-study measures differ"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P46", "kind": "paper", "title": "Decoupling Search from Reasoning: A Vendor-Agnostic Grounding Architecture for LLM Agents", "catalog_title": "Decoupling Search from Reasoning: A Vendor-Agnostic Grounding Architecture for LLM Agents", "url": "https://arxiv.org/pdf/2606.18947", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism"],
+      "study_design": "Five-model grounding benchmark across SimpleQA, FreshQA, HotpotQA, and a proprietary query set.",
+      "finding": "A decoupled search contract can approach native-search accuracy with lower search cost in selected benchmarks.",
+      "surfaces": ["geo-discover", "knowledge", "shared-kernel"], "disposition": "candidate-guidance",
+      "limitations": ["Third-party APIs", "Automated judging", "One proprietary dataset", "Cost results depend on vendor pricing and latency"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P47", "kind": "paper", "title": "Beyond Parallel Sampling: Diverse Query Initialization for Agentic Search", "catalog_title": "Beyond Parallel Sampling: Diverse Query Initialization for Agentic Search", "url": "https://arxiv.org/pdf/2606.17209", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism", "null-result"],
+      "study_design": "Five open models across eight agentic-search benchmarks with diverse query initialization and three random seeds.",
+      "finding": "Query diversity improves parallel search for capable models, with limited gains below a model-capacity floor.",
+      "surfaces": ["geo-discover", "measure"], "disposition": "candidate-guidance",
+      "limitations": ["Pass-at-k is a benchmark ceiling", "Model capacity dependency", "No production search outcome"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P48", "kind": "paper", "title": "ScholarQuest: A Taxonomy-Guided Benchmark for Agentic Academic Paper Search in Open Literature Environments", "catalog_title": "ScholarQuest: A Taxonomy-Guided Benchmark for Agentic Academic Paper Search in Open Literature Environments", "url": "https://arxiv.org/pdf/2606.20235", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism", "null-result"],
+      "study_design": "One thousand computer-science topics in an arXiv environment comparing taxonomy-guided agentic search with single-shot search.",
+      "finding": "Agentic search improves selected discovery measures, while efficiency and constraint robustness remain weak.",
+      "surfaces": ["geo-discover", "knowledge", "measure"], "disposition": "candidate-guidance",
+      "limitations": ["Computer-science and arXiv scope", "LLM-assisted labels", "No web-wide deployment"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P49", "kind": "paper", "title": "When Does Streaming Tool Use Help? Characterizing Tool-Intent Stabilization in Streaming Retrieval-Augmented Generation", "catalog_title": "When Does Streaming Tool Use Help? Characterizing Tool-Intent Stabilization in Streaming Retrieval-Augmented Generation", "url": "https://arxiv.org/pdf/2606.20113", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism", "null-result"],
+      "study_design": "Deterministic BM25 prefix analysis of 1,371 CRAG validation questions plus a sixty-question streaming harness.",
+      "finding": "Early tool calls help mainly when retrieval intent stabilizes before input completion; benefits collapse for late decisive terms.",
+      "surfaces": ["geo-discover", "measure", "shared-kernel"], "disposition": "candidate-guidance",
+      "limitations": ["Only 21.3 percent of questions were strictly answer-groundable", "Lexical retrieval", "Uniform input cadence proxy", "Single benchmark"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P50", "kind": "paper", "title": "MCompassRAG: Topic Metadata as a Semantic Compass for Paragraph-Level Retrieval", "catalog_title": "MCompassRAG: Topic Metadata as a Semantic Compass for Paragraph-Level Retrieval", "url": "https://arxiv.org/pdf/2606.18508", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism"],
+      "study_design": "Topic-metadata selection and teacher-student retrieval evaluated on paragraph-level retrieval datasets.",
+      "finding": "Corpus-derived topic metadata can improve paragraph retrieval while moving expensive processing offline.",
+      "surfaces": ["geo-discover", "knowledge", "shared-kernel"], "disposition": "candidate-guidance",
+      "limitations": ["Offline retrieval benchmarks", "Teacher-generated labels", "Topic-model dependency", "No generative-search visibility outcome"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P51", "kind": "paper", "title": "SCAR: Semantic Continuity-Aware Retrieval for Efficient Context Expansion in RAG", "catalog_title": "SCAR: Semantic Continuity-Aware Retrieval for Efficient Context Expansion in RAG", "url": "https://arxiv.org/pdf/2606.16661", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism"],
+      "study_design": "Semantic continuity-aware adjacent-chunk expansion across boundary-fragmented and natural retrieval datasets.",
+      "finding": "Query-conditioned expansion improves recall-token efficiency under tested chunk-boundary conditions.",
+      "surfaces": ["geo-discover", "knowledge", "shared-kernel"], "disposition": "candidate-guidance",
+      "limitations": ["Adjacent chunks must retain semantic continuity", "Annotation uncertainty", "Retrieval metric does not establish answer quality"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P52", "kind": "paper", "title": "SproutRAG: Attention-Guided Tree Search with Progressive Embeddings for Long-Document RAG", "catalog_title": "SproutRAG: Attention-Guided Tree Search with Progressive Embeddings for Long-Document RAG", "url": "https://arxiv.org/pdf/2606.18381", "verification_state": "paper-reported", "claim_classes": ["benchmark", "mechanism"],
+      "study_design": "Attention-guided hierarchical tree search with progressive embeddings over four long-document benchmarks and three runs.",
+      "finding": "Progressive hierarchy improves selected retrieval and question-answering measures in long documents.",
+      "surfaces": ["geo-discover", "knowledge", "shared-kernel"], "disposition": "candidate-guidance",
+      "limitations": ["Offline long-document benchmarks", "Architecture-specific ablations", "No web publication effect"], "license": "Paper rights remain with authors and publisher; catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P53", "kind": "paper", "title": "Scaling Search Relevance: Augmenting App Store Ranking with LLM-Generated Judgments", "catalog_title": "Scaling Search Relevance: Augmenting App Store Ranking with LLM-Generated Judgments", "url": "https://arxiv.org/pdf/2602.23234", "verification_state": "not-reproducible", "claim_classes": ["causal", "benchmark", "governance"],
+      "study_design": "Proprietary App Store ranking pipeline with LLM-generated judgments, offline Pareto evaluation, and a worldwide A/B test.",
+      "finding": "Paper-reported offline relevance gains were followed by positive online product metrics in an A/B test.",
+      "surfaces": ["measure", "shared-kernel", "SEO-GEO-boundary"], "disposition": "boundary-only",
+      "limitations": ["Proprietary queries and labels", "Independent reproduction unavailable", "Conventional app-search ranking", "Product metrics are not GEO citation effects"], "license": "Paper is marked CC BY-NC-ND 4.0; no paper text or figures are redistributed. Catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "P54", "kind": "paper", "title": "SAGE: Scalable AI Governance & Evaluation", "catalog_title": "SAGE: Scalable AI Governance & Evaluation", "url": "https://arxiv.org/pdf/2602.07840", "verification_state": "not-reproducible", "claim_classes": ["benchmark", "governance"],
+      "study_design": "LinkedIn policy, precedent, teacher-student distillation, offline evaluation, and production monitoring case study.",
+      "finding": "Explicit policy and calibrated human precedents can scale evaluation through distilled judges, subject to recurring human oversight.",
+      "surfaces": ["knowledge", "measure", "shared-kernel"], "disposition": "retain-guardrail",
+      "limitations": ["Proprietary precedents and models", "Independent reproduction unavailable", "Judge agreement has a human ceiling", "Business outcomes are product-specific"], "license": "Paper rights remain with authors and publisher; no paper text or figures are redistributed. Catalog metadata is attributed under CC BY 4.0."
+    },
+    {
+      "id": "D01", "kind": "dataset", "title": "跨平台引用选择与答案吸收实验数据", "url": "https://github.com/yaojingang/geo-citation-lab/tree/main/01-geo-experiment-data-report", "verification_state": "reproduced", "claim_classes": ["observational-correlation", "mechanism", "null-result"],
+      "study_design": "Committed cross-platform citation and feature CSVs with descriptive reports and a constructed answer-participation proxy.",
+      "constructed_metric": {
+        "name": "influence_score",
+        "interpretation": "constructed answer-participation proxy",
+        "components": [
+          {"name": "capped_reference_count", "weight": 0.2},
+          {"name": "one_minus_first_position_ratio", "weight": 0.15},
+          {"name": "answer_paragraph_coverage_ratio", "weight": 0.2},
+          {"name": "tfidf_cosine_similarity", "weight": 0.25},
+          {"name": "mean_bigram_trigram_overlap", "weight": 0.2}
+        ],
+        "independent_outcome": false,
+        "independence_caveat": "A component's correlation with this proxy cannot serve as independent explanatory or causal evidence."
+      },
+      "finding": "Recalculation confirms platform citation counts, fetch coverage, and means of influence_score. The score is a constructed answer-participation proxy, not an independently observed outcome variable.",
+      "surfaces": ["geo-diagnose", "geo-content:explainer", "geo-content:page-blueprint", "geo-content:article-friendly", "measure"], "disposition": "retain-guardrail",
+      "limitations": ["influence_score is a constructed answer-participation proxy, not an independent ground-truth outcome", "Correlations between the proxy and its reference-count, first-position, paragraph-coverage, TF-IDF, or n-gram components cannot serve as independent explanatory evidence", "Static snapshot", "ChatGPT has fifteen fewer prompts", "Sixteen duplicated CSV header rows", "Unknown geography and language values", "Feature relationships are non-causal"], "license": "GEO Citation Lab original reports, documentation, and catalog metadata are CC BY 4.0; code is MIT; source records retain their stated upstream rights."
+    },
+    {
+      "id": "D02", "kind": "dataset", "title": "CN-GEO 中文生成式搜索引用数据集", "url": "https://github.com/yaojingang/geo-citation-lab/tree/main/03-cn-geo-citation-dataset", "verification_state": "source-reported", "claim_classes": ["observational-correlation", "governance"],
+      "study_design": "Committed release statistics, quality reports, data dictionary, and static report for a Chinese generative-search citation dataset.",
+      "finding": "The release reports 214,119 records across 64 shards and twelve interface codes, with URL and field-quality diagnostics.",
+      "surfaces": ["geo-diagnose", "strategy", "knowledge", "measure", "shared-kernel"], "disposition": "retain-guardrail",
+      "limitations": ["No reliable response or run boundary", "No model version or collection timestamp", "Mobile-interface mapping is inferred", "Missing fields and exact duplicates", "No causal intervention data"], "license": "CN-GEO data is identified as CC BY 4.0 from WENDAOstudy/cn-geo-citation-dataset; GEO Citation Lab documentation and catalog metadata are CC BY 4.0; code is MIT."
+    }
+  ]
+}
