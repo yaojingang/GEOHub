@@ -45,6 +45,16 @@ def test_diagnose_cli_validation_error_is_json(tmp_path, capsys):
     assert "at least one" in payload["message"]
 
 
+def test_measure_cli_prints_summary(tmp_path, capsys):
+    fixture = Path(__file__).parent / "fixtures" / "measurement-brief.json"
+    runs_root = tmp_path / "runs"
+    assert main(["measure", "--input", str(fixture), "--output", str(runs_root)]) == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["trial_count"] == 3
+    assert payload["eligible_trial_count"] == 2
+    assert Path(payload["output"]).parent == runs_root
+
+
 def test_route_cli_rejects_empty_text(capsys):
     assert main(["route", "--text", "   "]) == 2
     payload = json.loads(capsys.readouterr().err)

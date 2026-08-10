@@ -207,5 +207,56 @@
     "expected_outcome": "success",
     "fixture_policy": "synthetic only",
     "fabricated_citations": 0
+  },
+  {
+    "id": "o21",
+    "skill_id": "geo-measure",
+    "case_type": "happy",
+    "input": "tests/fixtures/measurement-brief.json",
+    "route_text": null,
+    "expected_outcome": "success",
+    "fixture_policy": "synthetic only",
+    "fabricated_citations": 0
+  },
+  {
+    "id": "o22",
+    "skill_id": "geo-measure",
+    "case_type": "missing_input",
+    "input": null,
+    "route_text": null,
+    "expected_outcome": "error",
+    "fixture_policy": "synthetic only",
+    "fabricated_citations": 0
+  },
+  {
+    "id": "o23",
+    "skill_id": "geo-measure",
+    "case_type": "boundary",
+    "input": null,
+    "route_text": "Monitor live citation visibility",
+    "expected_skill": "geo-measure",
+    "expected_outcome": "boundary",
+    "fixture_policy": "synthetic only",
+    "fabricated_citations": 0
+  },
+  {
+    "id": "o24",
+    "skill_id": "geo-measure",
+    "case_type": "near_neighbor",
+    "input": null,
+    "route_text": "Audit this website",
+    "expected_outcome": "geo-diagnose",
+    "fixture_policy": "synthetic only",
+    "fabricated_citations": 0
+  },
+  {
+    "id": "o25",
+    "skill_id": "geo-measure",
+    "case_type": "source_shortfall",
+    "input": "tests/fixtures/measurement-brief.json",
+    "route_text": null,
+    "expected_outcome": "success-with-missing-answer",
+    "fixture_policy": "synthetic only",
+    "fabricated_citations": 0
   }
 ]

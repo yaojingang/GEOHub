@@ -78,5 +78,25 @@
   {
     "id": "o20",
     "with_skill_variant": "B"
+  },
+  {
+    "id": "o21",
+    "with_skill_variant": "A"
+  },
+  {
+    "id": "o22",
+    "with_skill_variant": "A"
+  },
+  {
+    "id": "o23",
+    "with_skill_variant": "B"
+  },
+  {
+    "id": "o24",
+    "with_skill_variant": "B"
+  },
+  {
+    "id": "o25",
+    "with_skill_variant": "A"
   }
 ]

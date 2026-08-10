@@ -161,3 +161,43 @@ Prompt: Evaluate the source_shortfall result for geo-content.
 Variant A: General response without declared input, evidence, permission, or artifact contracts.
 
 Variant B: Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.
+
+## o21
+
+Prompt: Evaluate the happy result for geo-measure.
+
+Variant A: Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.
+
+Variant B: General response without declared input, evidence, permission, or artifact contracts.
+
+## o22
+
+Prompt: Evaluate the missing_input result for geo-measure.
+
+Variant A: Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.
+
+Variant B: General response without declared input, evidence, permission, or artifact contracts.
+
+## o23
+
+Prompt: Evaluate the boundary result for geo-measure.
+
+Variant A: General response without declared input, evidence, permission, or artifact contracts.
+
+Variant B: Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.
+
+## o24
+
+Prompt: Evaluate the near_neighbor result for geo-measure.
+
+Variant A: General response without declared input, evidence, permission, or artifact contracts.
+
+Variant B: Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.
+
+## o25
+
+Prompt: Evaluate the source_shortfall result for geo-measure.
+
+Variant A: Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.
+
+Variant B: General response without declared input, evidence, permission, or artifact contracts.

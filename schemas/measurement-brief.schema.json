@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yao.example/geo/schemas/measurement-brief.schema.json",
+  "title": "Measurement Brief",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol_version",
+    "measurement_id",
+    "subject",
+    "study_design",
+    "confidence_level",
+    "inclusion_criteria",
+    "exclusion_criteria",
+    "observations"
+  ],
+  "properties": {
+    "protocol_version": {"const": "1.0.0"},
+    "measurement_id": {"type": "string", "minLength": 1, "maxLength": 200, "pattern": "\\S"},
+    "subject": {"type": "string", "minLength": 1, "maxLength": 500, "pattern": "\\S"},
+    "study_design": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "intervention", "comparator"],
+      "properties": {
+        "kind": {"enum": ["observational", "randomized", "quasi-experimental"]},
+        "intervention": {"type": ["string", "null"], "pattern": "\\S", "maxLength": 500},
+        "comparator": {"type": ["string", "null"], "pattern": "\\S", "maxLength": 500}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"kind": {"const": "observational"}}},
+          "then": {"properties": {"intervention": {"type": "null"}, "comparator": {"type": "null"}}},
+          "else": {"properties": {"intervention": {"type": "string"}, "comparator": {"type": "string"}}}
+        }
+      ]
+    },
+    "confidence_level": {"type": "number", "exclusiveMinimum": 0.5, "exclusiveMaximum": 1},
+    "inclusion_criteria": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 50,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1, "maxLength": 500, "pattern": "\\S"}
+    },
+    "exclusion_criteria": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 50,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1, "maxLength": 500, "pattern": "\\S"}
+    },
+    "observations": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 10000,
+      "items": {"$ref": "#/$defs/observation"}
+    }
+  },
+  "$defs": {
+    "observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "trial_id",
+        "query_id",
+        "engine",
+        "interface",
+        "language",
+        "geography",
+        "collected_at",
+        "model_version",
+        "sample_unit",
+        "eligible",
+        "answered",
+        "cited",
+        "missing_answer_reason",
+        "exclusion_reason",
+        "source_uri"
+      ],
+      "properties": {
+        "trial_id": {"type": "string", "minLength": 1, "maxLength": 200, "pattern": "\\S"},
+        "query_id": {"type": "string", "minLength": 1, "maxLength": 200, "pattern": "\\S"},
+        "engine": {"type": "string", "minLength": 1, "maxLength": 200, "pattern": "\\S"},
+        "interface": {"type": "string", "minLength": 1, "maxLength": 200, "pattern": "\\S"},
+        "language": {"type": "string", "minLength": 1, "maxLength": 100, "pattern": "\\S"},
+        "geography": {"type": "string", "minLength": 1, "maxLength": 100, "pattern": "\\S"},
+        "collected_at": {"type": "string", "format": "date-time"},
+        "model_version": {"type": "string", "minLength": 1, "maxLength": 200, "pattern": "\\S"},
+        "sample_unit": {"type": "string", "minLength": 1, "maxLength": 200, "pattern": "\\S"},
+        "eligible": {"type": "boolean"},
+        "answered": {"type": "boolean"},
+        "cited": {"type": ["boolean", "null"]},
+        "missing_answer_reason": {"type": ["string", "null"], "pattern": "\\S", "maxLength": 500},
+        "exclusion_reason": {"type": ["string", "null"], "pattern": "\\S", "maxLength": 500},
+        "source_uri": {"type": "string", "minLength": 1, "maxLength": 2000, "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:\\S+$", "format": "uri"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"answered": {"const": true}}},
+          "then": {
+            "properties": {
+              "eligible": {"const": true},
+              "cited": {"type": "boolean"},
+              "missing_answer_reason": {"type": "null"},
+              "exclusion_reason": {"type": "null"}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"eligible": {"const": false}}},
+          "then": {
+            "properties": {
+              "answered": {"const": false},
+              "cited": {"type": "null"},
+              "missing_answer_reason": {"type": "null"},
+              "exclusion_reason": {"type": "string"}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"eligible": {"const": true}, "answered": {"const": false}}, "required": ["eligible", "answered"]},
+          "then": {
+            "properties": {
+              "cited": {"type": "null"},
+              "missing_answer_reason": {"type": "string"},
+              "exclusion_reason": {"type": "null"}
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -15,7 +15,7 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 VERSION = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
 DIST = ROOT / "dist"
-SKILLS = ("geo", "geo-discover", "geo-diagnose", "geo-content")
+SKILLS = ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure")
 LEGAL = ("VERSION", "LICENSE", "LICENSE-SCOPE.md", "COMMERCIAL-LICENSING.md", "THIRD_PARTY_NOTICES.md")
 SOURCE_EXACT = set(LEGAL) | {
     "README.md",
@@ -71,7 +71,7 @@ def tracked_files() -> list[Path]:
 
 
 def common_runtime(files: list[Path]) -> dict[str, bytes]:
-    allowed = set(LEGAL)
+    allowed = set(LEGAL) | {"registry/research-evidence.json"}
     prefixes = ("src/", "schemas/")
     return {path.as_posix(): (ROOT / path).read_bytes() for path in files if path.as_posix() in allowed or path.as_posix().startswith(prefixes)}
 

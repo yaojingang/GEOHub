@@ -102,7 +102,6 @@ def test_planned_routes_have_domain_nearest_active_suggestions():
         "strategy": "geo-discover",
         "knowledge base": "geo-content",
         "publish": "geo-content",
-        "measure": "geo-diagnose",
     }
     for text, expected in cases.items():
         result = route(text)
@@ -163,15 +162,12 @@ def test_planned_route_exposes_inputs_and_closest_v0_artifact():
     (
         ("No keyword research then publish", "geo-publish"),
         ("No keyword research then strategy", "geo-strategy"),
-        ("No content then monitor", "geo-measure"),
         ("Skip website audit then knowledge base", "geo-knowledge"),
         ("Avoid content generation then publish to CMS", "geo-publish"),
-        ("No diagnosis then measure AI visibility", "geo-measure"),
         ("Avoid content, then build a roadmap", "geo-strategy"),
         ("不拓词然后发布", "geo-publish"),
         ("不写文章然后策略", "geo-strategy"),
         ("不写文章然后知识库", "geo-knowledge"),
-        ("不诊断然后监测", "geo-measure"),
         ("不拓词然后分发", "geo-publish"),
     ),
 )
@@ -183,6 +179,19 @@ def test_planned_intents_after_negated_sequence_scope_remain_planned(text, skill
     assert result["entry"] is None
     assert result["required_inputs"]
     assert result["closest_v0_artifact"]
+    assert "workflow" not in result
+
+
+@pytest.mark.parametrize(
+    "text",
+    ("No content then monitor", "No diagnosis then measure AI visibility", "不诊断然后监测"),
+)
+def test_measure_intents_after_negated_sequence_scope_are_active(text):
+    result = route(text)
+    assert result["skill_id"] == "geo-measure"
+    assert result["status"] == "active"
+    assert result["runnable"] is True
+    assert result["entry"] == "skills/geo-measure/SKILL.md"
     assert "workflow" not in result
 
 
@@ -446,7 +455,7 @@ def test_buzhi_keeps_both_active_intents_positive():
     "text,skill_id,workflow_id,runnable",
     (
         ("不 只拓词还要写文章", "geo-discover", "content-campaign", True),
-        ("不只监测还要诊断网站", "geo-measure", None, False),
+        ("不只监测还要诊断网站", "geo-diagnose", None, True),
         ("不只是拓词还要诊断网站", "geo-discover", "brand-baseline-lite", True),
         ("不单拓词还要写文章", "geo-discover", "content-campaign", True),
         ("不光发布还要写文章", "geo-publish", None, False),
@@ -527,7 +536,7 @@ def test_dandu_is_a_negative_lead_in_for_active_and_planned_actions(text, skill_
         ("不单是拓词还要诊断网站", "geo-discover", "brand-baseline-lite", True),
         ("不 单 是拓词还要诊断网站", "geo-discover", "brand-baseline-lite", True),
         ("不仅发布还要写文章", "geo-publish", None, False),
-        ("不仅仅监测还要诊断网站", "geo-measure", None, False),
+        ("不仅仅监测还要诊断网站", "geo-diagnose", None, True),
         ("不光发布还要写文章", "geo-publish", None, False),
     ),
 )
@@ -730,7 +739,7 @@ def test_sequence_connector_inside_yizai_does_not_open_scope(text):
         ("不再仅拓词，还需诊断网站", "geo-discover", "brand-baseline-lite", True),
         ("不再只拓词，同时写文章", "geo-discover", "content-campaign", True),
         ("不再光发布，同时写文章", "geo-publish", None, False),
-        ("不再仅监测，也要诊断网站", "geo-measure", None, False),
+        ("不再仅监测，也要诊断网站", "geo-diagnose", None, True),
     ),
 )
 def test_buzai_exclusivity_additive_variants_keep_both_stages_positive(
@@ -1190,9 +1199,6 @@ def test_balanced_or_unclosed_quoted_mentions_do_not_route(text, skill_id):
         ("publish to CMS", "geo-publish"),
         ("发布", "geo-publish"),
         ("发布文章", "geo-publish"),
-        ("monitor AI visibility", "geo-measure"),
-        ("监测 AI 可见度", "geo-measure"),
-        ("衡量效果", "geo-measure"),
         ("制定策略", "geo-strategy"),
         ("构建知识库", "geo-knowledge"),
     ),
@@ -1202,6 +1208,15 @@ def test_standalone_planned_intents_keep_registered_routes(text, skill_id):
     assert result["skill_id"] == skill_id
     assert result["status"] == "planned"
     assert result["runnable"] is False
+
+
+@pytest.mark.parametrize("text", ("monitor AI visibility", "监测 AI 可见度", "衡量效果"))
+def test_standalone_measure_intents_are_runnable(text):
+    result = route(text)
+    assert result["skill_id"] == "geo-measure"
+    assert result["status"] == "active"
+    assert result["runnable"] is True
+    assert result["entry"] == "skills/geo-measure/SKILL.md"
 
 
 @pytest.mark.parametrize(

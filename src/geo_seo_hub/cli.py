@@ -9,6 +9,7 @@ from typing import Sequence
 from .diagnose import diagnose
 from .discover import discover
 from .content import content
+from .measure import measure
 from .router import route
 from .version import package_version
 
@@ -54,6 +55,10 @@ def build_parser() -> argparse.ArgumentParser:
     content_parser = subparsers.add_parser("content", help="Generate evidence-lined content artifacts")
     content_parser.add_argument("--input", required=True, type=Path, help="Content brief JSON")
     content_parser.add_argument("--output", required=True, type=Path, help="Runs root directory")
+
+    measure_parser = subparsers.add_parser("measure", help="Aggregate bounded measurement observations")
+    measure_parser.add_argument("--input", required=True, type=Path, help="Measurement brief JSON")
+    measure_parser.add_argument("--output", required=True, type=Path, help="Runs root directory")
     return parser
 
 
@@ -67,8 +72,10 @@ def main(argv: Sequence[str] | None = None) -> int:
             result = discover(args.input, args.output)
         elif args.command == "diagnose":
             result = diagnose(args.input, args.output)
-        else:
+        elif args.command == "content":
             result = content(args.input, args.output)
+        else:
+            result = measure(args.input, args.output)
     except (OSError, ValueError) as exc:
         print(json.dumps({"status": "error", "message": str(exc)}, ensure_ascii=False, allow_nan=False), file=sys.stderr)
         return 2

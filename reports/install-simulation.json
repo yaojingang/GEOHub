@@ -9,7 +9,8 @@
       "route",
       "discover",
       "diagnose",
-      "content"
+      "content",
+      "measure"
     ],
     "status": "pass"
   },
@@ -20,14 +21,16 @@
       "entries": [
         "references/providers/geo-discover.md",
         "references/providers/geo-diagnose.md",
-        "references/providers/geo-content.md"
+        "references/providers/geo-content.md",
+        "references/providers/geo-measure.md"
       ],
       "resolved_entry": true,
       "installed_share_resolved": true,
       "provider_executions": [
         "geo-discover",
         "geo-diagnose",
-        "geo-content"
+        "geo-content",
+        "geo-measure"
       ],
       "runtime_data": true,
       "status": "pass"
@@ -38,14 +41,16 @@
       "entries": [
         "references/providers/geo-discover.md",
         "references/providers/geo-diagnose.md",
-        "SKILL.md"
+        "SKILL.md",
+        "references/providers/geo-measure.md"
       ],
       "resolved_entry": true,
       "installed_share_resolved": true,
       "provider_executions": [
         "geo-discover",
         "geo-diagnose",
-        "geo-content"
+        "geo-content",
+        "geo-measure"
       ],
       "runtime_data": true,
       "status": "pass"
@@ -56,14 +61,16 @@
       "entries": [
         "references/providers/geo-discover.md",
         "SKILL.md",
-        "references/providers/geo-content.md"
+        "references/providers/geo-content.md",
+        "references/providers/geo-measure.md"
       ],
       "resolved_entry": true,
       "installed_share_resolved": true,
       "provider_executions": [
         "geo-discover",
         "geo-diagnose",
-        "geo-content"
+        "geo-content",
+        "geo-measure"
       ],
       "runtime_data": true,
       "status": "pass"
@@ -74,14 +81,36 @@
       "entries": [
         "SKILL.md",
         "references/providers/geo-diagnose.md",
-        "references/providers/geo-content.md"
+        "references/providers/geo-content.md",
+        "references/providers/geo-measure.md"
       ],
       "resolved_entry": true,
       "installed_share_resolved": true,
       "provider_executions": [
         "geo-discover",
         "geo-diagnose",
-        "geo-content"
+        "geo-content",
+        "geo-measure"
+      ],
+      "runtime_data": true,
+      "status": "pass"
+    },
+    {
+      "package": "geo-measure-community-0.2.0.zip",
+      "installed_from": ".",
+      "entries": [
+        "references/providers/geo-discover.md",
+        "references/providers/geo-diagnose.md",
+        "references/providers/geo-content.md",
+        "SKILL.md"
+      ],
+      "resolved_entry": true,
+      "installed_share_resolved": true,
+      "provider_executions": [
+        "geo-discover",
+        "geo-diagnose",
+        "geo-content",
+        "geo-measure"
       ],
       "runtime_data": true,
       "status": "pass"
@@ -92,14 +121,16 @@
       "entries": [
         "references/providers/geo-discover.md",
         "references/providers/geo-diagnose.md",
-        "references/providers/geo-content.md"
+        "references/providers/geo-content.md",
+        "references/providers/geo-measure.md"
       ],
       "resolved_entry": true,
       "installed_share_resolved": true,
       "provider_executions": [
         "geo-discover",
         "geo-diagnose",
-        "geo-content"
+        "geo-content",
+        "geo-measure"
       ],
       "runtime_data": true,
       "status": "pass"
@@ -110,14 +141,16 @@
       "entries": [
         "references/providers/geo-discover.md",
         "references/providers/geo-diagnose.md",
-        "references/providers/geo-content.md"
+        "references/providers/geo-content.md",
+        "references/providers/geo-measure.md"
       ],
       "resolved_entry": true,
       "installed_share_resolved": true,
       "provider_executions": [
         "geo-discover",
         "geo-diagnose",
-        "geo-content"
+        "geo-content",
+        "geo-measure"
       ],
       "runtime_data": true,
       "status": "pass"
@@ -128,14 +161,16 @@
       "entries": [
         "references/providers/geo-discover.md",
         "references/providers/geo-diagnose.md",
-        "references/providers/geo-content.md"
+        "references/providers/geo-content.md",
+        "references/providers/geo-measure.md"
       ],
       "resolved_entry": true,
       "installed_share_resolved": true,
       "provider_executions": [
         "geo-discover",
         "geo-diagnose",
-        "geo-content"
+        "geo-content",
+        "geo-measure"
       ],
       "runtime_data": true,
       "status": "pass"

@@ -18,7 +18,9 @@
 2. 引擎、界面、语言、地区、时间和竞争环境会改变结果，单次测量不足以表达真实分布。
 3. 多项基准给出空结果、负结果或退化结果，内容改写缺少跨平台稳定增益证据。
 
-本审计的交付状态为 `DONE_WITH_CONCERNS`。关注点集中在效果证据：现有研究无法为当前模式提供通用的线上效果承诺，也无法支持将启发式分数解释为真实平台表现。`strategy`、`knowledge`、`publish`、`measure` 继续保持 planned 和不可运行状态。
+本审计的交付状态为 `DONE_WITH_CONCERNS`。关注点集中在效果证据：现有研究无法为当前模式提供通用的线上效果承诺，也无法支持将启发式分数解释为真实平台表现。审计确认门冻结 `strategy`、`knowledge`、`publish`、`measure` 的运行状态。
+
+2026-08-11 的用户确认已解除 `measure` 冻结。`geo-measure 1.0` 仅聚合用户提供的离线观测，保留平台范围、时间、分子、分母、缺失回答、排除原因和 Wilson 区间，并统一输出 `causal_status: descriptive`。它不连接平台、不登录账户、不执行持续监测，也不提供效果保证。`strategy`、`knowledge`、`publish` 继续保持 planned。
 
 ## 范围与材料
 
@@ -158,7 +160,7 @@ P0 规则：
 | `strategy` | P03、P12、P14、P17、P21 表明平台和品牌分层明显 | 保持 planned；先定义假设、分层和停止条件 |
 | `knowledge` | P25、P32、P34、P36、P37、P50 至 P52 要求来源、冲突、分块和安全控制 | 保持 planned；先定义权利、溯源、冲突、时效和投毒防护 |
 | `publish` | P44 的生产结果为私有、平台特定且不可独立核验 | 保持 planned；先定义授权、预览、可逆动作和变更记录 |
-| `measure` | P14、P15、P17、P21、P22、P23、P53、P54 要求重复试验、实验标签、缺失回答核算和人工校准 | 保持 planned；每项指标需记录合格试验、已回答、缺失原因、分子分母、纳排标准和区间方法 |
+| `measure` | P14、P15、P17、P21、P22、P23、P53、P54 要求重复试验、实验标签、缺失回答核算和人工校准 | 用户确认后启用严格离线聚合；每项指标记录合格试验、已回答、缺失原因、分子分母、纳排标准和区间方法 |
 
 ### SEO-GEO 边界
 
@@ -187,14 +189,14 @@ P11、P13、P18、P21、P23、P34 和 P40 都表明传统检索、索引、候�
 
 - 所有 active 模式继续禁止引用、排名、流量、转化和收入保证。
 - 观察相关不能写成因果建议，benchmark 结果不能写成线上效果。
-- `strategy`、`knowledge`、`publish`、`measure` 继续不可运行。
+- `strategy`、`knowledge`、`publish` 继续不可运行；`measure` 只接受显式离线观测。
 - 工程测试只进入契约或回归证据。
 - 私有结果和弱溯源材料不得成为核心 tactic 依据。
 - 内容生成保留事实支持、语义保真、冲突和安全检查。
 
 ### P1：确认后设计
 
-- 为未来 measure artifact 增加 intervention、comparator、engine、interface、language、geography、collected_at、model_version、sample_unit、trial_count、eligible_trial_count、answered_count、missing_answer_count、missing_answer_reason、numerator、denominator、inclusion_criteria、exclusion_criteria、interval_lower、interval_upper、interval_method。
+- measure artifact 已增加 intervention、comparator、engine、interface、language、geography、collected_at、model_version、sample_unit、trial_count、eligible_trial_count、answered_count、missing_answer_count、missing_answer_reason、numerator、denominator、inclusion_criteria、exclusion_criteria、interval_lower、interval_upper、interval_method。
 - 同时记录提升、空结果、负结果、退化和停止原因。
 - 为内容评估增加 prompt injection、retrieval poisoning、rank manipulation 和 semantic drift 检查。
 - 为数据快照增加版本、校验和、授权、权利范围和运行边界。
@@ -208,9 +210,9 @@ P11、P13、P18、P21、P23、P34 和 P40 都表明传统检索、索引、候�
 
 ## 确认门建议
 
-可以确认以下研究政策：证据状态词表、声明类型、无效果保证、重复测量要求、SEO-GEO 边界、安全治理和 planned 表面冻结。
+已确认以下研究政策：证据状态词表、声明类型、无效果保证、重复测量要求、SEO-GEO 边界、安全治理和 planned 表面冻结。`measure` 的确认范围仅覆盖离线描述性聚合。
 
-运行时扩展仍需单独确认。未来实现必须先定义可验证的 artifact 和失败模式，再将研究假设接入产品。任何线上效果声明都需要独立测量资产和适当实验设计。
+其他运行时扩展仍需单独确认。未来实现必须先定义可验证的 artifact 和失败模式，再将研究假设接入产品。任何线上效果声明都需要独立测量资产和适当实验设计。
 
 ## 附录 A：P01 至 P54 逐篇审计
 

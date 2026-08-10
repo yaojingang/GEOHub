@@ -11,9 +11,9 @@ Routing uses normalized phrase matching. A broad or unmatched GEO request falls 
 
 The router may suggest 'geo-discover' when a downstream route is unavailable. A suggestion is not an assertion that discovery fulfills the unavailable stage.
 
-`geo-discover`, `geo-diagnose`, and `geo-content` are active alongside the `geo` umbrella router. Discovery covers intent and query research; diagnosis covers evidence-lined brand, site, and page audits; content covers title, explainer, comparison, ranking, page-blueprint, refine, and article-friendly requests in Chinese and English.
+`geo-discover`, `geo-diagnose`, `geo-content`, and `geo-measure` are active alongside the `geo` umbrella router. Discovery covers intent and query research; diagnosis covers evidence-lined brand, site, and page audits; content covers title, explainer, comparison, ranking, page-blueprint, refine, and article-friendly requests; measurement aggregates explicit offline observation records with complete denominators and intervals.
 
-`geo-strategy`, `geo-knowledge`, `geo-publish`, and `geo-measure` remain planned roadmap routes with no runnable entry.
+`geo-strategy`, `geo-knowledge`, and `geo-publish` remain planned roadmap routes with no runnable entry.
 # Routing contract
 
 `registry/skills.yaml` and `skills/RESOLVER.md` define route ownership. Existing response keys remain stable. `workflow` is optional and appears only for an exact supported multi-intent recipe. Planned entries have no entrypoint, stay non-runnable, and expose a domain-nearest active suggestion, `required_inputs`, and `closest_v0_artifact`.

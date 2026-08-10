@@ -19,7 +19,7 @@ VERSION = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
 EXPECTED = {
     f"geo-seo-hub-source-{VERSION}.zip",
     f"geo-seo-hub-unified-community-{VERSION}.zip",
-    *(f"{skill}-community-{VERSION}.zip" for skill in ("geo", "geo-discover", "geo-diagnose", "geo-content")),
+    *(f"{skill}-community-{VERSION}.zip" for skill in ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure")),
     f"geo-seo-hub-codex-community-{VERSION}.zip",
     f"geo-seo-hub-claude-community-{VERSION}.zip",
 }
@@ -64,7 +64,7 @@ def verify_archive(path: Path) -> dict:
         skill_count = sum(name.endswith("SKILL.md") for name in names)
         if not path.name.startswith("geo-seo-hub-source-") and skill_count != 1:
             raise ValueError(f"{path.name} must contain exactly one SKILL.md; found {skill_count}")
-        skill_ids = ("geo", "geo-discover", "geo-diagnose", "geo-content")
+        skill_ids = ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure")
         if path.name.startswith("geo-seo-hub-source-"):
             if "SECURITY.md" not in stripped:
                 raise ValueError(f"{path.name} missing SECURITY.md")
@@ -121,7 +121,7 @@ def verify_archive(path: Path) -> dict:
                 if missing_references:
                     raise ValueError(f"{path.name} provider entry {skill['id']} references missing resources: {missing_references}")
             resolved_entries = len(active_entries)
-            expected_wrappers = {f"scripts/run_{name}.py" for name in ("route", "discover", "diagnose", "content")}
+            expected_wrappers = {f"scripts/run_{name}.py" for name in ("route", "discover", "diagnose", "content", "measure")}
             if not expected_wrappers <= set(members):
                 raise ValueError(f"{path.name} missing provider wrappers")
     return {"name": path.name, "sha256": sha256(path), "members": len(names), "skill_count": skill_count, "self_installable": self_installable, "resolved_active_entries": resolved_entries, "status": "pass"}

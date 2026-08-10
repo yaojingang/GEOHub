@@ -442,12 +442,12 @@
         "expected": {
           "skill_id": "geo-measure",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         },
         "actual": {
           "skill_id": "geo-measure",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         }
       },
       {
@@ -456,12 +456,12 @@
         "expected": {
           "skill_id": "geo-measure",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         },
         "actual": {
           "skill_id": "geo-measure",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         }
       },
       {
@@ -736,12 +736,12 @@
         "expected": {
           "skill_id": "geo-measure",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         },
         "actual": {
           "skill_id": "geo-measure",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         }
       },
       {
@@ -2010,12 +2010,12 @@
         "expected": {
           "skill_id": "geo-measure",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         },
         "actual": {
           "skill_id": "geo-measure",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         }
       },
       {
@@ -2052,12 +2052,12 @@
         "expected": {
           "skill_id": "geo-measure",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         },
         "actual": {
           "skill_id": "geo-measure",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         }
       },
       {
@@ -2122,12 +2122,12 @@
         "expected": {
           "skill_id": "geo-measure",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         },
         "actual": {
           "skill_id": "geo-measure",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         }
       },
       {
@@ -2946,14 +2946,14 @@
         "id": "r210",
         "passed": true,
         "expected": {
-          "skill_id": "geo-measure",
+          "skill_id": "geo-diagnose",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         },
         "actual": {
-          "skill_id": "geo-measure",
+          "skill_id": "geo-diagnose",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         }
       },
       {
@@ -3198,14 +3198,14 @@
         "id": "r228",
         "passed": true,
         "expected": {
-          "skill_id": "geo-measure",
+          "skill_id": "geo-diagnose",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         },
         "actual": {
-          "skill_id": "geo-measure",
+          "skill_id": "geo-diagnose",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         }
       },
       {
@@ -5174,12 +5174,12 @@
         "expected": {
           "skill_id": "geo-measure",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         },
         "actual": {
           "skill_id": "geo-measure",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         }
       },
       {
@@ -5188,12 +5188,12 @@
         "expected": {
           "skill_id": "geo-measure",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         },
         "actual": {
           "skill_id": "geo-measure",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         }
       },
       {
@@ -5202,12 +5202,12 @@
         "expected": {
           "skill_id": "geo-measure",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         },
         "actual": {
           "skill_id": "geo-measure",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         }
       },
       {
@@ -5241,8 +5241,8 @@
     ]
   },
   "triggers": {
-    "case_count": 27,
-    "passed": 27,
+    "case_count": 33,
+    "passed": 33,
     "compliance": 1.0,
     "results": [
       {
@@ -5376,7 +5376,7 @@
         "family": "should_not_trigger",
         "text": "Monitor our ranking",
         "passed": true,
-        "actual": "geo-measure"
+        "actual": "geo-content"
       },
       {
         "skill_id": "geo-diagnose",
@@ -5433,12 +5433,54 @@
         "text": "Build a knowledge graph",
         "passed": true,
         "actual": "geo-knowledge"
+      },
+      {
+        "skill_id": "geo-measure",
+        "family": "should_trigger",
+        "text": "Measure citation rate from these observation records",
+        "passed": true,
+        "actual": "geo-measure"
+      },
+      {
+        "skill_id": "geo-measure",
+        "family": "should_trigger",
+        "text": "衡量这批 AI 可见度观测",
+        "passed": true,
+        "actual": "geo-measure"
+      },
+      {
+        "skill_id": "geo-measure",
+        "family": "should_not_trigger",
+        "text": "Audit this website",
+        "passed": true,
+        "actual": "geo-diagnose"
+      },
+      {
+        "skill_id": "geo-measure",
+        "family": "should_not_trigger",
+        "text": "Publish this article",
+        "passed": true,
+        "actual": "geo-publish"
+      },
+      {
+        "skill_id": "geo-measure",
+        "family": "near_neighbor",
+        "text": "Run query research for customer questions",
+        "passed": true,
+        "actual": "geo-discover"
+      },
+      {
+        "skill_id": "geo-measure",
+        "family": "near_neighbor",
+        "text": "Write an explainer",
+        "passed": true,
+        "actual": "geo-content"
       }
     ]
   },
   "outputs": {
-    "case_count": 20,
-    "passed": 20,
+    "case_count": 25,
+    "passed": 25,
     "contract_compliance": 1.0,
     "fabricated_citations": 0,
     "citation_metric_definition": "Every source_uri in a generated evidence ledger must occur in its snapshotted input JSON.",
@@ -5619,6 +5661,51 @@
       {
         "id": "o20",
         "skill_id": "geo-content",
+        "case_type": "source_shortfall",
+        "passed": true,
+        "fabricated_citations": 0,
+        "detail": "contract satisfied",
+        "execution_kind": "deterministic_local"
+      },
+      {
+        "id": "o21",
+        "skill_id": "geo-measure",
+        "case_type": "happy",
+        "passed": true,
+        "fabricated_citations": 0,
+        "detail": "contract satisfied",
+        "execution_kind": "deterministic_local"
+      },
+      {
+        "id": "o22",
+        "skill_id": "geo-measure",
+        "case_type": "missing_input",
+        "passed": true,
+        "fabricated_citations": 0,
+        "detail": "contract satisfied",
+        "execution_kind": "deterministic_local"
+      },
+      {
+        "id": "o23",
+        "skill_id": "geo-measure",
+        "case_type": "boundary",
+        "passed": true,
+        "fabricated_citations": 0,
+        "detail": "contract satisfied",
+        "execution_kind": "deterministic_local"
+      },
+      {
+        "id": "o24",
+        "skill_id": "geo-measure",
+        "case_type": "near_neighbor",
+        "passed": true,
+        "fabricated_citations": 0,
+        "detail": "contract satisfied",
+        "execution_kind": "deterministic_local"
+      },
+      {
+        "id": "o25",
+        "skill_id": "geo-measure",
         "case_type": "source_shortfall",
         "passed": true,
         "fabricated_citations": 0,

@@ -99,6 +99,8 @@ def test_offline_wheel_install_runs_diagnose_outside_repository(tmp_path):
                 "assert (prefix/'share/geo-seo-hub/skills/geo-diagnose/SKILL.md').is_file(); "
                 "assert (prefix/'share/geo-seo-hub/skills/geo-content/SKILL.md').is_file(); "
                 "assert (prefix/'share/geo-seo-hub/skills/geo-content/references/modes.md').is_file(); "
+                "assert (prefix/'share/geo-seo-hub/skills/geo-measure/SKILL.md').is_file(); "
+                "assert (prefix/'share/geo-seo-hub/skills/geo-measure/references/measurement-method.md').is_file(); "
                 "print(prefix)"
             ),
         ],
@@ -172,3 +174,20 @@ def test_offline_wheel_install_runs_diagnose_outside_repository(tmp_path):
         _run([str(console), "route", "--text", "Create an article-friendly draft"], cwd=outside, env=environment).stdout
     )
     assert routed["skill_id"] == "geo-content"
+
+    measure_completed = _run(
+        [
+            str(console),
+            "measure",
+            "--input",
+            str(root / "tests" / "fixtures" / "measurement-brief.json"),
+            "--output",
+            str(tmp_path / "measure-runs"),
+        ],
+        cwd=outside,
+        env=environment,
+    )
+    measure_payload = json.loads(measure_completed.stdout)
+    measure_run = Path(measure_payload["output"])
+    assert (measure_run / "measurement-report.json").is_file()
+    assert (measure_run / "research-context.json").is_file()

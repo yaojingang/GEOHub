@@ -1,0 +1,28 @@
+{
+  "protocol_version": "1.0.0",
+  "measurement_id": "example-baseline",
+  "subject": "Example brand citation baseline",
+  "study_design": {"kind": "observational", "intervention": null, "comparator": null},
+  "confidence_level": 0.95,
+  "inclusion_criteria": ["Response collected through the declared interface"],
+  "exclusion_criteria": ["Transport failure before a model response"],
+  "observations": [
+    {
+      "trial_id": "trial-001",
+      "query_id": "query-001",
+      "engine": "Example Engine",
+      "interface": "web",
+      "language": "en",
+      "geography": "US",
+      "collected_at": "2026-08-11T00:00:00Z",
+      "model_version": "example-2026-08",
+      "sample_unit": "query-response",
+      "eligible": true,
+      "answered": true,
+      "cited": false,
+      "missing_answer_reason": null,
+      "exclusion_reason": null,
+      "source_uri": "urn:geo-measure:example-trial-001"
+    }
+  ]
+}

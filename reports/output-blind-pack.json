@@ -138,5 +138,40 @@
     "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
     "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
     "review_status": "pending; missing evidence"
+  },
+  {
+    "id": "o21",
+    "prompt": "Evaluate the happy result for geo-measure.",
+    "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+    "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
+    "review_status": "pending; missing evidence"
+  },
+  {
+    "id": "o22",
+    "prompt": "Evaluate the missing_input result for geo-measure.",
+    "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+    "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
+    "review_status": "pending; missing evidence"
+  },
+  {
+    "id": "o23",
+    "prompt": "Evaluate the boundary result for geo-measure.",
+    "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
+    "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+    "review_status": "pending; missing evidence"
+  },
+  {
+    "id": "o24",
+    "prompt": "Evaluate the near_neighbor result for geo-measure.",
+    "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
+    "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+    "review_status": "pending; missing evidence"
+  },
+  {
+    "id": "o25",
+    "prompt": "Evaluate the source_shortfall result for geo-measure.",
+    "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+    "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
+    "review_status": "pending; missing evidence"
   }
 ]

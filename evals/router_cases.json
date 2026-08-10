@@ -306,7 +306,7 @@
     "expected": {
       "skill_id": "geo-measure",
       "workflow_id": null,
-      "runnable": false
+      "runnable": true
     }
   },
   {
@@ -316,7 +316,7 @@
     "expected": {
       "skill_id": "geo-measure",
       "workflow_id": null,
-      "runnable": false
+      "runnable": true
     }
   },
   {
@@ -516,7 +516,7 @@
     "expected": {
       "skill_id": "geo-measure",
       "workflow_id": null,
-      "runnable": false
+      "runnable": true
     }
   },
   {
@@ -1131,7 +1131,7 @@
     "id": "r143",
     "text": "No content then monitor",
     "category": "adversarial",
-    "expected": {"skill_id": "geo-measure", "workflow_id": null, "runnable": false}
+    "expected": {"skill_id": "geo-measure", "workflow_id": null, "runnable": true}
   },
   {
     "id": "r144",
@@ -1149,7 +1149,7 @@
     "id": "r146",
     "text": "No diagnosis then measure AI visibility",
     "category": "adversarial",
-    "expected": {"skill_id": "geo-measure", "workflow_id": null, "runnable": false}
+    "expected": {"skill_id": "geo-measure", "workflow_id": null, "runnable": true}
   },
   {
     "id": "r147",
@@ -1179,7 +1179,7 @@
     "id": "r151",
     "text": "不诊断然后监测",
     "category": "adversarial",
-    "expected": {"skill_id": "geo-measure", "workflow_id": null, "runnable": false}
+    "expected": {"skill_id": "geo-measure", "workflow_id": null, "runnable": true}
   },
   {
     "id": "r152",
@@ -1533,7 +1533,7 @@
     "id": "r210",
     "text": "不只监测还要诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo-measure", "workflow_id": null, "runnable": false}
+    "expected": {"skill_id": "geo-diagnose", "workflow_id": null, "runnable": true}
   },
   {
     "id": "r211",
@@ -1641,7 +1641,7 @@
     "id": "r228",
     "text": "不仅仅监测还要诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo-measure", "workflow_id": null, "runnable": false}
+    "expected": {"skill_id": "geo-diagnose", "workflow_id": null, "runnable": true}
   },
   {
     "id": "r229",
@@ -2486,20 +2486,20 @@
   {
     "id": "r369",
     "text": "monitor AI visibility",
-    "category": "planned",
-    "expected": {"skill_id": "geo-measure", "workflow_id": null, "runnable": false}
+    "category": "single",
+    "expected": {"skill_id": "geo-measure", "workflow_id": null, "runnable": true}
   },
   {
     "id": "r370",
     "text": "监测 AI 可见度",
-    "category": "planned",
-    "expected": {"skill_id": "geo-measure", "workflow_id": null, "runnable": false}
+    "category": "single",
+    "expected": {"skill_id": "geo-measure", "workflow_id": null, "runnable": true}
   },
   {
     "id": "r371",
     "text": "衡量效果",
-    "category": "planned",
-    "expected": {"skill_id": "geo-measure", "workflow_id": null, "runnable": false}
+    "category": "single",
+    "expected": {"skill_id": "geo-measure", "workflow_id": null, "runnable": true}
   },
   {
     "id": "r372",

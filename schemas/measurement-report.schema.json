@@ -1,0 +1,161 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yao.example/geo/schemas/measurement-report.schema.json",
+  "title": "Measurement Report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol_version",
+    "run_id",
+    "measurement_id",
+    "subject",
+    "study_design",
+    "measurement_scope",
+    "effect_guarantee",
+    "causal_status",
+    "trial_count",
+    "eligible_trial_count",
+    "answered_count",
+    "missing_answer_count",
+    "excluded_count",
+    "missing_answer_reasons",
+    "exclusion_reasons",
+    "inclusion_criteria",
+    "exclusion_criteria",
+    "metrics",
+    "platform_strata",
+    "data_sources",
+    "limitations"
+  ],
+  "properties": {
+    "protocol_version": {"const": "1.0.0"},
+    "run_id": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "measurement_id": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "subject": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "study_design": {"$ref": "#/$defs/studyDesign"},
+    "measurement_scope": {"$ref": "#/$defs/scope"},
+    "effect_guarantee": {"const": false},
+    "causal_status": {"const": "descriptive"},
+    "trial_count": {"type": "integer", "minimum": 1},
+    "eligible_trial_count": {"type": "integer", "minimum": 1},
+    "answered_count": {"type": "integer", "minimum": 0},
+    "missing_answer_count": {"type": "integer", "minimum": 0},
+    "excluded_count": {"type": "integer", "minimum": 0},
+    "missing_answer_reasons": {"$ref": "#/$defs/counts"},
+    "exclusion_reasons": {"$ref": "#/$defs/counts"},
+    "inclusion_criteria": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "\\S"}},
+    "exclusion_criteria": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "\\S"}},
+    "metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["answer_rate", "citation_rate", "conditional_citation_rate"],
+      "properties": {
+        "answer_rate": {"$ref": "#/$defs/rate"},
+        "citation_rate": {"$ref": "#/$defs/rate"},
+        "conditional_citation_rate": {"$ref": "#/$defs/rate"}
+      }
+    },
+    "platform_strata": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/stratum"}
+    },
+    "data_sources": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "format": "uri", "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:\\S+$"}},
+    "limitations": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "\\S"}}
+  },
+  "$defs": {
+    "studyDesign": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "intervention", "comparator"],
+      "properties": {
+        "kind": {"enum": ["observational", "randomized", "quasi-experimental"]},
+        "intervention": {"type": ["string", "null"], "pattern": "\\S"},
+        "comparator": {"type": ["string", "null"], "pattern": "\\S"}
+      }
+    },
+    "counts": {
+      "type": "object",
+      "propertyNames": {"minLength": 1, "pattern": "\\S"},
+      "additionalProperties": {"type": "integer", "minimum": 1}
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["engines", "interfaces", "languages", "geographies", "model_versions", "sample_units", "collected_from", "collected_to"],
+      "properties": {
+        "engines": {"$ref": "#/$defs/nonblankStrings"},
+        "interfaces": {"$ref": "#/$defs/nonblankStrings"},
+        "languages": {"$ref": "#/$defs/nonblankStrings"},
+        "geographies": {"$ref": "#/$defs/nonblankStrings"},
+        "model_versions": {"$ref": "#/$defs/nonblankStrings"},
+        "sample_units": {"$ref": "#/$defs/nonblankStrings"},
+        "collected_from": {"type": "string", "format": "date-time"},
+        "collected_to": {"type": "string", "format": "date-time"}
+      }
+    },
+    "nonblankStrings": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "\\S"}},
+    "rate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["numerator", "denominator", "estimate", "interval_lower", "interval_upper", "interval_method"],
+      "properties": {
+        "numerator": {"type": "integer", "minimum": 0},
+        "denominator": {"type": "integer", "minimum": 0},
+        "estimate": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "interval_lower": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "interval_upper": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "interval_method": {"enum": ["wilson-score", "not-computable"]}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"denominator": {"const": 0}}},
+          "then": {
+            "properties": {
+              "numerator": {"const": 0},
+              "estimate": {"type": "null"},
+              "interval_lower": {"type": "null"},
+              "interval_upper": {"type": "null"},
+              "interval_method": {"const": "not-computable"}
+            }
+          },
+          "else": {
+            "properties": {
+              "denominator": {"minimum": 1},
+              "estimate": {"type": "number"},
+              "interval_lower": {"type": "number"},
+              "interval_upper": {"type": "number"},
+              "interval_method": {"const": "wilson-score"}
+            }
+          }
+        }
+      ]
+    },
+    "stratum": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["engine", "interface", "language", "geography", "model_version", "sample_unit", "trial_count", "answered_count", "missing_answer_count", "metrics"],
+      "properties": {
+        "engine": {"type": "string", "pattern": "\\S"},
+        "interface": {"type": "string", "pattern": "\\S"},
+        "language": {"type": "string", "pattern": "\\S"},
+        "geography": {"type": "string", "pattern": "\\S"},
+        "model_version": {"type": "string", "pattern": "\\S"},
+        "sample_unit": {"type": "string", "pattern": "\\S"},
+        "trial_count": {"type": "integer", "minimum": 1},
+        "answered_count": {"type": "integer", "minimum": 0},
+        "missing_answer_count": {"type": "integer", "minimum": 0},
+        "metrics": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["answer_rate", "citation_rate", "conditional_citation_rate"],
+          "properties": {
+            "answer_rate": {"$ref": "#/$defs/rate"},
+            "citation_rate": {"$ref": "#/$defs/rate"},
+            "conditional_citation_rate": {"$ref": "#/$defs/rate"}
+          }
+        }
+      }
+    }
+  }
+}

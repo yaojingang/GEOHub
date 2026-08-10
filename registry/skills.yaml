@@ -71,12 +71,9 @@ skills:
     intents: [publish, distribute, 发布, 分发]
     outputs: [run-manifest]
   - id: geo-measure
-    status: planned
+    status: active
     active_placeholder: false
-    entry: null
-    nearest_active: geo-diagnose
-    required_inputs: [subject, baseline, observation_window]
-    closest_v0_artifact: quality-report
-    summary: Roadmap route for measurement.
+    entry: skills/geo-measure/SKILL.md
+    summary: Offline aggregation of explicit platform observations with denominators, missing-answer accounting, strata, and intervals.
     intents: [measure, monitor, tracking, 监测, 衡量, 效果]
-    outputs: [quality-report]
+    outputs: [measurement-report, report, evidence-ledger, research-context, quality-report, run-manifest]

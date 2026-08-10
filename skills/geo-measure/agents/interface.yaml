@@ -1,0 +1,40 @@
+interface:
+  display_name: "GEO SEO Hub Measure"
+  short_description: "Aggregate supplied observations with complete denominators and intervals"
+  default_prompt: "Use $geo-measure to aggregate these explicit observations, preserve missing answers and exclusions, and state the measurement scope and limits."
+  input_contract:
+    required:
+      measurement_id: "non-blank string"
+      subject: "non-blank string"
+      study_design: "observational, randomized, or quasi-experimental with explicit intervention/comparator rules"
+      confidence_level: "number greater than 0.5 and less than 1"
+      inclusion_criteria: "non-empty unique strings"
+      exclusion_criteria: "non-empty unique strings"
+      observations: "1 to 10,000 explicit trial records with platform, time, eligibility, answer, citation, and source lineage"
+    invariants: "at least one eligible trial; unique trial IDs; unanswered eligible trials require a reason and remain in denominators"
+  output_contract:
+    - "input/measurement-brief.json"
+    - "measurement-report.json"
+    - "report.md"
+    - "evidence-ledger.json"
+    - "research-context.json"
+    - "quality-report.json"
+    - "run-manifest.json"
+  permission_contract: {filesystem: "read one input and write selected runs root", network: "forbid"}
+compatibility:
+  canonical_format: "agent-skills"
+  adapter_targets: [openai, claude, generic]
+  activation:
+    mode: "auto"
+    paths: []
+  execution:
+    context: "inline"
+    shell: "bash"
+  trust:
+    source_tier: "local"
+    remote_inline_execution: "forbid"
+    remote_metadata_policy: "allow-metadata-only"
+  degradation:
+    openai: "metadata-adapter"
+    claude: "neutral-source-plus-adapter"
+    generic: "neutral-source"

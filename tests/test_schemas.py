@@ -23,6 +23,8 @@ from scripts.package_repository import build_archive, trusted_files
 def test_all_protocol_schemas_are_valid():
     expected = {
         "geo-brief",
+        "measurement-brief",
+        "measurement-report",
         "run-manifest",
         "evidence-ledger",
         "brand-fact-card",
@@ -161,7 +163,7 @@ def test_skill_manifests_declare_license_governance():
         "copyright_owner": "姚金刚 / Yao",
         "third_party_notice_required": True,
     }
-    for skill_id in ("geo", "geo-discover", "geo-diagnose"):
+    for skill_id in ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure"):
         path = repository_root() / "skills" / skill_id / "manifest.json"
         manifest = json.loads(path.read_text(encoding="utf-8"))
         assert {key: manifest[key] for key in expected} == expected

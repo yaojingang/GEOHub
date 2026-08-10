@@ -1,0 +1,71 @@
+{
+  "protocol_version": "1.0.0",
+  "measurement_id": "geo-company-baseline",
+  "subject": "GEO optimization companies",
+  "study_design": {
+    "kind": "observational",
+    "intervention": null,
+    "comparator": null
+  },
+  "confidence_level": 0.95,
+  "inclusion_criteria": [
+    "Query executed through the declared interface",
+    "Response captured during the declared collection window"
+  ],
+  "exclusion_criteria": [
+    "Transport failure before a model response"
+  ],
+  "observations": [
+    {
+      "trial_id": "trial-001",
+      "query_id": "query-geo-company",
+      "engine": "Example Engine",
+      "interface": "web",
+      "language": "zh-CN",
+      "geography": "CN",
+      "collected_at": "2026-08-10T09:00:00Z",
+      "model_version": "example-2026-08",
+      "sample_unit": "query-response",
+      "eligible": true,
+      "answered": true,
+      "cited": true,
+      "missing_answer_reason": null,
+      "exclusion_reason": null,
+      "source_uri": "urn:geo-measure:trial-001"
+    },
+    {
+      "trial_id": "trial-002",
+      "query_id": "query-geo-company",
+      "engine": "Example Engine",
+      "interface": "web",
+      "language": "zh-CN",
+      "geography": "CN",
+      "collected_at": "2026-08-10T09:05:00Z",
+      "model_version": "example-2026-08",
+      "sample_unit": "query-response",
+      "eligible": true,
+      "answered": false,
+      "cited": null,
+      "missing_answer_reason": "empty-response",
+      "exclusion_reason": null,
+      "source_uri": "urn:geo-measure:trial-002"
+    },
+    {
+      "trial_id": "trial-003",
+      "query_id": "query-geo-company",
+      "engine": "Example Engine",
+      "interface": "api",
+      "language": "zh-CN",
+      "geography": "CN",
+      "collected_at": "2026-08-10T09:10:00Z",
+      "model_version": "example-2026-08",
+      "sample_unit": "query-response",
+      "eligible": false,
+      "answered": false,
+      "cited": null,
+      "missing_answer_reason": null,
+      "exclusion_reason": "transport-failure",
+      "source_uri": "urn:geo-measure:trial-003"
+    }
+  ]
+}

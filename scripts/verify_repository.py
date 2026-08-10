@@ -98,7 +98,7 @@ EXPECTED_ZH_ACTION_LEAD_IN_PATTERN = (
     r"(?:单\s*独|仅仅|需要|继续|打算|准备|页面|请|想|去|要|做|仅|再|只|光)\s*"
 )
 EXPECTED_ACTION_OBJECT_ARTICLE_PATTERN = r"(?:(?:a|an|the)\b|一个|个)\s*"
-ACTIVE_SKILLS = ("geo", "geo-discover", "geo-diagnose", "geo-content")
+ACTIVE_SKILLS = ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure")
 CANONICAL_DISTRIBUTION = "geo-seo-hub"
 CANONICAL_MODULE = "geo_seo_hub"
 LEGACY_DISTRIBUTION = "yao" + "-geo"
@@ -266,6 +266,8 @@ def main() -> int:
         "diagnosis-funnel.schema.json",
         "evidence-ledger.schema.json",
         "geo-brief.schema.json",
+        "measurement-brief.schema.json",
+        "measurement-report.schema.json",
         "opportunity-map.schema.json",
         "quality-report.schema.json",
         "query-map.schema.json",
@@ -357,6 +359,15 @@ def main() -> int:
             "references/output-contract.md",
             "references/input-example.json",
             "scripts/run_content.py",
+            "evals/trigger_cases.json", "evals/semantic_config.json", "evals/output/cases.jsonl", "reports/output_quality_scorecard.md", "reports/trust-report.md", "reports/skill-ir.json",
+        ),
+        "geo-measure": (
+            "SKILL.md",
+            "manifest.json",
+            "agents/interface.yaml",
+            "references/measurement-method.md",
+            "references/input-example.json",
+            "scripts/run_measure.py",
             "evals/trigger_cases.json", "evals/semantic_config.json", "evals/output/cases.jsonl", "reports/output_quality_scorecard.md", "reports/trust-report.md", "reports/skill-ir.json",
         ),
     }
@@ -466,6 +477,21 @@ def main() -> int:
     if set(content_manifest.get("output_contract", [])) != expected_content_outputs:
         fail("geo-content manifest output contract is incomplete")
 
+    measure_manifest = json.loads(
+        (ROOT / "skills" / "geo-measure" / "manifest.json").read_text(encoding="utf-8")
+    )
+    expected_measure_outputs = {
+        "input/measurement-brief.json",
+        "measurement-report.json",
+        "report.md",
+        "evidence-ledger.json",
+        "research-context.json",
+        "quality-report.json",
+        "run-manifest.json",
+    }
+    if set(measure_manifest.get("output_contract", [])) != expected_measure_outputs:
+        fail("geo-measure manifest output contract is incomplete")
+
     router_cases = json.loads((ROOT / "evals" / "router_cases.json").read_text(encoding="utf-8"))
     output_cases = json.loads((ROOT / "evals" / "output_cases.json").read_text(encoding="utf-8"))
     if len(router_cases) < 60 or len(output_cases) < 20:
@@ -473,7 +499,7 @@ def main() -> int:
 
     machine_markers = ("/" + "Users/", "C:" + "\\Users\\")
     report_files = list((ROOT / "reports").rglob("*.json")) + list((ROOT / "reports").rglob("*.md")) + list((ROOT / "reports").rglob("*.html"))
-    report_files.extend((ROOT / "skills" / skill_id / "reports" / "skill-ir.json") for skill_id in ("geo", "geo-discover", "geo-diagnose", "geo-content"))
+    report_files.extend((ROOT / "skills" / skill_id / "reports" / "skill-ir.json") for skill_id in ACTIVE_SKILLS)
     for report_path in report_files:
         if report_path.is_file() and any(marker in report_path.read_text(encoding="utf-8") for marker in machine_markers):
             fail(f"machine-local path found in report: {report_path.relative_to(ROOT)}")

@@ -16,7 +16,7 @@ from geo_seo_hub.registry import load_registry
 from geo_seo_hub import __version__
 
 ROOT = Path(__file__).resolve().parents[1]
-SKILLS = ("geo", "geo-discover", "geo-diagnose", "geo-content")
+SKILLS = ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure")
 
 
 def test_geo_seo_hub_brand_and_compatibility_names_are_consistent():
@@ -84,7 +84,7 @@ def test_version_is_consistent_across_distribution_and_active_manifests():
         manifest = json.loads((ROOT / "skills" / skill_id / "manifest.json").read_text(encoding="utf-8"))
         assert manifest["version"] == expected
 
-    for module_name in ("content", "discover", "diagnose"):
+    for module_name in ("content", "discover", "diagnose", "measure"):
         module = __import__(f"geo_seo_hub.{module_name}", fromlist=[module_name])
         assert module.GENERATOR_VERSION == expected
         assert '"version": "0.2.0"' not in inspect.getsource(module)
@@ -433,7 +433,7 @@ def test_non_source_packages_have_self_contained_install_and_route_entries():
                     referenced = set(re.findall(r"(?:references|scripts)/[A-Za-z0-9_.\-/]+", entry_text))
                     assert referenced <= names
         if "unified" in path.name or "codex" in path.name or "claude" in path.name:
-            assert {f"scripts/run_{name}.py" for name in ("route", "discover", "diagnose", "content")} <= names
+            assert {f"scripts/run_{name}.py" for name in ("route", "discover", "diagnose", "content", "measure")} <= names
 
 
 def test_install_simulation_uses_each_extracted_package_and_real_provider_execution():
@@ -443,11 +443,11 @@ def test_install_simulation_uses_each_extracted_package_and_real_provider_execut
     source = inspect.getsource(installer.structural_smoke)
     assert "install_extracted(destination" in source
     assert 'wrappers["run_route.py"]' in source
-    assert all(f'"run_{provider}.py"' in source for provider in ("discover", "diagnose", "content"))
+    assert all(f'"run_{provider}.py"' in source for provider in ("discover", "diagnose", "content", "measure"))
     report = json.loads((ROOT / "reports" / "install-simulation.json").read_text())
-    assert report["source"]["cli_smokes"] == ["version", "route", "discover", "diagnose", "content"]
-    assert len(report["structural_packages"]) == 7
-    assert all(item["installed_from"] == "." and item["installed_share_resolved"] and item["resolved_entry"] and item["provider_executions"] == ["geo-discover", "geo-diagnose", "geo-content"] for item in report["structural_packages"])
+    assert report["source"]["cli_smokes"] == ["version", "route", "discover", "diagnose", "content", "measure"]
+    assert len(report["structural_packages"]) == 8
+    assert all(item["installed_from"] == "." and item["installed_share_resolved"] and item["resolved_entry"] and item["provider_executions"] == ["geo-discover", "geo-diagnose", "geo-content", "geo-measure"] for item in report["structural_packages"])
 
 
 def test_supported_python_range_and_governance_contracts():

@@ -50,6 +50,8 @@ where = ["src"]
   "schemas/diagnosis-funnel.schema.json",
   "schemas/evidence-ledger.schema.json",
   "schemas/geo-brief.schema.json",
+  "schemas/measurement-brief.schema.json",
+  "schemas/measurement-report.schema.json",
   "schemas/opportunity-map.schema.json",
   "schemas/quality-report.schema.json",
   "schemas/query-map.schema.json",
@@ -97,6 +99,16 @@ where = ["src"]
   "skills/geo-content/references/input-example.json",
 ]
 "share/geo-seo-hub/skills/geo-content/scripts" = ["skills/geo-content/scripts/run_content.py"]
+"share/geo-seo-hub/skills/geo-measure" = [
+  "skills/geo-measure/SKILL.md",
+  "skills/geo-measure/manifest.json",
+]
+"share/geo-seo-hub/skills/geo-measure/agents" = ["skills/geo-measure/agents/interface.yaml"]
+"share/geo-seo-hub/skills/geo-measure/references" = [
+  "skills/geo-measure/references/measurement-method.md",
+  "skills/geo-measure/references/input-example.json",
+]
+"share/geo-seo-hub/skills/geo-measure/scripts" = ["skills/geo-measure/scripts/run_measure.py"]
 
 [tool.pytest.ini_options]
 addopts = "-q"

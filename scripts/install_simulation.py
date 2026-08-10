@@ -19,6 +19,37 @@ MAX_ARCHIVE_MEMBERS = 4096
 MAX_ARCHIVE_BYTES = 256 * 1024 * 1024
 
 
+def synthetic_measurement() -> dict:
+    return {
+        "protocol_version": "1.0.0",
+        "measurement_id": "synthetic-install",
+        "subject": "Synthetic install measurement",
+        "study_design": {"kind": "observational", "intervention": None, "comparator": None},
+        "confidence_level": 0.95,
+        "inclusion_criteria": ["Synthetic answered response"],
+        "exclusion_criteria": ["Synthetic transport failure"],
+        "observations": [
+            {
+                "trial_id": "install-trial-001",
+                "query_id": "install-query-001",
+                "engine": "Synthetic Engine",
+                "interface": "fixture",
+                "language": "en",
+                "geography": "test",
+                "collected_at": "2026-08-11T00:00:00Z",
+                "model_version": "synthetic-1",
+                "sample_unit": "query-response",
+                "eligible": True,
+                "answered": True,
+                "cited": False,
+                "missing_answer_reason": None,
+                "exclusion_reason": None,
+                "source_uri": "urn:geo-measure:install-trial-001",
+            }
+        ],
+    }
+
+
 def safe_extract(archive_path: Path, destination: Path) -> None:
     with zipfile.ZipFile(archive_path) as archive:
         infos = archive.infolist()
@@ -87,6 +118,8 @@ def source_smoke(source_zip: Path, temp_root: Path, wheelhouse: Path) -> dict:
     diagnosis.write_text(json.dumps({"subject":"Synthetic brand","scope":"brand","evidence":[{"evidence_id":"synthetic","claim":"Synthetic brand has a documented page.","source_uri":"https://example.invalid/synthetic"}]}, allow_nan=False), encoding="utf-8")
     content = fixtures / "content.json"
     content.write_text(json.dumps({"mode":"explainer","topic":"Synthetic GEO topic","evidence":[],"desired_formats":["markdown","json","html"]}, allow_nan=False), encoding="utf-8")
+    measurement = fixtures / "measurement.json"
+    measurement.write_text(json.dumps(synthetic_measurement(), allow_nan=False), encoding="utf-8")
     runs = temp_root / "runs"
     commands = [
         [str(python), "-m", "geo_seo_hub", "--version"],
@@ -94,6 +127,7 @@ def source_smoke(source_zip: Path, temp_root: Path, wheelhouse: Path) -> dict:
         [str(python), "-m", "geo_seo_hub", "discover", "--input", str(brief), "--output", str(runs)],
         [str(python), "-m", "geo_seo_hub", "diagnose", "--input", str(diagnosis), "--output", str(runs)],
         [str(python), "-m", "geo_seo_hub", "content", "--input", str(content), "--output", str(runs)],
+        [str(python), "-m", "geo_seo_hub", "measure", "--input", str(measurement), "--output", str(runs)],
     ]
     results = [run(command, temp_root, clean_env) for command in commands]
     version_payload = json.loads(results[0].stdout)
@@ -106,7 +140,7 @@ def source_smoke(source_zip: Path, temp_root: Path, wheelhouse: Path) -> dict:
     return {
         "package": source_zip.name,
         "installed_from": ".",
-        "cli_smokes": ["version", "route", "discover", "diagnose", "content"],
+        "cli_smokes": ["version", "route", "discover", "diagnose", "content", "measure"],
         "status": "pass",
     }
 
@@ -126,7 +160,7 @@ def structural_smoke(path: Path, temp_root: Path, wheelhouse: Path) -> dict:
     if missing:
         raise ValueError(f"entry references missing packaged files for {path.name}: {missing}")
     wrappers = {wrapper.name: wrapper for wrapper in destination.glob("scripts/run_*.py")}
-    expected_wrappers = {"run_route.py", "run_discover.py", "run_diagnose.py", "run_content.py"}
+    expected_wrappers = {"run_route.py", "run_discover.py", "run_diagnose.py", "run_content.py", "run_measure.py"}
     if set(wrappers) != expected_wrappers:
         raise ValueError(f"expected provider wrappers in {path.name}; found {sorted(wrappers)}")
     clean_env = os.environ.copy()
@@ -148,15 +182,18 @@ def structural_smoke(path: Path, temp_root: Path, wheelhouse: Path) -> dict:
         "geo-discover": destination / "install-discover.json",
         "geo-diagnose": destination / "install-diagnose.json",
         "geo-content": destination / "install-content.json",
+        "geo-measure": destination / "install-measure.json",
     }
     fixtures["geo-discover"].write_text(json.dumps({"protocol_version":"1.0.0","brief_id":"zip-install","subject":"Synthetic ZIP install","locale":"zh-CN","seed_queries":["拓词"],"audiences":["tester"],"scenarios":["install"],"competitors":[],"evidence":[]}, allow_nan=False), encoding="utf-8")
     fixtures["geo-diagnose"].write_text(json.dumps({"subject":"Synthetic ZIP install","scope":"brand","evidence":[{"evidence_id":"zip-install","claim":"Synthetic evidence for install smoke.","source_uri":"https://example.invalid/install"}]}, allow_nan=False), encoding="utf-8")
     fixtures["geo-content"].write_text(json.dumps({"mode":"explainer","topic":"Synthetic ZIP install","evidence":[],"desired_formats":["markdown","json","html"]}, allow_nan=False), encoding="utf-8")
+    fixtures["geo-measure"].write_text(json.dumps(synthetic_measurement(), allow_nan=False), encoding="utf-8")
     runs = destination / "install-runs"
     routed = {
         "geo-discover": ("Discover AI search questions", "run_discover.py"),
         "geo-diagnose": ("Audit this website", "run_diagnose.py"),
         "geo-content": ("Write an explainer", "run_content.py"),
+        "geo-measure": ("Measure citation visibility", "run_measure.py"),
     }
     resolved_entries = []
     provider_executions = []
