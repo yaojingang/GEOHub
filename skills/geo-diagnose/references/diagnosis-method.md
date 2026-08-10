@@ -22,8 +22,10 @@ Brand scope checks coverage for identity, offering, audience, differentiation, p
 
 Findings label their basis as `observed`, `provided`, `input_gap`, or `inferred`. Observed, provided, and inferred findings require `evidence_id`. Input gaps carry a null evidence ID and a concrete collection action.
 
+`diagnosis-funnel.json` separates three stages. Candidate eligibility records direct page observations. Citation selection records evidence-lined readiness proxies. Answer absorption remains `not-observed` because diagnosis does not collect platform answers. Source ecosystem roles are derived only from input source type and hostname comparison; they do not assert ownership or authority.
+
 Source SHA-256 digests bind the run and generated page evidence IDs to the analyzed content. Provided evidence IDs derive from normalized claim and source URI content. The remediation query map gives every opportunity a valid query lineage under protocol `1.0.0`.
 
 ## Interpretation boundary
 
-Scores are bounded heuristics over supplied sources. They do not represent real AI-platform recall, ranking, citations, traffic, or market share. Read `limitations` and `source_status` with every report.
+Scores are bounded heuristics over supplied sources. They do not represent real AI-platform recall, ranking, citations, traffic, or market share. Read `research-context.json`, `diagnosis-funnel.json`, `limitations`, and `source_status` with every report.

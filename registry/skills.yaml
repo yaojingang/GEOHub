@@ -32,7 +32,7 @@ skills:
     entry: skills/geo-diagnose/SKILL.md
     summary: Evidence-lined brand, site, and page GEO diagnosis from explicit sources.
     intents: [diagnose, audit, brand diagnosis, brand audit, site diagnosis, site audit, website diagnosis, website audit, page diagnosis, page audit, 诊断, 审计, 差距分析, 品牌诊断, 网站诊断, 页面诊断]
-    outputs: [report, diagnosis, evidence-ledger, query-map, opportunity-map, quality-report, run-manifest]
+    outputs: [report, diagnosis, diagnosis-funnel, evidence-ledger, query-map, opportunity-map, research-context, quality-report, run-manifest]
   - id: geo-content
     status: active
     active_placeholder: false

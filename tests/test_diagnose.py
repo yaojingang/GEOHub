@@ -73,11 +73,13 @@ def test_page_source_html_writes_complete_valid_run(tmp_path):
         "input/diagnosis-brief.json",
         "input/sources/source-html-1.html",
         "diagnosis.json",
+        "diagnosis-funnel.json",
         "report.md",
         "evidence-ledger.json",
         "query-map.json",
         "opportunity-map.json",
         "quality-report.json",
+        "research-context.json",
         "run-manifest.json",
     }
     assert {str(path.relative_to(output)) for path in output.rglob("*") if path.is_file()} == expected
@@ -87,6 +89,8 @@ def test_page_source_html_writes_complete_valid_run(tmp_path):
         "query-map.json": "query-map",
         "opportunity-map.json": "opportunity-map",
         "quality-report.json": "quality-report",
+        "diagnosis-funnel.json": "diagnosis-funnel",
+        "research-context.json": "research-context",
         "run-manifest.json": "run-manifest",
     }.items():
         validate_artifact(schema_name, _load(output / filename))
@@ -106,6 +110,29 @@ def test_page_source_html_writes_complete_valid_run(tmp_path):
         if finding["source_kind"] != "input_gap":
             assert finding["evidence_id"] in ledger_ids
 
+    funnel = _load(output / "diagnosis-funnel.json")
+    assert [stage["stage"] for stage in funnel["stages"]] == [
+        "candidate-eligibility",
+        "citation-selection",
+        "answer-absorption",
+    ]
+    assert funnel["stages"][0]["status"] == "observed"
+    assert funnel["stages"][1]["status"] == "proxy"
+    assert funnel["stages"][2]["status"] == "not-observed"
+    assert funnel["effect_guarantee"] is False
+    assert all(
+        evidence_id in ledger_ids
+        for stage in funnel["stages"]
+        for evidence_id in stage["evidence_ids"]
+    )
+    assert funnel["source_ecosystem"][0]["role"] == "primary-input"
+
+    research = _load(output / "research-context.json")
+    assert research["surface"] == "geo-diagnose"
+    assert "diagnosis-scores-are-readiness-proxies" in {
+        item["principle_id"] for item in research["principles"]
+    }
+
     first_report = (output / "report.md").read_text(encoding="utf-8")
     second = diagnose(FIXTURES / "diagnosis-page.json", tmp_path / "second-runs", clock=lambda: datetime(2027, 1, 1, tzinfo=timezone.utc))
     assert first_report == (Path(second["output"]) / "report.md").read_text(encoding="utf-8")
@@ -124,6 +151,12 @@ def test_brand_evidence_only_has_provided_lineage(tmp_path):
     ledger_id = _load(output / "evidence-ledger.json")["records"][0]["evidence_id"]
     assert ledger_id != "ev-acme-about"
     assert {finding["evidence_id"] for finding in diagnosis_artifact["findings"]} == {ledger_id}
+    funnel = _load(output / "diagnosis-funnel.json")
+    assert funnel["stages"][0]["status"] == "source-gap"
+    assert funnel["stages"][1]["status"] == "proxy"
+    assert funnel["stages"][1]["evidence_ids"] == [ledger_id]
+    assert funnel["stages"][2]["status"] == "not-observed"
+    assert funnel["source_ecosystem"][0]["role"] == "third-party-evidence"
 
 
 def test_missing_all_sources_is_rejected():

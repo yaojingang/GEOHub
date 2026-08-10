@@ -134,13 +134,15 @@ def test_offline_wheel_install_runs_diagnose_outside_repository(tmp_path):
     expected = {
         "input/diagnosis-brief.json",
         "input/sources/source-html-1.html",
-        "diagnosis.json",
-        "report.md",
+            "diagnosis.json",
+            "diagnosis-funnel.json",
+            "report.md",
         "evidence-ledger.json",
         "query-map.json",
         "opportunity-map.json",
-        "quality-report.json",
-        "run-manifest.json",
+            "quality-report.json",
+            "research-context.json",
+            "run-manifest.json",
     }
     actual = {
         path.relative_to(run).as_posix()

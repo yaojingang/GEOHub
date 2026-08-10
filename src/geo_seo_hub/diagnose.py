@@ -18,6 +18,7 @@ from typing import Any, Callable, Iterable
 from urllib.parse import urljoin, urlsplit, urlunsplit
 
 from .artifact_bus import ArtifactBus
+from .research import build_research_context
 from .validation import load_bounded_json, read_bounded_regular_file, strict_json_loads, validate_artifact
 from .version import package_version
 
@@ -872,6 +873,87 @@ def _opportunities(
     return {"protocol_version": PROTOCOL_VERSION, "run_id": run_id, "opportunities": opportunities}
 
 
+def _build_diagnosis_funnel(
+    run_id: str,
+    analyzed_sources: list[dict[str, Any]],
+    provided: list[dict[str, Any]],
+    source_status: list[dict[str, Any]],
+    ledger_records: list[dict[str, Any]],
+) -> dict[str, Any]:
+    primary_hosts = {
+        urlsplit(source["source_uri"]).hostname.casefold()
+        for source in analyzed_sources
+        if urlsplit(source["source_uri"]).hostname
+    }
+    ecosystem = []
+    for source in source_status:
+        if source["source_type"] in {"target_url", "source_html"}:
+            role = "primary-input"
+            basis = "input-source-type"
+        else:
+            hostname = urlsplit(source["source_uri"]).hostname
+            if hostname:
+                role = "primary-input" if hostname.casefold() in primary_hosts else "third-party-evidence"
+                basis = "hostname-comparison"
+            else:
+                role = "unknown"
+                basis = "insufficient-metadata"
+        ecosystem.append(
+            {
+                "source_id": source["source_id"],
+                "source_uri": source["source_uri"],
+                "role": role,
+                "classification_basis": basis,
+                "status": source["status"],
+            }
+        )
+
+    observed_ids = sorted(source["evidence_id"] for source in analyzed_sources)
+    selection_ids = sorted({record["evidence_id"] for record in ledger_records})
+    candidate_status = "observed" if observed_ids else "source-gap"
+    selection_status = "proxy" if selection_ids else "source-gap"
+    funnel = {
+        "protocol_version": PROTOCOL_VERSION,
+        "run_id": run_id,
+        "effect_guarantee": False,
+        "stages": [
+            {
+                "stage": "candidate-eligibility",
+                "status": candidate_status,
+                "causal_status": "observed" if observed_ids else "not-observed",
+                "evidence_ids": observed_ids,
+                "signals": ["discoverability", "indexability", "structural accessibility"] if observed_ids else [],
+                "limitations": [
+                    "Eligibility observations cover only supplied or explicitly requested sources and do not prove engine retrieval."
+                ],
+            },
+            {
+                "stage": "citation-selection",
+                "status": selection_status,
+                "causal_status": "proxy" if selection_ids else "not-observed",
+                "evidence_ids": selection_ids,
+                "signals": ["semantic relevance", "extractability", "evidence and authority"] if selection_ids else [],
+                "limitations": [
+                    "Selection signals are readiness proxies and do not estimate citation probability."
+                ],
+            },
+            {
+                "stage": "answer-absorption",
+                "status": "not-observed",
+                "causal_status": "not-observed",
+                "evidence_ids": [],
+                "signals": [],
+                "limitations": [
+                    "No platform answer observations were supplied, so answer absorption cannot be measured."
+                ],
+            },
+        ],
+        "source_ecosystem": ecosystem,
+    }
+    validate_artifact("diagnosis-funnel", funnel)
+    return funnel
+
+
 def _render_report(diagnosis: dict[str, Any], opportunities: dict[str, Any]) -> str:
     lines = [
         f"# GEO Diagnosis: {diagnosis['subject']}",
@@ -1205,6 +1287,14 @@ def diagnose(
         audience=normalized_brief.get("audience", "general user"),
     )
     opportunity_map = _opportunities(run_id, findings, finding_queries)
+    diagnosis_funnel = _build_diagnosis_funnel(
+        run_id,
+        analyzed_sources,
+        provided,
+        source_status,
+        ledger_records,
+    )
+    research_context = build_research_context(run_id, "geo-diagnose")
     warnings = list(limitations)
     if any(finding["severity"] == "warning" for finding in findings):
         warnings.append("One or more diagnosis findings require remediation or additional evidence.")
@@ -1216,6 +1306,9 @@ def diagnose(
             "diagnosis brief validated",
             "finding evidence lineage validated",
             "shared artifacts validated against protocol 1.0.0",
+            "diagnosis funnel separates eligibility, selection proxies, and unobserved absorption",
+            "source ecosystem roles are input-derived and explicitly bounded",
+            "research context is source-resolved and effect-bounded",
             "report rendered deterministically from structured diagnosis",
         ],
         "warnings": warnings,
@@ -1227,6 +1320,8 @@ def diagnose(
         (query_map, "query-map"),
         (opportunity_map, "opportunity-map"),
         (quality_report, "quality-report"),
+        (diagnosis_funnel, "diagnosis-funnel"),
+        (research_context, "research-context"),
     ):
         validate_artifact(schema_name, artifact)
 
@@ -1235,11 +1330,13 @@ def diagnose(
         "input/diagnosis-brief.json",
         *(f"input/sources/{source['source_id']}.html" for source in analyzed_sources),
         "diagnosis.json",
+        "diagnosis-funnel.json",
         "report.md",
         "evidence-ledger.json",
         "query-map.json",
         "opportunity-map.json",
         "quality-report.json",
+        "research-context.json",
     ]
     run_manifest = {
         "protocol_version": PROTOCOL_VERSION,
@@ -1258,11 +1355,13 @@ def diagnose(
         for source in analyzed_sources:
             bus.write_text(f"input/sources/{source['source_id']}.html", source["html"])
         bus.write_json("diagnosis.json", diagnosis_artifact)
+        bus.write_json("diagnosis-funnel.json", diagnosis_funnel, "diagnosis-funnel")
         bus.write_text("report.md", report)
         bus.write_json("evidence-ledger.json", evidence_ledger, "evidence-ledger")
         bus.write_json("query-map.json", query_map, "query-map")
         bus.write_json("opportunity-map.json", opportunity_map, "opportunity-map")
         bus.write_json("quality-report.json", quality_report, "quality-report")
+        bus.write_json("research-context.json", research_context, "research-context")
         bus.write_json("run-manifest.json", run_manifest, "run-manifest")
         bus.publish(set(manifest_paths) | {"run-manifest.json"})
     return {

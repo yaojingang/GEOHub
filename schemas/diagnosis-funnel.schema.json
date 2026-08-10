@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yao.example/geo/schemas/diagnosis-funnel.schema.json",
+  "title": "Diagnosis Research Funnel",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "run_id", "effect_guarantee", "stages", "source_ecosystem"],
+  "properties": {
+    "protocol_version": {"const": "1.0.0"},
+    "run_id": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "effect_guarantee": {"const": false},
+    "stages": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "prefixItems": [
+        {"$ref": "#/$defs/candidate"},
+        {"$ref": "#/$defs/selection"},
+        {"$ref": "#/$defs/absorption"}
+      ],
+      "items": false
+    },
+    "source_ecosystem": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source_id", "source_uri", "role", "classification_basis", "status"],
+        "properties": {
+          "source_id": {"type": "string", "minLength": 1, "pattern": "\\S"},
+          "source_uri": {"type": "string", "minLength": 1, "pattern": "\\S"},
+          "role": {"enum": ["primary-input", "third-party-evidence", "unknown"]},
+          "classification_basis": {"enum": ["input-source-type", "hostname-comparison", "insufficient-metadata"]},
+          "status": {"enum": ["observed", "provided", "source_gap"]}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "stage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stage", "status", "causal_status", "evidence_ids", "signals", "limitations"],
+      "properties": {
+        "stage": {"type": "string"},
+        "status": {"enum": ["observed", "proxy", "source-gap", "not-observed"]},
+        "causal_status": {"enum": ["observed", "proxy", "not-observed"]},
+        "evidence_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "\\S"}},
+        "signals": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "\\S"}},
+        "limitations": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "\\S"}}
+      }
+    },
+    "candidate": {
+      "allOf": [
+        {"$ref": "#/$defs/stage"},
+        {"properties": {"stage": {"const": "candidate-eligibility"}}}
+      ]
+    },
+    "selection": {
+      "allOf": [
+        {"$ref": "#/$defs/stage"},
+        {"properties": {"stage": {"const": "citation-selection"}}}
+      ]
+    },
+    "absorption": {
+      "allOf": [
+        {"$ref": "#/$defs/stage"},
+        {
+          "properties": {
+            "stage": {"const": "answer-absorption"},
+            "status": {"const": "not-observed"},
+            "causal_status": {"const": "not-observed"},
+            "evidence_ids": {"maxItems": 0},
+            "signals": {"maxItems": 0}
+          }
+        }
+      ]
+    }
+  }
+}

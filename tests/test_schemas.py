@@ -29,6 +29,7 @@ def test_all_protocol_schemas_are_valid():
         "query-map",
         "opportunity-map",
         "content-spec",
+        "diagnosis-funnel",
         "quality-report",
         "research-context",
         "research-evidence-registry",

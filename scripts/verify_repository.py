@@ -262,6 +262,7 @@ def main() -> int:
     expected_schema_names = {
         "brand-fact-card.schema.json",
         "content-spec.schema.json",
+        "diagnosis-funnel.schema.json",
         "evidence-ledger.schema.json",
         "geo-brief.schema.json",
         "opportunity-map.schema.json",
@@ -430,10 +431,12 @@ def main() -> int:
         "input/sources/*.html",
         "report",
         "diagnosis",
+        "diagnosis-funnel",
         "evidence-ledger",
         "query-map",
         "opportunity-map",
         "quality-report",
+        "research-context",
         "run-manifest",
     }
     if set(diagnose_manifest.get("output_contract", [])) != expected_outputs:

@@ -20,7 +20,7 @@
   "copyright_owner": "姚金刚 / Yao",
   "third_party_notice_required": true,
   "input_files": ["file-backed fixture: diagnosis brief JSON and up to five replayable source_html snapshots"],
-  "output_contract": ["input/diagnosis-brief.json", "input/sources/*.html", "report", "diagnosis", "evidence-ledger", "query-map", "opportunity-map", "quality-report", "run-manifest"],
+  "output_contract": ["input/diagnosis-brief.json", "input/sources/*.html", "report", "diagnosis", "diagnosis-funnel", "evidence-ledger", "query-map", "opportunity-map", "research-context", "quality-report", "run-manifest"],
   "rollback_boundary": "Remove generated diagnosis run directories and revert diagnose, CLI, registry, packaging, and geo-diagnose together.",
   "factory_components": ["references", "scripts", "evals", "reports", "agents"]
 }

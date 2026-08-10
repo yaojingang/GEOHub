@@ -18,11 +18,13 @@ interface:
     - "input/diagnosis-brief.json"
     - "input/sources/*.html"
     - "diagnosis.json"
+    - "diagnosis-funnel.json"
     - "report.md"
     - "evidence-ledger.json"
     - "query-map.json"
     - "opportunity-map.json"
     - "quality-report.json"
+    - "research-context.json"
     - "run-manifest.json"
   permission_contract: {filesystem: "read inputs and write selected runs root", network: "explicit public HTTP(S) source URLs only"}
 compatibility:
