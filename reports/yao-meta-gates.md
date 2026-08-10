@@ -2,10 +2,10 @@
 
 Status: **pass-with-waivers**
 
-Commands: 53; deterministic failures: 0.
+Commands: 66; deterministic failures: 0.
 
-Deterministic Review Studio dispositions: 52.
-Waived or missing external evidence: 11.
+Deterministic Review Studio dispositions: 65.
+Waived or missing external evidence: 13.
 Release-blocking items: 0.
 
 | Skill | Command | Exit | Structured status |
@@ -62,4 +62,17 @@ Release-blocking items: 0.
 | geo-content | `conformance skills/geo-content` | 0 | pass |
 | geo-content | `compile-skill skills/geo-content` | 0 | pass |
 | geo-content | `conformance skills/geo-content` | 0 | pass |
+| geo-measure | `validate skills/geo-measure` | 0 | pass |
+| geo-measure | `--description Aggregate explicit GEO or AI-search observation records into transparent rates, denominators, missing-answer counts, platform strata, and intervals. Use for citation measurement, AI visibility tracking, repeated observation analysis, and 引用监测、AI 可见度衡量、效果测量. Requires supplied observations and excludes live platform collection, account access, causal attribution, ranking guarantees, and continuous monitoring.` | 0 | pass |
+| geo-measure | `skill-ir skills/geo-measure` | 0 | pass |
+| geo-measure | `skill-ir skills/geo-measure` | 0 | pass |
+| geo-measure | `output-eval --cases` | 0 | pass |
+| geo-measure | `trust skills/geo-measure` | 0 | pass |
+| geo-measure | `review-studio skills/geo-measure` | 0 | review |
+| geo-measure | `compile-skill skills/geo-measure` | 0 | pass |
+| geo-measure | `conformance skills/geo-measure` | 0 | pass |
+| geo-measure | `compile-skill skills/geo-measure` | 0 | pass |
+| geo-measure | `conformance skills/geo-measure` | 0 | pass |
+| geo-measure | `compile-skill skills/geo-measure` | 0 | pass |
+| geo-measure | `conformance skills/geo-measure` | 0 | pass |
 | suite | `skill-atlas --workspace-root` | 0 | pass |

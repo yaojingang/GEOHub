@@ -14,7 +14,7 @@ import yaml
 from jsonschema import Draft202012Validator, FormatChecker
 
 ROOT = Path(__file__).resolve().parents[1]
-SKILLS = ("geo", "geo-discover", "geo-diagnose", "geo-content")
+SKILLS = ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure")
 REPORT_SCHEMA_VERSION = "2.0.0"
 WAIVER_PATH = ROOT / "reports" / "review-waivers.json"
 WAIVER_SCHEMA_PATH = ROOT / "reports" / "review-waivers.schema.json"
@@ -122,11 +122,14 @@ def operation_report_semantics(report: dict, operation: str) -> bool:
         )
     if operation == "skill-atlas":
         catalog = report.get("catalog", {})
+        catalog_skills = catalog.get("skills") if isinstance(catalog, dict) else None
         return (
             bool(report.get("workspace_root"))
             and bool(catalog)
+            and isinstance(catalog_skills, list)
+            and bool(catalog_skills)
             and positive_count(summary.get("skill_count"))
-            and summary["skill_count"] == len(catalog)
+            and summary["skill_count"] == len(catalog_skills)
             and bool(report.get("artifacts"))
         )
     return False

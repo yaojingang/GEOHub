@@ -1370,9 +1370,9 @@
     "upgrade_check": {},
     "manifest": {
       "name": "geo-discover",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "owner": "姚金刚 / Yao",
-      "updated_at": "2026-08-09",
+      "updated_at": "2026-08-11",
       "review_cadence": "per-release",
       "status": "experimental",
       "maturity_tier": "library",
@@ -1404,6 +1404,7 @@
         "query-map",
         "opportunity-map",
         "evidence-ledger",
+        "research-context",
         "quality-report"
       ],
       "rollback_boundary": "Remove the generated run directory and revert discover, Artifact Bus, schemas, and registry together.",
@@ -1434,6 +1435,7 @@
           "query-map",
           "opportunity-map",
           "evidence-ledger",
+          "research-context",
           "quality-report",
           "run-manifest"
         ],

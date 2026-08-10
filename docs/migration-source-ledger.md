@@ -23,8 +23,8 @@ An existing development environment may remove the retired distribution with `py
 | 11 | yao-geo-knowledge-base-builder | geo-knowledge | planned |
 | 12 | yao-geo-brand-graph | geo-knowledge | planned |
 | 13 | yao-geo-execution-roadmap | geo-strategy | planned |
-| 14 | yao-geo-effect-monitor | geo-measure | planned |
-| 15 | yao-geo-tracking | geo-measure | planned |
+| 14 | yao-geo-effect-monitor | geo-measure | implemented as offline descriptive aggregation |
+| 15 | yao-geo-tracking | geo-measure | implemented as offline descriptive aggregation |
 | 16 | yao-chatgpt-crawler | excluded | connector/crawler boundary |
 | 17 | yao-deepseek-crawler | excluded | connector/crawler boundary |
 | 18 | yao-doubao-crawler | excluded | connector/crawler boundary |

@@ -505,6 +505,12 @@ def test_yao_meta_structured_status_and_waiver_ledger_fail_closed(tmp_path):
         typed_empty_path.write_text(json.dumps(typed_empty))
         assert gate.structured_report_status(typed_empty_path, operation) == "fail"
 
+    atlas = json.loads(operation_reports["skill-atlas"].read_text())
+    atlas["summary"]["skill_count"] = len(atlas["catalog"])
+    wrong_atlas_count = tmp_path / "wrong-atlas-count.json"
+    wrong_atlas_count.write_text(json.dumps(atlas))
+    assert gate.structured_report_status(wrong_atlas_count, "skill-atlas") == "fail"
+
     waivers = gate.load_waiver_ledger(ROOT / "reports" / "review-waivers.json", today=date(2026, 8, 8))
     assert waivers
     assert all({"id", "skill_id", "gate", "owner", "reason", "expires_on", "recheck"} <= set(item) for item in waivers)
@@ -550,7 +556,7 @@ def test_yao_meta_digest_and_command_inventory_are_complete():
 
     report = json.loads((ROOT / "reports" / "yao-meta-gates.json").read_text())
     assert gate.validate_command_inventory(report["commands"]) == []
-    duplicated = [dict(report["commands"][0]) for _ in range(53)]
+    duplicated = [dict(report["commands"][0]) for _ in range(66)]
     assert gate.validate_command_inventory(duplicated)
     extra_flag = json.loads(json.dumps(report["commands"]))
     extra_flag[0]["command"].append("--unknown-flag")

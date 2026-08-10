@@ -9,7 +9,7 @@ from typing import Any, Callable
 
 from .artifact_bus import ArtifactBus
 from .research import build_research_context
-from .validation import load_bounded_json, validate_artifact
+from .validation import load_bounded_json, normalize_artifact_uri, validate_artifact
 from .version import package_version
 
 PROTOCOL_VERSION = "1.0.0"
@@ -55,7 +55,7 @@ def _normalize_brief(brief: dict[str, Any]) -> dict[str, Any]:
         item = {
             "evidence_id": _normalize_text(record["evidence_id"]),
             "claim": _normalize_text(record["claim"]),
-            "source_uri": record["source_uri"].strip(),
+            "source_uri": normalize_artifact_uri(record["source_uri"], field="evidence.source_uri"),
         }
         if "observed_at" in record:
             item["observed_at"] = record["observed_at"].strip()

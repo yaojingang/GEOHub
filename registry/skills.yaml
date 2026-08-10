@@ -1,5 +1,5 @@
 protocol_version: 1.0.0
-registry_version: 0.2.0
+registry_version: 0.3.0
 workflows:
   - id: brand-baseline-lite
     required_skills: [geo-discover, geo-diagnose]

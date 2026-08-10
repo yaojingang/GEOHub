@@ -13,11 +13,10 @@ import unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
-from urllib.parse import urlsplit
 
 from .artifact_bus import ArtifactBus
 from .research import build_research_context
-from .validation import read_bounded_regular_file, strict_json_loads, validate_artifact
+from .validation import normalize_artifact_uri, read_bounded_regular_file, strict_json_loads, validate_artifact
 from .version import package_version
 
 PROTOCOL_VERSION = "1.0.0"
@@ -84,10 +83,7 @@ def _string_list(value: Any, field: str, *, unique: bool = True) -> list[str]:
 
 
 def _source_uri(value: Any, field: str) -> str:
-    uri = _require_text(value, field)
-    if not urlsplit(uri).scheme or re.search(r"\s", uri):
-        raise ValueError(f"{field} must be an absolute URI")
-    return uri
+    return normalize_artifact_uri(value, field=field)
 
 
 def _open_flags(*, directory: bool = False) -> int:
@@ -286,7 +282,8 @@ def _read_relative_source(source: dict[str, Any], input_path: Path) -> tuple[str
     digest = hashlib.sha256(body.encode("utf-8")).hexdigest()
     if source.get("sha256") and source["sha256"] != digest:
         raise ValueError("source_content digest does not match its file snapshot")
-    return body, source.get("source_uri", "urn:geo-seo-hub:input:source-content")
+    source_uri = source.get("source_uri", "urn:geo-seo-hub:input:source-content")
+    return body, normalize_artifact_uri(source_uri, field="source_content.source_uri")
 
 
 def _normalize_brief(brief: dict[str, Any], input_path: Path) -> tuple[dict[str, Any], str | None]:

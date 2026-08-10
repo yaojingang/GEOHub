@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import html
 import hashlib
 import json
+import re
 import unicodedata
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
@@ -11,7 +13,7 @@ from typing import Any, Callable
 
 from .artifact_bus import ArtifactBus
 from .research import build_research_context
-from .validation import load_bounded_json, validate_artifact
+from .validation import load_bounded_json, normalize_artifact_uri, validate_artifact
 from .version import package_version
 
 PROTOCOL_VERSION = "1.0.0"
@@ -26,6 +28,11 @@ def _stable_id(prefix: str, *parts: str) -> str:
 
 def _normalize_text(value: str) -> str:
     return " ".join(unicodedata.normalize("NFKC", value).split())
+
+
+def _markdown_text(value: str) -> str:
+    escaped = html.escape(value, quote=False)
+    return re.sub(r"([\\`*{}\[\]()#+\-.!_>~|=])", r"\\\1", escaped)
 
 
 def _normalize_brief(brief: dict[str, Any]) -> dict[str, Any]:
@@ -72,12 +79,14 @@ def _normalize_brief(brief: dict[str, Any]) -> dict[str, Any]:
                     source["collected_at"].strip().replace("Z", "+00:00")
                 )
                 .astimezone(timezone.utc)
-                .isoformat()
+                .isoformat(timespec="microseconds")
                 .replace("+00:00", "Z"),
                 "eligible": source["eligible"],
                 "answered": source["answered"],
                 "cited": source["cited"],
-                "source_uri": source["source_uri"].strip(),
+                "source_uri": normalize_artifact_uri(
+                    source["source_uri"], field="measurement source URI"
+                ),
             }
         )
         for field in nullable_text_fields:
@@ -172,12 +181,17 @@ def _measurement_report(brief: dict[str, Any], run_id: str) -> dict[str, Any]:
         limitations.append(
             "The declared intervention and comparator are preserved, but this release does not estimate a causal effect."
         )
+    if len(eligible) < 2:
+        limitations.append(
+            "Only one eligible trial was supplied; repeat observations before interpreting the result as a distribution."
+        )
     report = {
         "protocol_version": PROTOCOL_VERSION,
         "run_id": run_id,
         "measurement_id": brief["measurement_id"],
         "subject": brief["subject"],
         "study_design": brief["study_design"],
+        "confidence_level": brief["confidence_level"],
         "measurement_scope": dimensions,
         "effect_guarantee": False,
         "causal_status": "descriptive",
@@ -224,7 +238,7 @@ def _evidence_ledger(brief: dict[str, Any], run_id: str) -> dict[str, Any]:
 def _markdown(report: dict[str, Any]) -> str:
     citation = report["metrics"]["citation_rate"]
     lines = [
-        f"# Measurement report: {report['subject']}",
+        f"# Measurement report: {_markdown_text(report['subject'])}",
         "",
         "## Scope",
         "",
@@ -233,6 +247,7 @@ def _markdown(report: dict[str, Any]) -> str:
         f"- Answered: {report['answered_count']}",
         f"- Missing eligible answers: {report['missing_answer_count']}",
         f"- Excluded: {report['excluded_count']}",
+        f"- Confidence level: {report['confidence_level']}",
         "",
         "## Citation rate",
         "",
@@ -271,6 +286,8 @@ def measure(
     warnings = ["Measurement output is descriptive and does not estimate or guarantee a causal effect."]
     if missing_count:
         warnings.append(f"{missing_count} eligible trial(s) have missing answers and remain in unconditional denominators.")
+    if report["eligible_trial_count"] < 2:
+        warnings.append("Only one eligible trial was supplied; repeated observations are required to characterize a distribution.")
     quality = {
         "protocol_version": PROTOCOL_VERSION,
         "run_id": run_id,

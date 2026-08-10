@@ -4,20 +4,34 @@
   "supported_python": ">=3.11,<3.15",
   "local_evidence": [
     {
+      "python": "3.11.14",
+      "environment": "fresh venv",
+      "install": "pip install -e .[dev]",
+      "tests": "371 targeted router, research, measurement, secure I/O, and schema tests passed",
+      "evals": "373 router cases, 33 trigger cases, and 25 deterministic output cases passed"
+    },
+    {
       "python": "3.12.3",
       "environment": "fresh venv",
       "install": "pip install -e .[dev]",
-      "tests": "335 targeted router/library integration tests passed",
-      "evals": "373 router cases and deterministic output gates passed"
+      "tests": "371 targeted router, research, measurement, secure I/O, and schema tests passed",
+      "evals": "373 router cases, 33 trigger cases, and 25 deterministic output cases passed"
+    },
+    {
+      "python": "3.13.3",
+      "environment": "fresh venv",
+      "install": "pip install -e .[dev]",
+      "tests": "371 targeted router, research, measurement, secure I/O, and schema tests passed",
+      "evals": "373 router cases, 33 trigger cases, and 25 deterministic output cases passed"
     },
     {
       "python": "3.14.6",
       "environment": "fresh venv",
       "install": "pip install -e .[dev]",
-      "tests": "335 targeted router/library integration tests passed",
-      "evals": "373 router cases and deterministic output gates passed"
+      "tests": "371 targeted router, research, measurement, secure I/O, and schema tests passed",
+      "evals": "373 router cases, 33 trigger cases, and 25 deterministic output cases passed"
     }
   ],
   "ci_matrix": ["3.11", "3.12", "3.13", "3.14"],
-  "local_recheck": "make python314-smoke; Python 3.12 uses the same fresh-venv install, targeted tests, and eval command sequence"
+  "local_recheck": "Create one fresh venv per supported minor, install .[dev], run the targeted compatibility suite, then run scripts/run_evals.py"
 }

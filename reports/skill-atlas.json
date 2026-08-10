@@ -2,8 +2,8 @@
   "ok": true,
   "workspace_root": "skills",
   "summary": {
-    "skill_count": 4,
-    "actionable_skill_count": 4,
+    "skill_count": 5,
+    "actionable_skill_count": 5,
     "route_collision_count": 0,
     "actionable_route_collision_count": 0,
     "owner_gap_count": 0,
@@ -13,8 +13,8 @@
     "shared_resource_count": 1,
     "no_route_opportunity_count": 0,
     "telemetry_report_count": 0,
-    "drift_signal_count": 4,
-    "actionable_drift_signal_count": 4,
+    "drift_signal_count": 5,
+    "actionable_drift_signal_count": 5,
     "non_actionable_issue_count": 0
   },
   "scope_policy": {
@@ -24,17 +24,17 @@
   },
   "catalog": {
     "workspace_root": "skills",
-    "generated_at": "2026-08-09",
+    "generated_at": "2026-08-11",
     "skills": [
       {
         "name": "geo",
         "path": "geo",
         "description": "Route GEO and generative engine optimization requests to an available GEO SEO Hub capability. Use for broad GEO requests, workflow selection, capability checks, or requests spanning discovery, brand/site/page diagnosis, content, strategy, knowledge, publishing, and measurement.",
         "owner": "姚金刚 / Yao",
-        "version": "0.2.0",
+        "version": "0.3.0",
         "status": "experimental",
         "maturity": "library",
-        "updated_at": "2026-08-09",
+        "updated_at": "2026-08-11",
         "review_cadence": "per-release",
         "targets": [
           "openai",
@@ -91,10 +91,10 @@
         "path": "geo-content",
         "description": "Create evidence-lined GEO titles, explainers, neutral comparisons, method-backed rankings, page blueprints, refinements, and article-friendly Markdown. Use for title generation, 科普/解释、对比、榜单、页面蓝图、内容优化, and article-friendly rewriting. Excludes unsupported factual claims, winner declarations without like-for-like evidence, network research, publishing, and live ranking measurement.",
         "owner": "姚金刚 / Yao",
-        "version": "0.2.0",
+        "version": "0.3.0",
         "status": "experimental",
         "maturity": "library",
-        "updated_at": "2026-08-09",
+        "updated_at": "2026-08-11",
         "review_cadence": "per-release",
         "targets": [
           "openai",
@@ -166,10 +166,10 @@
         "path": "geo-diagnose",
         "description": "Diagnose a brand, website, or page for evidence-backed GEO gaps and opportunities from user-supplied URLs, HTML, or evidence. Use for brand diagnosis, website or page audits, GEO gap analysis, and 品牌诊断、网站诊断、页面诊断. Excludes live AI-platform recall, ranking, and citation-share measurement.",
         "owner": "姚金刚 / Yao",
-        "version": "0.2.0",
+        "version": "0.3.0",
         "status": "experimental",
         "maturity": "library",
-        "updated_at": "2026-08-09",
+        "updated_at": "2026-08-11",
         "review_cadence": "per-release",
         "targets": [
           "openai",
@@ -228,10 +228,10 @@
         "path": "geo-discover",
         "description": "Discover evidence-aware GEO questions, query rewrites, intent clusters, and prioritized content opportunities from a structured brief. Use for AI search intent mining, question or keyword expansion, query research, FAQ discovery, 拓词, and GEO topic discovery in Chinese or English.",
         "owner": "姚金刚 / Yao",
-        "version": "0.2.0",
+        "version": "0.3.0",
         "status": "experimental",
         "maturity": "library",
-        "updated_at": "2026-08-09",
+        "updated_at": "2026-08-11",
         "review_cadence": "per-release",
         "targets": [
           "openai",
@@ -285,11 +285,85 @@
           "adoption_rate": 0,
           "candidate_count": 0
         }
+      },
+      {
+        "name": "geo-measure",
+        "path": "geo-measure",
+        "description": "Aggregate explicit GEO or AI-search observation records into transparent rates, denominators, missing-answer counts, platform strata, and intervals. Use for citation measurement, AI visibility tracking, repeated observation analysis, and 引用监测、AI 可见度衡量、效果测量. Requires supplied observations and excludes live platform collection, account access, causal attribution, ranking guarantees, and continuous monitoring.",
+        "owner": "姚金刚 / Yao",
+        "version": "0.3.0",
+        "status": "experimental",
+        "maturity": "library",
+        "updated_at": "2026-08-11",
+        "review_cadence": "per-release",
+        "targets": [
+          "openai",
+          "claude",
+          "generic"
+        ],
+        "resources": [
+          "scripts/run_measure.py",
+          "references/input-example.json",
+          "references/measurement-method.md"
+        ],
+        "token_set": [
+          "access",
+          "account",
+          "aggregate",
+          "ai",
+          "ai-search",
+          "analysis",
+          "attribution",
+          "causal",
+          "citation",
+          "collection",
+          "continuous",
+          "counts",
+          "denominators",
+          "excludes",
+          "explicit",
+          "geo",
+          "guarantees",
+          "intervals",
+          "live",
+          "measurement",
+          "missing-answer",
+          "monitoring",
+          "observation",
+          "observations",
+          "or",
+          "platform",
+          "ranking",
+          "rates",
+          "records",
+          "repeated",
+          "requires",
+          "strata",
+          "supplied",
+          "tracking",
+          "transparent",
+          "visibility",
+          "可见度衡量",
+          "引用监测",
+          "效果测量"
+        ],
+        "atlas_scope": "release",
+        "actionable": true,
+        "scope_reason": "default release-actionable skill",
+        "telemetry": {
+          "report_present": false,
+          "report": "geo-measure/reports/adoption_drift_report.json",
+          "risk_band": "missing",
+          "event_count": 0,
+          "adoption_sample_count": 0,
+          "adoption_rate": 0,
+          "candidate_count": 0
+        }
       }
     ],
     "summary": {
-      "skill_count": 4,
-      "actionable_skill_count": 4,
+      "skill_count": 5,
+      "actionable_skill_count": 5,
       "route_collision_count": 0,
       "actionable_route_collision_count": 0,
       "owner_gap_count": 0,
@@ -299,8 +373,8 @@
       "shared_resource_count": 1,
       "no_route_opportunity_count": 0,
       "telemetry_report_count": 0,
-      "drift_signal_count": 4,
-      "actionable_drift_signal_count": 4,
+      "drift_signal_count": 5,
+      "actionable_drift_signal_count": 5,
       "non_actionable_issue_count": 0
     }
   },
@@ -323,6 +397,10 @@
       {
         "name": "geo-discover",
         "path": "geo-discover"
+      },
+      {
+        "name": "geo-measure",
+        "path": "geo-measure"
       }
     ],
     "shared_resources": [
@@ -331,7 +409,8 @@
         "skills": [
           "geo-content",
           "geo-diagnose",
-          "geo-discover"
+          "geo-discover",
+          "geo-measure"
         ]
       }
     ]
@@ -404,6 +483,22 @@
         "event_count": 0,
         "adoption_sample_count": 0
       }
+    },
+    {
+      "name": "geo-measure",
+      "path": "geo-measure",
+      "source": "geo-measure/reports/adoption_drift_report.json",
+      "risk_band": "no-data",
+      "signal_types": [
+        "no telemetry"
+      ],
+      "recommendation": "Render adoption drift evidence or record a small metadata-only sample before release review.",
+      "actionable": true,
+      "scope": "release",
+      "summary": {
+        "event_count": 0,
+        "adoption_sample_count": 0
+      }
     }
   ],
   "actionable_drift_signals": [
@@ -459,6 +554,22 @@
       "name": "geo-discover",
       "path": "geo-discover",
       "source": "geo-discover/reports/adoption_drift_report.json",
+      "risk_band": "no-data",
+      "signal_types": [
+        "no telemetry"
+      ],
+      "recommendation": "Render adoption drift evidence or record a small metadata-only sample before release review.",
+      "actionable": true,
+      "scope": "release",
+      "summary": {
+        "event_count": 0,
+        "adoption_sample_count": 0
+      }
+    },
+    {
+      "name": "geo-measure",
+      "path": "geo-measure",
+      "source": "geo-measure/reports/adoption_drift_report.json",
       "risk_band": "no-data",
       "signal_types": [
         "no telemetry"

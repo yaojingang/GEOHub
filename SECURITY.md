@@ -2,7 +2,7 @@
 
 ## Supported version
 
-GEO SEO Hub `0.2.x` is experimental. Security fixes are applied to the latest commit on `main`; users should reproduce a report against that revision when practical.
+GEO SEO Hub `0.3.x` is experimental. Security fixes are applied to the latest commit on `main`; users should reproduce a report against that revision when practical.
 
 ## Report a vulnerability
 
@@ -14,4 +14,4 @@ The maintainer will triage reports according to severity, reproducibility, and a
 
 ## Scope
 
-Reports may cover the Python runtime, Skill routing, Artifact Bus publication, input and archive handling, package installation, or accidental disclosure through generated artifacts. Third-party platform behavior and unsupported planned integrations remain outside the executable `0.2.x` scope.
+Reports may cover the Python runtime, Skill routing, Artifact Bus publication, input and archive handling, offline measurement aggregation, package installation, or accidental disclosure through generated artifacts. Third-party platform behavior, live collection, and unsupported planned integrations remain outside the executable `0.3.x` scope.

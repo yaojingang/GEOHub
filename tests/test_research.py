@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from collections import Counter
 from pathlib import Path
 
 import pytest
@@ -45,6 +46,20 @@ def test_research_context_is_surface_scoped_and_source_resolved() -> None:
     assert context["effect_guarantee"] is False
 
 
+def test_content_modes_inherit_parent_research_controls() -> None:
+    context = build_research_context("run-content", "geo-content:comparison")
+    principles = {item["principle_id"] for item in context["principles"]}
+
+    assert "comparison-requires-governed-evidence" in principles
+    assert "knowledge-needs-provenance-and-conflict-controls" in principles
+    assert all(
+        "all" in item["surfaces"]
+        or "geo-content" in item["surfaces"]
+        or "geo-content:comparison" in item["surfaces"]
+        for item in context["principles"]
+    )
+
+
 def test_research_registry_rejects_unknown_sources_and_effect_guarantees() -> None:
     registry = json.loads(json.dumps(load_research_registry()))
     registry["principles"][0]["source_ids"].append("P99")
@@ -64,3 +79,23 @@ def test_research_context_schema_is_installed_as_package_data() -> None:
     assert '"registry/research-evidence.json"' in text
     assert '"schemas/research-context.schema.json"' in text
     assert '"schemas/research-evidence-registry.schema.json"' in text
+
+
+def test_research_matrix_surface_status_summary_matches_confirmed_scope() -> None:
+    matrix = json.loads(
+        (Path(__file__).parents[1] / "reports" / "research-evidence-matrix.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    observed = Counter(item["status"] for item in matrix["surface_summary"])
+
+    assert dict(observed) == matrix["coverage"]["surface_statuses"]
+    assert observed == {
+        "active": 12,
+        "active-offline": 1,
+        "planned": 3,
+        "boundary": 1,
+    }
+    assert next(
+        item for item in matrix["surface_summary"] if item["surface"] == "measure"
+    )["status"] == "active-offline"

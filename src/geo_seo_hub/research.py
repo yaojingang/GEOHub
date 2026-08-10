@@ -56,12 +56,18 @@ def build_research_context(
         raise ValueError("research context run_id must be a non-blank string")
     if not isinstance(surface, str) or not surface.strip():
         raise ValueError("research context surface must be a non-blank string")
+    normalized_surface = surface.strip()
     source = registry or load_research_registry()
     validate_research_registry(source)
     principles = [
         deepcopy(principle)
         for principle in source["principles"]
-        if "all" in principle["surfaces"] or surface in principle["surfaces"]
+        if any(
+            declared == "all"
+            or declared == normalized_surface
+            or normalized_surface.startswith(f"{declared}:")
+            for declared in principle["surfaces"]
+        )
     ]
     if not principles:
         raise ValueError(f"research registry has no principles for surface: {surface}")
@@ -78,7 +84,7 @@ def build_research_context(
         "run_id": run_id.strip(),
         "registry_version": source["registry_version"],
         "source_commit": source["source_commit"],
-        "surface": surface.strip(),
+        "surface": normalized_surface,
         "effect_guarantee": False,
         "applied_source_ids": applied_source_ids,
         "principles": principles,

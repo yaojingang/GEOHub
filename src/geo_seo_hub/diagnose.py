@@ -19,7 +19,13 @@ from urllib.parse import urljoin, urlsplit, urlunsplit
 
 from .artifact_bus import ArtifactBus
 from .research import build_research_context
-from .validation import load_bounded_json, read_bounded_regular_file, strict_json_loads, validate_artifact
+from .validation import (
+    load_bounded_json,
+    normalize_artifact_uri,
+    read_bounded_regular_file,
+    strict_json_loads,
+    validate_artifact,
+)
 from .version import package_version
 
 PROTOCOL_VERSION = "1.0.0"
@@ -66,12 +72,10 @@ def _require_text(value: Any, field: str) -> str:
 
 
 def _normalize_provenance_uri(value: Any, field: str) -> str:
-    uri = _require_text(value, field)
+    uri = normalize_artifact_uri(value, field=field)
     parsed = urlsplit(uri)
-    if not parsed.scheme:
-        raise ValueError(f"{field} must be an absolute URI")
     if parsed.scheme.casefold() in {"http", "https"}:
-        if parsed.username is not None or parsed.password is not None or parsed.query:
+        if parsed.query:
             raise ValueError(f"{field} must be a public canonical URL without credentials or query")
         return urlunsplit((parsed.scheme.casefold(), parsed.netloc, parsed.path, "", ""))
     return urlunsplit((parsed.scheme, parsed.netloc, parsed.path, parsed.query, ""))

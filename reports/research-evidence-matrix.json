@@ -44,7 +44,8 @@
     "surface_summary_entries": 17,
     "surface_statuses": {
       "active": 12,
-      "planned": 4,
+      "active-offline": 1,
+      "planned": 3,
       "boundary": 1
     },
     "verification_states": {

@@ -3,9 +3,11 @@ from __future__ import annotations
 import json
 import math
 import os
+import re
 import stat
 from pathlib import Path
 from typing import Any
+from urllib.parse import unquote_plus, urlsplit, urlunsplit
 
 from jsonschema import Draft202012Validator, FormatChecker
 from referencing import Registry, Resource
@@ -15,6 +17,24 @@ from .paths import repository_root
 
 class ArtifactValidationError(ValueError):
     """Raised when an artifact does not satisfy its protocol schema."""
+
+
+_CREDENTIAL_QUERY_KEYS = {
+    "access_token",
+    "api_key",
+    "apikey",
+    "auth",
+    "authorization",
+    "key",
+    "password",
+    "secret",
+    "session",
+    "sessionid",
+    "sig",
+    "signature",
+    "token",
+}
+_CREDENTIAL_QUERY_TOKENS = {"credential", "password", "secret", "signature", "token"}
 
 
 def strict_json_loads(value: str | bytes | bytearray) -> Any:
@@ -32,6 +52,31 @@ def strict_json_loads(value: str | bytes | bytearray) -> Any:
         elif isinstance(item, list):
             pending.extend(item)
     return parsed
+
+
+def normalize_artifact_uri(value: Any, *, field: str) -> str:
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"{field} must be a non-blank string")
+    uri = value.strip()
+    try:
+        parsed = urlsplit(uri)
+    except ValueError as exc:
+        raise ValueError(f"{field} must be an absolute URI") from exc
+    if not parsed.scheme or re.search(r"\s", uri):
+        raise ValueError(f"{field} must be an absolute URI")
+    query_keys = {
+        unquote_plus(segment.partition("=")[0]).casefold()
+        for segment in re.split(r"[&;]", parsed.query)
+        if segment
+    }
+    credential_key = any(
+        key in _CREDENTIAL_QUERY_KEYS
+        or bool(_CREDENTIAL_QUERY_TOKENS & set(filter(None, re.split(r"[^a-z0-9]+", key))))
+        for key in query_keys
+    )
+    if parsed.username is not None or parsed.password is not None or credential_key:
+        raise ValueError(f"{field} must not contain credentials")
+    return urlunsplit((parsed.scheme, parsed.netloc, parsed.path, parsed.query, ""))
 
 
 def _trusted_absolute_components(candidate: Path) -> tuple[str, ...]:

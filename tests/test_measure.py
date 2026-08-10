@@ -34,6 +34,7 @@ def test_measure_preserves_denominators_missing_answers_and_lineage(tmp_path):
     report = _read(run / "measurement-report.json")
     assert report["effect_guarantee"] is False
     assert report["causal_status"] == "descriptive"
+    assert report["confidence_level"] == 0.95
     assert report["trial_count"] == 3
     assert report["eligible_trial_count"] == 2
     assert report["answered_count"] == 1
@@ -144,3 +145,52 @@ def test_measure_rejects_nonfinite_json(tmp_path):
     brief.write_text(text, encoding="utf-8")
     with pytest.raises(ValueError, match="non-finite"):
         measure(brief, tmp_path / "runs", clock=_clock)
+
+
+@pytest.mark.parametrize(
+    "source_uri",
+    [
+        "https://user:secret@example.com/observations.json",
+        "https://example.com/observations.json?sig=secret",
+        "https://example.com/observations.json?X-Amz-Signature=secret",
+        "https://example.com/observations.json?view=compact;csrf_token=secret",
+        "urn:geo-measure:trial?access_token=secret",
+    ],
+)
+def test_measure_rejects_credential_bearing_source_uris(tmp_path, source_uri):
+    payload = _read(FIXTURE)
+    payload["observations"][0]["source_uri"] = source_uri
+    brief = tmp_path / "credential-source.json"
+    brief.write_text(json.dumps(payload), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="credentials"):
+        measure(brief, tmp_path / "runs", clock=_clock)
+
+
+def test_measure_markdown_neutralizes_user_markup(tmp_path):
+    payload = _read(FIXTURE)
+    payload["subject"] = "![tracking pixel](https://tracker.invalid/pixel) # injected"
+    brief = tmp_path / "markup.json"
+    brief.write_text(json.dumps(payload), encoding="utf-8")
+
+    result = measure(brief, tmp_path / "runs", clock=_clock)
+    report = (Path(result["output"]) / "report.md").read_text(encoding="utf-8")
+
+    assert "![tracking pixel](" not in report
+    assert "\\!\\[tracking pixel\\]\\(https://tracker\\.invalid/pixel\\) \\# injected" in report
+    assert "- Confidence level: 0.95" in report
+
+
+def test_measurement_window_orders_zero_and_fractional_seconds(tmp_path):
+    payload = _read(FIXTURE)
+    payload["observations"] = payload["observations"][:2]
+    payload["observations"][0]["collected_at"] = "2026-08-11T00:00:00Z"
+    payload["observations"][1]["collected_at"] = "2026-08-11T00:00:00.500000Z"
+    brief = tmp_path / "subsecond-window.json"
+    brief.write_text(json.dumps(payload), encoding="utf-8")
+
+    result = measure(brief, tmp_path / "runs", clock=_clock)
+    report = _read(Path(result["output"]) / "measurement-report.json")
+
+    assert report["measurement_scope"]["collected_from"] == "2026-08-11T00:00:00.000000Z"
+    assert report["measurement_scope"]["collected_to"] == "2026-08-11T00:00:00.500000Z"

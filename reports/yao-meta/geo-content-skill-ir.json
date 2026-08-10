@@ -23,7 +23,7 @@
       "Read `references/content-method.md`, then select one mode from `references/modes.md`.",
       "Prepare a strict content brief using `references/input-example.json` and `references/evidence-policy.md`.",
       "Run the deterministic `python3 scripts/run_content.py --input <brief.json> --output <runs-root>` wrapper or `python -m geo_seo_hub content --input <brief.json> --output <runs-root>`.",
-      "Inspect `quality-report.json`, `evidence-ledger.json`, content status, and supplement requests.",
+      "Inspect `content-evidence-units.json`, `research-context.json`, `quality-report.json`, `evidence-ledger.json`, content status, and supplement requests.",
       "Deliver the complete run described by `references/output-contract.md`."
     ],
     "decision_points": [],

@@ -516,7 +516,7 @@ def main() -> int:
     waiver_schema = json.loads((ROOT / "reports" / "review-waivers.schema.json").read_text(encoding="utf-8"))
     waiver_errors = list(Draft202012Validator(waiver_schema, format_checker=FormatChecker()).iter_errors(waiver))
     expected_waivers = {
-        *((skill_id, gate) for skill_id in ("geo", "geo-discover", "geo-diagnose", "geo-content") for gate in ("operations-loop", "release-notes")),
+        *((skill_id, gate) for skill_id in ACTIVE_SKILLS for gate in ("operations-loop", "release-notes")),
         *(("suite", gate) for gate in ("human-blind-review", "real-platform-benchmark", "commercial-legal-review")),
     }
     observed_waivers = [(item.get("skill_id"), item.get("gate")) for item in waiver.get("waivers", [])]
