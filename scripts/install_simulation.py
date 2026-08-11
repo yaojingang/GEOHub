@@ -136,7 +136,7 @@ def source_smoke(source_zip: Path, temp_root: Path, wheelhouse: Path) -> dict:
     version_payload = json.loads(results[0].stdout)
     if version_payload != {
         "distribution": "geo-seo-hub",
-        "name": "GEO SEO Hub",
+        "name": "GEOHub",
         "version": VERSION,
     }:
         raise ValueError(f"installed CLI version mismatch: {version_payload}")

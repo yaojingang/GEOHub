@@ -3,7 +3,7 @@ name: seo
 description: Turn one natural-language request into an evidence-bounded SEO work plan across technical SEO, crawling and indexing, Search Console incidents, keyword-to-page mapping, migrations, experiments, international or ecommerce SEO, and AI-search foundations. Use for 一句话SEO、技术SEO、自然搜索、收录诊断、关键词页面映射 and website SEO. Exclude paid search, ASO, ranking guarantees, link spam, live mutation without authorization, and unsupported metrics.
 ---
 
-# GEO SEO Hub — One-line SEO
+# GEOHub — One-line SEO
 
 ## Workflow
 

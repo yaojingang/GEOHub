@@ -1370,7 +1370,7 @@
     "upgrade_check": {},
     "manifest": {
       "name": "geo-content",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "owner": "姚金刚 / Yao",
       "updated_at": "2026-08-11",
       "review_cadence": "per-release",
@@ -1430,7 +1430,7 @@
     },
     "interface": {
       "interface": {
-        "display_name": "GEO SEO Hub Content",
+        "display_name": "GEOHub Content",
         "short_description": "Create offline evidence-lined GEO content artifacts",
         "default_prompt": "Use $geo-content to create the requested content mode, preserve evidence lineage, and surface source gaps.",
         "input_contract": {

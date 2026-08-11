@@ -1,6 +1,6 @@
 # Evaluation Policy
 
-The 0.3.0 local gate uses 373 Chinese/English router cases, 39 per-Skill trigger cases, and 30 deterministic output cases across six active Skills. Router precision must be at least `0.97`, recall at least `0.93`, trigger and output contract compliance exactly `100%`, and fabricated citations exactly `0`.
+The 0.3.1 local gate uses 374 Chinese/English router cases, 40 per-Skill trigger cases, and 30 deterministic output cases across six active Skills. Router precision must be at least `0.97`, recall at least `0.93`, trigger and output contract compliance exactly `100%`, and fabricated citations exactly `0`.
 
 An exact skill/workflow/runnable match counts as a true positive. Every mismatch contributes one false positive and one false negative. Output cases use synthetic, file-backed fixtures without network services or real customer data.
 

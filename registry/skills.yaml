@@ -1,5 +1,5 @@
 protocol_version: 1.0.0
-registry_version: 0.3.0
+registry_version: 0.3.1
 workflows:
   - id: brand-baseline-lite
     required_skills: [geo-discover, geo-diagnose]
@@ -17,7 +17,7 @@ skills:
     active_placeholder: false
     entry: skills/geo/SKILL.md
     summary: Unified GEO intent router and capability status surface.
-    intents: [geo, GEO SEO Hub, generative engine optimization, 生成式引擎优化, AI搜索优化]
+    intents: [geo, GEOHub, GEO SEO Hub, generative engine optimization, 生成式引擎优化, AI搜索优化]
     outputs: [route-decision]
   - id: geo-discover
     status: active

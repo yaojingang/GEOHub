@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for your interest in GEO SEO Hub. External code merges are temporarily paused while the Contributor License Agreement receives legal review.
+Thank you for your interest in GEOHub. External code merges are temporarily paused while the Contributor License Agreement receives legal review.
 
 The project currently has no enabled CLA acceptance flow. The review draft in `CONTRIBUTOR-LICENSE-AGREEMENT.md` cannot be accepted. The project also does not currently use Developer Certificate of Origin (DCO) sign-offs as an alternative acceptance mechanism. A `Signed-off-by` line does not authorize a merge during this pause.
 

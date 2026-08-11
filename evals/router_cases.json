@@ -321,7 +321,7 @@
   },
   {
     "id": "r033",
-    "text": "What can GEO SEO Hub do?",
+    "text": "What can GEOHub do?",
     "category": "single",
     "expected": {
       "skill_id": "geo",
@@ -2512,5 +2512,11 @@
     "text": "构建知识库",
     "category": "planned",
     "expected": {"skill_id": "geo-knowledge", "workflow_id": null, "runnable": false}
+  },
+  {
+    "id": "r374",
+    "text": "What can GEO SEO Hub do?",
+    "category": "compatibility",
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
   }
 ]

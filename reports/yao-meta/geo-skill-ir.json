@@ -1,11 +1,12 @@
 {
   "schema_version": "2.0.0",
   "name": "geo",
-  "title": "GEO SEO Hub Router",
-  "job_to_be_done": "Route GEO and generative engine optimization requests to an available GEO SEO Hub capability. Use for broad GEO requests, workflow selection, capability checks, or requests spanning discovery, brand/site/page diagnosis, content, strategy, knowledge, publishing, and measurement.",
+  "title": "GEOHub",
+  "job_to_be_done": "Route GEO and generative engine optimization requests to an available GEOHub capability. Use for broad GEO requests, GEOHub workflow selection, capability checks, or requests spanning discovery, brand/site/page diagnosis, content, strategy, knowledge, publishing, and measurement.",
   "trigger_surface": {
-    "description": "Route GEO and generative engine optimization requests to an available GEO SEO Hub capability. Use for broad GEO requests, workflow selection, capability checks, or requests spanning discovery, brand/site/page diagnosis, content, strategy, knowledge, publishing, and measurement.",
+    "description": "Route GEO and generative engine optimization requests to an available GEOHub capability. Use for broad GEO requests, GEOHub workflow selection, capability checks, or requests spanning discovery, brand/site/page diagnosis, content, strategy, knowledge, publishing, and measurement.",
     "should_trigger": [
+      "Which GEOHub capability handles this?",
       "Which GEO SEO Hub capability handles this?",
       "帮我选择 GEO 工作流"
     ],

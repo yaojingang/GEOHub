@@ -12,4 +12,4 @@ For keywords, map intent and expected page type before clustering. Leave search 
 
 Keep robots access, index directives, canonical preference, sitemaps, structured-data syntax, search-feature eligibility, lab performance, field performance, deployment, platform processing, and observed outcomes as distinct layers.
 
-This method draws structural inspiration from the MIT-licensed Qiaomu SEO project; GEO SEO Hub uses its own schemas, runtime, routing, evidence contracts, and AGPL distribution boundary.
+This method draws structural inspiration from the MIT-licensed Qiaomu SEO project; GEOHub uses its own schemas, runtime, routing, evidence contracts, and AGPL distribution boundary.

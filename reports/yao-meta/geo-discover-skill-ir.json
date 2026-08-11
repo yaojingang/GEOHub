@@ -1,7 +1,7 @@
 {
   "schema_version": "2.0.0",
   "name": "geo-discover",
-  "title": "GEO SEO Hub Discover",
+  "title": "GEOHub Discover",
   "job_to_be_done": "Discover evidence-aware GEO questions, query rewrites, intent clusters, and prioritized content opportunities from a structured brief. Use for AI search intent mining, question or keyword expansion, query research, FAQ discovery, 拓词, and GEO topic discovery in Chinese or English.",
   "trigger_surface": {
     "description": "Discover evidence-aware GEO questions, query rewrites, intent clusters, and prioritized content opportunities from a structured brief. Use for AI search intent mining, question or keyword expansion, query research, FAQ discovery, 拓词, and GEO topic discovery in Chinese or English.",

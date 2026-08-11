@@ -8,6 +8,10 @@ Pre-release 0.1 development snapshots used the distribution and CLI `yao-geo`, P
 
 An existing development environment may remove the retired distribution with `python3 -m pip uninstall yao-geo` before installing 0.2. The `geo-*` Skill IDs and Artifact Bus protocol `1.0.0` remain unchanged.
 
+## Public brand migration
+
+Version 0.3.1 changes the public project and Skill suite name from `GEO SEO Hub` to `GEOHub`, and moves the canonical repository URL to `https://github.com/yaojingang/GEOHub`. The Python distribution and CLI `geo-seo-hub`, module `geo_seo_hub`, `geo-*` and `seo` Skill IDs, installed data root, archive names, generators, URNs, schemas, and Artifact Bus protocol remain compatible. The root router continues to accept the former display name as a legacy natural-language intent.
+
 | # | Source skill | Destination | Decision |
 | ---: | --- | --- | --- |
 | 1 | yao-geo-intent-miner | geo-discover | implemented |

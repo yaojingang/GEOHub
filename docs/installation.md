@@ -1,12 +1,12 @@
 # Installation
 
-GEO SEO Hub uses `geo-seo-hub` for the Python distribution and CLI, and `geo_seo_hub` for the Python module.
+GEOHub is the public project and Skill suite name. It retains `geo-seo-hub` for the Python distribution and CLI, `geo_seo_hub` for the Python module, and the existing installed data, package, generator, and URN identifiers.
 
 Supported Python range: 3.11-3.14.
 
 ```bash
-git clone https://github.com/yaojingang/geo-seo-hub.git
-cd geo-seo-hub
+git clone https://github.com/yaojingang/GEOHub.git
+cd GEOHub
 python3 -m venv .venv
 .venv/bin/python -m pip install .
 .venv/bin/geo-seo-hub --version
@@ -23,7 +23,7 @@ python3 -m venv .venv
 | Discover, Diagnose, Content, Measure, or SEO provider ZIP | Installing one active capability as the root Skill |
 | Codex or Claude ZIP | Target-specific adapter layout with all six provider entries |
 
-Version `0.3.0` has no GitHub Release or prebuilt release assets. Build the ten community artifacts from a source checkout with `python3 scripts/package.py --target all --channel community`. Install a provider, unified, Codex, or Claude ZIP by safely extracting it into the target's skill directory. Each adapter contains one `SKILL.md`, runtime source, schemas, research registry, capability registry, project metadata, version, and legal notices.
+Version `0.3.1` has no GitHub Release or prebuilt release assets. Build the ten community artifacts from a source checkout with `python3 scripts/package.py --target all --channel community`. Install a provider, unified, Codex, or Claude ZIP by safely extracting it into the target's skill directory. Each adapter contains one `SKILL.md`, runtime source, schemas, research registry, capability registry, project metadata, version, and legal notices.
 
 Every community ZIP has a self-contained `pyproject.toml` and runtime data layout. For direct command-line use after extraction, create an isolated environment and install that extracted directory before invoking its wrapper:
 

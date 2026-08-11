@@ -1,5 +1,5 @@
 interface:
-  display_name: "GEO SEO Hub Content"
+  display_name: "GEOHub Content"
   short_description: "Create offline evidence-lined GEO content artifacts"
   default_prompt: "Use $geo-content to create the requested content mode, preserve evidence lineage, and surface source gaps."
   input_contract:

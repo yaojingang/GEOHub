@@ -1,7 +1,7 @@
 {
   "schema_version": "2.0.0",
   "name": "geo-diagnose",
-  "title": "GEO SEO Hub Diagnose",
+  "title": "GEOHub Diagnose",
   "job_to_be_done": "Diagnose a brand, website, or page for evidence-backed GEO gaps and opportunities from user-supplied URLs, HTML, or evidence. Use for brand diagnosis, website or page audits, GEO gap analysis, and 品牌诊断、网站诊断、页面诊断. Excludes live AI-platform recall, ranking, and citation-share measurement.",
   "trigger_surface": {
     "description": "Diagnose a brand, website, or page for evidence-backed GEO gaps and opportunities from user-supplied URLs, HTML, or evidence. Use for brand diagnosis, website or page audits, GEO gap analysis, and 品牌诊断、网站诊断、页面诊断. Excludes live AI-platform recall, ranking, and citation-share measurement.",

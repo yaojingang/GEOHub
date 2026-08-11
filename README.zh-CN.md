@@ -1,14 +1,18 @@
-# GEO SEO Hub
+# GEOHub
 
-[English](README.md) · [简体中文](README.zh-CN.md) · [可视化指南](https://htmlpreview.github.io/?https://raw.githubusercontent.com/yaojingang/geo-seo-hub/main/reports/geo-seo-hub-visual-guide.html) · [架构说明](docs/architecture.md) · [安装说明](docs/installation.md)
+**面向 AI 搜索的科研驱动 GEO 与 SEO 超级 Skill**
 
-**版本 0.3.0 · 实验性 · GEO 优先 · SEO 已启用 · 协议优先**
+[English](README.md) · [简体中文](README.zh-CN.md) · [可视化指南](https://htmlpreview.github.io/?https://raw.githubusercontent.com/yaojingang/GEOHub/main/reports/geohub-visual-guide.html) · [架构说明](docs/architecture.md) · [安装说明](docs/installation.md)
 
-![GEO SEO Hub 概览](docs/assets/geo-seo-hub-overview.png)
+**版本 0.3.1 · 实验性 · GEO 优先 · SEO 已启用 · 协议优先**
 
-GEO SEO Hub 是一个面向 GEO 与 SEO 工作流的开放式 Agent Skill 合集。用户输入自然语言请求后，注册表路由器会选择最小可执行 Skill 或稳定工作流。每次能力执行都会生成一个自包含的 Artifact Bus 运行目录，集中保存结构化结果、证据血缘、质量状态与运行清单。科研对齐能力还会写入研究上下文。
+![GEOHub 概览](docs/assets/geohub-overview.png)
 
-`0.3.0` 版本包含 6 个可执行 Skill、3 个规划中路由、7 种内容模式、离线测量能力和独立的一句话 SEO 规划入口。当前产品成熟度为 **Experimental**。Library 级工程门禁代表打包与验证强度，不代表线上效果承诺。
+GEOHub 是一个面向 GEO 与 SEO 工作流的开放式 Agent Skill 合集。用户输入自然语言请求后，注册表路由器会选择最小可执行 Skill 或稳定工作流。每次能力执行都会生成一个自包含的 Artifact Bus 运行目录，集中保存结构化结果、证据血缘、质量状态与运行清单。科研对齐能力还会写入研究上下文。
+
+`0.3.1` 版本包含 6 个可执行 Skill、3 个规划中路由、7 种内容模式、离线测量能力和独立的一句话 SEO 规划入口。当前产品成熟度为 **Experimental**。Library 级工程门禁代表打包与验证强度，不代表线上效果承诺。
+
+项目与超级 Skill 的公共品牌统一为 **GEOHub**。为保持兼容，Python 分发名、CLI、模块、安装数据路径、安装包与 Artifact Bus 标识继续使用 `geo-seo-hub` 或 `geo_seo_hub`。
 
 ## 从一句话开始
 
@@ -31,7 +35,7 @@ GEO SEO Hub 是一个面向 GEO 与 SEO 工作流的开放式 Agent Skill 合集
 
 ## 工作原理
 
-![GEO SEO Hub 系统架构](docs/assets/geo-seo-hub-architecture.png)
+![GEOHub 系统架构](docs/assets/geohub-architecture.png)
 
 1. 注册表声明能力状态、意图、入口、输入契约和输出。
 2. 解析器选择一个可执行 Skill 或一个确定的工作流执行图。
@@ -39,7 +43,7 @@ GEO SEO Hub 是一个面向 GEO 与 SEO 工作流的开放式 Agent Skill 合集
 4. 研究证据内核附加来源范围、因果状态、代理变量限制和证据规则。
 5. Artifact Bus 完成文件集与运行清单校验后，原子发布完整运行目录。
 
-协议版本保持为 `1.0.0`。现有 Artifact Bus 消费者可以读取 `0.3.0` 运行结果，新版产物增加研究上下文、测量报告、诊断漏斗、内容证据单元和 SEO 计划。
+协议版本保持为 `1.0.0`。现有 Artifact Bus 消费者可以读取 `0.3.1` 运行结果，新版产物增加研究上下文、测量报告、诊断漏斗、内容证据单元和 SEO 计划。
 
 ## 当前可执行能力
 
@@ -102,7 +106,7 @@ runs/run-<id>/
 
 ## 科研依据
 
-![研究证据与运行原则](docs/assets/geo-seo-hub-research-principles.png)
+![研究证据与运行原则](docs/assets/geohub-research-principles.png)
 
 研究注册表把 54 篇论文和 2 个数据集映射为 11 条运行原则。实现会区分来源报告、已复现结果、不可复现结论、代理变量和描述性测量。发现、诊断、内容与测量能力会生成包含适用范围与局限的 `research-context.json`。
 
@@ -122,8 +126,8 @@ runs/run-<id>/
 支持 Python `3.11-3.14`。
 
 ```bash
-git clone https://github.com/yaojingang/geo-seo-hub.git
-cd geo-seo-hub
+git clone https://github.com/yaojingang/GEOHub.git
+cd GEOHub
 python3 -m venv .venv
 .venv/bin/python -m pip install .
 .venv/bin/geo-seo-hub --version
@@ -141,9 +145,9 @@ python3 -m venv .venv
 
 ## 打包与质量门禁
 
-`0.3.0` 可以构建 10 个确定性社区安装包，包括源码包、统一包、6 个能力包、Codex 适配包和 Claude 适配包。发布门禁会在隔离环境中安装并执行 9 个非源码包。
+`0.3.1` 可以构建 10 个确定性社区安装包，包括源码包、统一包、6 个能力包、Codex 适配包和 Claude 适配包。发布门禁会在隔离环境中安装并执行 9 个非源码包。
 
-当前固定评估集包含 373 条路由用例、39 条触发用例和 30 条确定性输出用例。门禁要求路由精确率与召回率均为 `1.0`，触发与输出契约合规率均为 `1.0`，虚构引用数量为 0。外部 `yao-meta-skill` 共执行 79 项命令，登记 15 项明确证据豁免，发布阻断项为 0。
+当前固定评估集包含 374 条路由用例、40 条触发用例和 30 条确定性输出用例。门禁要求路由精确率与召回率均为 `1.0`，触发与输出契约合规率均为 `1.0`，虚构引用数量为 0。外部 `yao-meta-skill` 共执行 79 项命令，登记 15 项明确证据豁免，发布阻断项为 0。
 
 ```bash
 python3 scripts/package.py --target all --channel community
@@ -151,7 +155,7 @@ python3 scripts/verify_packages.py
 python3 scripts/install_simulation.py --target all
 ```
 
-`0.3.0` 暂无 GitHub Release 或预构建发布资产，请从源码仓库构建安装包。
+`0.3.1` 暂无 GitHub Release 或预构建发布资产，请从源码仓库构建安装包。
 
 ## 授权与治理
 

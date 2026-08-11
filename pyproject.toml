@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "geo-seo-hub"
-version = "0.3.0"
-description = "Experimental, GEO-first agent skill hub with an SEO-ready architecture"
+version = "0.3.1"
+description = "GEOHub: experimental, evidence-bounded GEO and SEO agent skills for AI search"
 readme = "README.md"
 requires-python = ">=3.11,<3.15"
 license = {text = "AGPL-3.0-only"}
@@ -16,8 +16,8 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yaojingang/geo-seo-hub"
-Repository = "https://github.com/yaojingang/geo-seo-hub"
+Homepage = "https://github.com/yaojingang/GEOHub"
+Repository = "https://github.com/yaojingang/GEOHub"
 
 [project.optional-dependencies]
 dev = [

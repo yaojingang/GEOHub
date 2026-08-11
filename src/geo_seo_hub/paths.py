@@ -13,5 +13,5 @@ def repository_root() -> Path:
     if (installed_root / "registry" / "skills.yaml").is_file():
         return installed_root
     raise FileNotFoundError(
-        "GEO SEO Hub registry data is missing; reinstall the package from an official source archive."
+        "GEOHub registry data is missing; reinstall the package from an official source archive."
     )

@@ -123,6 +123,6 @@ def test_version_is_installed_distribution_json():
     assert result.stderr == ""
     assert json.loads(result.stdout) == {
         "distribution": "geo-seo-hub",
-        "name": "GEO SEO Hub",
+        "name": "GEOHub",
         "version": (repository_root() / "VERSION").read_text(encoding="utf-8").strip(),
     }

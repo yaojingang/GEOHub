@@ -32,7 +32,7 @@ def build_parser() -> argparse.ArgumentParser:
         version=json.dumps(
             {
                 "distribution": "geo-seo-hub",
-                "name": "GEO SEO Hub",
+                "name": "GEOHub",
                 "version": package_version(),
             },
             ensure_ascii=False,

@@ -1,5 +1,5 @@
 interface:
-  display_name: "GEO SEO Hub Measure"
+  display_name: "GEOHub Measure"
   short_description: "Aggregate supplied observations with complete denominators and intervals"
   default_prompt: "Use $geo-measure to aggregate these explicit observations, preserve missing answers and exclusions, and state the measurement scope and limits."
   input_contract:

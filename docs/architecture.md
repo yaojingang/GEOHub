@@ -1,6 +1,6 @@
 # Architecture
 
-GEO SEO Hub separates intent resolution, deterministic execution, and artifact validation. The current runtime is GEO-first; the shared evidence, query, content, schema, and Artifact Bus layers form the compatibility boundary for future SEO capabilities.
+GEOHub separates intent resolution, deterministic execution, and artifact validation. The current runtime is GEO-first; the shared evidence, query, content, schema, and Artifact Bus layers form the compatibility boundary for future SEO capabilities.
 
 1. `registry/skills.yaml` declares six active and three planned capabilities.
 2. `registry/research-evidence.json` maps the fixed 54-paper and two-dataset audit to source-resolved principles, causal status, platform scope, proxy variables, controls, and limitations.

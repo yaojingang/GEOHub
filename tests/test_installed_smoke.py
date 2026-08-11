@@ -114,7 +114,7 @@ def test_offline_wheel_install_runs_diagnose_outside_repository(tmp_path):
     )
     assert version_payload == {
         "distribution": "geo-seo-hub",
-        "name": "GEO SEO Hub",
+        "name": "GEOHub",
         "version": expected_version,
     }
 

@@ -1,5 +1,5 @@
 interface:
-  display_name: "GEO SEO Hub Diagnose"
+  display_name: "GEOHub Diagnose"
   short_description: "Diagnose brand, site, and page GEO gaps with evidence lineage"
   default_prompt: "Use $geo-diagnose to assess this brand, site, or page from the explicit sources and preserve all source gaps and limitations."
   input_contract:

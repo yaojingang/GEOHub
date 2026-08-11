@@ -6,13 +6,13 @@ Packages: 10; repeated build hashes: identical.
 
 | Package | SHA-256 | Members | SKILL.md |
 | --- | --- | ---: | ---: |
-| geo-community-0.3.0.zip | `43c6ca5acd074b2630fbed42b4b4fe0b19b6d5fc8428fa8ae95311be9cbb6b62` | 73 | 1 |
-| geo-content-community-0.3.0.zip | `25303b23923bdd9c84e0048e6294ef596a5fbba9cf22449d3fafdfebc5d273d1` | 76 | 1 |
-| geo-diagnose-community-0.3.0.zip | `0a4b1083cbaca2808bf8d01daace393808ba227cf83c8991338516c3c0d69372` | 73 | 1 |
-| geo-discover-community-0.3.0.zip | `62d7a5ffc73663f25ca686b0bd59ffc96a6a0b6a0735bff1b582201d44e0d000` | 73 | 1 |
-| geo-measure-community-0.3.0.zip | `5e609bd6af99f4ee942c0e8dfeca0eb853b23e9ccbfb2fb27ce6beb10e3c2728` | 73 | 1 |
-| geo-seo-hub-claude-community-0.3.0.zip | `43a3c62b49dae553033b09b0eedb9fb9ae74a789a6fa9039df41259076c8ba50` | 79 | 1 |
-| geo-seo-hub-codex-community-0.3.0.zip | `03303c9f6227f22abf0fa26ea0e27eab8418dfe26041a8d89854124043f02c11` | 79 | 1 |
-| geo-seo-hub-source-0.3.0.zip | `15441abc12f43e63f71bf1d04aa4bf79747187585b22fe14e7aa64564a1e4fc3` | 107 | 6 |
-| geo-seo-hub-unified-community-0.3.0.zip | `68ce95d6362dba59b316907c650933a9a966c4a231404ac86770819fbc59449c` | 78 | 1 |
-| seo-community-0.3.0.zip | `1890541c716cd6015d0b3bc8be8958c2884b1fda8e22495cf91e1ee7f857ec4b` | 73 | 1 |
+| geo-community-0.3.1.zip | `ca33fe25c8981ac467b1cecb1e00178a98581a62b0c81edc6d0bf0c1881a936e` | 73 | 1 |
+| geo-content-community-0.3.1.zip | `a831556eaf37e59e835883ca842b8973c56916bfc98ecdd5e3d60d60fe52203d` | 76 | 1 |
+| geo-diagnose-community-0.3.1.zip | `cf412ed8fdcdc44ce83c6e8bb787714f1987c56df766c75bc9cbf884808eb3a5` | 73 | 1 |
+| geo-discover-community-0.3.1.zip | `c7cce398e9582810b910c4d82d8c90737f212786e186d8a2bbf371db69dc4268` | 73 | 1 |
+| geo-measure-community-0.3.1.zip | `1e4dedc2936da65f47c25a71314416aeade51c6a70fbe87b4e37c794517985f9` | 73 | 1 |
+| geo-seo-hub-claude-community-0.3.1.zip | `f5a5994527094cd1eb27296348f02d9760b4392b7757054d60d73b1da996c772` | 79 | 1 |
+| geo-seo-hub-codex-community-0.3.1.zip | `c7477984b3915a44e45e4cfa266574ac419a5c8281c1809383eb08d2f7400f6a` | 79 | 1 |
+| geo-seo-hub-source-0.3.1.zip | `551327f64ff3bd9059048e86543df37506a28bd1e717403fb282ada110a8e666` | 107 | 6 |
+| geo-seo-hub-unified-community-0.3.1.zip | `1a78a5b99a152c81a09e0a3f3313997c28e66be793d35547604ca25385c1d3cf` | 78 | 1 |
+| seo-community-0.3.1.zip | `1ba0f5258f6c37b255676f94291570e153f94dbe7fa2a174f74e7baa65c97d59` | 73 | 1 |

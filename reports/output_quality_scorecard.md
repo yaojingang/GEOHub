@@ -1,6 +1,6 @@
 # Output Quality Scorecard
 
-Release: 0.3.0 Experimental
+Release: 0.3.1 Experimental
 
 | Area | Evidence | Status |
 | --- | --- | --- |
@@ -19,4 +19,4 @@ Release: 0.3.0 Experimental
 | Human blind review | Pack generated; no decisions recorded | missing evidence |
 | Public benchmark quality | No real-platform benchmark run in this phase | missing evidence |
 
-Promotion beyond Experimental requires the missing external evidence and independent review of live-platform behavior. Experimental 0.3.0 source publication remains within the current gate scope.
+Promotion beyond Experimental requires the missing external evidence and independent review of live-platform behavior. Experimental 0.3.1 source publication remains within the current gate scope.

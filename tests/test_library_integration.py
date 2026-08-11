@@ -28,7 +28,7 @@ def test_geo_seo_hub_brand_and_compatibility_names_are_consistent():
         for skill_id in SKILLS
     ]
 
-    assert readme.startswith("# GEO SEO Hub\n")
+    assert readme.startswith("# GEOHub\n")
     assert "GEO-first · SEO-active" in readme
     assert "dedicated one-line SEO planner" in readme
     assert "[简体中文](README.zh-CN.md)" in readme
@@ -38,10 +38,16 @@ def test_geo_seo_hub_brand_and_compatibility_names_are_consistent():
     assert (ROOT / "src" / "geo_seo_hub").is_dir()
     assert not (ROOT / "src" / ("yao" + "_geo")).exists()
     assert project["urls"] == {
-        "Homepage": "https://github.com/yaojingang/geo-seo-hub",
-        "Repository": "https://github.com/yaojingang/geo-seo-hub",
+        "Homepage": "https://github.com/yaojingang/GEOHub",
+        "Repository": "https://github.com/yaojingang/GEOHub",
     }
-    assert all(item["interface"]["display_name"].startswith("GEO SEO Hub ") for item in interfaces)
+    display_names = {
+        skill_id: item["interface"]["display_name"]
+        for skill_id, item in zip(SKILLS, interfaces, strict=True)
+    }
+    assert display_names["geo"] == "GEOHub"
+    assert all(display_names[skill_id].startswith("GEOHub ") for skill_id in SKILLS if skill_id != "geo")
+    assert load_registry()["skills"][0]["intents"][:3] == ["geo", "GEOHub", "GEO SEO Hub"]
 
 
 def test_readme_localizations_reference_real_visual_assets():
@@ -50,15 +56,15 @@ def test_readme_localizations_reference_real_visual_assets():
         (ROOT / "README.zh-CN.md").read_text(encoding="utf-8"),
     ]
     for name in (
-        "geo-seo-hub-overview.png",
-        "geo-seo-hub-architecture.png",
-        "geo-seo-hub-research-principles.png",
+        "geohub-overview.png",
+        "geohub-architecture.png",
+        "geohub-research-principles.png",
     ):
         relative = f"docs/assets/{name}"
         path = ROOT / relative
         assert path.read_bytes().startswith(b"\x89PNG\r\n\x1a\n")
         assert all(relative in readme for readme in readmes)
-    assert (ROOT / "reports" / "geo-seo-hub-visual-guide.html").is_file()
+    assert (ROOT / "reports" / "geohub-visual-guide.html").is_file()
 
 
 @pytest.mark.parametrize("legacy_marker", ("yao" + "-geo", "yao" + "_geo"))
@@ -361,7 +367,7 @@ def test_repository_governance_and_verification_entrypoints_are_actionable():
     assert all(update["open-pull-requests-limit"] == 0 for update in dependabot["updates"])
     assert "verify:\n\t$(PYTHON) scripts/verify_all.py" in makefile
     assert "repo-verify:\n\t$(PYTHON) scripts/verify_repository.py" in makefile
-    assert "git clone https://github.com/yaojingang/geo-seo-hub.git" in readme
+    assert "git clone https://github.com/yaojingang/GEOHub.git" in readme
     assert ".venv/bin/python -m pip install ." in readme
 
 

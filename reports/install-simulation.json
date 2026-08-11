@@ -2,7 +2,7 @@
   "status": "pass",
   "target": "all",
   "source": {
-    "package": "geo-seo-hub-source-0.3.0.zip",
+    "package": "geo-seo-hub-source-0.3.1.zip",
     "installed_from": ".",
     "cli_smokes": [
       "version",
@@ -17,7 +17,7 @@
   },
   "structural_packages": [
     {
-      "package": "geo-community-0.3.0.zip",
+      "package": "geo-community-0.3.1.zip",
       "installed_from": ".",
       "entries": [
         "references/providers/geo-discover.md",
@@ -39,7 +39,7 @@
       "status": "pass"
     },
     {
-      "package": "geo-content-community-0.3.0.zip",
+      "package": "geo-content-community-0.3.1.zip",
       "installed_from": ".",
       "entries": [
         "references/providers/geo-discover.md",
@@ -61,7 +61,7 @@
       "status": "pass"
     },
     {
-      "package": "geo-diagnose-community-0.3.0.zip",
+      "package": "geo-diagnose-community-0.3.1.zip",
       "installed_from": ".",
       "entries": [
         "references/providers/geo-discover.md",
@@ -83,7 +83,7 @@
       "status": "pass"
     },
     {
-      "package": "geo-discover-community-0.3.0.zip",
+      "package": "geo-discover-community-0.3.1.zip",
       "installed_from": ".",
       "entries": [
         "SKILL.md",
@@ -105,7 +105,7 @@
       "status": "pass"
     },
     {
-      "package": "geo-measure-community-0.3.0.zip",
+      "package": "geo-measure-community-0.3.1.zip",
       "installed_from": ".",
       "entries": [
         "references/providers/geo-discover.md",
@@ -127,7 +127,7 @@
       "status": "pass"
     },
     {
-      "package": "geo-seo-hub-claude-community-0.3.0.zip",
+      "package": "geo-seo-hub-claude-community-0.3.1.zip",
       "installed_from": ".",
       "entries": [
         "references/providers/geo-discover.md",
@@ -149,7 +149,7 @@
       "status": "pass"
     },
     {
-      "package": "geo-seo-hub-codex-community-0.3.0.zip",
+      "package": "geo-seo-hub-codex-community-0.3.1.zip",
       "installed_from": ".",
       "entries": [
         "references/providers/geo-discover.md",
@@ -171,7 +171,7 @@
       "status": "pass"
     },
     {
-      "package": "geo-seo-hub-unified-community-0.3.0.zip",
+      "package": "geo-seo-hub-unified-community-0.3.1.zip",
       "installed_from": ".",
       "entries": [
         "references/providers/geo-discover.md",
@@ -193,7 +193,7 @@
       "status": "pass"
     },
     {
-      "package": "seo-community-0.3.0.zip",
+      "package": "seo-community-0.3.1.zip",
       "installed_from": ".",
       "entries": [
         "references/providers/geo-discover.md",

@@ -7,29 +7,29 @@
       "python": "3.11.14",
       "environment": "fresh venv",
       "install": "pip install -e .[dev]",
-      "tests": "388 targeted router, research, measurement, secure I/O, schema, and one-line SEO tests passed",
-      "evals": "373 router cases, 39 trigger cases, and 30 deterministic output cases passed"
+      "tests": "540 tests passed and 1 optional-render test skipped",
+      "evals": "374 router cases, 40 trigger cases, and 30 deterministic output cases passed"
     },
     {
       "python": "3.12.3",
       "environment": "fresh venv",
       "install": "pip install -e .[dev]",
-      "tests": "388 targeted router, research, measurement, secure I/O, schema, and one-line SEO tests passed",
-      "evals": "373 router cases, 39 trigger cases, and 30 deterministic output cases passed"
+      "tests": "540 tests passed and 1 optional-render test skipped",
+      "evals": "374 router cases, 40 trigger cases, and 30 deterministic output cases passed"
     },
     {
       "python": "3.13.3",
       "environment": "fresh venv",
       "install": "pip install -e .[dev]",
-      "tests": "388 targeted router, research, measurement, secure I/O, schema, and one-line SEO tests passed",
-      "evals": "373 router cases, 39 trigger cases, and 30 deterministic output cases passed"
+      "tests": "540 tests passed and 1 optional-render test skipped",
+      "evals": "374 router cases, 40 trigger cases, and 30 deterministic output cases passed"
     },
     {
       "python": "3.14.6",
       "environment": "fresh venv",
       "install": "pip install -e .[dev]",
-      "tests": "388 targeted router, research, measurement, secure I/O, schema, and one-line SEO tests passed",
-      "evals": "373 router cases, 39 trigger cases, and 30 deterministic output cases passed"
+      "tests": "540 tests passed and 1 optional-render test skipped",
+      "evals": "374 router cases, 40 trigger cases, and 30 deterministic output cases passed"
     }
   ],
   "ci_matrix": ["3.11", "3.12", "3.13", "3.14"],

@@ -1,14 +1,18 @@
-# GEO SEO Hub
+# GEOHub
 
-[English](README.md) · [简体中文](README.zh-CN.md) · [Visual guide](https://htmlpreview.github.io/?https://raw.githubusercontent.com/yaojingang/geo-seo-hub/main/reports/geo-seo-hub-visual-guide.html) · [Architecture](docs/architecture.md) · [Installation](docs/installation.md)
+**Research-grounded GEO and SEO Skill Hub for AI Search**
 
-**Version 0.3.0 · Experimental · GEO-first · SEO-active · Protocol-first**
+[English](README.md) · [简体中文](README.zh-CN.md) · [Visual guide](https://htmlpreview.github.io/?https://raw.githubusercontent.com/yaojingang/GEOHub/main/reports/geohub-visual-guide.html) · [Architecture](docs/architecture.md) · [Installation](docs/installation.md)
 
-![GEO SEO Hub overview](docs/assets/geo-seo-hub-overview.png)
+**Version 0.3.1 · Experimental · GEO-first · SEO-active · Protocol-first**
 
-GEO SEO Hub is an open agent skill library for evidence-bounded GEO and SEO work. Give it a natural-language request and the registry routes it to the smallest runnable skill or a stable workflow. Every provider execution writes a self-contained Artifact Bus run with structured results, evidence lineage, quality status, and a manifest. Research-aligned providers also write research context.
+![GEOHub overview](docs/assets/geohub-overview.png)
 
-Version `0.3.0` includes six active skills, three planned routes, seven content modes, an offline measurement provider, and a dedicated one-line SEO planner. Product behavior is **Experimental**. Library-grade packaging describes the engineering gates; it does not claim production outcome quality.
+GEOHub is an open agent skill library for evidence-bounded GEO and SEO work. Give it a natural-language request and the registry routes it to the smallest runnable skill or a stable workflow. Every provider execution writes a self-contained Artifact Bus run with structured results, evidence lineage, quality status, and a manifest. Research-aligned providers also write research context.
+
+Version `0.3.1` includes six active skills, three planned routes, seven content modes, an offline measurement provider, and a dedicated one-line SEO planner. Product behavior is **Experimental**. Library-grade packaging describes the engineering gates; it does not claim production outcome quality.
+
+The public product and Skill suite are named **GEOHub**. The Python distribution, CLI, module, installed data paths, package names, and Artifact Bus identifiers retain `geo-seo-hub` or `geo_seo_hub` for compatibility.
 
 ## Start with one prompt
 
@@ -31,7 +35,7 @@ Planned requests for strategy, knowledge, or publishing return availability meta
 
 ## How it works
 
-![GEO SEO Hub system architecture](docs/assets/geo-seo-hub-architecture.png)
+![GEOHub system architecture](docs/assets/geohub-architecture.png)
 
 1. The registry declares capability status, intents, entrypoints, input contracts, and outputs.
 2. The resolver selects one active skill or one exact workflow DAG.
@@ -39,7 +43,7 @@ Planned requests for strategy, knowledge, or publishing return availability meta
 4. The research kernel attaches source scope, causal status, proxy limits, and evidence rules.
 5. The Artifact Bus publishes the complete run atomically after file and manifest validation.
 
-The protocol stays at `1.0.0`. Existing Artifact Bus consumers can read version `0.3.0` runs while newer artifacts add research context, measurement reports, diagnosis funnels, content evidence units, and SEO plans.
+The protocol stays at `1.0.0`. Existing Artifact Bus consumers can read version `0.3.1` runs while newer artifacts add research context, measurement reports, diagnosis funnels, content evidence units, and SEO plans.
 
 ## Active skills
 
@@ -102,7 +106,7 @@ runs/run-<id>/
 
 ## Research-grounded methods
 
-![Research evidence and operating principles](docs/assets/geo-seo-hub-research-principles.png)
+![Research evidence and operating principles](docs/assets/geohub-research-principles.png)
 
 The research registry maps 54 papers and two datasets to 11 runtime principles. The implementation separates source-reported findings, reproduced results, non-reproducible claims, proxy metrics, and descriptive measurement. Discover, diagnose, content, and measure runs emit a `research-context.json` artifact with scope and limitation metadata.
 
@@ -122,8 +126,8 @@ Read the [research alignment audit](docs/research/geo-citation-lab-alignment-aud
 Supported Python range: `3.11-3.14`.
 
 ```bash
-git clone https://github.com/yaojingang/geo-seo-hub.git
-cd geo-seo-hub
+git clone https://github.com/yaojingang/GEOHub.git
+cd GEOHub
 python3 -m venv .venv
 .venv/bin/python -m pip install .
 .venv/bin/geo-seo-hub --version
@@ -141,9 +145,9 @@ See [Installation](docs/installation.md) for provider packages, Codex and Claude
 
 ## Packaging and quality gates
 
-Version `0.3.0` builds ten deterministic community packages: source, unified, six provider packages, Codex, and Claude. Nine non-source packages are installed and exercised in isolated environments by the release gate.
+Version `0.3.1` builds ten deterministic community packages: source, unified, six provider packages, Codex, and Claude. Nine non-source packages are installed and exercised in isolated environments by the release gate.
 
-The current fixed evaluation set contains 373 router cases, 39 trigger cases, and 30 deterministic output cases. It requires router precision and recall of `1.0`, trigger and output contract compliance of `1.0`, and zero fabricated citations. The external `yao-meta-skill` run records 79 commands, 15 explicit evidence waivers, and zero release blockers.
+The current fixed evaluation set contains 374 router cases, 40 trigger cases, and 30 deterministic output cases. It requires router precision and recall of `1.0`, trigger and output contract compliance of `1.0`, and zero fabricated citations. The external `yao-meta-skill` run records 79 commands, 15 explicit evidence waivers, and zero release blockers.
 
 ```bash
 python3 scripts/package.py --target all --channel community
@@ -151,7 +155,7 @@ python3 scripts/verify_packages.py
 python3 scripts/install_simulation.py --target all
 ```
 
-Version `0.3.0` has no GitHub Release or prebuilt release assets. Build packages from a source checkout.
+Version `0.3.1` has no GitHub Release or prebuilt release assets. Build packages from a source checkout.
 
 ## License and governance
 

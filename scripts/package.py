@@ -194,7 +194,7 @@ def target_package(files: list[Path], target: str) -> Path:
     entries["references/routing-contract.md"] = (ROOT / "skills" / "geo" / "references" / "routing-contract.md").read_bytes()
     for skill_id in SKILLS:
         entries[f"manifests/{skill_id}.json"] = (ROOT / "skills" / skill_id / "manifest.json").read_bytes()
-    entries["TARGET.md"] = f"# {target.title()} adapter\n\nInstall this directory as one GEO SEO Hub skill. Runtime contracts remain protocol 1.0.0.\n".encode()
+    entries["TARGET.md"] = f"# {target.title()} adapter\n\nInstall this directory as one GEOHub skill. Runtime contracts remain protocol 1.0.0.\n".encode()
     entries["PACKAGE-METADATA.json"] = json.dumps({"channel": "community", "license": "AGPL-3.0-only", "commercial_license_status": "inquiry_only", "kind": "target", "target": target}, indent=2, allow_nan=False).encode() + b"\n"
     entries["pyproject.toml"] = packaged_pyproject(entries)
     output = DIST / f"geo-seo-hub-{target}-community-{VERSION}.zip"

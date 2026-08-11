@@ -1,7 +1,7 @@
 {
   "schema_version": "2.0.0",
   "name": "geo-measure",
-  "title": "GEO SEO Hub Measure",
+  "title": "GEOHub Measure",
   "job_to_be_done": "Aggregate explicit GEO or AI-search observation records into transparent rates, denominators, missing-answer counts, platform strata, and intervals. Use for citation measurement, AI visibility tracking, repeated observation analysis, and 引用监测、AI 可见度衡量、效果测量. Requires supplied observations and excludes live platform collection, account access, causal attribution, ranking guarantees, and continuous monitoring.",
   "trigger_surface": {
     "description": "Aggregate explicit GEO or AI-search observation records into transparent rates, denominators, missing-answer counts, platform strata, and intervals. Use for citation measurement, AI visibility tracking, repeated observation analysis, and 引用监测、AI 可见度衡量、效果测量. Requires supplied observations and excludes live platform collection, account access, causal attribution, ranking guarantees, and continuous monitoring.",

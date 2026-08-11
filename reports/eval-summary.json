@@ -8,8 +8,8 @@
     "fabricated_citations": 0
   },
   "router": {
-    "case_count": 373,
-    "tp": 373,
+    "case_count": 374,
+    "tp": 374,
     "fp": 0,
     "fn": 0,
     "precision": 1.0,
@@ -5237,14 +5237,35 @@
           "workflow_id": null,
           "runnable": false
         }
+      },
+      {
+        "id": "r374",
+        "passed": true,
+        "expected": {
+          "skill_id": "geo",
+          "workflow_id": null,
+          "runnable": true
+        },
+        "actual": {
+          "skill_id": "geo",
+          "workflow_id": null,
+          "runnable": true
+        }
       }
     ]
   },
   "triggers": {
-    "case_count": 39,
-    "passed": 39,
+    "case_count": 40,
+    "passed": 40,
     "compliance": 1.0,
     "results": [
+      {
+        "skill_id": "geo",
+        "family": "should_trigger",
+        "text": "Which GEOHub capability handles this?",
+        "passed": true,
+        "actual": "geo"
+      },
       {
         "skill_id": "geo",
         "family": "should_trigger",
