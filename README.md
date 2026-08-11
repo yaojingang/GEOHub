@@ -1,36 +1,125 @@
 # GEO SEO Hub
 
-**Version 0.3.0 · Experimental · GEO-first · SEO-ready**
+[English](README.md) · [简体中文](README.zh-CN.md) · [Visual guide](https://htmlpreview.github.io/?https://raw.githubusercontent.com/yaojingang/geo-seo-hub/main/reports/geo-seo-hub-visual-guide.html) · [Architecture](docs/architecture.md) · [Installation](docs/installation.md)
 
-GEO SEO Hub is an open, protocol-first agent skill hub with active GEO workflows and a dedicated one-line SEO entry. Version 0.3.0 turns GEO and bounded SEO work into auditable, reusable runs through a registry-driven router, a research evidence registry, an Artifact Bus, deterministic discovery, evidence-lined diagnosis, offline content production, descriptive measurement, and strict JSON Schema contracts across six active skills.
+**Version 0.3.0 · Experimental · GEO-first · SEO-active · Protocol-first**
 
-The skills are Library-engineered packages while product behavior remains **Experimental**. `maturity_tier=library` describes packaging rigor and does not claim production outcome quality.
+![GEO SEO Hub overview](docs/assets/geo-seo-hub-overview.png)
 
-## Current scope
+GEO SEO Hub is an open agent skill library for evidence-bounded GEO and SEO work. Give it a natural-language request and the registry routes it to the smallest runnable skill or a stable workflow. Every provider execution writes a self-contained Artifact Bus run with structured results, evidence lineage, quality status, and a manifest. Research-aligned providers also write research context.
 
-- `geo`: routes Chinese and English requests through the registry and reports unavailable routes honestly.
-- `geo-discover`: converts a validated GEO brief into a normalized query map, opportunity map, evidence ledger, research context, run manifest, and quality report.
-- `geo-diagnose`: evaluates explicit brand, site, or page sources and emits a structured diagnosis, eligibility-to-absorption funnel, evidence ledger, remediation maps, research context, quality report, and run manifest.
-- `geo-content`: creates evidence-lined titles, explainers, comparisons, rankings, page blueprints, refinements, and article-friendly artifacts with claim-level evidence units and research context; DOCX/PDF are optional render layers.
-- `geo-measure`: aggregates explicit offline observations into answer and citation rates, missing-answer and exclusion counts, platform strata, Wilson intervals, evidence lineage, and a descriptive research context.
-- `seo`: converts one natural-language SEO request into a bounded work mode, coverage ledger, evidence gaps, guardrails, and a rerunnable action plan for technical audits, keyword-page mapping, Search Console incidents, migrations, experiments, international SEO, ecommerce SEO, or authorized implementation.
-- strategy, knowledge, and publish: visible roadmap routes with `planned` status.
+Version `0.3.0` includes six active skills, three planned routes, seven content modes, an offline measurement provider, and a dedicated one-line SEO planner. Product behavior is **Experimental**. Library-grade packaging describes the engineering gates; it does not claim production outcome quality.
 
-The resolver keeps single-intent routing minimal and exposes two exact multi-stage DAGs: `brand-baseline-lite` (discover → diagnose) and `content-campaign` (discover → content). A planned route is never executed; it returns the closest active suggestion, required inputs, and closest v0 artifact. Route requests are bounded to 8,000 characters and 16,384 UTF-8 bytes. See `skills/RESOLVER.md` and `docs/architecture.md`.
+## Start with one prompt
 
-No connector, live platform sampling, search volume, ranking, or conversion data is inferred. Measurement requires user-supplied observation records and stays descriptive. Missing evidence remains explicit in generated artifacts.
+The router accepts Chinese and English requests:
 
-## GEO and SEO boundary
+```bash
+.venv/bin/geo-seo-hub route --text "Our organic traffic dropped after a migration. Build a read-only recovery plan."
+```
 
-GEO SEO Hub treats GEO and SEO as related capability domains with a shared search foundation. Query intent, source evidence, brand facts, entity structure, content specifications, site parsing, quality reports, and Artifact Bus contracts can serve both domains.
+| Goal | Example prompt | Route |
+| --- | --- | --- |
+| Find GEO opportunities | `Expand "GEO optimization company" into audience, comparison, scenario, and decision queries.` | `geo-discover` |
+| Audit a page or site | `Audit this documentation page for extractability, evidence clarity, and citation readiness.` | `geo-diagnose` |
+| Create bounded content | `Create an evidence-lined comparison page for these two products.` | `geo-content` |
+| Measure supplied observations | `Aggregate this offline answer and citation observation file by platform.` | `geo-measure` |
+| Plan SEO work | `Traffic fell after migration. Check indexation, redirects, canonicals, templates, and Search Console evidence.` | `seo` |
+| Run a baseline workflow | `Discover the main questions for this brand, then diagnose the site.` | `brand-baseline-lite` |
 
-Version 0.3.0 ships executable GEO discovery, diagnosis, content, offline measurement, routing, and an initial dedicated SEO provider. One-line SEO performs deterministic scoping and planning, preserves supplied evidence, and identifies the inputs needed for technical SEO, SERP and keyword analysis, indexation, Core Web Vitals, internal linking, Search Console, and traffic diagnosis. Live collection and outcome claims stay outside the deterministic runtime.
+Planned requests for strategy, knowledge, or publishing return availability metadata, required inputs, and the nearest active capability. They do not execute hidden or incomplete behavior.
 
-Version 0.2 establishes `geo-seo-hub` as the distribution and CLI namespace, `geo_seo_hub` as the Python module, and `share/geo-seo-hub` as the installed data root. The `geo-*` Skill IDs and Artifact Bus protocol `1.0.0` remain stable.
+## How it works
 
-## Quick start
+![GEO SEO Hub system architecture](docs/assets/geo-seo-hub-architecture.png)
 
-Supported Python range: 3.11-3.14.
+1. The registry declares capability status, intents, entrypoints, input contracts, and outputs.
+2. The resolver selects one active skill or one exact workflow DAG.
+3. Each provider validates a bounded brief and runs deterministic logic.
+4. The research kernel attaches source scope, causal status, proxy limits, and evidence rules.
+5. The Artifact Bus publishes the complete run atomically after file and manifest validation.
+
+The protocol stays at `1.0.0`. Existing Artifact Bus consumers can read version `0.3.0` runs while newer artifacts add research context, measurement reports, diagnosis funnels, content evidence units, and SEO plans.
+
+## Active skills
+
+| Skill | Main job | Primary artifacts |
+| --- | --- | --- |
+| `geo` | Chinese and English routing, planned-state reporting, workflow selection | route decision, optional DAG |
+| `geo-discover` | Query expansion and opportunity discovery from a bounded brief | query map, opportunity map, evidence ledger |
+| `geo-diagnose` | Brand, site, and page diagnosis from explicit sources | diagnosis, eligibility-to-absorption funnel, remediation maps |
+| `geo-content` | Seven evidence-lined content modes | content spec, evidence units, Markdown, JSON, HTML, optional DOCX/PDF |
+| `geo-measure` | Descriptive aggregation of user-supplied observations | measurement report, intervals, platform strata |
+| `seo` | One-line SEO scoping and action planning | SEO plan, coverage ledger, evidence gaps, guardrails |
+
+The three planned routes are `geo-strategy`, `geo-knowledge`, and `geo-publish`.
+
+### Seven content modes
+
+`title`, `explainer`, `comparison`, `ranking`, `page-blueprint`, `refine`, and `article-friendly` share evidence lineage, quality checks, and the same Artifact Bus contract.
+
+## Where it fits
+
+| Area | Supported scenarios |
+| --- | --- |
+| GEO discovery | Seed expansion, audience questions, comparison queries, scenario clusters, decision-stage questions, content opportunities |
+| GEO diagnosis | Brand baseline, website audit, page audit, evidence gaps, entity clarity, structured extractability |
+| Content | Titles, explainers, neutral comparisons, evidence-complete rankings, page blueprints, existing-content refinement |
+| Measurement | Offline answer rate, citation rate, missing answers, exclusions, platform strata, Wilson intervals |
+| SEO | Technical audit planning, keyword-to-page mapping, migration recovery, Search Console incidents, experiments, international SEO, ecommerce SEO, authorized implementation plans |
+
+GEO and SEO share upstream intent, source, entity, page, and content structures. Live SERP collection, ranking data, traffic data, platform sampling, and account mutation require external connectors and explicit authorization.
+
+## One-line SEO
+
+The `seo` provider converts one request into a bounded plan. It classifies the work mode, records available evidence, lists missing inputs, defines read-only or authorized actions, and adds rollback boundaries where implementation is allowed.
+
+Run the included example:
+
+```bash
+.venv/bin/geo-seo-hub seo \
+  --input skills/seo/references/input-example.json \
+  --output runs
+```
+
+The provider performs no live crawl, Search Console login, CMS mutation, or ranking lookup. Its output is a rerunnable plan with explicit evidence and permission gaps.
+
+## Artifact Bus
+
+Each successful provider run publishes one self-contained directory:
+
+```text
+runs/run-<id>/
+├── input/
+├── evidence-ledger.json
+├── quality-report.json
+├── run-manifest.json
+├── research-context.json
+└── <provider-specific files>
+```
+
+`research-context.json` is emitted by discover, diagnose, content, and measure. Provider-specific files include `query-map.json`, `opportunity-map.json`, `diagnosis-funnel.json`, `content-evidence-units.json`, `measurement-report.json`, and `seo-plan.json`. Content may also emit standalone HTML and optional DOCX/PDF.
+
+## Research-grounded methods
+
+![Research evidence and operating principles](docs/assets/geo-seo-hub-research-principles.png)
+
+The research registry maps 54 papers and two datasets to 11 runtime principles. The implementation separates source-reported findings, reproduced results, non-reproducible claims, proxy metrics, and descriptive measurement. Discover, diagnose, content, and measure runs emit a `research-context.json` artifact with scope and limitation metadata.
+
+Read the [research alignment audit](docs/research/geo-citation-lab-alignment-audit.md) and the [machine-readable evidence matrix](reports/research-evidence-matrix.json) for source-level details.
+
+## Safety boundaries
+
+- Missing evidence stays `unknown`, `unverified`, `source_gap`, or `blocked-by-evidence`.
+- Diagnosis only fetches explicit public canonical HTTP(S) URLs without query strings and performs no crawl expansion.
+- Content runs offline, snapshots relative source files, and escapes user text in standalone HTML.
+- Measurement accepts bounded file-backed observations and performs no platform collection.
+- SEO produces deterministic scope and planning artifacts with no live collection or mutation.
+- Rankings, citations, traffic, conversions, and revenue carry no outcome guarantee.
+
+## Install and run
+
+Supported Python range: `3.11-3.14`.
 
 ```bash
 git clone https://github.com/yaojingang/geo-seo-hub.git
@@ -38,17 +127,23 @@ cd geo-seo-hub
 python3 -m venv .venv
 .venv/bin/python -m pip install .
 .venv/bin/geo-seo-hub --version
-.venv/bin/geo-seo-hub route --text "帮我挖掘 AI 搜索问题"
+.venv/bin/geo-seo-hub route --text "Help me find AI search questions for a team knowledge base."
 ```
 
-For development and the full release gate:
+For development:
 
 ```bash
 .venv/bin/python -m pip install -e '.[dev]'
 .venv/bin/python scripts/verify_all.py
 ```
 
-Community packages:
+See [Installation](docs/installation.md) for provider packages, Codex and Claude adapters, optional render dependencies, and migration notes.
+
+## Packaging and quality gates
+
+Version `0.3.0` builds ten deterministic community packages: source, unified, six provider packages, Codex, and Claude. Nine non-source packages are installed and exercised in isolated environments by the release gate.
+
+The current fixed evaluation set contains 373 router cases, 39 trigger cases, and 30 deterministic output cases. It requires router precision and recall of `1.0`, trigger and output contract compliance of `1.0`, and zero fabricated citations. The external `yao-meta-skill` run records 79 commands, 15 explicit evidence waivers, and zero release blockers.
 
 ```bash
 python3 scripts/package.py --target all --channel community
@@ -56,16 +151,12 @@ python3 scripts/verify_packages.py
 python3 scripts/install_simulation.py --target all
 ```
 
-The ten artifacts are a source ZIP, one unified single-Skill ZIP, six provider Skill ZIPs, and Codex/Claude adapter ZIPs. Each ZIP supports `pip install .` from its extraction root. Unified and target adapters contain six parseable provider entries and wrappers. Every community artifact is `AGPL-3.0-only`; commercial metadata remains `inquiry_only`. Version `0.3.0` has no GitHub Release assets; build packages from a source checkout. See `docs/installation.md`.
-
-Version 0.2 removes the pre-release 0.1 runtime aliases. Recreate the environment before installing 0.2; the exact historical mapping remains in the migration ledger and third-party notice.
-
-The CLI prints JSON. The `--output` value is a runs root; discover, diagnose, content, measure, and seo write protocol `1.0.0` runs to `<output>/<run-id>/` and return that actual run directory. Content runs never access the network, snapshot relative source files for offline replay, escape user text in standalone HTML, and keep optional renderer failures explicit. If DOCX/PDF dependencies are missing, core output succeeds and the run manifest records `degraded` plus `missing_dependencies`. Install `.[render]` to request DOCX/PDF support. Diagnose fetches only explicit public HTTP(S) canonical URLs without query strings, accepts HTML/XHTML, performs no crawl expansion, and snapshots successful pages for offline replay. Measure performs no collection and accepts only bounded file-backed observations. SEO performs deterministic scoping and planning with no live collection or mutation. Diagnosis readiness scores, SEO plans, and measurement results do not represent guaranteed AI-platform recall, ranking, traffic, or commercial impact.
+Version `0.3.0` has no GitHub Release or prebuilt release assets. Build packages from a source checkout.
 
 ## License and governance
 
-The open-source repository is licensed under `AGPL-3.0-only`. Commercial licensing is currently `inquiry_only`; see `COMMERCIAL-LICENSING.md`. The contributor agreement remains under legal review, so external code merges are paused.
+The repository uses `AGPL-3.0-only`. Commercial licensing is available under a separate signed agreement and currently has `inquiry_only` status. See [Commercial Licensing](COMMERCIAL-LICENSING.md), [License Scope](LICENSE-SCOPE.md), and [Third-Party Notices](THIRD_PARTY_NOTICES.md).
 
-`make verify` and `python3 scripts/verify_all.py` run the complete repository, evidence, test, evaluation, package, and isolated-install gates. `make repo-verify` runs the fast structural check. The gates use synthetic fixtures and require no external service or secret.
+The contributor agreement remains under legal review, so external code merges are paused. Issues, documentation suggestions, and private security reports remain welcome.
 
 Copyright © 2026 姚金刚 / Yao.

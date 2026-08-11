@@ -21,6 +21,7 @@ SKILLS = ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure", "
 
 def test_geo_seo_hub_brand_and_compatibility_names_are_consistent():
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    readme_zh = (ROOT / "README.zh-CN.md").read_text(encoding="utf-8")
     project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]
     interfaces = [
         yaml.safe_load((ROOT / "skills" / skill_id / "agents" / "interface.yaml").read_text(encoding="utf-8"))
@@ -28,8 +29,10 @@ def test_geo_seo_hub_brand_and_compatibility_names_are_consistent():
     ]
 
     assert readme.startswith("# GEO SEO Hub\n")
-    assert "GEO-first · SEO-ready" in readme
-    assert "dedicated one-line SEO entry" in readme
+    assert "GEO-first · SEO-active" in readme
+    assert "dedicated one-line SEO planner" in readme
+    assert "[简体中文](README.zh-CN.md)" in readme
+    assert "[English](README.md)" in readme_zh
     assert project["name"] == "geo-seo-hub"
     assert project["scripts"] == {"geo-seo-hub": "geo_seo_hub.cli:main"}
     assert (ROOT / "src" / "geo_seo_hub").is_dir()
@@ -39,6 +42,23 @@ def test_geo_seo_hub_brand_and_compatibility_names_are_consistent():
         "Repository": "https://github.com/yaojingang/geo-seo-hub",
     }
     assert all(item["interface"]["display_name"].startswith("GEO SEO Hub ") for item in interfaces)
+
+
+def test_readme_localizations_reference_real_visual_assets():
+    readmes = [
+        (ROOT / "README.md").read_text(encoding="utf-8"),
+        (ROOT / "README.zh-CN.md").read_text(encoding="utf-8"),
+    ]
+    for name in (
+        "geo-seo-hub-overview.png",
+        "geo-seo-hub-architecture.png",
+        "geo-seo-hub-research-principles.png",
+    ):
+        relative = f"docs/assets/{name}"
+        path = ROOT / relative
+        assert path.read_bytes().startswith(b"\x89PNG\r\n\x1a\n")
+        assert all(relative in readme for readme in readmes)
+    assert (ROOT / "reports" / "geo-seo-hub-visual-guide.html").is_file()
 
 
 @pytest.mark.parametrize("legacy_marker", ("yao" + "-geo", "yao" + "_geo"))
@@ -315,6 +335,7 @@ def test_package_allowlist_excludes_private_surfaces():
 def test_source_package_allowlist_includes_security_and_governance():
     package = load_script("package")
     for relative in (
+        "README.zh-CN.md",
         "SECURITY.md",
         ".github/dependabot.yml",
         ".github/ISSUE_TEMPLATE/commercial-licensing.yml",

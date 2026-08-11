@@ -134,6 +134,7 @@ def verify_namespace_consistency(root: Path = ROOT) -> None:
         root / name
         for name in (
             "README.md",
+            "README.zh-CN.md",
             "SECURITY.md",
             "COMMERCIAL-LICENSING.md",
             "CONTRIBUTING.md",

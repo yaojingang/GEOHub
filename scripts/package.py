@@ -19,6 +19,7 @@ SKILLS = ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure", "
 LEGAL = ("VERSION", "LICENSE", "LICENSE-SCOPE.md", "COMMERCIAL-LICENSING.md", "THIRD_PARTY_NOTICES.md")
 SOURCE_EXACT = set(LEGAL) | {
     "README.md",
+    "README.zh-CN.md",
     "SECURITY.md",
     "pyproject.toml",
     "Makefile",

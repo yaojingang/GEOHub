@@ -1669,10 +1669,10 @@
     }
   ],
   "failed_commands": 0,
-  "source_digest": "e6478fd0ece2049512f25b485d5b06abbd55d112767018fc2068462c19735c10",
+  "source_digest": "a09a4b7206a9d645af70f0d7b9dfebd611dacae9960497a9de4d19e5a1cbc316",
   "evidence_digests": {
     "reports/eval-summary.json": "7f6e377d074b8ab59aed8ba81bc73ebb35eb6c5300a939293bafeb0ee48c8a56",
-    "reports/package-verification.json": "1314f01e2052603d67b56d4c44f86b0eb795f5851e4e509dd2bc34387cfe5556",
+    "reports/package-verification.json": "a99f78f53fdd0342f60a329f38e26db13333f8f275539c9a3ed12cc5076ed217",
     "reports/install-simulation.json": "4e70f1f504c8af4ea53a31bb958b590652bd4f4179be9c2eb3aaadc55f6cfc5d",
     "reports/python-compatibility.json": "e8cb6ccd557abeb64039c9cb68b198f800e8efc366f9e9a2335f33fe806fc932"
   },

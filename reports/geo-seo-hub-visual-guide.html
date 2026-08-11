@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="GEO SEO Hub 0.3.0 的可视化架构、能力、场景、提示词、产物协议与研究证据介绍。">
+<meta name="generator" content="Kami">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b365d'/%3E%3Ctext x='32' y='39' text-anchor='middle' font-family='Arial' font-size='20' fill='white'%3EGEO%3C/text%3E%3C/svg%3E">
+<title>GEO SEO Hub 0.3.0 · 超级 Skill 可视化指南</title>
+<style>
+:root {
+  --paper: #ffffff;
+  --surface: #fbfbf8;
+  --surface-strong: #f5f5f0;
+  --brand: #1b365d;
+  --brand-light: #2d5a8a;
+  --brand-tint: #eef2f7;
+  --ink: #141413;
+  --ink-2: #3d3d3a;
+  --olive: #504e49;
+  --stone: #6b6a64;
+  --line: #e8e6dc;
+  --line-strong: #d8d5c8;
+  --serif: Georgia, "Songti SC", "Source Han Serif SC", "Noto Serif CJK SC", STSong, serif;
+  --ui: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+  --mono: "SFMono-Regular", "JetBrains Mono", Consolas, "PingFang SC", monospace;
+  --nav-height: 66px;
+  --max: 1280px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-height) + 18px); }
+body {
+  margin: 0;
+  background: #ffffff;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 16px;
+  line-height: 1.65;
+  letter-spacing: 0.02em;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--brand); text-decoration: none; }
+a:hover { color: var(--brand-light); }
+button, a { -webkit-tap-highlight-color: transparent; }
+code { font-family: var(--mono); }
+
+.skip-link {
+  position: fixed;
+  left: 16px;
+  top: -80px;
+  z-index: 1000;
+  padding: 8px 14px;
+  color: #ffffff;
+  background: var(--brand);
+  border-radius: 4px;
+  font-family: var(--ui);
+}
+.skip-link:focus { top: 10px; }
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  min-height: var(--nav-height);
+  background: #ffffff;
+  border-bottom: 1px solid var(--line);
+}
+.topbar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: var(--scroll-progress, 0%);
+  height: 2px;
+  background: var(--brand);
+}
+.topbar-inner {
+  max-width: var(--max);
+  min-height: var(--nav-height);
+  margin: 0 auto;
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.brand-mark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 0 auto;
+  color: var(--ink);
+}
+.brand-glyph {
+  width: 30px;
+  height: 30px;
+  border: 1.5px solid var(--brand);
+  border-radius: 7px;
+  display: grid;
+  place-items: center;
+  color: var(--brand);
+  font-family: var(--ui);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.brand-copy { display: flex; flex-direction: column; line-height: 1.15; }
+.brand-name { font-size: 15px; font-weight: 500; letter-spacing: 0.02em; }
+.brand-version { margin-top: 3px; color: var(--stone); font-family: var(--ui); font-size: 10px; }
+.topnav {
+  min-width: 0;
+  margin-left: auto;
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.topnav::-webkit-scrollbar { display: none; }
+.topnav a {
+  flex: 0 0 auto;
+  min-height: 36px;
+  padding: 8px 9px;
+  display: inline-flex;
+  align-items: center;
+  border-bottom: 2px solid transparent;
+  color: var(--stone);
+  font-family: var(--ui);
+  font-size: 12px;
+  letter-spacing: 0.01em;
+  transition: color 160ms ease, border-color 160ms ease;
+}
+.topnav a:hover,
+.topnav a[aria-current="true"] { color: var(--brand); border-bottom-color: var(--brand); }
+
+.page { max-width: var(--max); margin: 0 auto; padding: 0 28px 96px; }
+.hero {
+  min-height: 650px;
+  padding: 92px 0 72px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.28fr) minmax(390px, 0.72fr);
+  align-items: center;
+  gap: 64px;
+  border-bottom: 1px solid var(--line);
+}
+.eyebrow {
+  margin: 0 0 20px;
+  color: var(--brand);
+  font-family: var(--ui);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 22px;
+  height: 2px;
+  margin-right: 10px;
+  vertical-align: 4px;
+  background: var(--brand);
+}
+h1, h2, h3, p { overflow-wrap: anywhere; }
+h1 {
+  margin: 0;
+  max-width: none;
+  font-size: clamp(58px, 7.6vw, 94px);
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+  text-wrap: wrap;
+  white-space: nowrap;
+}
+.hero-subtitle {
+  max-width: none;
+  margin: 26px 0 0;
+  color: var(--olive);
+  font-size: 20px;
+  line-height: 1.65;
+  letter-spacing: 0.03em;
+}
+.hero-chips { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 9px; }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 5px 10px;
+  background: var(--brand-tint);
+  border: 1px solid #e4ecf5;
+  border-radius: 4px;
+  color: var(--brand);
+  font-family: var(--ui);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+}
+.hero-actions { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px; }
+.btn {
+  min-height: 44px;
+  padding: 10px 19px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--brand);
+  border-radius: 999px;
+  font-family: var(--ui);
+  font-size: 14px;
+  transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+}
+.btn-primary { background: var(--brand); color: #ffffff; }
+.btn-secondary { background: #ffffff; color: var(--brand); }
+.btn:hover { transform: translateY(-1px); }
+.btn-primary:hover { background: var(--brand-light); color: #ffffff; }
+.btn-secondary:hover { background: var(--brand-tint); color: var(--brand); }
+
+.hero-map {
+  position: relative;
+  min-height: 400px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: #ffffff;
+  overflow: hidden;
+}
+.hero-map::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, #e5e3d8 0.8px, transparent 0.8px);
+  background-size: 22px 22px;
+  opacity: 0.45;
+}
+.orbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border: 1px dashed var(--line-strong);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.orbit-a { width: 285px; height: 285px; }
+.orbit-b { width: 190px; height: 190px; }
+.orbit-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 112px;
+  height: 112px;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  background: var(--brand);
+  color: #ffffff;
+  border-radius: 50%;
+  font-family: var(--ui);
+  font-size: 12px;
+  line-height: 1.45;
+}
+.orbit-node {
+  position: absolute;
+  width: 90px;
+  min-height: 46px;
+  padding: 7px 8px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  color: var(--ink-2);
+  font-family: var(--ui);
+  font-size: 11px;
+  line-height: 1.25;
+}
+.node-discover { left: calc(50% - 45px); top: 24px; }
+.node-diagnose { right: 18px; top: 104px; }
+.node-content { right: 38px; bottom: 72px; }
+.node-measure { left: calc(50% - 45px); bottom: 46px; }
+.node-seo { left: 38px; bottom: 72px; }
+.node-research { left: 18px; top: 104px; }
+.hero-map-note {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  width: 90%;
+  margin: 0;
+  text-align: center;
+  color: var(--stone);
+  font-family: var(--ui);
+  font-size: 10px;
+}
+
+.metrics-strip {
+  grid-column: 1 / -1;
+  margin-top: 10px;
+  padding-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+.metric { min-width: 0; padding: 0 18px; border-right: 1px solid var(--line); }
+.metric:first-child { padding-left: 0; }
+.metric:last-child { padding-right: 0; border-right: 0; }
+.metric-value {
+  color: var(--brand);
+  font-size: 34px;
+  font-weight: 500;
+  line-height: 1;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.metric-label { margin-top: 8px; color: var(--stone); font-family: var(--ui); font-size: 11px; line-height: 1.4; }
+
+section { padding: 92px 0 0; scroll-margin-top: calc(var(--nav-height) + 20px); }
+.section-head {
+  margin-bottom: 34px;
+  display: block;
+}
+.section-index {
+  margin-bottom: 14px;
+  color: var(--brand);
+  font-family: var(--ui);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+}
+.section-title {
+  margin: 0;
+  max-width: none;
+  font-size: clamp(34px, 4.3vw, 54px);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-align: left;
+  text-wrap: wrap;
+}
+.section-lede { max-width: 1200px; margin: 14px 0 0; color: var(--olive); font-size: 17px; text-align: left; }
+.section-rule { margin-top: 34px; height: 1px; background: var(--line); }
+.hl { color: var(--brand); }
+
+.grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 24px;
+}
+.card.soft { background: var(--surface); }
+.card-number { color: var(--brand); font-family: var(--ui); font-size: 11px; letter-spacing: 0.12em; }
+.card h3 { margin: 12px 0 8px; font-size: 20px; font-weight: 500; line-height: 1.35; }
+.card p { margin: 0; color: var(--olive); font-size: 14px; line-height: 1.65; }
+.card ul { margin: 12px 0 0; padding-left: 18px; color: var(--olive); font-size: 13px; }
+.card li { margin: 5px 0; }
+.card li::marker { color: var(--brand); }
+
+.definition {
+  padding: 34px;
+  border-left: 3px solid var(--brand);
+  background: var(--surface);
+  border-radius: 0 9px 9px 0;
+}
+.definition p { margin: 0; font-size: 21px; line-height: 1.65; }
+.definition-note { margin-top: 18px; color: var(--stone); font-family: var(--ui); font-size: 12px; }
+.status-panel { padding: 30px; display: grid; grid-template-columns: 190px 1fr; gap: 30px; align-items: center; }
+.donut {
+  --value: 62.5;
+  width: 170px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: conic-gradient(var(--brand) calc(var(--value) * 1%), var(--line) 0);
+  position: relative;
+}
+.donut::after { content: ""; position: absolute; inset: 25px; background: #ffffff; border-radius: 50%; }
+.donut-center { position: absolute; inset: 0; z-index: 1; display: grid; place-items: center; text-align: center; }
+.donut-center b { display: block; color: var(--brand); font-size: 30px; font-weight: 500; line-height: 1; }
+.donut-center span { color: var(--stone); font-family: var(--ui); font-size: 10px; }
+.legend { display: grid; gap: 10px; }
+.legend-row { display: grid; grid-template-columns: 10px 1fr auto; gap: 9px; align-items: center; color: var(--olive); font-family: var(--ui); font-size: 12px; }
+.legend-dot { width: 8px; height: 8px; border-radius: 2px; background: var(--brand); }
+.legend-dot.muted { background: var(--line-strong); }
+.legend-row strong { color: var(--ink); font-weight: 500; font-variant-numeric: tabular-nums; }
+
+figure { margin: 0; }
+.figure-frame {
+  padding: 22px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  overflow: hidden;
+}
+.figure-frame svg { width: 100%; height: auto; display: block; }
+figcaption { margin-top: 12px; color: var(--stone); font-size: 12px; line-height: 1.6; }
+.figure-kicker { color: var(--brand); font-family: var(--ui); font-size: 10px; letter-spacing: 0.12em; }
+
+.architecture-notes { margin-top: 22px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.note-cell { padding: 18px 20px; border-top: 2px solid var(--brand); background: var(--surface); }
+.note-cell b { display: block; margin-bottom: 5px; font-size: 15px; font-weight: 500; }
+.note-cell span { color: var(--olive); font-size: 12px; line-height: 1.55; }
+
+.router-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 24px; }
+.decision-list { margin: 0; padding: 0; list-style: none; counter-reset: decision; }
+.decision-list li {
+  counter-increment: decision;
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 14px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+.decision-list li::before {
+  content: counter(decision, decimal-leading-zero);
+  color: var(--brand);
+  font-family: var(--mono);
+  font-size: 12px;
+}
+.decision-list b { display: block; margin-bottom: 5px; font-weight: 500; }
+.decision-list span { color: var(--olive); font-size: 13px; }
+.workflow-stack { display: grid; gap: 12px; }
+.workflow-card { padding: 20px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+.workflow-card h3 { margin: 0 0 12px; font-size: 16px; font-weight: 500; }
+.workflow-steps { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; font-family: var(--ui); font-size: 11px; }
+.step-pill { padding: 6px 9px; border: 1px solid var(--line-strong); background: #ffffff; border-radius: 4px; color: var(--ink-2); }
+.step-pill.focal { color: #ffffff; background: var(--brand); border-color: var(--brand); }
+.arrow { color: var(--stone); }
+.workflow-note { margin-top: 10px; color: var(--stone); font-size: 11px; }
+
+.capability-list { border-top: 1px solid var(--line); }
+.capability-row {
+  display: grid;
+  grid-template-columns: 170px minmax(220px, 0.85fr) minmax(280px, 1.4fr);
+  gap: 28px;
+  padding: 30px 0;
+  border-bottom: 1px solid var(--line);
+}
+.capability-name h3 { margin: 0; color: var(--brand); font-size: 24px; font-weight: 500; }
+.status-tag { display: inline-block; margin-top: 9px; padding: 3px 7px; background: var(--brand-tint); color: var(--brand); border-radius: 3px; font-family: var(--ui); font-size: 10px; }
+.capability-purpose { color: var(--ink-2); font-size: 15px; }
+.capability-purpose small { display: block; margin-top: 8px; color: var(--stone); font-family: var(--ui); font-size: 11px; line-height: 1.55; }
+.io-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.io-title { margin-bottom: 7px; color: var(--brand); font-family: var(--ui); font-size: 10px; letter-spacing: 0.1em; }
+.io-copy { color: var(--olive); font-size: 12px; line-height: 1.55; }
+
+.mode-grid { margin-top: 28px; display: grid; grid-template-columns: repeat(7, 1fr); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.mode-cell { min-height: 138px; padding: 18px 13px; border-right: 1px solid var(--line); background: #ffffff; }
+.mode-cell:last-child { border-right: 0; }
+.mode-cell:nth-child(odd) { background: var(--surface); }
+.mode-code { color: var(--brand); font-family: var(--mono); font-size: 10px; }
+.mode-cell b { display: block; margin: 10px 0 6px; font-size: 14px; font-weight: 500; }
+.mode-cell span { display: block; color: var(--stone); font-size: 10px; line-height: 1.5; }
+
+.scenario-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.scenario-card { min-height: 192px; padding: 21px; border: 1px solid var(--line); border-radius: 8px; }
+.scenario-card .scenario-skill { color: var(--brand); font-family: var(--ui); font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; }
+.scenario-card h3 { margin: 12px 0 8px; font-size: 18px; font-weight: 500; }
+.scenario-card p { margin: 0; color: var(--olive); font-size: 13px; }
+.scenario-output { margin-top: 15px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--stone); font-family: var(--ui); font-size: 10px; }
+
+.prompt-list { border-top: 1px solid var(--line); }
+.prompt-row {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1.35fr) minmax(220px, 0.65fr) 34px;
+  gap: 18px;
+  align-items: center;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+.prompt-type { color: var(--brand); font-family: var(--ui); font-size: 11px; }
+.prompt-text { color: var(--ink-2); font-size: 14px; }
+.prompt-route { color: var(--stone); font-family: var(--mono); font-size: 10px; line-height: 1.5; }
+.copy-btn {
+  width: 42px;
+  height: 32px;
+  border: 1px solid var(--line-strong);
+  border-radius: 5px;
+  background: #ffffff;
+  color: var(--brand);
+  cursor: pointer;
+  font-family: var(--ui);
+  font-size: 12px;
+}
+.copy-btn:hover { background: var(--brand-tint); }
+
+.artifact-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 24px; }
+.tree-card { padding: 24px; background: #141413; color: #f5f4ed; border-radius: 8px; overflow: auto; }
+.tree-card pre { margin: 0; font-family: var(--mono); font-size: 12px; line-height: 1.7; white-space: pre; }
+.tree-dim { color: #8f8d84; }
+.tree-hi { color: #9ec2ea; }
+.artifact-flow { display: grid; gap: 10px; }
+.artifact-stage { display: grid; grid-template-columns: 46px 1fr; gap: 13px; padding: 16px; background: var(--surface); border-left: 2px solid var(--brand); }
+.artifact-stage .n { color: var(--brand); font-family: var(--mono); font-size: 11px; }
+.artifact-stage b { display: block; margin-bottom: 4px; font-size: 14px; font-weight: 500; }
+.artifact-stage span { color: var(--olive); font-size: 12px; }
+.output-table-wrap { margin-top: 26px; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th { padding: 11px 10px; text-align: left; color: var(--stone); border-bottom: 1px solid var(--line-strong); font-family: var(--ui); font-weight: 500; white-space: nowrap; }
+td { padding: 12px 10px; vertical-align: top; color: var(--olive); border-bottom: 1px solid var(--line); }
+td:first-child { color: var(--brand); font-family: var(--mono); white-space: nowrap; }
+
+.research-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 24px; }
+.source-chart { padding: 28px; display: grid; grid-template-columns: 180px 1fr; gap: 24px; align-items: center; border: 1px solid var(--line); border-radius: 8px; }
+.source-donut { --value: 96.43; }
+.bar-stack { display: grid; gap: 12px; }
+.bar-row { display: grid; grid-template-columns: 118px 1fr 34px; gap: 10px; align-items: center; }
+.bar-label { color: var(--olive); font-family: var(--ui); font-size: 11px; }
+.bar-track { height: 10px; background: var(--line); border-radius: 2px; overflow: hidden; }
+.bar-fill { height: 100%; background: var(--brand); border-radius: 2px; }
+.bar-value { text-align: right; color: var(--ink-2); font-family: var(--mono); font-size: 11px; }
+.principle-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.principle { padding: 17px; background: var(--surface); border-radius: 6px; }
+.principle b { display: block; color: var(--ink-2); font-size: 13px; font-weight: 500; }
+.principle span { display: block; margin-top: 5px; color: var(--stone); font-size: 10px; line-height: 1.55; }
+
+.quality-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 24px; }
+.quality-chart { padding: 26px; border: 1px solid var(--line); border-radius: 8px; }
+.quality-row { display: grid; grid-template-columns: 150px 1fr 68px; gap: 12px; align-items: center; margin: 15px 0; }
+.quality-label { color: var(--olive); font-family: var(--ui); font-size: 11px; }
+.quality-track { height: 12px; background: var(--line); border-radius: 2px; overflow: hidden; }
+.quality-fill { width: 100%; height: 100%; background: var(--brand); }
+.quality-value { color: var(--brand); text-align: right; font-family: var(--mono); font-size: 11px; }
+.gate-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.gate { padding: 18px; border: 1px solid var(--line); border-radius: 7px; }
+.gate strong { display: block; color: var(--brand); font-size: 24px; font-weight: 500; line-height: 1; }
+.gate span { display: block; margin-top: 7px; color: var(--stone); font-family: var(--ui); font-size: 10px; line-height: 1.4; }
+
+.boundary-board { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.boundary-col { padding: 26px; border: 1px solid var(--line); border-radius: 8px; }
+.boundary-col h3 { margin: 0 0 16px; font-size: 20px; font-weight: 500; }
+.boundary-col ul { margin: 0; padding-left: 18px; color: var(--olive); font-size: 13px; }
+.boundary-col li { margin: 8px 0; }
+.boundary-col li::marker { color: var(--brand); }
+.planned-row { margin-top: 20px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.planned-card { padding: 18px; background: var(--surface); border-top: 2px solid var(--line-strong); }
+.planned-card b { display: block; color: var(--ink-2); font-weight: 500; }
+.planned-card span { display: block; margin-top: 6px; color: var(--stone); font-size: 11px; }
+
+.sources-note { margin-top: 28px; padding: 22px; border: 1px solid var(--line); border-radius: 8px; color: var(--olive); font-size: 12px; }
+.sources-note a { text-decoration: underline; text-underline-offset: 3px; }
+
+footer {
+  margin-top: 94px;
+  padding-top: 36px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 28px;
+  align-items: end;
+}
+.footer-name { font-size: 26px; font-weight: 500; }
+.footer-copy { margin-top: 6px; color: var(--stone); font-family: var(--ui); font-size: 11px; }
+.footer-meta { text-align: right; color: var(--stone); font-family: var(--ui); font-size: 10px; line-height: 1.6; }
+
+/* Keep all browser-delivered labels at the 12px minimum after component rules. */
+.brand-glyph,
+.brand-version,
+.orbit-node,
+.hero-map-note,
+.metric-label,
+.card-number,
+.donut-center span,
+.figure-kicker,
+.workflow-steps,
+.workflow-note,
+.status-tag,
+.capability-purpose small,
+.io-title,
+.mode-code,
+.mode-cell span,
+.scenario-card .scenario-skill,
+.scenario-output,
+.prompt-type,
+.prompt-route,
+.artifact-stage .n,
+.bar-label,
+.bar-value,
+.principle span,
+.quality-label,
+.quality-value,
+.gate span,
+.planned-card span,
+.footer-copy,
+.footer-meta { font-size: 12px; }
+.figure-frame svg g[font-size="11"] text,
+.figure-frame svg text[font-size="9"],
+.figure-frame svg text[font-size="10"],
+.figure-frame svg text[font-size="11"] { font-size: 12px; }
+
+@media (max-width: 980px) {
+  .hero { grid-template-columns: 1fr; gap: 34px; }
+  h1 { white-space: normal; }
+  .hero-map { min-height: 380px; }
+  .metrics-strip { grid-template-columns: repeat(3, 1fr); row-gap: 24px; }
+  .metric:nth-child(3) { border-right: 0; }
+  .router-grid, .artifact-grid, .research-grid, .quality-grid { grid-template-columns: 1fr; }
+  .mode-grid { grid-template-columns: repeat(4, 1fr); }
+  .mode-cell { border-bottom: 1px solid var(--line); }
+  .scenario-grid { grid-template-columns: repeat(2, 1fr); }
+  .capability-row { grid-template-columns: 150px 1fr; }
+  .capability-row .io-pair { grid-column: 2; }
+}
+
+@media (max-width: 720px) {
+  :root { --nav-height: 58px; }
+  .topbar-inner { min-height: var(--nav-height); padding: 0 16px; gap: 14px; }
+  .brand-copy { display: none; }
+  .topnav a { padding: 8px 7px; font-size: 12px; }
+  .page { padding: 0 16px 72px; }
+  .hero { min-height: auto; padding: 62px 0 48px; }
+  h1 { font-size: clamp(48px, 15vw, 70px); }
+  .hero-subtitle { font-size: 17px; }
+  .metrics-strip { grid-template-columns: repeat(2, 1fr); }
+  .metric { padding: 0 16px 0 0; }
+  .metric:nth-child(2n) { padding-left: 16px; border-right: 0; }
+  .metric:nth-child(3) { border-right: 1px solid var(--line); }
+  section { padding-top: 68px; }
+  .section-index { margin-bottom: 8px; }
+  .grid-2, .grid-3, .grid-4, .architecture-notes, .principle-grid, .boundary-board { grid-template-columns: 1fr; }
+  .status-panel, .source-chart { grid-template-columns: 1fr; justify-items: center; }
+  .status-panel .legend, .source-chart .bar-stack { width: 100%; }
+  .capability-row { grid-template-columns: 1fr; gap: 14px; }
+  .capability-row .io-pair { grid-column: 1; }
+  .mode-grid { grid-template-columns: repeat(2, 1fr); }
+  .mode-cell:nth-child(2n) { border-right: 0; }
+  .scenario-grid { grid-template-columns: 1fr; }
+  .prompt-row { grid-template-columns: 96px 1fr 34px; gap: 10px; }
+  .prompt-route { grid-column: 2 / 4; }
+  .planned-row, .gate-grid { grid-template-columns: 1fr; }
+  footer { grid-template-columns: 1fr; }
+  .footer-meta { text-align: left; }
+}
+
+@media (max-width: 480px) {
+  .hero-map { min-height: 340px; }
+  .orbit-a { width: 244px; height: 244px; }
+  .orbit-b { width: 162px; height: 162px; }
+  .orbit-core { width: 98px; height: 98px; }
+  .orbit-node { width: 80px; font-size: 12px; }
+  .node-discover { left: calc(50% - 38px); top: 19px; }
+  .node-diagnose { right: 6px; top: 88px; }
+  .node-content { right: 18px; bottom: 66px; }
+  .node-measure { left: calc(50% - 40px); bottom: 43px; }
+  .node-seo { left: 18px; bottom: 66px; }
+  .node-research { left: 6px; top: 88px; }
+  .hero-actions { flex-direction: column; align-items: flex-start; }
+  .btn { width: auto; }
+  .section-title { font-size: 34px; }
+  .figure-frame { overflow-x: auto; overscroll-behavior-x: contain; }
+  .figure-frame svg { min-width: 880px; }
+  .definition { padding: 24px; }
+  .definition p { font-size: 18px; }
+  .io-pair { grid-template-columns: 1fr; }
+  .mode-grid { grid-template-columns: 1fr; }
+  .mode-cell { border-right: 0; }
+  .prompt-row { grid-template-columns: 1fr 34px; }
+  .prompt-type { grid-column: 1; }
+  .prompt-text { grid-column: 1; }
+  .prompt-route { grid-column: 1 / 3; }
+  .copy-btn { grid-column: 2; grid-row: 1 / 3; align-self: start; }
+  .quality-row { grid-template-columns: 112px 1fr; }
+  .quality-value { grid-column: 2; }
+  .bar-row { grid-template-columns: 94px 1fr 30px; }
+}
+
+@media print {
+  .topbar, .copy-btn, .hero-actions { display: none; }
+  .page { max-width: none; padding: 0; }
+  .hero { min-height: auto; padding-top: 28px; }
+  section { break-inside: avoid; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">跳到主要内容</a>
+<header class="topbar" data-topbar>
+  <div class="topbar-inner">
+    <a class="brand-mark" href="#overview" aria-label="回到报告顶部">
+      <span class="brand-glyph">GEO</span>
+      <span class="brand-copy">
+        <span class="brand-name">GEO SEO Hub</span>
+        <span class="brand-version">0.3.0 · Experimental</span>
+      </span>
+    </a>
+    <nav class="topnav" aria-label="报告章节">
+      <a href="#overview">总览</a>
+      <a href="#architecture">架构</a>
+      <a href="#routing">路由</a>
+      <a href="#capabilities">能力</a>
+      <a href="#scenarios">场景</a>
+      <a href="#prompts">提示词</a>
+      <a href="#artifacts">产物</a>
+      <a href="#research">研究</a>
+      <a href="#quality">质量</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page" id="main">
+  <section class="hero" id="overview" data-section>
+    <div>
+      <p class="eyebrow">GEO-first · SEO-active · Protocol-first</p>
+      <h1>GEO SEO Hub</h1>
+      <p class="hero-subtitle">把 GEO 研究、诊断、内容、测量与一句话 SEO 组织成可路由、可复现、可审计的超级 Skill，一个统一入口连接六个可执行能力</p>
+      <div class="hero-chips" aria-label="核心特点">
+        <span class="chip">Registry 驱动</span>
+        <span class="chip">证据可追溯</span>
+        <span class="chip">Artifact Bus 1.0.0</span>
+        <span class="chip">中英双语路由</span>
+      </div>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#architecture">查看系统架构</a>
+        <a class="btn btn-secondary" href="#prompts">浏览触发示例</a>
+      </div>
+    </div>
+
+    <div class="hero-map" aria-label="GEO SEO Hub 能力环">
+      <div class="orbit orbit-a"></div>
+      <div class="orbit orbit-b"></div>
+      <div class="orbit-core">统一路由<br>Artifact Bus</div>
+      <div class="orbit-node node-discover">Discover<br>发现机会</div>
+      <div class="orbit-node node-diagnose">Diagnose<br>诊断差距</div>
+      <div class="orbit-node node-content">Content<br>生成内容</div>
+      <div class="orbit-node node-measure">Measure<br>描述测量</div>
+      <div class="orbit-node node-seo">SEO<br>一句话规划</div>
+      <div class="orbit-node node-research">Research<br>证据内核</div>
+      <p class="hero-map-note">六个 active Skill 共享同一 Registry、证据账本与产物协议</p>
+    </div>
+
+    <div class="metrics-strip" aria-label="项目关键指标">
+      <div class="metric"><div class="metric-value">6</div><div class="metric-label">active Skill</div></div>
+      <div class="metric"><div class="metric-value">3</div><div class="metric-label">planned Skill</div></div>
+      <div class="metric"><div class="metric-value">56</div><div class="metric-label">研究来源</div></div>
+      <div class="metric"><div class="metric-value">7</div><div class="metric-label">内容模式</div></div>
+      <div class="metric"><div class="metric-value">10</div><div class="metric-label">确定性安装包</div></div>
+      <div class="metric"><div class="metric-value">1.0.0</div><div class="metric-label">Artifact Bus 协议</div></div>
+    </div>
+  </section>
+
+  <section id="principles" data-section>
+    <div class="section-head">
+      <div class="section-index">01 · 定位</div>
+      <div>
+        <h2 class="section-title">一个面向 GEO 工作流的<span class="hl">能力操作系统</span></h2>
+        <p class="section-lede">它把用户自然语言请求转成最小可执行 Skill 或稳定工作流，再把每次执行固化为带证据状态、质量报告和运行清单的目录</p>
+        <div class="section-rule"></div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="definition">
+        <p>GEO SEO Hub 把自然语言请求拆成五类能力入口：<span class="hl">发现、诊断、内容、测量、一句话 SEO</span>，统一入口负责识别意图，Research Kernel 约束科学边界，Artifact Bus 负责交付和复现</p>
+        <div class="definition-note">GEO 与 SEO 共享查询、证据、实体、内容和站点结构能力，独立 seo Provider 负责技术审计、关键词页面映射、Search Console 事故、迁移与实验规划</div>
+      </div>
+      <div class="card status-panel">
+        <div class="donut" style="--value:66.67" aria-label="active 占 66.67%">
+          <div class="donut-center"><div><b>6 / 9</b><span>当前可执行</span></div></div>
+        </div>
+        <div class="legend">
+          <div class="legend-row"><span class="legend-dot"></span><span>Active：geo、discover、diagnose、content、measure、seo</span><strong>6</strong></div>
+          <div class="legend-row"><span class="legend-dot muted"></span><span>Planned：strategy、knowledge、publish</span><strong>3</strong></div>
+          <div class="legend-row"><span class="legend-dot muted"></span><span>协议兼容层</span><strong>1.0.0</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-top:22px">
+      <div class="card soft"><div class="card-number">01</div><h3>Registry 驱动</h3><p>技能状态、意图、入口和输出由单一注册表声明，Router 从注册表编译 Action 与 Intent Index</p></div>
+      <div class="card soft"><div class="card-number">02</div><h3>确定性执行</h3><p>输入经严格 Schema、长度和文件边界验证，相同有效输入生成稳定结构，避免隐式网络研究</p></div>
+      <div class="card soft"><div class="card-number">03</div><h3>证据可追溯</h3><p>事实结论连接 evidence ID，缺失来源保留为 unverified、source_gap 或 blocked-by-evidence</p></div>
+      <div class="card soft"><div class="card-number">04</div><h3>科研边界</h3><p>54 篇论文与 2 个数据集汇总为 11 条运行原则，明确相关、基准、因果与治理状态</p></div>
+      <div class="card soft"><div class="card-number">05</div><h3>原子交付</h3><p>完整文件集在隐藏 staging 目录生成并校验，成功后一次发布，失败不会留下半成品 run</p></div>
+      <div class="card soft"><div class="card-number">06</div><h3>显式降级</h3><p>可选 DOCX/PDF 失败时保留 Markdown、JSON 与 HTML，Manifest 记录缺失依赖和 renderer error</p></div>
+    </div>
+  </section>
+
+  <section id="architecture" data-section>
+    <div class="section-head">
+      <div class="section-index">02 · 架构</div>
+      <div>
+        <h2 class="section-title">请求经过五层，最终成为<span class="hl">可审计运行记录</span></h2>
+        <p class="section-lede">架构将自然语言选择、确定性执行、研究约束和交付协议分开，每层职责独立，公共数据结构保持兼容</p>
+        <div class="section-rule"></div>
+      </div>
+    </div>
+    <figure>
+      <div class="figure-frame">
+        <div class="figure-kicker">图 01 · 系统架构</div>
+        <svg viewBox="0 0 1120 570" role="img" aria-labelledby="arch-title arch-desc">
+          <title id="arch-title">超级技能五层架构</title>
+          <desc id="arch-desc">用户请求经过统一入口、注册表解析器、六个可执行技能、研究证据内核和产物总线，形成多格式产物</desc>
+          <defs>
+            <pattern id="arch-dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="0.8" fill="#e8e6dc"/></pattern>
+          </defs>
+          <rect x="0" y="0" width="1120" height="570" fill="#ffffff"/>
+          <rect x="0" y="0" width="1120" height="570" fill="url(#arch-dots)" opacity="0.45"/>
+
+          <text x="48" y="48" fill="#1b365d" font-family="Arial, sans-serif" font-size="12" letter-spacing="2">输入</text>
+          <rect x="48" y="70" width="160" height="70" rx="7" fill="#eef2f7" stroke="#1b365d" stroke-width="1.5"/>
+          <text x="128" y="101" text-anchor="middle" fill="#141413" font-family="Georgia, serif" font-size="16">用户 GEO 请求</text>
+          <text x="128" y="122" text-anchor="middle" fill="#6b6a64" font-family="Arial, sans-serif" font-size="10">中文 / 英文</text>
+
+          <path d="M208 105 H264" stroke="#1b365d" stroke-width="1.5" fill="none"/>
+          <path d="M256 98 L264 105 L256 112" stroke="#1b365d" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+          <text x="264" y="48" fill="#1b365d" font-family="Arial, sans-serif" font-size="12" letter-spacing="2">解析</text>
+          <rect x="264" y="70" width="194" height="70" rx="7" fill="#ffffff" stroke="#504e49"/>
+          <text x="361" y="101" text-anchor="middle" fill="#141413" font-family="Georgia, serif" font-size="16">统一路由器</text>
+          <text x="361" y="122" text-anchor="middle" fill="#6b6a64" font-family="Arial, sans-serif" font-size="10">注册表 · 意图 · 执行图</text>
+
+          <path d="M458 105 H514" stroke="#504e49" stroke-width="1.5" fill="none"/>
+          <path d="M506 98 L514 105 L506 112" stroke="#504e49" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+          <text x="514" y="48" fill="#1b365d" font-family="Arial, sans-serif" font-size="12" letter-spacing="2">执行</text>
+          <rect x="514" y="56" width="362" height="128" rx="9" fill="#fbfbf8" stroke="#d8d5c8"/>
+          <g font-family="Arial, sans-serif" font-size="11" text-anchor="middle">
+            <rect x="534" y="86" width="92" height="54" rx="5" fill="#ffffff" stroke="#504e49"/><text x="580" y="118" fill="#141413">发现</text>
+            <rect x="641" y="86" width="92" height="54" rx="5" fill="#ffffff" stroke="#504e49"/><text x="687" y="118" fill="#141413">诊断</text>
+            <rect x="748" y="86" width="92" height="54" rx="5" fill="#ffffff" stroke="#504e49"/><text x="794" y="118" fill="#141413">内容</text>
+            <rect x="588" y="148" width="92" height="28" rx="4" fill="#eef2f7" stroke="#1b365d"/><text x="634" y="167" fill="#1b365d">测量</text>
+            <rect x="695" y="148" width="92" height="28" rx="4" fill="#eef2f7" stroke="#1b365d"/><text x="741" y="167" fill="#1b365d">搜索优化</text>
+          </g>
+
+          <path d="M876 118 H930" stroke="#504e49" stroke-width="1.5" fill="none"/>
+          <path d="M922 111 L930 118 L922 125" stroke="#504e49" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <text x="930" y="48" fill="#1b365d" font-family="Arial, sans-serif" font-size="12" letter-spacing="2">交付</text>
+          <rect x="930" y="70" width="142" height="96" rx="7" fill="#eef2f7" stroke="#1b365d" stroke-width="1.5"/>
+          <text x="1001" y="103" text-anchor="middle" fill="#141413" font-family="Georgia, serif" font-size="16">产物总线</text>
+          <text x="1001" y="124" text-anchor="middle" fill="#6b6a64" font-family="Arial, sans-serif" font-size="10">原子运行目录</text>
+          <text x="1001" y="144" text-anchor="middle" fill="#6b6a64" font-family="Arial, sans-serif" font-size="10">结构化数据 · 文档 · 网页</text>
+
+          <rect x="48" y="230" width="1024" height="116" rx="9" fill="#ffffff" stroke="#d8d5c8" stroke-dasharray="5 6"/>
+          <text x="76" y="258" fill="#1b365d" font-family="Arial, sans-serif" font-size="12" letter-spacing="2">研究证据内核</text>
+          <g font-family="Arial, sans-serif" font-size="11">
+            <rect x="76" y="278" width="164" height="44" rx="5" fill="#fbfbf8" stroke="#e8e6dc"/><text x="158" y="305" text-anchor="middle" fill="#3d3d3a">56 项来源注册表</text>
+            <rect x="260" y="278" width="164" height="44" rx="5" fill="#fbfbf8" stroke="#e8e6dc"/><text x="342" y="305" text-anchor="middle" fill="#3d3d3a">11 条研究原则</text>
+            <rect x="444" y="278" width="164" height="44" rx="5" fill="#fbfbf8" stroke="#e8e6dc"/><text x="526" y="305" text-anchor="middle" fill="#3d3d3a">证据账本</text>
+            <rect x="628" y="278" width="164" height="44" rx="5" fill="#fbfbf8" stroke="#e8e6dc"/><text x="710" y="305" text-anchor="middle" fill="#3d3d3a">研究上下文</text>
+            <rect x="812" y="278" width="232" height="44" rx="5" fill="#eef2f7" stroke="#1b365d"/><text x="928" y="305" text-anchor="middle" fill="#1b365d">因果 · 范围 · 局限</text>
+          </g>
+          <path d="M687 230 V184" stroke="#1b365d" stroke-width="1.2" stroke-dasharray="4 5"/>
+          <path d="M680 192 L687 184 L694 192" stroke="#1b365d" stroke-width="1.2" fill="none"/>
+          <path d="M1001 230 V166" stroke="#1b365d" stroke-width="1.2" stroke-dasharray="4 5"/>
+          <path d="M994 174 L1001 166 L1008 174" stroke="#1b365d" stroke-width="1.2" fill="none"/>
+
+          <text x="48" y="400" fill="#1b365d" font-family="Arial, sans-serif" font-size="12" letter-spacing="2">输出形态</text>
+          <g font-family="Arial, sans-serif" font-size="11" text-anchor="middle">
+            <rect x="48" y="424" width="176" height="60" rx="6" fill="#ffffff" stroke="#504e49"/><text x="136" y="449" fill="#141413">结构化数据</text><text x="136" y="468" fill="#6b6a64" font-size="9">通过结构校验</text>
+            <rect x="244" y="424" width="176" height="60" rx="6" fill="#ffffff" stroke="#504e49"/><text x="332" y="449" fill="#141413">文档报告</text><text x="332" y="468" fill="#6b6a64" font-size="9">便于人工阅读</text>
+            <rect x="440" y="424" width="176" height="60" rx="6" fill="#ffffff" stroke="#504e49"/><text x="528" y="449" fill="#141413">独立网页</text><text x="528" y="468" fill="#6b6a64" font-size="9">安全转义渲染</text>
+            <rect x="636" y="424" width="176" height="60" rx="6" fill="#ffffff" stroke="#504e49"/><text x="724" y="449" fill="#141413">质量报告</text><text x="724" y="468" fill="#6b6a64" font-size="9">警告与检查</text>
+            <rect x="832" y="424" width="240" height="60" rx="6" fill="#eef2f7" stroke="#1b365d"/><text x="952" y="449" fill="#1b365d">运行清单</text><text x="952" y="468" fill="#6b6a64" font-size="9">文件 · 状态 · 降级</text>
+          </g>
+          <path d="M1001 346 V390 H952 V424" stroke="#504e49" stroke-width="1.4" fill="none"/>
+          <path d="M945 416 L952 424 L959 416" stroke="#504e49" stroke-width="1.4" fill="none"/>
+          <path d="M952 390 H136 V424" stroke="#504e49" stroke-width="1" fill="none" opacity="0.7"/>
+          <path d="M136 390 H724" stroke="#504e49" stroke-width="1" fill="none" opacity="0.7"/>
+          <path d="M136 390 V424 M332 390 V424 M528 390 V424 M724 390 V424" stroke="#504e49" stroke-width="1" fill="none" opacity="0.7"/>
+        </svg>
+      </div>
+      <figcaption>图 1。研究证据内核同时约束执行层和交付层。每次运行都会写入研究上下文，仓库文档保留完整审计。手机端可横向滑动查看完整架构。</figcaption>
+    </figure>
+    <div class="architecture-notes">
+      <div class="note-cell"><b>选择层保持轻量</b><span>路由器只返回技能、状态、入口和可选执行图，执行逻辑保留在能力提供者内部</span></div>
+      <div class="note-cell"><b>执行层各自封装</b><span>发现、诊断、内容、测量与搜索优化拥有独立输入合同和输出规范</span></div>
+      <div class="note-cell"><b>公共层保证兼容</b><span>证据账本、研究上下文、质量报告与运行清单提供跨技能对接界面</span></div>
+    </div>
+  </section>
+
+  <section id="routing" data-section>
+    <div class="section-head">
+      <div class="section-index">03 · 路由</div>
+      <div>
+        <h2 class="section-title">Router 先判断<span class="hl">可用性边界</span>，再选择最小执行单元</h2>
+        <p class="section-lede">输入会先经过字符与字节预算、Unicode 归一化、引用区间识别和否定作用域解析，planned 能力始终保持不可执行</p>
+        <div class="section-rule"></div>
+      </div>
+    </div>
+    <div class="router-grid">
+      <ol class="decision-list">
+        <li><div><b>输入预检</b><span>上限为 8,000 字符和 16,384 UTF-8 字节，超限返回确定性验证错误</span></div></li>
+        <li><div><b>单次语义预计算</b><span>引用区间、连接词、否定范围、Action Index 与 Intent Index 每个请求只扫描一次</span></div></li>
+        <li><div><b>planned 优先保护</b><span>命中 strategy、knowledge 或 publish 时返回 required_inputs、closest artifact 和 nearest active</span></div></li>
+        <li><div><b>精确工作流匹配</b><span>只有 Registry 声明的阶段组合与顺序才生成 DAG，说明文字中的后缀意图不会误触发</span></div></li>
+        <li><div><b>最小 active Skill</b><span>单一目标直接路由到 discover、diagnose、content、measure 或 seo，宽泛请求回到 geo</span></div></li>
+      </ol>
+      <div class="workflow-stack">
+        <div class="workflow-card">
+          <h3>brand-baseline-lite</h3>
+          <div class="workflow-steps"><span class="step-pill focal">Discover</span><span class="arrow">→</span><span class="step-pill">Diagnose</span></div>
+          <div class="workflow-note">适合「先理解用户问题，再审查品牌或网站准备度」</div>
+        </div>
+        <div class="workflow-card">
+          <h3>content-campaign</h3>
+          <div class="workflow-steps"><span class="step-pill focal">Discover</span><span class="arrow">→</span><span class="step-pill">Content</span></div>
+          <div class="workflow-note">适合「先拓词，再生成标题、解释、蓝图或文章」</div>
+        </div>
+        <div class="workflow-card">
+          <h3>composed workflow</h3>
+          <div class="workflow-steps"><span class="step-pill focal">Discover</span><span class="arrow">↗</span><span class="step-pill">Diagnose</span><span class="arrow">↘</span><span class="step-pill">Content</span></div>
+          <div class="workflow-note">明确请求发现、诊断和内容时，Discover 作为共同上游并行分发</div>
+        </div>
+        <div class="workflow-card">
+          <h3>planned boundary</h3>
+          <div class="workflow-steps"><span class="step-pill">Strategy</span><span class="step-pill">Knowledge</span><span class="step-pill">Publish</span></div>
+          <div class="workflow-note">返回 status=planned、runnable=false、entry=null，不模拟执行结果</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="capabilities" data-section>
+    <div class="section-head">
+      <div class="section-index">04 · 能力</div>
+      <div>
+        <h2 class="section-title">六个 active Skill 覆盖 GEO 工作流与<span class="hl">一句话 SEO</span></h2>
+        <p class="section-lede">每个 Skill 都能独立安装和执行，也能通过 geo Router 选择最小入口，下表展示输入、核心处理和主要输出</p>
+        <div class="section-rule"></div>
+      </div>
+    </div>
+    <div class="capability-list">
+      <article class="capability-row">
+        <div class="capability-name"><h3>geo</h3><span class="status-tag">ACTIVE · ROUTER</span></div>
+        <div class="capability-purpose">统一入口与能力状态面<small>处理宽泛 GEO 请求、单能力选择、planned 状态和两个稳定 DAG</small></div>
+        <div class="io-pair"><div><div class="io-title">INPUT</div><div class="io-copy">中英文自然语言请求</div></div><div><div class="io-title">OUTPUT</div><div class="io-copy">skill_id、status、runnable、entry、reason、suggestion、workflow</div></div></div>
+      </article>
+      <article class="capability-row">
+        <div class="capability-name"><h3>geo-discover</h3><span class="status-tag">ACTIVE · OFFLINE</span></div>
+        <div class="capability-purpose">把词根和业务主题扩展为问题簇与机会图<small>固定生成 learn、compare、evaluate、act 四种任务形态，去重并保留父查询血缘</small></div>
+        <div class="io-pair"><div><div class="io-title">INPUT</div><div class="io-copy">subject、seed_queries、audience、scenario、evidence</div></div><div><div class="io-title">OUTPUT</div><div class="io-copy">query-map、opportunity-map、evidence-ledger、research-context</div></div></div>
+      </article>
+      <article class="capability-row">
+        <div class="capability-name"><h3>geo-diagnose</h3><span class="status-tag">ACTIVE · BOUNDED NET</span></div>
+        <div class="capability-purpose">诊断品牌、站点或单页的 GEO 准备度<small>分析 title、description、canonical、heading、FAQ、JSON-LD、可抽取结构和证据信号</small></div>
+        <div class="io-pair"><div><div class="io-title">INPUT</div><div class="io-copy">显式 URL、HTML 快照或 evidence，scope 为 brand / site / page</div></div><div><div class="io-title">OUTPUT</div><div class="io-copy">diagnosis、funnel、report、remediation query-map、opportunity-map</div></div></div>
+      </article>
+      <article class="capability-row">
+        <div class="capability-name"><h3>geo-content</h3><span class="status-tag">ACTIVE · 7 MODES</span></div>
+        <div class="capability-purpose">从结构化 brief 与证据生成可追溯内容<small>先构建 mode 对象，再派生 content-spec、typed Markdown、escaped HTML 和 evidence units</small></div>
+        <div class="io-pair"><div><div class="io-title">INPUT</div><div class="io-copy">topic、mode、brand facts、evidence、可选 source content</div></div><div><div class="io-title">OUTPUT</div><div class="io-copy">content-spec、content、evidence units、Markdown、HTML、可选 DOCX/PDF</div></div></div>
+      </article>
+      <article class="capability-row">
+        <div class="capability-name"><h3>geo-measure</h3><span class="status-tag">ACTIVE · OFFLINE</span></div>
+        <div class="capability-purpose">汇总用户提供的 AI 平台观察记录<small>保留合格试验、缺失回答、排除原因、平台分层和 Wilson 区间，统一标记 descriptive</small></div>
+        <div class="io-pair"><div><div class="io-title">INPUT</div><div class="io-copy">query、engine、interface、locale、timestamp、answer 与 citation 状态</div></div><div><div class="io-title">OUTPUT</div><div class="io-copy">answer rate、citation rate、conditional rate、interval、platform strata</div></div></div>
+      </article>
+      <article class="capability-row">
+        <div class="capability-name"><h3>seo</h3><span class="status-tag">ACTIVE · OFFLINE PLAN</span></div>
+        <div class="capability-purpose">把一句自然语言 SEO 需求转成证据约束的执行计划<small>识别技术审计、关键词页面映射、流量事故、迁移、实验、国际化、电商和实施请求，保留缺失证据与授权边界</small></div>
+        <div class="io-pair"><div><div class="io-title">INPUT</div><div class="io-copy">request、target URLs、market、language、authorization、rollback、evidence</div></div><div><div class="io-title">OUTPUT</div><div class="io-copy">seo-plan、report、evidence-ledger、quality-report、run-manifest</div></div></div>
+      </article>
+    </div>
+
+    <div class="mode-grid" aria-label="geo-content 七种内容模式">
+      <div class="mode-cell"><span class="mode-code">01 / title</span><b>标题</b><span>多样候选、意图与合规评分，清除无证据绝对词和生成年份</span></div>
+      <div class="mode-cell"><span class="mode-code">02 / explainer</span><b>解释型内容</b><span>定义、原因、步骤、选择标准、误区、FAQ 与来源</span></div>
+      <div class="mode-cell"><span class="mode-code">03 / comparison</span><b>中立对比</b><span>要求完整 entity × dimension 证据矩阵，缺口阻断结论</span></div>
+      <div class="mode-cell"><span class="mode-code">04 / ranking</span><b>方法榜单</b><span>要求完整分数矩阵和透明方法，不完整时不输出排名</span></div>
+      <div class="mode-cell"><span class="mode-code">05 / page-blueprint</span><b>页面蓝图</b><span>信息架构、摘要、FAQ、表格、Schema 候选和验收项</span></div>
+      <div class="mode-cell"><span class="mode-code">06 / refine</span><b>内容优化</b><span>保留源文事实，记录前后分数与修改说明，不新增数据</span></div>
+      <div class="mode-cell"><span class="mode-code">07 / article-friendly</span><b>文章适配</b><span>复用 refine 合同，增加发布型 Markdown、证据标记和风险提示</span></div>
+    </div>
+  </section>
+
+  <section id="scenarios" data-section>
+    <div class="section-head">
+      <div class="section-index">05 · 场景</div>
+      <div>
+        <h2 class="section-title">当前版本覆盖<span class="hl">十四类 GEO 与 SEO 任务</span></h2>
+        <p class="section-lede">场景按 Registry、两条稳定 DAG、七种 Content mode 和一句话 SEO 工作模式汇总，每个场景都能追溯到一个 active 入口或明确 planned 状态</p>
+        <div class="section-rule"></div>
+      </div>
+    </div>
+    <div class="scenario-grid">
+      <article class="scenario-card"><div class="scenario-skill">geo-discover</div><h3>词根拓展与问题簇</h3><p>从产品、服务或品类词根生成学习、比较、评估和行动型问题</p><div class="scenario-output">交付：query-map + opportunity-map</div></article>
+      <article class="scenario-card"><div class="scenario-skill">geo-discover</div><h3>用户意图与内容机会</h3><p>按受众、场景和证据缺口组织 FAQ、解释、对比与落地页机会</p><div class="scenario-output">交付：优先级、资产类型、补证任务</div></article>
+      <article class="scenario-card"><div class="scenario-skill">geo-diagnose</div><h3>品牌全景诊断</h3><p>检查 identity、offering、audience、differentiation、proof 和 contact 事实覆盖</p><div class="scenario-output">交付：品牌级 findings + remediation</div></article>
+      <article class="scenario-card"><div class="scenario-skill">geo-diagnose</div><h3>网站与单页审计</h3><p>检查可发现性、结构、可抽取性、证据、权威与新鲜度代理信号</p><div class="scenario-output">交付：diagnosis funnel + HTML snapshot</div></article>
+      <article class="scenario-card"><div class="scenario-skill">geo-content</div><h3>标题与解释型文章</h3><p>生成合规标题、定义边界、操作步骤、误区、FAQ 与来源段</p><div class="scenario-output">交付：content.md + content.html</div></article>
+      <article class="scenario-card"><div class="scenario-skill">geo-content</div><h3>产品对比与榜单</h3><p>按同口径证据或完整评分矩阵生成中立对比和方法透明的排名</p><div class="scenario-output">交付：matrix gaps 或有证据结论</div></article>
+      <article class="scenario-card"><div class="scenario-skill">geo-content</div><h3>页面信息架构</h3><p>设计摘要、FAQ、表格、语义 HTML、Schema 候选、CMS 字段和验收清单</p><div class="scenario-output">交付：page blueprint + acceptance checks</div></article>
+      <article class="scenario-card"><div class="scenario-skill">geo-content</div><h3>已有内容优化</h3><p>保留源文事实边界，调整结构和表达，未链接事实继续保持 unverified</p><div class="scenario-output">交付：before / after + change notes</div></article>
+      <article class="scenario-card"><div class="scenario-skill">geo-measure</div><h3>AI 回答与引用测量</h3><p>汇总回答率、引用率、条件引用率、缺失答案、排除理由与不确定区间</p><div class="scenario-output">交付：measurement-report.json</div></article>
+      <article class="scenario-card"><div class="scenario-skill">seo</div><h3>一句话 SEO 规划</h3><p>从自然语言需求识别技术审计、关键词页面映射、国际化、电商或实验模式</p><div class="scenario-output">交付：seo-plan + evidence gaps</div></article>
+      <article class="scenario-card"><div class="scenario-skill">seo</div><h3>流量事故与迁移控制</h3><p>按页面、查询、市场、设备和时间分层，并记录迁移映射、验证与回滚边界</p><div class="scenario-output">交付：segmented plan + rollback gate</div></article>
+      <article class="scenario-card"><div class="scenario-skill">brand-baseline-lite</div><h3>品牌基线工作流</h3><p>先发现目标受众问题，再审计品牌、网站或页面与这些问题的匹配情况</p><div class="scenario-output">流程：Discover → Diagnose</div></article>
+      <article class="scenario-card"><div class="scenario-skill">content-campaign</div><h3>内容活动工作流</h3><p>先生成查询与机会图，再把选定机会转成标题、解释、蓝图或文章</p><div class="scenario-output">流程：Discover → Content</div></article>
+      <article class="scenario-card"><div class="scenario-skill">geo · planned</div><h3>策略、知识与发布咨询</h3><p>返回所需输入、最接近的 active 能力和当前可交付 artifact</p><div class="scenario-output">状态：planned · runnable=false</div></article>
+    </div>
+  </section>
+
+  <section id="prompts" data-section>
+    <div class="section-head">
+      <div class="section-index">06 · 提示词</div>
+      <div>
+        <h2 class="section-title">提示词表达<span class="hl">目标、输入和证据边界</span>即可触发</h2>
+        <p class="section-lede">下面示例来自 Registry 意图与固定路由合同，复制后补充具体主题、受众、URL 或证据文件即可使用</p>
+        <div class="section-rule"></div>
+      </div>
+    </div>
+    <div class="prompt-list">
+      <div class="prompt-row"><div class="prompt-type">拓词</div><div class="prompt-text">帮我做「GEO 优化公司」的 AI 搜索意图挖掘，受众是准备采购服务的市场负责人。</div><div class="prompt-route">geo-discover · active</div><button class="copy-btn" data-copy aria-label="复制拓词提示词">复制</button></div>
+      <div class="prompt-row"><div class="prompt-type">品牌诊断</div><div class="prompt-text">请基于我提供的官网 URL 和品牌事实，做一轮品牌诊断，并列出证据缺口。</div><div class="prompt-route">geo-diagnose · scope=brand</div><button class="copy-btn" data-copy aria-label="复制品牌诊断提示词">复制</button></div>
+      <div class="prompt-row"><div class="prompt-type">页面审计</div><div class="prompt-text">审计这个页面的 GEO 准备度，检查标题、摘要、FAQ、结构化数据与可抽取证据。</div><div class="prompt-route">geo-diagnose · scope=page</div><button class="copy-btn" data-copy aria-label="复制页面审计提示词">复制</button></div>
+      <div class="prompt-row"><div class="prompt-type">解释型内容</div><div class="prompt-text">根据已提供 evidence，写一篇「GEO 优化公司怎么选」的解释型文章，保留事实来源。</div><div class="prompt-route">geo-content · mode=explainer</div><button class="copy-btn" data-copy aria-label="复制解释型内容提示词">复制</button></div>
+      <div class="prompt-row"><div class="prompt-type">中立对比</div><div class="prompt-text">按服务范围、方法、交付物和证据四个维度，对比 A 公司与 B 公司；缺失维度直接列补证项。</div><div class="prompt-route">geo-content · mode=comparison</div><button class="copy-btn" data-copy aria-label="复制中立对比提示词">复制</button></div>
+      <div class="prompt-row"><div class="prompt-type">方法榜单</div><div class="prompt-text">使用我给定的评价维度和每个候选的完整分数，生成 GEO 工具榜单并公开计算方法。</div><div class="prompt-route">geo-content · mode=ranking</div><button class="copy-btn" data-copy aria-label="复制榜单提示词">复制</button></div>
+      <div class="prompt-row"><div class="prompt-type">页面蓝图</div><div class="prompt-text">为「企业 GEO 服务」设计页面蓝图，包含摘要、FAQ、对比表、Schema 候选和验收清单。</div><div class="prompt-route">geo-content · mode=page-blueprint</div><button class="copy-btn" data-copy aria-label="复制页面蓝图提示词">复制</button></div>
+      <div class="prompt-row"><div class="prompt-type">内容优化</div><div class="prompt-text">优化这篇已有文章的 GEO 可读性，保留原事实，不新增数据或引用，并说明每项修改。</div><div class="prompt-route">geo-content · mode=refine</div><button class="copy-btn" data-copy aria-label="复制内容优化提示词">复制</button></div>
+      <div class="prompt-row"><div class="prompt-type">测量</div><div class="prompt-text">衡量 GEO 效果：汇总这批离线 observation 的回答率、引用率、缺失答案和平台分层。</div><div class="prompt-route">geo-measure · active</div><button class="copy-btn" data-copy aria-label="复制测量提示词">复制</button></div>
+      <div class="prompt-row"><div class="prompt-type">一句话 SEO</div><div class="prompt-text">一句话 SEO：为这个网站生成一份技术审计计划，列出证据缺口和验证顺序。</div><div class="prompt-route">seo · technical-audit</div><button class="copy-btn" data-copy aria-label="复制一句话 SEO 提示词">复制</button></div>
+      <div class="prompt-row"><div class="prompt-type">SEO 事故</div><div class="prompt-text">分析这份 Search Console 导出中的自然流量下降，按页面、查询、市场和设备列出竞争假设。</div><div class="prompt-route">seo · incident</div><button class="copy-btn" data-copy aria-label="复制 SEO 事故提示词">复制</button></div>
+      <div class="prompt-row"><div class="prompt-type">基线流程</div><div class="prompt-text">先做意图挖掘，再做品牌诊断。</div><div class="prompt-route">brand-baseline-lite</div><button class="copy-btn" data-copy aria-label="复制基线工作流提示词">复制</button></div>
+      <div class="prompt-row"><div class="prompt-type">内容流程</div><div class="prompt-text">先拓词再生成文章。</div><div class="prompt-route">content-campaign</div><button class="copy-btn" data-copy aria-label="复制内容工作流提示词">复制</button></div>
+      <div class="prompt-row"><div class="prompt-type">组合流程</div><div class="prompt-text">Discover questions, audit our site, then write an explainer.</div><div class="prompt-route">baseline + campaign</div><button class="copy-btn" data-copy aria-label="复制组合工作流提示词">复制</button></div>
+      <div class="prompt-row"><div class="prompt-type">路线图</div><div class="prompt-text">制定 GEO 策略路线图，目标是提升品牌在 AI 搜索研究中的证据覆盖。</div><div class="prompt-route">geo-strategy · planned</div><button class="copy-btn" data-copy aria-label="复制路线图提示词">复制</button></div>
+    </div>
+  </section>
+
+  <section id="artifacts" data-section>
+    <div class="section-head">
+      <div class="section-index">07 · 产物</div>
+      <div>
+        <h2 class="section-title">每次执行都形成一个<span class="hl">自包含 run 目录</span></h2>
+        <p class="section-lede">Artifact Bus 把输入快照、结构化结果、人读报告、证据账本、研究边界和质量状态放在同一交付单元中</p>
+        <div class="section-rule"></div>
+      </div>
+    </div>
+    <div class="artifact-grid">
+      <div class="tree-card" aria-label="Artifact Bus 目录示例">
+<pre><span class="tree-hi">runs/run-&lt;id&gt;/</span>
+├── input/
+│   ├── geo-brief.json
+│   └── sources/...
+├── <span class="tree-hi">primary-result.json</span>
+├── report.md
+├── content.html
+├── evidence-ledger.json
+├── research-context.json
+├── quality-report.json
+└── <span class="tree-hi">run-manifest.json</span>
+
+<span class="tree-dim"># 按 Skill 增加</span>
+query-map.json
+opportunity-map.json
+diagnosis-funnel.json
+content-evidence-units.json
+measurement-report.json
+seo-plan.json</pre>
+      </div>
+      <div class="artifact-flow">
+        <div class="artifact-stage"><span class="n">01</span><div><b>规范化输入</b><span>严格 JSON、Unicode 与路径验证，可重放输入进入 input/</span></div></div>
+        <div class="artifact-stage"><span class="n">02</span><div><b>结构化核心</b><span>先生成 Schema 可验证对象，再派生 Markdown、HTML 和可选格式</span></div></div>
+        <div class="artifact-stage"><span class="n">03</span><div><b>证据与研究上下文</b><span>每个事实单元连接 evidence ID，Research Context 记录来源范围和局限</span></div></div>
+        <div class="artifact-stage"><span class="n">04</span><div><b>质量与降级</b><span>质量门记录 warnings、failed checks、missing dependencies 和 renderer errors</span></div></div>
+        <div class="artifact-stage"><span class="n">05</span><div><b>原子发布</b><span>验证 staged 文件集合后发布最终 run 目录，Manifest 成为交付索引</span></div></div>
+      </div>
+    </div>
+    <div class="output-table-wrap">
+      <table aria-label="各 Skill 主要产物">
+        <thead><tr><th>Skill</th><th>核心 JSON</th><th>人读结果</th><th>证据与质量</th><th>特别产物</th></tr></thead>
+        <tbody>
+          <tr><td>geo-discover</td><td>query-map、opportunity-map</td><td>结构化机会摘要</td><td>ledger、research-context、quality、manifest</td><td>四类任务形态与父查询 lineage</td></tr>
+          <tr><td>geo-diagnose</td><td>diagnosis、diagnosis-funnel</td><td>report.md</td><td>ledger、research-context、quality、manifest</td><td>HTML snapshots、remediation maps</td></tr>
+          <tr><td>geo-content</td><td>content-spec、content、evidence-units</td><td>content.md、content.html</td><td>ledger、research-context、quality、manifest</td><td>可选 DOCX / PDF</td></tr>
+          <tr><td>geo-measure</td><td>measurement-report</td><td>report.md</td><td>ledger、research-context、quality、manifest</td><td>分母、区间、平台 strata</td></tr>
+          <tr><td>seo</td><td>seo-plan</td><td>report.md</td><td>ledger、quality、manifest</td><td>工作模式、证据缺口、实施授权与回滚边界</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="research" data-section>
+    <div class="section-head">
+      <div class="section-index">08 · 研究</div>
+      <div>
+        <h2 class="section-title">56 个来源被压缩成<span class="hl">11 条运行原则</span></h2>
+        <p class="section-lede">研究仓库固定提交中的 54 篇论文与 2 个数据集经过逐项审计，运行时读取精简 Registry，并为每次执行生成 research-context.json</p>
+        <div class="section-rule"></div>
+      </div>
+    </div>
+    <div class="research-grid">
+      <div class="source-chart">
+        <div class="donut source-donut" aria-label="54 篇论文和 2 个数据集">
+          <div class="donut-center"><div><b>56</b><span>固定研究来源</span></div></div>
+        </div>
+        <div class="bar-stack" aria-label="研究核验状态">
+          <div class="legend-row"><span class="legend-dot"></span><span>论文</span><strong>54</strong></div>
+          <div class="legend-row"><span class="legend-dot muted"></span><span>数据集</span><strong>2</strong></div>
+          <div class="bar-row"><span class="bar-label">paper-reported</span><span class="bar-track"><span class="bar-fill" style="display:block;width:76.8%"></span></span><span class="bar-value">43</span></div>
+          <div class="bar-row"><span class="bar-label">not-reproducible</span><span class="bar-track"><span class="bar-fill" style="display:block;width:19.6%;opacity:.62"></span></span><span class="bar-value">11</span></div>
+          <div class="bar-row"><span class="bar-label">reproduced</span><span class="bar-track"><span class="bar-fill" style="display:block;width:1.8%;min-width:4px"></span></span><span class="bar-value">1</span></div>
+          <div class="bar-row"><span class="bar-label">source-reported</span><span class="bar-track"><span class="bar-fill" style="display:block;width:1.8%;min-width:4px;opacity:.76"></span></span><span class="bar-value">1</span></div>
+        </div>
+      </div>
+      <div class="principle-grid">
+        <div class="principle"><b>效果声明需要直接测量</b><span>准备度、可见度和 influence score 都属于代理变量</span></div>
+        <div class="principle"><b>查询多样性保持条件化</b><span>用于规划覆盖，不能推断需求量或转化</span></div>
+        <div class="principle"><b>诊断分数只表达 readiness</b><span>评分不会变成平台引用概率</span></div>
+        <div class="principle"><b>语义相关优先于格式战术</b><span>内容保真和证据连接拥有更稳健支持</span></div>
+        <div class="principle"><b>对比要求同口径证据</b><span>矩阵不完整时保留缺口，不输出胜者</span></div>
+        <div class="principle"><b>榜单需要操纵防护</b><span>透明方法、完整分数与威胁模型共同约束</span></div>
+        <div class="principle"><b>结构编辑必须可逆</b><span>结构可能改善也可能退化，需要前后记录</span></div>
+        <div class="principle"><b>测量必须保留分母</b><span>重复试验、缺失回答、区间和平台范围同时报告</span></div>
+        <div class="principle"><b>知识需要溯源与冲突控制</b><span>权利、时效、冲突与投毒风险进入治理边界</span></div>
+        <div class="principle"><b>SEO 与 GEO 共享上游检索边界</b><span>查询和证据可复用，SERP 与流量指标独立处理</span></div>
+        <div class="principle"><b>发布需要授权与可逆性</b><span>公开变更必须具备权限、预览、记录和回滚</span></div>
+      </div>
+    </div>
+    <div class="sources-note">研究边界：当前材料支持规划假设、描述测量和治理控制。它们无法为跨平台引用、排名、流量、转化或收入提供通用保证。详细审计见 <a href="../docs/research/geo-citation-lab-alignment-audit.md">geo-citation-lab-alignment-audit.md</a>，机器矩阵见 <a href="research-evidence-matrix.json">research-evidence-matrix.json</a></div>
+  </section>
+
+  <section id="quality" data-section>
+    <div class="section-head">
+      <div class="section-index">09 · 质量</div>
+      <div>
+        <h2 class="section-title">工程门禁验证行为一致性，<span class="hl">不替代线上效果实验</span></h2>
+        <p class="section-lede">本地 0.3.0 快照通过全量测试、固定评估、跨 Python 版本、确定性打包、隔离安装和 yao-meta Library 门禁</p>
+        <div class="section-rule"></div>
+      </div>
+    </div>
+    <div class="quality-grid">
+      <div class="quality-chart">
+        <div class="quality-row"><span class="quality-label">Router precision</span><span class="quality-track"><span class="quality-fill"></span></span><span class="quality-value">100%</span></div>
+        <div class="quality-row"><span class="quality-label">Router recall</span><span class="quality-track"><span class="quality-fill"></span></span><span class="quality-value">100%</span></div>
+        <div class="quality-row"><span class="quality-label">Trigger compliance</span><span class="quality-track"><span class="quality-fill"></span></span><span class="quality-value">100%</span></div>
+        <div class="quality-row"><span class="quality-label">Output contract</span><span class="quality-track"><span class="quality-fill"></span></span><span class="quality-value">100%</span></div>
+        <div class="quality-row"><span class="quality-label">Fabricated citations</span><span class="quality-track"><span class="quality-fill" style="width:0"></span></span><span class="quality-value">0</span></div>
+        <figcaption>固定评估集包含 373 条路由、39 条触发与 30 条确定性输出用例</figcaption>
+      </div>
+      <div class="gate-grid">
+        <div class="gate"><strong>539</strong><span>全量测试通过，另有 1 条可选 renderer 环境跳过</span></div>
+        <div class="gate"><strong>3.11-3.14</strong><span>四个 Python minor 均在 fresh venv 验证</span></div>
+        <div class="gate"><strong>10 / 9</strong><span>10 个确定性 ZIP，9 个非源码包隔离安装</span></div>
+        <div class="gate"><strong>79 / 15 / 0</strong><span>yao-meta commands / explicit waivers / release blockers</span></div>
+      </div>
+    </div>
+
+    <div class="boundary-board" style="margin-top:24px">
+      <div class="boundary-col">
+        <h3>当前可做</h3>
+        <ul>
+          <li>离线问题拓展、证据约束机会发现</li>
+          <li>显式 URL 或 HTML 的品牌、站点、页面诊断</li>
+          <li>七种内容模式和可选富格式渲染</li>
+          <li>离线 observation 的描述性统计与 Wilson 区间</li>
+          <li>一句话 SEO 模式识别、证据缺口和可复跑行动计划</li>
+          <li>中英文路由、稳定 DAG、planned 状态说明</li>
+        </ul>
+      </div>
+      <div class="boundary-col">
+        <h3>当前边界</h3>
+        <ul>
+          <li>不连接 AI 平台账号，不执行持续采样</li>
+          <li>不推断 search volume、keyword difficulty 或 SERP rank</li>
+          <li>不保证引用、排名、流量、转化或收入效果</li>
+          <li>不执行 CMS 发布、知识库写入或外部变更</li>
+          <li>Diagnose 只获取显式公共 URL，不扩展爬取</li>
+        </ul>
+      </div>
+    </div>
+    <div class="planned-row">
+      <div class="planned-card"><b>geo-strategy</b><span>需要 subject、goals、constraints；当前最近产物为 opportunity-map</span></div>
+      <div class="planned-card"><b>geo-knowledge</b><span>需要 subject、approved_sources；当前最近产物为 brand-fact-card</span></div>
+      <div class="planned-card"><b>geo-publish</b><span>需要 content_artifact、target_channel；当前最近产物为 run-manifest</span></div>
+    </div>
+    <div class="sources-note">验证快照：GEO SEO Hub 0.3.0，提交 <code>7273e72</code>。详细结果见 <a href="eval-summary.json">eval-summary.json</a>、<a href="package-verification.json">package-verification.json</a>、<a href="install-simulation.json">install-simulation.json</a>、<a href="python-compatibility.json">python-compatibility.json</a> 和 <a href="yao-meta-gates.json">yao-meta-gates.json</a></div>
+  </section>
+
+  <footer>
+    <div>
+      <div class="footer-name">GEO SEO Hub</div>
+      <div class="footer-copy">研究证据驱动的 GEO 超级 Skill · 0.3.0 Experimental</div>
+    </div>
+    <div class="footer-meta">AGPL-3.0-only · Commercial licensing: inquiry_only<br>Copyright © 2026 姚金刚 / Yao · Layout with Kami</div>
+  </footer>
+</main>
+
+<script>
+(function () {
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.topnav a'));
+  var sections = Array.prototype.slice.call(document.querySelectorAll('[data-section]'));
+  var topbar = document.querySelector('[data-topbar]');
+
+  function setActive(id) {
+    navLinks.forEach(function (link) {
+      var current = link.getAttribute('href') === '#' + id;
+      if (current) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
+    });
+  }
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, { rootMargin: '-28% 0px -62% 0px', threshold: 0.01 });
+    sections.forEach(function (section) { observer.observe(section); });
+  }
+
+  function updateProgress() {
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - doc.clientHeight;
+    var value = max > 0 ? (doc.scrollTop / max) * 100 : 0;
+    if (topbar) topbar.style.setProperty('--scroll-progress', value.toFixed(2) + '%');
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  document.querySelectorAll('[data-copy]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      var row = button.closest('.prompt-row');
+      var text = row ? row.querySelector('.prompt-text').textContent.trim() : '';
+      if (!text || !navigator.clipboard) return;
+      navigator.clipboard.writeText(text).then(function () {
+        var old = button.textContent;
+        button.textContent = '完成';
+        window.setTimeout(function () { button.textContent = old; }, 1200);
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>
