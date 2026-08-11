@@ -1603,8 +1603,11 @@ seo-plan.json</pre>
       var url = new URL(window.location.href);
       var isPreviewProxy = url.hostname === 'htmlpreview.github.io' || /^\?https?:/i.test(url.search);
       if (isPreviewProxy) url.hash = 'lang=' + encodeURIComponent(currentLanguage);
-      else url.searchParams.set('lang', currentLanguage);
-      history.replaceState(null, '', url.pathname + url.search + url.hash);
+      else {
+        url.searchParams.set('lang', currentLanguage);
+        if (new URLSearchParams(url.hash.slice(1)).has('lang')) url.hash = '';
+      }
+      history.replaceState(null, '', url.href);
     }
   }
 

@@ -69,7 +69,7 @@ def test_readme_localizations_reference_real_visual_assets():
     assert 'var translations = {' in report
     assert 'new URLSearchParams(window.location.search).get("lang")' in report
     assert 'new URLSearchParams(window.location.hash.slice(1)).get("lang")' in report
-    assert 'history.replaceState' in report
+    assert "history.replaceState(null, '', url.href)" in report
     assert "GEOHub turns natural-language requests" in report
     assert "把自然语言请求拆成五类能力入口" in report
     assert "geohub-visual-guide.html#lang=en" in readmes["en"]
