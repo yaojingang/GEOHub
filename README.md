@@ -2,11 +2,11 @@
 
 **Research-grounded GEO and SEO Skill Hub for AI Search**
 
-[English](README.md) · [简体中文](README.zh-CN.md) · [Visual guide](https://htmlpreview.github.io/?https://raw.githubusercontent.com/yaojingang/GEOHub/main/reports/geohub-visual-guide.html) · [Architecture](docs/architecture.md) · [Installation](docs/installation.md)
+[English](README.md) · [简体中文](README.zh-CN.md) · [Visual guide](https://htmlpreview.github.io/?https://raw.githubusercontent.com/yaojingang/GEOHub/main/reports/geohub-visual-guide.html#lang=en) · [Architecture](docs/architecture.md) · [Installation](docs/installation.md)
 
 **Version 0.3.1 · Experimental · GEO-first · SEO-active · Protocol-first**
 
-![GEOHub overview](docs/assets/geohub-overview.png)
+![GEOHub overview](docs/assets/geohub-overview-en.png)
 
 GEOHub is an open agent skill library for evidence-bounded GEO and SEO work. Give it a natural-language request and the registry routes it to the smallest runnable skill or a stable workflow. Every provider execution writes a self-contained Artifact Bus run with structured results, evidence lineage, quality status, and a manifest. Research-aligned providers also write research context.
 
@@ -35,7 +35,7 @@ Planned requests for strategy, knowledge, or publishing return availability meta
 
 ## How it works
 
-![GEOHub system architecture](docs/assets/geohub-architecture.png)
+![GEOHub system architecture](docs/assets/geohub-architecture-en.png)
 
 1. The registry declares capability status, intents, entrypoints, input contracts, and outputs.
 2. The resolver selects one active skill or one exact workflow DAG.
@@ -106,7 +106,7 @@ runs/run-<id>/
 
 ## Research-grounded methods
 
-![Research evidence and operating principles](docs/assets/geohub-research-principles.png)
+![Research evidence and operating principles](docs/assets/geohub-research-principles-en.png)
 
 The research registry maps 54 papers and two datasets to 11 runtime principles. The implementation separates source-reported findings, reproduced results, non-reproducible claims, proxy metrics, and descriptive measurement. Discover, diagnose, content, and measure runs emit a `research-context.json` artifact with scope and limitation metadata.
 

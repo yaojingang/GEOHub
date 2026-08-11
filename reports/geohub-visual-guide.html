@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en" data-language="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="GEOHub 0.3.1 的可视化架构、能力、场景、提示词、产物协议与研究证据介绍。">
+<meta name="description" content="A visual guide to GEOHub 0.3.1 architecture, capabilities, scenarios, prompts, artifact protocol, and research evidence.">
 <meta name="generator" content="Kami">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b365d'/%3E%3Ctext x='32' y='39' text-anchor='middle' font-family='Arial' font-size='20' fill='white'%3EGEO%3C/text%3E%3C/svg%3E">
-<title>GEOHub 0.3.1 · 超级 Skill 可视化指南</title>
+<title>GEOHub 0.3.1 · Visual Guide</title>
 <style>
 :root {
   --paper: #ffffff;
@@ -21,7 +21,7 @@
   --stone: #6b6a64;
   --line: #e8e6dc;
   --line-strong: #d8d5c8;
-  --serif: Georgia, "Songti SC", "Source Han Serif SC", "Noto Serif CJK SC", STSong, serif;
+  --serif: Charter, Georgia, Palatino, "Songti SC", "Source Han Serif SC", "Noto Serif CJK SC", STSong, serif;
   --ui: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
   --mono: "SFMono-Regular", "JetBrains Mono", Consolas, "PingFang SC", monospace;
   --nav-height: 66px;
@@ -131,6 +131,35 @@ code { font-family: var(--mono); }
 }
 .topnav a:hover,
 .topnav a[aria-current="true"] { color: var(--brand); border-bottom-color: var(--brand); }
+
+.language-switch {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--surface);
+  font-family: var(--ui);
+}
+.language-switch button {
+  min-width: 38px;
+  min-height: 30px;
+  padding: 5px 9px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--stone);
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  line-height: 1;
+  transition: background-color 160ms ease, color 160ms ease, transform 120ms ease;
+}
+.language-switch button:hover { color: var(--brand); }
+.language-switch button:active { transform: scale(0.96); }
+.language-switch button:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.language-switch button[aria-pressed="true"] { background: var(--brand); color: #ffffff; }
 
 .page { max-width: var(--max); margin: 0 auto; padding: 0 28px 96px; }
 .hero {
@@ -604,6 +633,7 @@ footer {
   .topbar-inner { min-height: var(--nav-height); padding: 0 16px; gap: 14px; }
   .brand-copy { display: none; }
   .topnav a { padding: 8px 7px; font-size: 12px; }
+  .language-switch button { min-width: 34px; padding-inline: 7px; }
   .page { padding: 0 16px 72px; }
   .hero { min-height: auto; padding: 62px 0 48px; }
   h1 { font-size: clamp(48px, 15vw, 70px); }
@@ -696,6 +726,10 @@ footer {
       <a href="#research">研究</a>
       <a href="#quality">质量</a>
     </nav>
+    <div class="language-switch" role="group" aria-label="Language / 语言">
+      <button type="button" data-language-choice="en" aria-pressed="true">EN</button>
+      <button type="button" data-language-choice="zh-CN" aria-pressed="false">中文</button>
+    </div>
   </div>
 </header>
 
@@ -1180,6 +1214,419 @@ seo-plan.json</pre>
 
 <script>
 (function () {
+  var translations = {
+    '跳到主要内容': 'Skip to main content',
+    '总览': 'Overview',
+    '架构': 'Architecture',
+    '路由': 'Routing',
+    '能力': 'Capabilities',
+    '场景': 'Scenarios',
+    '提示词': 'Prompts',
+    '产物': 'Artifacts',
+    '研究': 'Research',
+    '质量': 'Quality',
+    '把 GEO 研究、诊断、内容、测量与一句话 SEO 组织成可路由、可复现、可审计的超级 Skill，一个统一入口连接六个可执行能力': 'GEOHub organizes GEO research, diagnosis, content, measurement, and one-line SEO into a routable, reproducible, auditable super skill, with one entry point across six active capabilities',
+    'Registry 驱动': 'Registry-driven',
+    '证据可追溯': 'Traceable evidence',
+    '中英双语路由': 'Bilingual routing',
+    '查看系统架构': 'View system architecture',
+    '浏览触发示例': 'Browse prompt examples',
+    '统一路由': 'Unified routing',
+    '发现机会': 'Opportunities',
+    '诊断差距': 'Readiness',
+    '生成内容': 'Generation',
+    '描述测量': 'Measurement',
+    '一句话规划': 'Planning',
+    '证据内核': 'Evidence',
+    '六个 active Skill 共享同一 Registry、证据账本与产物协议': 'Six active skills share one Registry, Evidence Ledger, and artifact protocol',
+    '研究来源': 'Research sources',
+    '内容模式': 'Content modes',
+    '确定性安装包': 'Deterministic packages',
+    'Artifact Bus 协议': 'Artifact Bus protocol',
+    '01 · 定位': '01 · POSITIONING',
+    '一个面向 GEO 工作流的': 'An operating system for',
+    '能力操作系统': 'GEO workflows',
+    '它把用户自然语言请求转成最小可执行 Skill 或稳定工作流，再把每次执行固化为带证据状态、质量报告和运行清单的目录': 'It turns natural-language requests into the smallest executable skill or a stable workflow, then records every run with evidence status, a quality report, and a manifest',
+    'GEOHub 把自然语言请求拆成五类能力入口：': 'GEOHub turns natural-language requests into five capability entry points:',
+    '发现、诊断、内容、测量、一句话 SEO': 'discover, diagnose, content, measure, and one-line SEO',
+    '，统一入口负责识别意图，Research Kernel 约束科学边界，Artifact Bus 负责交付和复现': '. The unified entry resolves intent, the Research Kernel governs scientific boundaries, and the Artifact Bus supports delivery and replay',
+    'GEO 与 SEO 共享查询、证据、实体、内容和站点结构能力，独立 seo Provider 负责技术审计、关键词页面映射、Search Console 事故、迁移与实验规划': 'GEO and SEO share query, evidence, entity, content, and site-structure capabilities. The dedicated seo provider handles technical audits, keyword-to-page mapping, Search Console incidents, migrations, and experiment plans',
+    '当前可执行': 'Currently executable',
+    '协议兼容层': 'Protocol compatibility',
+    '技能状态、意图、入口和输出由单一注册表声明，Router 从注册表编译 Action 与 Intent Index': 'A single Registry declares skill status, intents, entries, and outputs. The Router compiles its Action and Intent indexes from that source',
+    '确定性执行': 'Deterministic execution',
+    '输入经严格 Schema、长度和文件边界验证，相同有效输入生成稳定结构，避免隐式网络研究': 'Inputs pass strict schema, length, and file-boundary validation. Equivalent valid inputs produce stable structures without implicit web research',
+    '事实结论连接 evidence ID，缺失来源保留为 unverified、source_gap 或 blocked-by-evidence': 'Factual claims link to evidence IDs. Missing sources remain unverified, source_gap, or blocked-by-evidence',
+    '科研边界': 'Research boundaries',
+    '54 篇论文与 2 个数据集汇总为 11 条运行原则，明确相关、基准、因果与治理状态': 'Fifty-four papers and two datasets inform 11 runtime principles with explicit correlation, benchmark, causal, and governance status',
+    '原子交付': 'Atomic delivery',
+    '完整文件集在隐藏 staging 目录生成并校验，成功后一次发布，失败不会留下半成品 run': 'The complete file set is generated and validated in a hidden staging directory, then published in one operation so failed runs remain invisible',
+    '显式降级': 'Explicit degradation',
+    '可选 DOCX/PDF 失败时保留 Markdown、JSON 与 HTML，Manifest 记录缺失依赖和 renderer error': 'If optional DOCX or PDF rendering fails, Markdown, JSON, and HTML remain available while the manifest records missing dependencies and renderer errors',
+    '02 · 架构': '02 · ARCHITECTURE',
+    '请求经过五层，最终成为': 'Five layers turn each request into an',
+    '可审计运行记录': 'auditable run record',
+    '架构将自然语言选择、确定性执行、研究约束和交付协议分开，每层职责独立，公共数据结构保持兼容': 'The architecture separates natural-language selection, deterministic execution, research constraints, and delivery protocols while keeping shared data structures compatible',
+    '图 01 · 系统架构': 'FIGURE 01 · SYSTEM ARCHITECTURE',
+    '超级技能五层架构': 'Five-layer super skill architecture',
+    '用户请求经过统一入口、注册表解析器、六个可执行技能、研究证据内核和产物总线，形成多格式产物': 'A user request passes through the unified entry, Registry resolver, six executable skills, Research Evidence Kernel, and Artifact Bus to produce multiple output formats',
+    '输入': 'INPUT',
+    '用户 GEO 请求': 'User GEO request',
+    '中文 / 英文': 'Chinese / English',
+    '解析': 'RESOLVE',
+    '统一路由器': 'Unified Router',
+    '注册表 · 意图 · 执行图': 'Registry · Intent · DAG',
+    '执行': 'EXECUTE',
+    '发现': 'Discover',
+    '诊断': 'Diagnose',
+    '内容': 'Content',
+    '测量': 'Measure',
+    '搜索优化': 'SEO',
+    '交付': 'DELIVER',
+    '产物总线': 'Artifact Bus',
+    '原子运行目录': 'Atomic run directory',
+    '结构化数据 · 文档 · 网页': 'JSON · Markdown · HTML',
+    '研究证据内核': 'RESEARCH EVIDENCE KERNEL',
+    '56 项来源注册表': '56-source registry',
+    '11 条研究原则': '11 research principles',
+    '证据账本': 'Evidence Ledger',
+    '研究上下文': 'Research Context',
+    '因果 · 范围 · 局限': 'Causal · Scope · Limitations',
+    '输出形态': 'OUTPUT SURFACES',
+    '结构化数据': 'Structured JSON',
+    '通过结构校验': 'Schema validated',
+    '文档报告': 'Markdown report',
+    '便于人工阅读': 'Human readable',
+    '独立网页': 'Standalone HTML',
+    '安全转义渲染': 'Escaped local render',
+    '质量报告': 'Quality report',
+    '警告与检查': 'Warnings and checks',
+    '运行清单': 'Run manifest',
+    '文件 · 状态 · 降级': 'Files · Status · Degradation',
+    '图 1。研究证据内核同时约束执行层和交付层。每次运行都会写入研究上下文，仓库文档保留完整审计。手机端可横向滑动查看完整架构。': 'Figure 1. The Research Evidence Kernel governs both execution and delivery. Each run records its research context, while repository documentation preserves the full audit. On mobile, scroll horizontally to view the architecture.',
+    '选择层保持轻量': 'Keep selection lightweight',
+    '路由器只返回技能、状态、入口和可选执行图，执行逻辑保留在能力提供者内部': 'The Router returns only the skill, status, entry, and optional DAG. Execution logic stays inside each provider',
+    '执行层各自封装': 'Encapsulate execution',
+    '发现、诊断、内容、测量与搜索优化拥有独立输入合同和输出规范': 'Discover, Diagnose, Content, Measure, and SEO each own an input contract and output specification',
+    '公共层保证兼容': 'Preserve shared compatibility',
+    '证据账本、研究上下文、质量报告与运行清单提供跨技能对接界面': 'The Evidence Ledger, Research Context, Quality Report, and Run Manifest provide cross-skill interfaces',
+    '03 · 路由': '03 · ROUTING',
+    'Router 先判断': 'The Router checks',
+    '可用性边界': 'availability boundaries',
+    '，再选择最小执行单元': 'before choosing the smallest execution unit',
+    '输入会先经过字符与字节预算、Unicode 归一化、引用区间识别和否定作用域解析，planned 能力始终保持不可执行': 'Inputs first pass character and byte budgets, Unicode normalization, quote-span detection, and negation-scope parsing. Planned capabilities always remain non-runnable',
+    '输入预检': 'Preflight validation',
+    '上限为 8,000 字符和 16,384 UTF-8 字节，超限返回确定性验证错误': 'Limits are 8,000 characters and 16,384 UTF-8 bytes. Oversized input returns a deterministic validation error',
+    '单次语义预计算': 'Single semantic precomputation',
+    '引用区间、连接词、否定范围、Action Index 与 Intent Index 每个请求只扫描一次': 'Quote spans, connectors, negation ranges, Action Index, and Intent Index are each scanned once per request',
+    'planned 优先保护': 'Planned precedence',
+    '命中 strategy、knowledge 或 publish 时返回 required_inputs、closest artifact 和 nearest active': 'Strategy, knowledge, and publish matches return required_inputs, closest artifact, and nearest active capability',
+    '精确工作流匹配': 'Exact workflow matching',
+    '只有 Registry 声明的阶段组合与顺序才生成 DAG，说明文字中的后缀意图不会误触发': 'Only Registry-declared stage combinations and orderings generate a DAG. Intent words inside explanatory text do not trigger workflows',
+    '最小 active Skill': 'Smallest active skill',
+    '单一目标直接路由到 discover、diagnose、content、measure 或 seo，宽泛请求回到 geo': 'A single goal routes directly to discover, diagnose, content, measure, or seo. Broad requests return to geo',
+    '适合「先理解用户问题，再审查品牌或网站准备度」': 'Use it to understand audience questions before auditing brand or website readiness',
+    '适合「先拓词，再生成标题、解释、蓝图或文章」': 'Use it to expand queries before producing titles, explainers, blueprints, or articles',
+    '明确请求发现、诊断和内容时，Discover 作为共同上游并行分发': 'When discovery, diagnosis, and content are explicitly requested, Discover becomes the shared upstream stage',
+    '返回 status=planned、runnable=false、entry=null，不模拟执行结果': 'Returns status=planned, runnable=false, and entry=null without simulating execution',
+    '04 · 能力': '04 · CAPABILITIES',
+    '六个 active Skill 覆盖 GEO 工作流与': 'Six active skills cover GEO workflows and',
+    '一句话 SEO': 'one-line SEO',
+    '每个 Skill 都能独立安装和执行，也能通过 geo Router 选择最小入口，下表展示输入、核心处理和主要输出': 'Each skill can be installed and executed independently or selected through the geo Router. The table summarizes inputs, core processing, and primary outputs',
+    '统一入口与能力状态面': 'Unified entry and capability status surface',
+    '处理宽泛 GEO 请求、单能力选择、planned 状态和两个稳定 DAG': 'Handles broad GEO requests, single-capability selection, planned states, and two stable DAGs',
+    '中英文自然语言请求': 'Natural-language requests in English or Chinese',
+    '把词根和业务主题扩展为问题簇与机会图': 'Expands seed terms and business topics into question clusters and opportunity maps',
+    '固定生成 learn、compare、evaluate、act 四种任务形态，去重并保留父查询血缘': 'Generates learn, compare, evaluate, and act task forms, removes duplicates, and preserves parent-query lineage',
+    '诊断品牌、站点或单页的 GEO 准备度': 'Diagnoses GEO readiness at brand, site, or page scope',
+    '分析 title、description、canonical、heading、FAQ、JSON-LD、可抽取结构和证据信号': 'Analyzes title, description, canonical, headings, FAQ, JSON-LD, extractable structure, and evidence signals',
+    '显式 URL、HTML 快照或 evidence，scope 为 brand / site / page': 'Explicit URL, HTML snapshot, or evidence with brand, site, or page scope',
+    '从结构化 brief 与证据生成可追溯内容': 'Generates traceable content from a structured brief and evidence',
+    '先构建 mode 对象，再派生 content-spec、typed Markdown、escaped HTML 和 evidence units': 'Builds the mode object first, then derives content-spec, typed Markdown, escaped HTML, and evidence units',
+    'topic、mode、brand facts、evidence、可选 source content': 'Topic, mode, brand facts, evidence, and optional source content',
+    'content-spec、content、evidence units、Markdown、HTML、可选 DOCX/PDF': 'content-spec, content, evidence units, Markdown, HTML, and optional DOCX or PDF',
+    '汇总用户提供的 AI 平台观察记录': 'Summarizes user-provided AI platform observations',
+    '保留合格试验、缺失回答、排除原因、平台分层和 Wilson 区间，统一标记 descriptive': 'Preserves eligible trials, missing answers, exclusion reasons, platform strata, and Wilson intervals under a descriptive label',
+    'query、engine、interface、locale、timestamp、answer 与 citation 状态': 'Query, engine, interface, locale, timestamp, answer, and citation status',
+    '把一句自然语言 SEO 需求转成证据约束的执行计划': 'Turns a one-line SEO request into an evidence-constrained execution plan',
+    '识别技术审计、关键词页面映射、流量事故、迁移、实验、国际化、电商和实施请求，保留缺失证据与授权边界': 'Recognizes technical audits, keyword-to-page mapping, traffic incidents, migrations, experiments, international SEO, ecommerce, and implementation requests while preserving evidence and authorization gaps',
+    '标题': 'Titles',
+    '多样候选、意图与合规评分，清除无证据绝对词和生成年份': 'Diverse candidates with intent and compliance scoring, removing unsupported absolutes and generated years',
+    '解释型内容': 'Explainer',
+    '定义、原因、步骤、选择标准、误区、FAQ 与来源': 'Definitions, rationale, steps, selection criteria, misconceptions, FAQ, and sources',
+    '中立对比': 'Neutral comparison',
+    '要求完整 entity × dimension 证据矩阵，缺口阻断结论': 'Requires a complete entity × dimension evidence matrix, with gaps blocking conclusions',
+    '方法榜单': 'Method-based ranking',
+    '要求完整分数矩阵和透明方法，不完整时不输出排名': 'Requires a complete score matrix and transparent method. Incomplete data produces no ranking',
+    '页面蓝图': 'Page blueprint',
+    '信息架构、摘要、FAQ、表格、Schema 候选和验收项': 'Information architecture, summary, FAQ, tables, schema candidates, and acceptance checks',
+    '内容优化': 'Content refinement',
+    '保留源文事实，记录前后分数与修改说明，不新增数据': 'Preserves source facts and records before and after scores plus change notes without adding data',
+    '文章适配': 'Article-friendly adaptation',
+    '复用 refine 合同，增加发布型 Markdown、证据标记和风险提示': 'Reuses the refine contract with publication-ready Markdown, evidence markers, and risk notices',
+    '05 · 场景': '05 · SCENARIOS',
+    '当前版本覆盖': 'The current release covers',
+    '十四类 GEO 与 SEO 任务': 'fourteen GEO and SEO tasks',
+    '场景按 Registry、两条稳定 DAG、七种 Content mode 和一句话 SEO 工作模式汇总，每个场景都能追溯到一个 active 入口或明确 planned 状态': 'Scenarios are derived from the Registry, two stable DAGs, seven Content modes, and one-line SEO work modes. Every scenario traces to an active entry or an explicit planned state',
+    '词根拓展与问题簇': 'Seed expansion and question clusters',
+    '从产品、服务或品类词根生成学习、比较、评估和行动型问题': 'Generate learn, compare, evaluate, and act questions from a product, service, or category seed',
+    '交付：query-map + opportunity-map': 'Delivers: query-map + opportunity-map',
+    '用户意图与内容机会': 'Audience intent and content opportunities',
+    '按受众、场景和证据缺口组织 FAQ、解释、对比与落地页机会': 'Organize FAQ, explainer, comparison, and landing-page opportunities by audience, scenario, and evidence gap',
+    '交付：优先级、资产类型、补证任务': 'Delivers: priority, asset type, and evidence tasks',
+    '品牌全景诊断': 'Brand panorama diagnosis',
+    '检查 identity、offering、audience、differentiation、proof 和 contact 事实覆盖': 'Check fact coverage for identity, offering, audience, differentiation, proof, and contact',
+    '交付：品牌级 findings + remediation': 'Delivers: brand findings + remediation',
+    '网站与单页审计': 'Site and page audit',
+    '检查可发现性、结构、可抽取性、证据、权威与新鲜度代理信号': 'Check discoverability, structure, extractability, evidence, authority, and freshness proxy signals',
+    '交付：diagnosis funnel + HTML snapshot': 'Delivers: diagnosis funnel + HTML snapshot',
+    '标题与解释型文章': 'Titles and explainers',
+    '生成合规标题、定义边界、操作步骤、误区、FAQ 与来源段': 'Generate compliant titles, definitions, steps, misconceptions, FAQ, and source sections',
+    '交付：content.md + content.html': 'Delivers: content.md + content.html',
+    '产品对比与榜单': 'Product comparisons and rankings',
+    '按同口径证据或完整评分矩阵生成中立对比和方法透明的排名': 'Generate neutral comparisons from aligned evidence or transparent rankings from complete score matrices',
+    '交付：matrix gaps 或有证据结论': 'Delivers: matrix gaps or evidence-backed conclusions',
+    '页面信息架构': 'Page information architecture',
+    '设计摘要、FAQ、表格、语义 HTML、Schema 候选、CMS 字段和验收清单': 'Design summaries, FAQ, tables, semantic HTML, schema candidates, CMS fields, and acceptance checklists',
+    '交付：page blueprint + acceptance checks': 'Delivers: page blueprint + acceptance checks',
+    '已有内容优化': 'Existing content refinement',
+    '保留源文事实边界，调整结构和表达，未链接事实继续保持 unverified': 'Preserve source fact boundaries while improving structure and expression. Unlinked facts remain unverified',
+    '交付：before / after + change notes': 'Delivers: before / after + change notes',
+    'AI 回答与引用测量': 'AI answer and citation measurement',
+    '汇总回答率、引用率、条件引用率、缺失答案、排除理由与不确定区间': 'Summarize answer rate, citation rate, conditional citation rate, missing answers, exclusion reasons, and uncertainty intervals',
+    '交付：measurement-report.json': 'Delivers: measurement-report.json',
+    '一句话 SEO 规划': 'One-line SEO planning',
+    '从自然语言需求识别技术审计、关键词页面映射、国际化、电商或实验模式': 'Recognize technical audits, keyword-to-page mapping, international SEO, ecommerce, and experiment modes from natural language',
+    '交付：seo-plan + evidence gaps': 'Delivers: seo-plan + evidence gaps',
+    '流量事故与迁移控制': 'Traffic incidents and migration control',
+    '按页面、查询、市场、设备和时间分层，并记录迁移映射、验证与回滚边界': 'Stratify by page, query, market, device, and time while recording migration maps, validation, and rollback boundaries',
+    '交付：segmented plan + rollback gate': 'Delivers: segmented plan + rollback gate',
+    '品牌基线工作流': 'Brand baseline workflow',
+    '先发现目标受众问题，再审计品牌、网站或页面与这些问题的匹配情况': 'Discover audience questions, then audit how well the brand, site, or page addresses them',
+    '流程：Discover → Diagnose': 'Flow: Discover → Diagnose',
+    '内容活动工作流': 'Content campaign workflow',
+    '先生成查询与机会图，再把选定机会转成标题、解释、蓝图或文章': 'Generate a query and opportunity map, then turn selected opportunities into titles, explainers, blueprints, or articles',
+    '流程：Discover → Content': 'Flow: Discover → Content',
+    '策略、知识与发布咨询': 'Strategy, knowledge, and publishing requests',
+    '返回所需输入、最接近的 active 能力和当前可交付 artifact': 'Return required inputs, the nearest active capability, and the closest deliverable artifact',
+    '状态：planned · runnable=false': 'Status: planned · runnable=false',
+    '06 · 提示词': '06 · PROMPTS',
+    '提示词表达': 'A prompt only needs a clear',
+    '目标、输入和证据边界': 'goal, input, and evidence boundary',
+    '即可触发': 'to trigger the right capability',
+    '下面示例来自 Registry 意图与固定路由合同，复制后补充具体主题、受众、URL 或证据文件即可使用': 'These examples come from Registry intents and the fixed routing contract. Add your topic, audience, URL, or evidence file after copying',
+    '拓词': 'Query expansion',
+    '帮我做「GEO 优化公司」的 AI 搜索意图挖掘，受众是准备采购服务的市场负责人。': 'Expand the seed “GEO optimization company” into AI-search intents for marketing leaders evaluating service providers.',
+    '复制': 'Copy',
+    '品牌诊断': 'Brand diagnosis',
+    '请基于我提供的官网 URL 和品牌事实，做一轮品牌诊断，并列出证据缺口。': 'Run a brand diagnosis using the official website URL and brand facts I provide, then list every evidence gap.',
+    '页面审计': 'Page audit',
+    '审计这个页面的 GEO 准备度，检查标题、摘要、FAQ、结构化数据与可抽取证据。': 'Audit this page for GEO readiness, including its title, description, FAQ, structured data, and extractable evidence.',
+    '根据已提供 evidence，写一篇「GEO 优化公司怎么选」的解释型文章，保留事实来源。': 'Using only the provided evidence, write an explainer on how to choose a GEO optimization company and preserve every factual source.',
+    '按服务范围、方法、交付物和证据四个维度，对比 A 公司与 B 公司；缺失维度直接列补证项。': 'Compare Company A and Company B across service scope, method, deliverables, and evidence. List missing evidence for every incomplete dimension.',
+    '使用我给定的评价维度和每个候选的完整分数，生成 GEO 工具榜单并公开计算方法。': 'Use my evaluation dimensions and complete candidate scores to generate a GEO tool ranking with a transparent calculation method.',
+    '为「企业 GEO 服务」设计页面蓝图，包含摘要、FAQ、对比表、Schema 候选和验收清单。': 'Design a page blueprint for enterprise GEO services with a summary, FAQ, comparison table, schema candidates, and acceptance checklist.',
+    '优化这篇已有文章的 GEO 可读性，保留原事实，不新增数据或引用，并说明每项修改。': 'Improve the GEO readability of this article, preserve its facts, add no data or citations, and explain every change.',
+    '衡量 GEO 效果：汇总这批离线 observation 的回答率、引用率、缺失答案和平台分层。': 'Measure GEO results by summarizing answer rate, citation rate, missing answers, and platform strata from these offline observations.',
+    '一句话 SEO：为这个网站生成一份技术审计计划，列出证据缺口和验证顺序。': 'One-line SEO: create a technical audit plan for this website with evidence gaps and a validation sequence.',
+    'SEO 事故': 'SEO incident',
+    '分析这份 Search Console 导出中的自然流量下降，按页面、查询、市场和设备列出竞争假设。': 'Analyze the organic traffic decline in this Search Console export and list competing hypotheses by page, query, market, and device.',
+    '基线流程': 'Baseline workflow',
+    '先做意图挖掘，再做品牌诊断。': 'Discover audience intents, then run a brand diagnosis.',
+    '内容流程': 'Content workflow',
+    '先拓词再生成文章。': 'Expand the query set, then generate an article.',
+    '组合流程': 'Composed workflow',
+    '路线图': 'Roadmap',
+    '制定 GEO 策略路线图，目标是提升品牌在 AI 搜索研究中的证据覆盖。': 'Create a GEO strategy roadmap to improve the brand’s evidence coverage in AI-search research.',
+    '07 · 产物': '07 · ARTIFACTS',
+    '每次执行都形成一个': 'Every execution produces a',
+    '自包含 run 目录': 'self-contained run directory',
+    'Artifact Bus 把输入快照、结构化结果、人读报告、证据账本、研究边界和质量状态放在同一交付单元中': 'The Artifact Bus places input snapshots, structured results, human-readable reports, the Evidence Ledger, research boundaries, and quality status in one delivery unit',
+    '# 按 Skill 增加': '# Added by each skill',
+    '规范化输入': 'Normalized input',
+    '严格 JSON、Unicode 与路径验证，可重放输入进入 input/': 'Strict JSON, Unicode, and path validation places replayable input under input/',
+    '结构化核心': 'Structured core',
+    '先生成 Schema 可验证对象，再派生 Markdown、HTML 和可选格式': 'Generate schema-valid objects first, then derive Markdown, HTML, and optional formats',
+    '证据与研究上下文': 'Evidence and research context',
+    '每个事实单元连接 evidence ID，Research Context 记录来源范围和局限': 'Each factual unit links to evidence IDs, while Research Context records source scope and limitations',
+    '质量与降级': 'Quality and degradation',
+    '质量门记录 warnings、failed checks、missing dependencies 和 renderer errors': 'Quality gates record warnings, failed checks, missing dependencies, and renderer errors',
+    '原子发布': 'Atomic publication',
+    '验证 staged 文件集合后发布最终 run 目录，Manifest 成为交付索引': 'Publish the final run directory after validating its staged file set. The Manifest becomes the delivery index',
+    '核心 JSON': 'Core JSON',
+    '人读结果': 'Human-readable result',
+    '证据与质量': 'Evidence and quality',
+    '特别产物': 'Special artifacts',
+    '结构化机会摘要': 'Structured opportunity summary',
+    '四类任务形态与父查询 lineage': 'Four task forms with parent-query lineage',
+    '可选 DOCX / PDF': 'Optional DOCX / PDF',
+    '分母、区间、平台 strata': 'Denominators, intervals, and platform strata',
+    '工作模式、证据缺口、实施授权与回滚边界': 'Work mode, evidence gaps, implementation authority, and rollback boundaries',
+    '08 · 研究': '08 · RESEARCH',
+    '56 个来源被压缩成': 'Fifty-six sources inform',
+    '11 条运行原则': '11 runtime principles',
+    '研究仓库固定提交中的 54 篇论文与 2 个数据集经过逐项审计，运行时读取精简 Registry，并为每次执行生成 research-context.json': 'Fifty-four papers and two datasets from a pinned research commit were audited individually. Runtime uses a compact Registry and emits research-context.json for every execution',
+    '固定研究来源': 'Pinned research sources',
+    '论文': 'Papers',
+    '数据集': 'Datasets',
+    '效果声明需要直接测量': 'Outcome claims require direct measurement',
+    '准备度、可见度和 influence score 都属于代理变量': 'Readiness, visibility, and influence scores are proxy variables',
+    '查询多样性保持条件化': 'Query diversity stays conditional',
+    '用于规划覆盖，不能推断需求量或转化': 'It supports coverage planning without inferring demand or conversion',
+    '诊断分数只表达 readiness': 'Diagnosis scores express readiness only',
+    '评分不会变成平台引用概率': 'Scores do not become platform citation probabilities',
+    '语义相关优先于格式战术': 'Semantic relevance leads format tactics',
+    '内容保真和证据连接拥有更稳健支持': 'Content fidelity and evidence links have stronger support',
+    '对比要求同口径证据': 'Comparisons require aligned evidence',
+    '矩阵不完整时保留缺口，不输出胜者': 'Incomplete matrices retain gaps and produce no winner',
+    '榜单需要操纵防护': 'Rankings need manipulation safeguards',
+    '透明方法、完整分数与威胁模型共同约束': 'Transparent methods, complete scores, and threat models work together',
+    '结构编辑必须可逆': 'Structural edits must be reversible',
+    '结构可能改善也可能退化，需要前后记录': 'Structure can improve or degrade, so before-and-after records are required',
+    '测量必须保留分母': 'Measurement must preserve denominators',
+    '重复试验、缺失回答、区间和平台范围同时报告': 'Repeated trials, missing answers, intervals, and platform scope are reported together',
+    '知识需要溯源与冲突控制': 'Knowledge needs provenance and conflict control',
+    '权利、时效、冲突与投毒风险进入治理边界': 'Rights, freshness, conflicts, and poisoning risk enter governance boundaries',
+    'SEO 与 GEO 共享上游检索边界': 'SEO and GEO share upstream retrieval boundaries',
+    '查询和证据可复用，SERP 与流量指标独立处理': 'Queries and evidence can be reused while SERP and traffic metrics remain separate',
+    '发布需要授权与可逆性': 'Publishing needs authorization and reversibility',
+    '公开变更必须具备权限、预览、记录和回滚': 'Public changes require permission, preview, records, and rollback',
+    '研究边界：当前材料支持规划假设、描述测量和治理控制。它们无法为跨平台引用、排名、流量、转化或收入提供通用保证。详细审计见': 'Research boundary: current materials support planning hypotheses, descriptive measurement, and governance controls. They provide no universal guarantee for cross-platform citation, ranking, traffic, conversion, or revenue. Read the full audit in',
+    '，机器矩阵见': ', with the machine-readable matrix in',
+    '09 · 质量': '09 · QUALITY',
+    '工程门禁验证行为一致性，': 'Engineering gates verify behavioral consistency and',
+    '不替代线上效果实验': 'keep outcome experiments explicit',
+    '本地 0.3.1 快照通过全量测试、固定评估、跨 Python 版本、确定性打包、隔离安装和 yao-meta Library 门禁': 'The local 0.3.1 snapshot passes the full test suite, fixed evaluations, cross-Python checks, deterministic packaging, isolated installation, and yao-meta Library gates',
+    '固定评估集包含 374 条路由、40 条触发与 30 条确定性输出用例': 'The fixed evaluation set contains 374 routing cases, 40 trigger cases, and 30 deterministic output cases',
+    '全量测试通过，另有 1 条可选 renderer 环境跳过': 'Full tests passed, with one optional renderer environment case skipped',
+    '四个 Python minor 均在 fresh venv 验证': 'Four Python minor versions verified in fresh virtual environments',
+    '10 个确定性 ZIP，9 个非源码包隔离安装': 'Ten deterministic ZIPs and nine isolated non-source package installs',
+    '当前可做': 'Available now',
+    '离线问题拓展、证据约束机会发现': 'Offline question expansion and evidence-constrained opportunity discovery',
+    '显式 URL 或 HTML 的品牌、站点、页面诊断': 'Brand, site, and page diagnosis from explicit URLs or HTML',
+    '七种内容模式和可选富格式渲染': 'Seven content modes with optional rich-format rendering',
+    '离线 observation 的描述性统计与 Wilson 区间': 'Descriptive statistics and Wilson intervals for offline observations',
+    '一句话 SEO 模式识别、证据缺口和可复跑行动计划': 'One-line SEO mode detection, evidence gaps, and replayable action plans',
+    '中英文路由、稳定 DAG、planned 状态说明': 'English and Chinese routing, stable DAGs, and planned-state guidance',
+    '当前边界': 'Current boundaries',
+    '不连接 AI 平台账号，不执行持续采样': 'No AI-platform account connections or continuous sampling',
+    '不推断 search volume、keyword difficulty 或 SERP rank': 'No inference of search volume, keyword difficulty, or SERP rank',
+    '不保证引用、排名、流量、转化或收入效果': 'No guarantee of citations, ranking, traffic, conversion, or revenue',
+    '不执行 CMS 发布、知识库写入或外部变更': 'No CMS publishing, knowledge-base writes, or external changes',
+    'Diagnose 只获取显式公共 URL，不扩展爬取': 'Diagnose fetches only explicit public URLs without crawl expansion',
+    '需要 subject、goals、constraints；当前最近产物为 opportunity-map': 'Requires subject, goals, and constraints; nearest current artifact: opportunity-map',
+    '需要 subject、approved_sources；当前最近产物为 brand-fact-card': 'Requires subject and approved_sources; nearest current artifact: brand-fact-card',
+    '需要 content_artifact、target_channel；当前最近产物为 run-manifest': 'Requires content_artifact and target_channel; nearest current artifact: run-manifest',
+    '验证快照：GEOHub 0.3.1。详细结果见': 'Verification snapshot: GEOHub 0.3.1. See',
+    '和': 'and',
+    '研究证据驱动的 GEO 超级 Skill · 0.3.1 Experimental': 'A research-grounded GEO super skill · 0.3.1 Experimental',
+    'Copyright © 2026 姚金刚 / Yao · Layout with Kami': 'Copyright © 2026 Yao Jingang / Yao · Layout with Kami',
+    '回到报告顶部': 'Return to report top',
+    '报告章节': 'Report sections',
+    '核心特点': 'Core features',
+    'GEOHub 能力环': 'GEOHub capability orbit',
+    '项目关键指标': 'Project metrics',
+    'active 占 66.67%': 'Active skills represent 66.67%',
+    'geo-content 七种内容模式': 'Seven geo-content modes',
+    'Artifact Bus 目录示例': 'Artifact Bus directory example',
+    '各 Skill 主要产物': 'Primary artifacts by skill',
+    '54 篇论文和 2 个数据集': '54 papers and 2 datasets',
+    '研究核验状态': 'Research verification status'
+  };
+
+  var documentCopy = {
+    en: {
+      title: 'GEOHub 0.3.1 · Visual Guide',
+      description: 'A bilingual visual guide to GEOHub architecture, routing, capabilities, research constraints, artifacts, and quality gates.'
+    },
+    'zh-CN': {
+      title: 'GEOHub 0.3.1 · 可视化指南',
+      description: 'GEOHub 架构、路由、能力、研究边界、产物协议与质量门禁的双语可视化指南'
+    }
+  };
+
+  function collectTextRecords() {
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (node) {
+        var parent = node.parentElement;
+        if (!parent || parent.closest('script, style') || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var records = [];
+    var node;
+    while ((node = walker.nextNode())) {
+      records.push({ node: node, original: node.nodeValue, key: node.nodeValue.trim() });
+    }
+    return records;
+  }
+
+  function collectAttributeRecords() {
+    var records = [];
+    document.querySelectorAll('[aria-label], [title]').forEach(function (element) {
+      ['aria-label', 'title'].forEach(function (attribute) {
+        if (!element.hasAttribute(attribute)) return;
+        var original = element.getAttribute(attribute);
+        records.push({ element: element, attribute: attribute, original: original, key: original.trim() });
+      });
+    });
+    return records;
+  }
+
+  var textRecords = collectTextRecords();
+  var attributeRecords = collectAttributeRecords();
+  var currentLanguage = 'en';
+
+  function translatedText(record, language) {
+    if (language === 'zh-CN' || !translations[record.key]) return record.original;
+    return record.original.replace(record.key, translations[record.key]);
+  }
+
+  function renderLanguage(language, updateUrl) {
+    currentLanguage = language === 'zh-CN' ? 'zh-CN' : 'en';
+    textRecords.forEach(function (record) {
+      record.node.nodeValue = translatedText(record, currentLanguage);
+    });
+    attributeRecords.forEach(function (record) {
+      var value = currentLanguage === 'en' && translations[record.key] ? translations[record.key] : record.original;
+      record.element.setAttribute(record.attribute, value);
+    });
+    document.documentElement.lang = currentLanguage;
+    document.documentElement.setAttribute('data-language', currentLanguage);
+    document.title = documentCopy[currentLanguage].title;
+    var description = document.querySelector('meta[name="description"]');
+    if (description) description.setAttribute('content', documentCopy[currentLanguage].description);
+    document.querySelectorAll('[data-language-choice]').forEach(function (button) {
+      button.setAttribute('aria-pressed', button.getAttribute('data-language-choice') === currentLanguage ? 'true' : 'false');
+    });
+    if (updateUrl) {
+      var url = new URL(window.location.href);
+      var isPreviewProxy = url.hostname === 'htmlpreview.github.io' || /^\?https?:/i.test(url.search);
+      if (isPreviewProxy) url.hash = 'lang=' + encodeURIComponent(currentLanguage);
+      else url.searchParams.set('lang', currentLanguage);
+      history.replaceState(null, '', url.pathname + url.search + url.hash);
+    }
+  }
+
+  function requestedLanguageFromLocation() {
+    var queryLanguage = new URLSearchParams(window.location.search).get("lang");
+    var hashLanguage = new URLSearchParams(window.location.hash.slice(1)).get("lang");
+    if (hashLanguage === 'en' || hashLanguage === 'zh-CN') return hashLanguage;
+    if (queryLanguage === 'en' || queryLanguage === 'zh-CN') return queryLanguage;
+    var nestedSearch = window.location.search;
+    try { nestedSearch = decodeURIComponent(nestedSearch); } catch (error) { /* retain the encoded form */ }
+    var nestedMatch = nestedSearch.match(/[?&]lang=(en|zh-CN)(?:&|$)/);
+    return nestedMatch ? nestedMatch[1] : null;
+  }
+
+  var requestedLanguage = requestedLanguageFromLocation();
+  renderLanguage(requestedLanguage === 'zh-CN' ? 'zh-CN' : 'en', false);
+  document.querySelectorAll('[data-language-choice]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      renderLanguage(button.getAttribute('data-language-choice'), true);
+    });
+  });
+
   var navLinks = Array.prototype.slice.call(document.querySelectorAll('.topnav a'));
   var sections = Array.prototype.slice.call(document.querySelectorAll('[data-section]'));
   var topbar = document.querySelector('[data-topbar]');
@@ -1216,9 +1663,10 @@ seo-plan.json</pre>
       var text = row ? row.querySelector('.prompt-text').textContent.trim() : '';
       if (!text || !navigator.clipboard) return;
       navigator.clipboard.writeText(text).then(function () {
-        var old = button.textContent;
-        button.textContent = '完成';
-        window.setTimeout(function () { button.textContent = old; }, 1200);
+        button.textContent = currentLanguage === 'en' ? 'Copied' : '已复制';
+        window.setTimeout(function () {
+          button.textContent = currentLanguage === 'en' ? 'Copy' : '复制';
+        }, 1200);
       });
     });
   });

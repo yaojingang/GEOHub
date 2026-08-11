@@ -13,6 +13,6 @@ Packages: 10; repeated build hashes: identical.
 | geo-measure-community-0.3.1.zip | `1e4dedc2936da65f47c25a71314416aeade51c6a70fbe87b4e37c794517985f9` | 73 | 1 |
 | geo-seo-hub-claude-community-0.3.1.zip | `f5a5994527094cd1eb27296348f02d9760b4392b7757054d60d73b1da996c772` | 79 | 1 |
 | geo-seo-hub-codex-community-0.3.1.zip | `c7477984b3915a44e45e4cfa266574ac419a5c8281c1809383eb08d2f7400f6a` | 79 | 1 |
-| geo-seo-hub-source-0.3.1.zip | `551327f64ff3bd9059048e86543df37506a28bd1e717403fb282ada110a8e666` | 107 | 6 |
+| geo-seo-hub-source-0.3.1.zip | `fe8d5063b011a2c8ae62ab4a5b6036f913342d36f961b83942882614226ead61` | 110 | 6 |
 | geo-seo-hub-unified-community-0.3.1.zip | `1a78a5b99a152c81a09e0a3f3313997c28e66be793d35547604ca25385c1d3cf` | 78 | 1 |
 | seo-community-0.3.1.zip | `1ba0f5258f6c37b255676f94291570e153f94dbe7fa2a174f74e7baa65c97d59` | 73 | 1 |

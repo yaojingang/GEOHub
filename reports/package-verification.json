@@ -68,8 +68,8 @@
     },
     {
       "name": "geo-seo-hub-source-0.3.1.zip",
-      "sha256": "551327f64ff3bd9059048e86543df37506a28bd1e717403fb282ada110a8e666",
-      "members": 107,
+      "sha256": "fe8d5063b011a2c8ae62ab4a5b6036f913342d36f961b83942882614226ead61",
+      "members": 110,
       "skill_count": 6,
       "self_installable": true,
       "resolved_active_entries": 0,

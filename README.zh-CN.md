@@ -2,11 +2,11 @@
 
 **面向 AI 搜索的科研驱动 GEO 与 SEO 超级 Skill**
 
-[English](README.md) · [简体中文](README.zh-CN.md) · [可视化指南](https://htmlpreview.github.io/?https://raw.githubusercontent.com/yaojingang/GEOHub/main/reports/geohub-visual-guide.html) · [架构说明](docs/architecture.md) · [安装说明](docs/installation.md)
+[English](README.md) · [简体中文](README.zh-CN.md) · [可视化指南](https://htmlpreview.github.io/?https://raw.githubusercontent.com/yaojingang/GEOHub/main/reports/geohub-visual-guide.html#lang=zh-CN) · [架构说明](docs/architecture.md) · [安装说明](docs/installation.md)
 
 **版本 0.3.1 · 实验性 · GEO 优先 · SEO 已启用 · 协议优先**
 
-![GEOHub 概览](docs/assets/geohub-overview.png)
+![GEOHub 概览](docs/assets/geohub-overview-zh-CN.png)
 
 GEOHub 是一个面向 GEO 与 SEO 工作流的开放式 Agent Skill 合集。用户输入自然语言请求后，注册表路由器会选择最小可执行 Skill 或稳定工作流。每次能力执行都会生成一个自包含的 Artifact Bus 运行目录，集中保存结构化结果、证据血缘、质量状态与运行清单。科研对齐能力还会写入研究上下文。
 
@@ -35,7 +35,7 @@ GEOHub 是一个面向 GEO 与 SEO 工作流的开放式 Agent Skill 合集。�
 
 ## 工作原理
 
-![GEOHub 系统架构](docs/assets/geohub-architecture.png)
+![GEOHub 系统架构](docs/assets/geohub-architecture-zh-CN.png)
 
 1. 注册表声明能力状态、意图、入口、输入契约和输出。
 2. 解析器选择一个可执行 Skill 或一个确定的工作流执行图。
@@ -106,7 +106,7 @@ runs/run-<id>/
 
 ## 科研依据
 
-![研究证据与运行原则](docs/assets/geohub-research-principles.png)
+![研究证据与运行原则](docs/assets/geohub-research-principles-zh-CN.png)
 
 研究注册表把 54 篇论文和 2 个数据集映射为 11 条运行原则。实现会区分来源报告、已复现结果、不可复现结论、代理变量和描述性测量。发现、诊断、内容与测量能力会生成包含适用范围与局限的 `research-context.json`。
 

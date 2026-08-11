@@ -51,20 +51,29 @@ def test_geo_seo_hub_brand_and_compatibility_names_are_consistent():
 
 
 def test_readme_localizations_reference_real_visual_assets():
-    readmes = [
-        (ROOT / "README.md").read_text(encoding="utf-8"),
-        (ROOT / "README.zh-CN.md").read_text(encoding="utf-8"),
-    ]
-    for name in (
-        "geohub-overview.png",
-        "geohub-architecture.png",
-        "geohub-research-principles.png",
-    ):
-        relative = f"docs/assets/{name}"
-        path = ROOT / relative
-        assert path.read_bytes().startswith(b"\x89PNG\r\n\x1a\n")
-        assert all(relative in readme for readme in readmes)
-    assert (ROOT / "reports" / "geohub-visual-guide.html").is_file()
+    readmes = {
+        "en": (ROOT / "README.md").read_text(encoding="utf-8"),
+        "zh-CN": (ROOT / "README.zh-CN.md").read_text(encoding="utf-8"),
+    }
+    for language, suffix in (("en", "en"), ("zh-CN", "zh-CN")):
+        for surface in ("overview", "architecture", "research-principles"):
+            relative = f"docs/assets/geohub-{surface}-{suffix}.png"
+            assert (ROOT / relative).read_bytes().startswith(b"\x89PNG\r\n\x1a\n")
+            assert relative in readmes[language]
+            assert relative not in readmes["zh-CN" if language == "en" else "en"]
+
+    report = (ROOT / "reports" / "geohub-visual-guide.html").read_text(encoding="utf-8")
+    assert '<html lang="en" data-language="en">' in report
+    assert 'data-language-choice="en"' in report
+    assert 'data-language-choice="zh-CN"' in report
+    assert 'var translations = {' in report
+    assert 'new URLSearchParams(window.location.search).get("lang")' in report
+    assert 'new URLSearchParams(window.location.hash.slice(1)).get("lang")' in report
+    assert 'history.replaceState' in report
+    assert "GEOHub turns natural-language requests" in report
+    assert "把自然语言请求拆成五类能力入口" in report
+    assert "geohub-visual-guide.html#lang=en" in readmes["en"]
+    assert "geohub-visual-guide.html#lang=zh-CN" in readmes["zh-CN"]
 
 
 @pytest.mark.parametrize("legacy_marker", ("yao" + "-geo", "yao" + "_geo"))
