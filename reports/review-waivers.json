@@ -117,6 +117,24 @@
       "reason": "Maturity promotion beyond experimental remains blocked pending external legal and human review evidence; experimental 0.3.0 source publication may continue.",
       "expires_on": "2026-11-01",
       "recheck": "Record a reviewer decision before any maturity promotion beyond experimental or this expiry date."
+    },
+    {
+      "id": "seo-operations-loop",
+      "skill_id": "seo",
+      "gate": "operations-loop",
+      "owner": "Yao maintainer",
+      "reason": "The experimental package has no governed real-usage telemetry sample.",
+      "expires_on": "2026-11-01",
+      "recheck": "Review privacy-approved adoption evidence before the next public release."
+    },
+    {
+      "id": "seo-release-notes",
+      "skill_id": "seo",
+      "gate": "release-notes",
+      "owner": "Yao maintainer",
+      "reason": "Maturity promotion beyond experimental remains blocked pending external legal and human review evidence; experimental source publication may continue.",
+      "expires_on": "2026-11-01",
+      "recheck": "Record a reviewer decision before any maturity promotion beyond experimental or this expiry date."
     }
   ]
 }

@@ -55,6 +55,15 @@ def test_measure_cli_prints_summary(tmp_path, capsys):
     assert Path(payload["output"]).parent == runs_root
 
 
+def test_seo_cli_turns_one_line_brief_into_a_plan(tmp_path, capsys):
+    fixture = Path(__file__).parent / "fixtures" / "seo-brief.json"
+    runs_root = tmp_path / "runs"
+    assert main(["seo", "--input", str(fixture), "--output", str(runs_root)]) == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["work_mode"] == "technical-audit"
+    assert Path(payload["output"]).parent == runs_root
+
+
 def test_route_cli_rejects_empty_text(capsys):
     assert main(["route", "--text", "   "]) == 2
     payload = json.loads(capsys.readouterr().err)

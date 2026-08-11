@@ -10,7 +10,8 @@
       "discover",
       "diagnose",
       "content",
-      "measure"
+      "measure",
+      "seo"
     ],
     "status": "pass"
   },
@@ -22,7 +23,8 @@
         "references/providers/geo-discover.md",
         "references/providers/geo-diagnose.md",
         "references/providers/geo-content.md",
-        "references/providers/geo-measure.md"
+        "references/providers/geo-measure.md",
+        "references/providers/seo.md"
       ],
       "resolved_entry": true,
       "installed_share_resolved": true,
@@ -30,7 +32,8 @@
         "geo-discover",
         "geo-diagnose",
         "geo-content",
-        "geo-measure"
+        "geo-measure",
+        "seo"
       ],
       "runtime_data": true,
       "status": "pass"
@@ -42,7 +45,8 @@
         "references/providers/geo-discover.md",
         "references/providers/geo-diagnose.md",
         "SKILL.md",
-        "references/providers/geo-measure.md"
+        "references/providers/geo-measure.md",
+        "references/providers/seo.md"
       ],
       "resolved_entry": true,
       "installed_share_resolved": true,
@@ -50,7 +54,8 @@
         "geo-discover",
         "geo-diagnose",
         "geo-content",
-        "geo-measure"
+        "geo-measure",
+        "seo"
       ],
       "runtime_data": true,
       "status": "pass"
@@ -62,7 +67,8 @@
         "references/providers/geo-discover.md",
         "SKILL.md",
         "references/providers/geo-content.md",
-        "references/providers/geo-measure.md"
+        "references/providers/geo-measure.md",
+        "references/providers/seo.md"
       ],
       "resolved_entry": true,
       "installed_share_resolved": true,
@@ -70,7 +76,8 @@
         "geo-discover",
         "geo-diagnose",
         "geo-content",
-        "geo-measure"
+        "geo-measure",
+        "seo"
       ],
       "runtime_data": true,
       "status": "pass"
@@ -82,7 +89,8 @@
         "SKILL.md",
         "references/providers/geo-diagnose.md",
         "references/providers/geo-content.md",
-        "references/providers/geo-measure.md"
+        "references/providers/geo-measure.md",
+        "references/providers/seo.md"
       ],
       "resolved_entry": true,
       "installed_share_resolved": true,
@@ -90,7 +98,8 @@
         "geo-discover",
         "geo-diagnose",
         "geo-content",
-        "geo-measure"
+        "geo-measure",
+        "seo"
       ],
       "runtime_data": true,
       "status": "pass"
@@ -102,7 +111,8 @@
         "references/providers/geo-discover.md",
         "references/providers/geo-diagnose.md",
         "references/providers/geo-content.md",
-        "SKILL.md"
+        "SKILL.md",
+        "references/providers/seo.md"
       ],
       "resolved_entry": true,
       "installed_share_resolved": true,
@@ -110,7 +120,8 @@
         "geo-discover",
         "geo-diagnose",
         "geo-content",
-        "geo-measure"
+        "geo-measure",
+        "seo"
       ],
       "runtime_data": true,
       "status": "pass"
@@ -122,7 +133,8 @@
         "references/providers/geo-discover.md",
         "references/providers/geo-diagnose.md",
         "references/providers/geo-content.md",
-        "references/providers/geo-measure.md"
+        "references/providers/geo-measure.md",
+        "references/providers/seo.md"
       ],
       "resolved_entry": true,
       "installed_share_resolved": true,
@@ -130,7 +142,8 @@
         "geo-discover",
         "geo-diagnose",
         "geo-content",
-        "geo-measure"
+        "geo-measure",
+        "seo"
       ],
       "runtime_data": true,
       "status": "pass"
@@ -142,7 +155,8 @@
         "references/providers/geo-discover.md",
         "references/providers/geo-diagnose.md",
         "references/providers/geo-content.md",
-        "references/providers/geo-measure.md"
+        "references/providers/geo-measure.md",
+        "references/providers/seo.md"
       ],
       "resolved_entry": true,
       "installed_share_resolved": true,
@@ -150,7 +164,8 @@
         "geo-discover",
         "geo-diagnose",
         "geo-content",
-        "geo-measure"
+        "geo-measure",
+        "seo"
       ],
       "runtime_data": true,
       "status": "pass"
@@ -162,7 +177,8 @@
         "references/providers/geo-discover.md",
         "references/providers/geo-diagnose.md",
         "references/providers/geo-content.md",
-        "references/providers/geo-measure.md"
+        "references/providers/geo-measure.md",
+        "references/providers/seo.md"
       ],
       "resolved_entry": true,
       "installed_share_resolved": true,
@@ -170,7 +186,30 @@
         "geo-discover",
         "geo-diagnose",
         "geo-content",
-        "geo-measure"
+        "geo-measure",
+        "seo"
+      ],
+      "runtime_data": true,
+      "status": "pass"
+    },
+    {
+      "package": "seo-community-0.3.0.zip",
+      "installed_from": ".",
+      "entries": [
+        "references/providers/geo-discover.md",
+        "references/providers/geo-diagnose.md",
+        "references/providers/geo-content.md",
+        "references/providers/geo-measure.md",
+        "SKILL.md"
+      ],
+      "resolved_entry": true,
+      "installed_share_resolved": true,
+      "provider_executions": [
+        "geo-discover",
+        "geo-diagnose",
+        "geo-content",
+        "geo-measure",
+        "seo"
       ],
       "runtime_data": true,
       "status": "pass"

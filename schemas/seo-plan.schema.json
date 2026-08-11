@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yao.example/geo/schemas/seo-plan.schema.json",
+  "title": "One-line SEO Plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "run_id", "brief_id", "request", "work_mode", "claim_status", "write_authorized", "rollback_boundary", "search_surfaces", "engine_scope", "coverage", "findings", "action_plan", "missing_evidence", "guardrails"],
+  "properties": {
+    "protocol_version": {"const": "1.0.0"},
+    "run_id": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "brief_id": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "request": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "work_mode": {"enum": ["advisory", "technical-audit", "keyword-map", "incident", "migration", "experiment", "international-commerce", "implementation-request"]},
+    "claim_status": {"enum": ["advisory", "evidence-bounded"]},
+    "write_authorized": {"type": "boolean"},
+    "rollback_boundary": {"type": ["string", "null"], "minLength": 1, "pattern": "\\S", "maxLength": 1000},
+    "search_surfaces": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["organic-search", "ai-search", "image-search", "video-search", "shopping-search", "local-search"]}},
+    "engine_scope": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["google", "bing", "openai", "perplexity", "unspecified"]}},
+    "coverage": {"type": "object", "additionalProperties": false, "required": ["target_count", "evidence_count", "evidence_types"], "properties": {"target_count": {"type": "integer", "minimum": 0}, "evidence_count": {"type": "integer", "minimum": 0}, "evidence_types": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "\\S"}}}},
+    "findings": {"type": "array", "maxItems": 0, "items": {"type": "object"}},
+    "action_plan": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["stage", "objective", "required_evidence", "verification"], "properties": {"stage": {"type": "string", "pattern": "\\S"}, "objective": {"type": "string", "pattern": "\\S"}, "required_evidence": {"type": "array", "items": {"type": "string", "pattern": "\\S"}}, "verification": {"type": "string", "pattern": "\\S"}}}},
+    "missing_evidence": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "\\S"}},
+    "guardrails": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "\\S"}}
+  }
+}

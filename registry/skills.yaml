@@ -17,7 +17,7 @@ skills:
     active_placeholder: false
     entry: skills/geo/SKILL.md
     summary: Unified GEO intent router and capability status surface.
-    intents: [geo, generative engine optimization, 生成式引擎优化, AI搜索优化]
+    intents: [geo, GEO SEO Hub, generative engine optimization, 生成式引擎优化, AI搜索优化]
     outputs: [route-decision]
   - id: geo-discover
     status: active
@@ -77,3 +77,10 @@ skills:
     summary: Offline aggregation of explicit platform observations with denominators, missing-answer accounting, strata, and intervals.
     intents: [measure, monitor, tracking, 监测, 衡量, 效果]
     outputs: [measurement-report, report, evidence-ledger, research-context, quality-report, run-manifest]
+  - id: seo
+    status: active
+    active_placeholder: false
+    entry: skills/seo/SKILL.md
+    summary: One-line, evidence-bounded SEO planning across technical, content, incident, migration, experiment, and specialty modes.
+    intents: [one-line SEO, one sentence SEO, technical SEO, organic search, Search Console, keyword-to-page map, site migration SEO, international SEO, ecommerce SEO, 一句话SEO, 一句话 SEO, 搜索引擎优化, 自然搜索, 技术SEO, 技术 SEO, 收录诊断, SEO实验, SEO 实验]
+    outputs: [seo-plan, report, evidence-ledger, quality-report, run-manifest]

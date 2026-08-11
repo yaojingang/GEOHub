@@ -16,6 +16,7 @@ from geo_seo_hub.diagnose import diagnose  # noqa: E402
 from geo_seo_hub.discover import discover  # noqa: E402
 from geo_seo_hub.measure import measure  # noqa: E402
 from geo_seo_hub.router import route  # noqa: E402
+from geo_seo_hub.seo import seo  # noqa: E402
 
 
 ARTIFACTS = {
@@ -23,6 +24,7 @@ ARTIFACTS = {
     "geo-diagnose": {"diagnosis.json", "diagnosis-funnel.json", "report.md", "evidence-ledger.json", "research-context.json", "quality-report.json", "run-manifest.json"},
     "geo-content": {"content-spec.json", "content.json", "content-evidence-units.json", "content.md", "content.html", "evidence-ledger.json", "research-context.json", "quality-report.json", "run-manifest.json"},
     "geo-measure": {"measurement-report.json", "report.md", "evidence-ledger.json", "research-context.json", "quality-report.json", "run-manifest.json"},
+    "seo": {"seo-plan.json", "report.md", "evidence-ledger.json", "quality-report.json", "run-manifest.json"},
 }
 
 
@@ -56,7 +58,7 @@ def evaluate_router() -> dict:
 
 def evaluate_skill_triggers() -> dict:
     results = []
-    for skill_id in ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure"):
+    for skill_id in ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure", "seo"):
         cases = read_json(ROOT / "skills" / skill_id / "evals" / "trigger_cases.json")
         for item in cases["should_trigger"]:
             actual = route(item["text"])["skill_id"]
@@ -85,6 +87,8 @@ def run_skill(skill_id: str, input_path: Path, output: Path):
         return content(input_path, output)
     if skill_id == "geo-measure":
         return measure(input_path, output)
+    if skill_id == "seo":
+        return seo(input_path, output)
     raise ValueError(f"unsupported skill: {skill_id}")
 
 

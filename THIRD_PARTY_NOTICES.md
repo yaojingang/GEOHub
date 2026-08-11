@@ -15,6 +15,8 @@ Development and packaging tools may add their own transitive dependencies. Their
 
 The repository currently contains no copied customer data, platform responses, or third-party content corpus.
 
+The active `seo` provider takes structural inspiration from the MIT-licensed `joeseesun/qiaomu-seo` repository at commit `b892b70639ac2839e7fa61302ff54a60a6cc9b74`. GEO SEO Hub independently implements its Registry entry, schemas, deterministic runtime, Artifact Bus contract, tests, and documentation. Qiaomu SEO copyright remains with 向阳乔木 / Qiaomu; its MIT license remains available at `https://github.com/joeseesun/qiaomu-seo/blob/main/LICENSE`.
+
 Migration lineage references the MIT-licensed source repository `yaojingang/yao-geo-skills` at commit `201c0c45dcf09bb37bc46a467b4baf4d721db205`; source concepts were remapped under the present repository's AGPL distribution boundary. Runtime and optional dependency licenses remain the responsibility of their distributions.
 
 ## Research alignment source

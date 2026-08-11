@@ -9,6 +9,15 @@ from geo_seo_hub.registry import load_registry
 from geo_seo_hub.router import build_action_phrase_index, route
 
 
+@pytest.mark.parametrize("text", ["一句话 SEO：审计这个网站", "检查 canonical、robots.txt 和 sitemap 的技术 SEO", "Analyze this Search Console traffic drop", "Create a keyword-to-page map for organic search"])
+def test_dedicated_seo_requests_route_to_seo_provider(text):
+    result = route(text)
+    assert result["skill_id"] == "seo"
+    assert result["status"] == "active"
+    assert result["runnable"] is True
+    assert result["entry"] == "skills/seo/SKILL.md"
+
+
 def test_routes_chinese_discovery_request():
     result = route("帮我做 AI 搜索意图挖掘和问题挖掘")
     assert result["skill_id"] == "geo-discover"

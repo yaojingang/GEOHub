@@ -28,14 +28,14 @@
         "additionalProperties": false,
         "required": ["id", "status", "active_placeholder", "entry", "summary", "intents", "outputs"],
         "properties": {
-          "id": {"type": "string", "pattern": "^geo(?:-[a-z]+)?$"},
+          "id": {"type": "string", "pattern": "^(?:geo(?:-[a-z]+)?|seo)$"},
           "status": {"enum": ["active", "pending-implementation", "planned"]},
           "active_placeholder": {"type": "boolean"},
           "entry": {"type": ["string", "null"], "pattern": "\\S"},
           "summary": {"type": "string", "minLength": 1, "pattern": "\\S"},
           "intents": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1, "pattern": "\\S"}},
           "outputs": {"type": "array", "items": {"type": "string", "minLength": 1, "pattern": "\\S"}},
-          "nearest_active": {"type": "string", "pattern": "^geo(?:-[a-z]+)?$"},
+          "nearest_active": {"type": "string", "pattern": "^(?:geo(?:-[a-z]+)?|seo)$"},
           "required_inputs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1, "pattern": "\\S"}},
           "closest_v0_artifact": {"type": "string", "minLength": 1, "pattern": "\\S"}
         },

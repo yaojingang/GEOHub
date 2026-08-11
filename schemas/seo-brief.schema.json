@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yao.example/geo/schemas/seo-brief.schema.json",
+  "title": "One-line SEO Brief",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "brief_id", "request", "target_urls", "market", "language", "authorized_action", "rollback_boundary", "evidence"],
+  "properties": {
+    "protocol_version": {"const": "1.0.0"},
+    "brief_id": {"type": "string", "minLength": 1, "pattern": "\\S", "maxLength": 200},
+    "request": {"type": "string", "minLength": 1, "pattern": "\\S", "maxLength": 8000},
+    "target_urls": {"type": "array", "maxItems": 100, "uniqueItems": true, "items": {"type": "string", "format": "uri", "pattern": "^https?://"}},
+    "market": {"type": "string", "minLength": 1, "pattern": "\\S", "maxLength": 100},
+    "language": {"type": "string", "minLength": 1, "pattern": "\\S", "maxLength": 100},
+    "authorized_action": {"enum": ["advisory", "implementation"]},
+    "rollback_boundary": {"type": ["string", "null"], "minLength": 1, "pattern": "\\S", "maxLength": 1000},
+    "evidence": {
+      "type": "array",
+      "maxItems": 1000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["evidence_id", "claim", "source_uri", "evidence_type"],
+        "properties": {
+          "evidence_id": {"type": "string", "minLength": 1, "pattern": "\\S"},
+          "claim": {"type": "string", "minLength": 1, "pattern": "\\S"},
+          "source_uri": {"type": "string", "format": "uri", "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:\\S+$"},
+          "evidence_type": {"enum": ["http", "rendered_dom", "search_console", "webmaster_tools", "analytics", "server_log", "crawl", "serp", "web_vitals_field", "lab_test", "official_doc", "other"]}
+        }
+      }
+    }
+  }
+}

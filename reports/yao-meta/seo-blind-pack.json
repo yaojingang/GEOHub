@@ -1,0 +1,131 @@
+{
+  "schema_version": "1.0",
+  "seed": "yao-output-eval-blind-v1",
+  "summary": {
+    "pair_count": 5,
+    "answer_key_separate": true,
+    "with_skill_hidden_count": 5
+  },
+  "pairs": [
+    {
+      "case_id": "happy",
+      "prompt": "一句话 SEO：审计网站",
+      "input_files": [],
+      "metadata": {
+        "case_type": "happy"
+      },
+      "review_instruction": "Pick A or B based only on the rubric. Do not infer which output came from the skill.",
+      "rubric": [
+        {
+          "id": "contract",
+          "description": "输出满足合同。",
+          "weight": 1.0
+        }
+      ],
+      "variant_a": {
+        "blind_id": "happy:A",
+        "output": "选择技术审计模式，声明证据缺口并生成可复跑计划。"
+      },
+      "variant_b": {
+        "blind_id": "happy:B",
+        "output": "给出通用清单。"
+      }
+    },
+    {
+      "case_id": "missing-input",
+      "prompt": "做 SEO",
+      "input_files": [],
+      "metadata": {
+        "case_type": "missing_input"
+      },
+      "review_instruction": "Pick A or B based only on the rubric. Do not infer which output came from the skill.",
+      "rubric": [
+        {
+          "id": "missing",
+          "description": "输出满足合同。",
+          "weight": 1.0
+        }
+      ],
+      "variant_a": {
+        "blind_id": "missing-input:A",
+        "output": "声称完成。"
+      },
+      "variant_b": {
+        "blind_id": "missing-input:B",
+        "output": "输出 advisory 并列出 URL、市场和证据缺口。"
+      }
+    },
+    {
+      "case_id": "boundary",
+      "prompt": "保证排名第一",
+      "input_files": [],
+      "metadata": {
+        "case_type": "boundary"
+      },
+      "review_instruction": "Pick A or B based only on the rubric. Do not infer which output came from the skill.",
+      "rubric": [
+        {
+          "id": "boundary",
+          "description": "输出满足合同。",
+          "weight": 1.0
+        }
+      ],
+      "variant_a": {
+        "blind_id": "boundary:A",
+        "output": "拒绝保证并给出证据化计划。"
+      },
+      "variant_b": {
+        "blind_id": "boundary:B",
+        "output": "承诺排名。"
+      }
+    },
+    {
+      "case_id": "near-neighbor",
+      "prompt": "写 GEO 文章",
+      "input_files": [],
+      "metadata": {
+        "case_type": "near_neighbor"
+      },
+      "review_instruction": "Pick A or B based only on the rubric. Do not infer which output came from the skill.",
+      "rubric": [
+        {
+          "id": "neighbor",
+          "description": "输出满足合同。",
+          "weight": 1.0
+        }
+      ],
+      "variant_a": {
+        "blind_id": "near-neighbor:A",
+        "output": "交给 geo-content；SEO 入口不抢占。"
+      },
+      "variant_b": {
+        "blind_id": "near-neighbor:B",
+        "output": "转 SEO。"
+      }
+    },
+    {
+      "case_id": "source-shortfall",
+      "prompt": "没有 Search Console 数据，分析流量下降",
+      "input_files": [],
+      "metadata": {
+        "case_type": "source_shortfall"
+      },
+      "review_instruction": "Pick A or B based only on the rubric. Do not infer which output came from the skill.",
+      "rubric": [
+        {
+          "id": "source",
+          "description": "输出满足合同。",
+          "weight": 1.0
+        }
+      ],
+      "variant_a": {
+        "blind_id": "source-shortfall:A",
+        "output": "列为 missing evidence，保留多种假设。"
+      },
+      "variant_b": {
+        "blind_id": "source-shortfall:B",
+        "output": "断言原因。"
+      }
+    }
+  ]
+}

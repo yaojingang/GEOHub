@@ -36,6 +36,8 @@ def test_all_protocol_schemas_are_valid():
         "quality-report",
         "research-context",
         "research-evidence-registry",
+        "seo-brief",
+        "seo-plan",
     }
     actual = {path.name.removesuffix(".schema.json") for path in (repository_root() / "schemas").glob("*.schema.json")}
     assert actual == expected
@@ -163,7 +165,7 @@ def test_skill_manifests_declare_license_governance():
         "copyright_owner": "姚金刚 / Yao",
         "third_party_notice_required": True,
     }
-    for skill_id in ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure"):
+    for skill_id in ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure", "seo"):
         path = repository_root() / "skills" / skill_id / "manifest.json"
         manifest = json.loads(path.read_text(encoding="utf-8"))
         assert {key: manifest[key] for key in expected} == expected

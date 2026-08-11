@@ -8,8 +8,8 @@
     "status": {"enum": ["pass", "pass-with-waivers", "fail"]},
     "commands": {
       "type": "array",
-      "minItems": 66,
-      "maxItems": 66,
+      "minItems": 79,
+      "maxItems": 79,
       "uniqueItems": true,
       "items": {
         "type": "object",

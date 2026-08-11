@@ -10,6 +10,7 @@ from .diagnose import diagnose
 from .discover import discover
 from .content import content
 from .measure import measure
+from .seo import seo
 from .router import route
 from .version import package_version
 
@@ -59,6 +60,10 @@ def build_parser() -> argparse.ArgumentParser:
     measure_parser = subparsers.add_parser("measure", help="Aggregate bounded measurement observations")
     measure_parser.add_argument("--input", required=True, type=Path, help="Measurement brief JSON")
     measure_parser.add_argument("--output", required=True, type=Path, help="Runs root directory")
+
+    seo_parser = subparsers.add_parser("seo", help="Turn a one-line SEO request into an evidence-bounded plan")
+    seo_parser.add_argument("--input", required=True, type=Path, help="One-line SEO brief JSON")
+    seo_parser.add_argument("--output", required=True, type=Path, help="Runs root directory")
     return parser
 
 
@@ -74,8 +79,10 @@ def main(argv: Sequence[str] | None = None) -> int:
             result = diagnose(args.input, args.output)
         elif args.command == "content":
             result = content(args.input, args.output)
-        else:
+        elif args.command == "measure":
             result = measure(args.input, args.output)
+        else:
+            result = seo(args.input, args.output)
     except (OSError, ValueError) as exc:
         print(json.dumps({"status": "error", "message": str(exc)}, ensure_ascii=False, allow_nan=False), file=sys.stderr)
         return 2

@@ -173,5 +173,40 @@
     "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
     "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
     "review_status": "pending; missing evidence"
+  },
+  {
+    "id": "o26",
+    "prompt": "Evaluate the happy result for seo.",
+    "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
+    "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+    "review_status": "pending; missing evidence"
+  },
+  {
+    "id": "o27",
+    "prompt": "Evaluate the missing_input result for seo.",
+    "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+    "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
+    "review_status": "pending; missing evidence"
+  },
+  {
+    "id": "o28",
+    "prompt": "Evaluate the boundary result for seo.",
+    "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+    "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
+    "review_status": "pending; missing evidence"
+  },
+  {
+    "id": "o29",
+    "prompt": "Evaluate the near_neighbor result for seo.",
+    "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+    "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
+    "review_status": "pending; missing evidence"
+  },
+  {
+    "id": "o30",
+    "prompt": "Evaluate the source_shortfall result for seo.",
+    "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
+    "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+    "review_status": "pending; missing evidence"
   }
 ]

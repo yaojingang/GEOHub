@@ -98,7 +98,7 @@ EXPECTED_ZH_ACTION_LEAD_IN_PATTERN = (
     r"(?:单\s*独|仅仅|需要|继续|打算|准备|页面|请|想|去|要|做|仅|再|只|光)\s*"
 )
 EXPECTED_ACTION_OBJECT_ARTICLE_PATTERN = r"(?:(?:a|an|the)\b|一个|个)\s*"
-ACTIVE_SKILLS = ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure")
+ACTIVE_SKILLS = ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure", "seo")
 CANONICAL_DISTRIBUTION = "geo-seo-hub"
 CANONICAL_MODULE = "geo_seo_hub"
 LEGACY_DISTRIBUTION = "yao" + "-geo"
@@ -274,6 +274,8 @@ def main() -> int:
         "research-context.schema.json",
         "research-evidence-registry.schema.json",
         "run-manifest.schema.json",
+        "seo-brief.schema.json",
+        "seo-plan.schema.json",
     }
     actual_schema_names = {path.name for path in schemas}
     if actual_schema_names != expected_schema_names:

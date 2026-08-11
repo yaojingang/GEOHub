@@ -15,7 +15,7 @@
       "status": "pass",
       "structured_status": null,
       "report_path": null,
-      "stdout_tail": "declared_maturity_minimum\": 85,\n          \"computed_governance_band\": \"production\",\n          \"computed_maturity_tier\": \"production\",\n          \"score_breakdown\": {\n            \"metadata_integrity\": 20,\n            \"ownership_and_review\": 20,\n            \"boundary_and_eval\": 15,\n            \"operational_assets\": 20,\n            \"maintenance_evidence\": 5\n          }\n        }\n      }\n    },\n    {\n      \"command\": \"resource_boundary_check.py skills/geo\",\n      \"ok\": true,\n      \"returncode\": 0,\n      \"payload\": {\n        \"ok\": true,\n        \"failures\": [],\n        \"warnings\": [],\n        \"stats\": {\n          \"context_budget_tier\": \"production\",\n          \"context_budget_limit\": 1000,\n          \"skill_body_tokens\": 276,\n          \"other_text_tokens\": 1950,\n          \"estimated_initial_load_tokens\": 495,\n          \"estimated_total_text_tokens\": 2226,\n          \"deferred_resource_tokens\": 685,\n          \"deferred_resource_warn_threshold\": 120000,\n          \"deferred_resource_dirs\": [\n            {\n              \"path\": \"references\",\n              \"estimated_tokens\": 402,\n              \"file_count\": 1\n            },\n            {\n              \"path\": \"evals\",\n              \"estimated_tokens\": 182,\n              \"file_count\": 2\n            },\n            {\n              \"path\": \"scripts\",\n              \"estimated_tokens\": 101,\n              \"file_count\": 1\n            }\n          ],\n          \"large_deferred_resource_dirs\": [],\n          \"deferred_resource_governance\": {\n            \"status\": \"not-required\",\n            \"large_dir_count\": 0,\n            \"governed_large_dir_count\": 0,\n            \"directories\": [],\n            \"summary\": \"No large deferred resource directory exceeds the per-dir threshold.\"\n          },\n          \"relevant_file_count\": 11,\n          \"unused_resource_dirs\": [],\n          \"quality_signal_points\": 115,\n          \"quality_density\": 232.3\n        }\n      }\n    }\n  ]\n}\n",
+      "stdout_tail": "declared_maturity_minimum\": 85,\n          \"computed_governance_band\": \"production\",\n          \"computed_maturity_tier\": \"production\",\n          \"score_breakdown\": {\n            \"metadata_integrity\": 20,\n            \"ownership_and_review\": 20,\n            \"boundary_and_eval\": 15,\n            \"operational_assets\": 20,\n            \"maintenance_evidence\": 5\n          }\n        }\n      }\n    },\n    {\n      \"command\": \"resource_boundary_check.py skills/geo\",\n      \"ok\": true,\n      \"returncode\": 0,\n      \"payload\": {\n        \"ok\": true,\n        \"failures\": [],\n        \"warnings\": [],\n        \"stats\": {\n          \"context_budget_tier\": \"production\",\n          \"context_budget_limit\": 1000,\n          \"skill_body_tokens\": 276,\n          \"other_text_tokens\": 1969,\n          \"estimated_initial_load_tokens\": 495,\n          \"estimated_total_text_tokens\": 2245,\n          \"deferred_resource_tokens\": 704,\n          \"deferred_resource_warn_threshold\": 120000,\n          \"deferred_resource_dirs\": [\n            {\n              \"path\": \"references\",\n              \"estimated_tokens\": 421,\n              \"file_count\": 1\n            },\n            {\n              \"path\": \"evals\",\n              \"estimated_tokens\": 182,\n              \"file_count\": 2\n            },\n            {\n              \"path\": \"scripts\",\n              \"estimated_tokens\": 101,\n              \"file_count\": 1\n            }\n          ],\n          \"large_deferred_resource_dirs\": [],\n          \"deferred_resource_governance\": {\n            \"status\": \"not-required\",\n            \"large_dir_count\": 0,\n            \"governed_large_dir_count\": 0,\n            \"directories\": [],\n            \"summary\": \"No large deferred resource directory exceeds the per-dir threshold.\"\n          },\n          \"relevant_file_count\": 11,\n          \"unused_resource_dirs\": [],\n          \"quality_signal_points\": 115,\n          \"quality_density\": 232.3\n        }\n      }\n    }\n  ]\n}\n",
       "stderr_tail": "",
       "report_digest": null
     },
@@ -122,7 +122,7 @@
       "report_path": "reports/yao-meta/geo-trust.json",
       "stdout_tail": "ripts/run_route.py\",\n      \"interface\": \"cli\",\n      \"interface_declared\": false,\n      \"interface_reason\": \"Default CLI classification; add SCRIPT_INTERFACE for internal modules.\",\n      \"has_argparse\": false,\n      \"has_main_guard\": true,\n      \"uses_input\": false,\n      \"uses_network\": false,\n      \"uses_file_write\": false,\n      \"uses_subprocess\": false,\n      \"network_urls\": [],\n      \"network_hosts\": []\n    }\n  ],\n  \"dependencies\": {\n    \"present\": [],\n    \"pinned\": [],\n    \"unpinned\": []\n  },\n  \"network_policy\": {\n    \"present\": false,\n    \"path\": \"security/network_policy.json\",\n    \"schema_version\": \"\",\n    \"network_script_count\": 0,\n    \"covered_scripts\": [],\n    \"missing_scripts\": [],\n    \"mismatches\": [],\n    \"default_policy\": {}\n  },\n  \"help_smoke\": {\n    \"enabled\": true,\n    \"timeout_seconds\": 5.0,\n    \"candidate_count\": 0,\n    \"checked_count\": 0,\n    \"passed_count\": 0,\n    \"failed_count\": 0,\n    \"skipped_count\": 1,\n    \"failed_scripts\": [],\n    \"results\": [],\n    \"skipped\": [\n      {\n        \"path\": \"scripts/run_route.py\",\n        \"reason\": \"missing argparse/help surface\"\n      }\n    ]\n  },\n  \"permission_governance\": {\n    \"present\": false,\n    \"path\": \"security/permission_policy.json\",\n    \"schema_version\": \"\",\n    \"reviewed_at\": \"\",\n    \"required_capabilities\": [],\n    \"approved_capabilities\": [],\n    \"missing_capabilities\": [],\n    \"invalid_capabilities\": [],\n    \"expired_capabilities\": [],\n    \"approval_count\": 0,\n    \"required_count\": 0,\n    \"missing_count\": 0,\n    \"invalid_count\": 0,\n    \"expired_count\": 0,\n    \"approvals\": []\n  },\n  \"trust_metadata\": {\n    \"source_tier\": \"local\",\n    \"remote_inline_execution\": \"forbid\",\n    \"remote_metadata_policy\": \"allow-metadata-only\"\n  },\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-trust.json\",\n    \"markdown\": \"reports/yao-meta/geo-trust.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "3e61f040da57fe8cb5768b89ceaa8405fe0b7238c5e7acfface1659831bb368c"
+      "report_digest": "e279f988d7c6577d078d880c5ce2cf02b540017d9be21d8cdd7b4431dcf8f54b"
     },
     {
       "skill_id": "geo",
@@ -1373,6 +1373,280 @@
       "report_digest": "b0f963205fd9049ca228a1cdbc3e90bd8055ea25afe4932619d6feb3c679deac"
     },
     {
+      "skill_id": "seo",
+      "command": [
+        ".venv/bin/python",
+        "<yao-meta-root>/scripts/yao.py",
+        "validate",
+        "skills/seo",
+        "--require-manifest"
+      ],
+      "exit_code": 0,
+      "status": "pass",
+      "structured_status": null,
+      "report_path": null,
+      "stdout_tail": "declared_maturity_minimum\": 85,\n          \"computed_governance_band\": \"production\",\n          \"computed_maturity_tier\": \"production\",\n          \"score_breakdown\": {\n            \"metadata_integrity\": 20,\n            \"ownership_and_review\": 20,\n            \"boundary_and_eval\": 15,\n            \"operational_assets\": 20,\n            \"maintenance_evidence\": 5\n          }\n        }\n      }\n    },\n    {\n      \"command\": \"resource_boundary_check.py skills/seo\",\n      \"ok\": true,\n      \"returncode\": 0,\n      \"payload\": {\n        \"ok\": true,\n        \"failures\": [],\n        \"warnings\": [],\n        \"stats\": {\n          \"context_budget_tier\": \"production\",\n          \"context_budget_limit\": 1000,\n          \"skill_body_tokens\": 422,\n          \"other_text_tokens\": 2559,\n          \"estimated_initial_load_tokens\": 890,\n          \"estimated_total_text_tokens\": 2981,\n          \"deferred_resource_tokens\": 852,\n          \"deferred_resource_warn_threshold\": 120000,\n          \"deferred_resource_dirs\": [\n            {\n              \"path\": \"references\",\n              \"estimated_tokens\": 546,\n              \"file_count\": 2\n            },\n            {\n              \"path\": \"evals\",\n              \"estimated_tokens\": 199,\n              \"file_count\": 2\n            },\n            {\n              \"path\": \"scripts\",\n              \"estimated_tokens\": 107,\n              \"file_count\": 1\n            }\n          ],\n          \"large_deferred_resource_dirs\": [],\n          \"deferred_resource_governance\": {\n            \"status\": \"not-required\",\n            \"large_dir_count\": 0,\n            \"governed_large_dir_count\": 0,\n            \"directories\": [],\n            \"summary\": \"No large deferred resource directory exceeds the per-dir threshold.\"\n          },\n          \"relevant_file_count\": 12,\n          \"unused_resource_dirs\": [],\n          \"quality_signal_points\": 115,\n          \"quality_density\": 129.2\n        }\n      }\n    }\n  ]\n}\n",
+      "stderr_tail": "",
+      "report_digest": null
+    },
+    {
+      "skill_id": "seo",
+      "command": [
+        ".venv/bin/python",
+        "<yao-meta-root>/scripts/trigger_eval.py",
+        "--description",
+        "Turn one natural-language request into an evidence-bounded SEO work plan across technical SEO, crawling and indexing, Search Console incidents, keyword-to-page mapping, migrations, experiments, international or ecommerce SEO, and AI-search foundations. Use for 一句话SEO、技术SEO、自然搜索、收录诊断、关键词页面映射 and website SEO. Exclude paid search, ASO, ranking guarantees, link spam, live mutation without authorization, and unsupported metrics.",
+        "--cases",
+        "skills/seo/evals/trigger_cases.json",
+        "--semantic-config",
+        "skills/seo/evals/semantic_config.json",
+        "--threshold",
+        "0.2"
+      ],
+      "exit_code": 0,
+      "status": "pass",
+      "structured_status": null,
+      "report_path": null,
+      "stdout_tail": " \"neighbor\"\n          ],\n          \"semantic_coverage\": 0.0,\n          \"support_score\": 0,\n          \"lexical_support\": 0.0,\n          \"negative_penalty\": 1.0,\n          \"coverage_boost\": 0.0,\n          \"concept_evidence\": {\n            \"positive\": {},\n            \"negative\": {\n              \"neighbor\": [\n                \"google ads\"\n              ]\n            }\n          }\n        }\n      }\n    ],\n    \"near_neighbor\": [\n      {\n        \"prompt\": \"拓展 AI 搜索问题\",\n        \"family\": \"default\",\n        \"score\": 0.027,\n        \"predicted_trigger\": false,\n        \"expected_trigger\": false,\n        \"passed\": true,\n        \"score_detail\": {\n          \"mode\": \"semantic-intent\",\n          \"desired_positive_concepts\": [\n            \"owned\"\n          ],\n          \"matched_desired_concepts\": [],\n          \"extra_positive_concepts\": [],\n          \"matched_negative_concepts\": [],\n          \"exclusive_negative_concepts\": [],\n          \"semantic_coverage\": 0.0,\n          \"support_score\": 0,\n          \"lexical_support\": 0.333,\n          \"negative_penalty\": 0,\n          \"coverage_boost\": 0.0,\n          \"concept_evidence\": {\n            \"positive\": {},\n            \"negative\": {}\n          }\n        }\n      },\n      {\n        \"prompt\": \"衡量 AI 引用率\",\n        \"family\": \"default\",\n        \"score\": 0.027,\n        \"predicted_trigger\": false,\n        \"expected_trigger\": false,\n        \"passed\": true,\n        \"score_detail\": {\n          \"mode\": \"semantic-intent\",\n          \"desired_positive_concepts\": [\n            \"owned\"\n          ],\n          \"matched_desired_concepts\": [],\n          \"extra_positive_concepts\": [],\n          \"matched_negative_concepts\": [],\n          \"exclusive_negative_concepts\": [],\n          \"semantic_coverage\": 0.0,\n          \"support_score\": 0,\n          \"lexical_support\": 0.333,\n          \"negative_penalty\": 0,\n          \"coverage_boost\": 0.0,\n          \"concept_evidence\": {\n            \"positive\": {},\n            \"negative\": {}\n          }\n        }\n      }\n    ]\n  }\n}\n",
+      "stderr_tail": "",
+      "report_digest": null
+    },
+    {
+      "skill_id": "seo",
+      "command": [
+        ".venv/bin/python",
+        "<yao-meta-root>/scripts/yao.py",
+        "skill-ir",
+        "skills/seo",
+        "--output-json",
+        "skills/seo/reports/skill-ir.json"
+      ],
+      "exit_code": 0,
+      "status": "pass",
+      "structured_status": "pass",
+      "report_path": "skills/seo/reports/skill-ir.json",
+      "stdout_tail": "{\n  \"ok\": true,\n  \"schema\": \"<yao-meta-root>/skill-ir/schema.json\",\n  \"skill_dir\": \"skills/seo\",\n  \"artifacts\": {\n    \"json\": \"skills/seo/reports/skill-ir.json\"\n  },\n  \"summary\": {\n    \"name\": \"seo\",\n    \"maturity\": \"library\",\n    \"target_count\": 3,\n    \"trigger_samples\": 2,\n    \"resource_count\": 4\n  },\n  \"failures\": []\n}\n",
+      "stderr_tail": "",
+      "report_digest": "5dfcd67d276f6dfeb5f9ef04e02fe72d6e7fa89a2083f7621b57681e4c95cb33"
+    },
+    {
+      "skill_id": "seo",
+      "command": [
+        ".venv/bin/python",
+        "<yao-meta-root>/scripts/yao.py",
+        "skill-ir",
+        "skills/seo",
+        "--output-json",
+        "reports/yao-meta/seo-skill-ir.json"
+      ],
+      "exit_code": 0,
+      "status": "pass",
+      "structured_status": "pass",
+      "report_path": "reports/yao-meta/seo-skill-ir.json",
+      "stdout_tail": "{\n  \"ok\": true,\n  \"schema\": \"<yao-meta-root>/skill-ir/schema.json\",\n  \"skill_dir\": \"skills/seo\",\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/seo-skill-ir.json\"\n  },\n  \"summary\": {\n    \"name\": \"seo\",\n    \"maturity\": \"library\",\n    \"target_count\": 3,\n    \"trigger_samples\": 2,\n    \"resource_count\": 4\n  },\n  \"failures\": []\n}\n",
+      "stderr_tail": "",
+      "report_digest": "5dfcd67d276f6dfeb5f9ef04e02fe72d6e7fa89a2083f7621b57681e4c95cb33"
+    },
+    {
+      "skill_id": "seo",
+      "command": [
+        ".venv/bin/python",
+        "<yao-meta-root>/scripts/yao.py",
+        "output-eval",
+        "--cases",
+        "skills/seo/evals/output/cases.jsonl",
+        "--output-json",
+        "reports/yao-meta/seo-output-eval.json",
+        "--output-md",
+        "reports/yao-meta/seo-output-eval.md",
+        "--blind-pack-json",
+        "reports/yao-meta/seo-blind-pack.json",
+        "--blind-pack-md",
+        "reports/yao-meta/seo-blind-pack.md",
+        "--blind-answer-key-json",
+        "reports/yao-meta/seo-blind-answer-key.json"
+      ],
+      "exit_code": 0,
+      "status": "pass",
+      "structured_status": "pass",
+      "report_path": "reports/yao-meta/seo-output-eval.json",
+      "stdout_tail": " ],\n            \"present_forbidden\": []\n          }\n        ],\n        \"failed\": [\n          {\n            \"id\": \"source\",\n            \"description\": \"输出满足合同。\",\n            \"weight\": 1.0,\n            \"failure_type\": \"assertion_failed\",\n            \"passed\": false,\n            \"missing\": [\n              \"missing evidence\",\n              \"假设\"\n            ],\n            \"present_forbidden\": []\n          }\n        ]\n      },\n      \"with_skill\": {\n        \"score\": 100.0,\n        \"passed_count\": 1,\n        \"failed_count\": 0,\n        \"checks\": [\n          {\n            \"id\": \"source\",\n            \"description\": \"输出满足合同。\",\n            \"weight\": 1.0,\n            \"failure_type\": \"assertion_failed\",\n            \"passed\": true,\n            \"missing\": [],\n            \"present_forbidden\": []\n          }\n        ],\n        \"failed\": []\n      },\n      \"delta\": 100.0,\n      \"winner\": \"with_skill\",\n      \"failure_taxonomy\": []\n    }\n  ],\n  \"failures\": [],\n  \"blind_review\": {\n    \"pack\": \"reports/yao-meta/seo-blind-pack.json\",\n    \"answer_key\": \"reports/yao-meta/seo-blind-answer-key.json\",\n    \"pair_count\": 5\n  },\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/seo-output-eval.json\",\n    \"markdown\": \"reports/yao-meta/seo-output-eval.md\",\n    \"blind_review_pack_json\": \"reports/yao-meta/seo-blind-pack.json\",\n    \"blind_review_pack_md\": \"reports/yao-meta/seo-blind-pack.md\",\n    \"blind_answer_key_json\": \"reports/yao-meta/seo-blind-answer-key.json\"\n  }\n}\n",
+      "stderr_tail": "",
+      "report_digest": "9c3f3faed8974f6e2893b8d7f6ddbee8df0e5dfd3f1bba2dfdd19627d868f6ff"
+    },
+    {
+      "skill_id": "seo",
+      "command": [
+        ".venv/bin/python",
+        "<yao-meta-root>/scripts/yao.py",
+        "trust",
+        "skills/seo",
+        "--output-json",
+        "reports/yao-meta/seo-trust.json",
+        "--output-md",
+        "reports/yao-meta/seo-trust.md"
+      ],
+      "exit_code": 0,
+      "status": "pass",
+      "structured_status": "pass",
+      "report_path": "reports/yao-meta/seo-trust.json",
+      "stdout_tail": " \"scripts/run_seo.py\",\n      \"interface\": \"cli\",\n      \"interface_declared\": false,\n      \"interface_reason\": \"Default CLI classification; add SCRIPT_INTERFACE for internal modules.\",\n      \"has_argparse\": false,\n      \"has_main_guard\": true,\n      \"uses_input\": false,\n      \"uses_network\": false,\n      \"uses_file_write\": false,\n      \"uses_subprocess\": false,\n      \"network_urls\": [],\n      \"network_hosts\": []\n    }\n  ],\n  \"dependencies\": {\n    \"present\": [],\n    \"pinned\": [],\n    \"unpinned\": []\n  },\n  \"network_policy\": {\n    \"present\": false,\n    \"path\": \"security/network_policy.json\",\n    \"schema_version\": \"\",\n    \"network_script_count\": 0,\n    \"covered_scripts\": [],\n    \"missing_scripts\": [],\n    \"mismatches\": [],\n    \"default_policy\": {}\n  },\n  \"help_smoke\": {\n    \"enabled\": true,\n    \"timeout_seconds\": 5.0,\n    \"candidate_count\": 0,\n    \"checked_count\": 0,\n    \"passed_count\": 0,\n    \"failed_count\": 0,\n    \"skipped_count\": 1,\n    \"failed_scripts\": [],\n    \"results\": [],\n    \"skipped\": [\n      {\n        \"path\": \"scripts/run_seo.py\",\n        \"reason\": \"missing argparse/help surface\"\n      }\n    ]\n  },\n  \"permission_governance\": {\n    \"present\": false,\n    \"path\": \"security/permission_policy.json\",\n    \"schema_version\": \"\",\n    \"reviewed_at\": \"\",\n    \"required_capabilities\": [],\n    \"approved_capabilities\": [],\n    \"missing_capabilities\": [],\n    \"invalid_capabilities\": [],\n    \"expired_capabilities\": [],\n    \"approval_count\": 0,\n    \"required_count\": 0,\n    \"missing_count\": 0,\n    \"invalid_count\": 0,\n    \"expired_count\": 0,\n    \"approvals\": []\n  },\n  \"trust_metadata\": {\n    \"source_tier\": \"local\",\n    \"remote_inline_execution\": \"forbid\",\n    \"remote_metadata_policy\": \"allow-metadata-only\"\n  },\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/seo-trust.json\",\n    \"markdown\": \"reports/yao-meta/seo-trust.md\"\n  }\n}\n",
+      "stderr_tail": "",
+      "report_digest": "33431e296284fbf4e4fc0e0f2214e6bfd3eb349327c6cb779428d801cdcb395e"
+    },
+    {
+      "skill_id": "seo",
+      "command": [
+        ".venv/bin/python",
+        "<yao-meta-root>/scripts/yao.py",
+        "review-studio",
+        "skills/seo",
+        "--output-json",
+        "reports/yao-meta/seo-review-studio.json",
+        "--output-html",
+        "reports/yao-meta/seo-review-studio.html"
+      ],
+      "exit_code": 0,
+      "status": "review",
+      "structured_status": "review",
+      "report_path": "reports/yao-meta/seo-review-studio.json",
+      "stdout_tail": "\",\n    \"architecture_maintainability\": \"reports/architecture_maintainability.md\",\n    \"permission_policy\": \"security/permission_policy.md\",\n    \"runtime_permissions\": \"reports/runtime_permission_probes.md\",\n    \"skill_atlas\": \"reports/skill_atlas.html\",\n    \"compiled_targets\": \"reports/compiled_targets.md\",\n    \"adoption_drift\": \"reports/adoption_drift_report.md\",\n    \"review_waivers\": \"reports/review_waivers.md\",\n    \"review_annotations\": \"reports/review_annotations.md\",\n    \"adaptation_proposals\": \"reports/adaptation_proposals.md\",\n    \"adaptation_approval_ledger\": \"reports/adaptation_approval_ledger.json\",\n    \"adaptation_regression\": \"reports/adaptation_regression_report.md\",\n    \"world_class_evidence_plan\": \"reports/world_class_evidence_plan.md\",\n    \"world_class_evidence_ledger\": \"reports/world_class_evidence_ledger.md\",\n    \"world_class_evidence_intake\": \"reports/world_class_evidence_intake.md\",\n    \"world_class_evidence_preflight\": \"reports/world_class_evidence_preflight.md\",\n    \"world_class_evidence_preflight_html\": \"reports/world_class_evidence_preflight.html\",\n    \"world_class_submission_review\": \"reports/world_class_submission_review.md\",\n    \"world_class_operator_runbook\": \"reports/world_class_operator_runbook.md\",\n    \"world_class_operator_runbook_html\": \"reports/world_class_operator_runbook.html\",\n    \"world_class_claim_guard\": \"reports/world_class_claim_guard.md\",\n    \"registry_audit\": \"reports/registry_audit.md\",\n    \"package_verification\": \"reports/package_verification.md\",\n    \"install_simulation\": \"reports/install_simulation.md\",\n    \"upgrade_check\": \"reports/upgrade_check.md\",\n    \"migration\": \"docs/migration-v2.md\",\n    \"skill_ir\": \"reports/skill-ir.json\"\n  },\n  \"artifacts\": {\n    \"html\": \"reports/yao-meta/seo-review-studio.html\",\n    \"json\": \"reports/yao-meta/seo-review-studio.json\"\n  }\n}\n",
+      "stderr_tail": "",
+      "report_digest": "72d553cc57ef1726b47d4e72c7459b1475e9567b03e57b62b6517fafc585b36d"
+    },
+    {
+      "skill_id": "seo",
+      "command": [
+        ".venv/bin/python",
+        "<yao-meta-root>/scripts/yao.py",
+        "compile-skill",
+        "skills/seo",
+        "--target",
+        "generic",
+        "--output-json",
+        "reports/yao-meta/seo-compiled-generic.json",
+        "--output-md",
+        "reports/yao-meta/seo-compiled-generic.md"
+      ],
+      "exit_code": 0,
+      "status": "pass",
+      "structured_status": "pass",
+      "report_path": "reports/yao-meta/seo-compiled-generic.json",
+      "stdout_tail": "     \"targets/generic/adapter.json\"\n        ],\n        \"metadata_mapping\": {\n          \"display_name\": \"targets/generic/adapter.json::display_name\",\n          \"default_prompt\": \"targets/generic/adapter.json::default_prompt\",\n          \"activation\": \"targets/generic/adapter.json::activation_mode\",\n          \"execution\": \"targets/generic/adapter.json::execution_context\",\n          \"trust\": \"targets/generic/adapter.json::trust_level\",\n          \"permissions\": \"targets/generic/adapter.json::target_permission_contract\",\n          \"degradation\": \"targets/generic/adapter.json::degradation_strategy\"\n        },\n        \"preserved_semantics\": [\n          \"trigger\",\n          \"workflow-counts\",\n          \"resources\",\n          \"eval-plan\",\n          \"risk\",\n          \"governance\",\n          \"runtime\",\n          \"trust\",\n          \"permissions\"\n        ],\n        \"degradation_strategy\": \"neutral-source; keep live evidence missing when browsing is unavailable\",\n        \"permission_representation\": \"targets/generic/adapter.json::target_permission_contract\",\n        \"native_surface\": \"Agent Skills compatible neutral package\",\n        \"activation_policy\": \"Use SKILL.md name and description; consumers decide automatic or manual activation.\",\n        \"resource_strategy\": \"Preserve references, scripts, assets, evals, reports, and adapter metadata as relative package resources.\",\n        \"script_strategy\": \"Expose script and permission metadata for downstream clients or installers to enforce.\",\n        \"permission_enforcement\": \"consumer-enforced-or-metadata-only\"\n      },\n      \"unsupported_features\": [],\n      \"warnings\": [],\n      \"failures\": []\n    }\n  ],\n  \"failures\": [],\n  \"warnings\": [],\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/seo-compiled-generic.json\",\n    \"markdown\": \"reports/yao-meta/seo-compiled-generic.md\"\n  }\n}\n",
+      "stderr_tail": "",
+      "report_digest": "b93a8b0ae8292d6883e5f98c2a906080fb0fdea69244985f111d0e7d30b8aa12"
+    },
+    {
+      "skill_id": "seo",
+      "command": [
+        ".venv/bin/python",
+        "<yao-meta-root>/scripts/yao.py",
+        "conformance",
+        "skills/seo",
+        "--target",
+        "generic",
+        "--output-json",
+        "reports/yao-meta/seo-conformance-generic.json",
+        "--output-md",
+        "reports/yao-meta/seo-conformance-generic.md"
+      ],
+      "exit_code": 0,
+      "status": "pass",
+      "structured_status": "pass",
+      "report_path": "reports/yao-meta/seo-conformance-generic.json",
+      "stdout_tail": "{\n  \"ok\": true,\n  \"skill\": \"seo\",\n  \"targets\": [\n    {\n      \"target\": \"generic\",\n      \"status\": \"pass\",\n      \"checks\": [\n        \"SKILL.md exists\",\n        \"frontmatter name exists\",\n        \"frontmatter description exists\",\n        \"description length <= 1024\",\n        \"name is runtime-safe\",\n        \"manifest.name exists\",\n        \"manifest.version exists\",\n        \"manifest.owner exists\",\n        \"manifest.status exists\",\n        \"manifest.maturity_tier exists\",\n        \"manifest.review_cadence exists\",\n        \"manifest declares generic\",\n        \"interface.display_name exists\",\n        \"interface.short_description exists\",\n        \"interface.default_prompt exists\",\n        \"adapter target declares generic\",\n        \"activation mode exists\",\n        \"execution context exists\",\n        \"execution shell exists\",\n        \"trust source tier exists\",\n        \"generic degradation note exists\",\n        \"Skill IR schema_version is 2.0.0\",\n        \"Skill IR name matches frontmatter\",\n        \"Skill IR description matches frontmatter\",\n        \"references resource resolves: references/input-example.json\",\n        \"references resource resolves: references/seo-method.md\",\n        \"scripts resource resolves: scripts/run_seo.py\",\n        \"reports resource resolves: reports/output_quality_scorecard.md\"\n      ],\n      \"failures\": [],\n      \"warnings\": []\n    }\n  ],\n  \"summary\": {\n    \"target_count\": 1,\n    \"pass_count\": 1,\n    \"fail_count\": 0\n  },\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/seo-conformance-generic.json\",\n    \"markdown\": \"reports/yao-meta/seo-conformance-generic.md\"\n  }\n}\n",
+      "stderr_tail": "",
+      "report_digest": "2a60efd827771ddc62efd5899740188d238021a1be88319e55641912bdde2ded"
+    },
+    {
+      "skill_id": "seo",
+      "command": [
+        ".venv/bin/python",
+        "<yao-meta-root>/scripts/yao.py",
+        "compile-skill",
+        "skills/seo",
+        "--target",
+        "openai",
+        "--output-json",
+        "reports/yao-meta/seo-compiled-openai.json",
+        "--output-md",
+        "reports/yao-meta/seo-compiled-openai.md"
+      ],
+      "exit_code": 0,
+      "status": "pass",
+      "structured_status": "pass",
+      "report_path": "reports/yao-meta/seo-compiled-openai.json",
+      "stdout_tail": "  \"execution\": \"targets/openai/agents/openai.yaml::compatibility.execution_context\",\n          \"trust\": \"targets/openai/agents/openai.yaml::compatibility.trust_level\",\n          \"permissions\": \"targets/openai/agents/openai.yaml::compatibility.permission_contract\",\n          \"degradation\": \"targets/openai/agents/openai.yaml::compatibility.degradation_strategy\"\n        },\n        \"preserved_semantics\": [\n          \"trigger\",\n          \"workflow-counts\",\n          \"resources\",\n          \"eval-plan\",\n          \"risk\",\n          \"governance\",\n          \"runtime\",\n          \"trust\",\n          \"permissions\"\n        ],\n        \"degradation_strategy\": \"metadata-adapter; keep live evidence missing when browsing is unavailable\",\n        \"permission_representation\": \"targets/openai/agents/openai.yaml::compatibility.permission_contract plus adapter.json\",\n        \"native_surface\": \"OpenAI-style interface metadata plus neutral Agent Skills source\",\n        \"activation_policy\": \"Use frontmatter description for catalog routing and targets/openai/agents/openai.yaml for display name, default prompt, and compatibility metadata.\",\n        \"resource_strategy\": \"Ship the neutral source tree and expose OpenAI-facing interface metadata as a generated companion file.\",\n        \"script_strategy\": \"Keep scripts as local package resources; expose help-smoke and permission metadata for reviewer approval before execution.\",\n        \"permission_enforcement\": \"metadata-only\"\n      },\n      \"unsupported_features\": [\n        \"client-native script permission prompts are represented as permission contract metadata\"\n      ],\n      \"warnings\": [],\n      \"failures\": []\n    }\n  ],\n  \"failures\": [],\n  \"warnings\": [],\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/seo-compiled-openai.json\",\n    \"markdown\": \"reports/yao-meta/seo-compiled-openai.md\"\n  }\n}\n",
+      "stderr_tail": "",
+      "report_digest": "e7caeb91854577515f999293f18c7d87d12a8425c000aaa178495e22290061aa"
+    },
+    {
+      "skill_id": "seo",
+      "command": [
+        ".venv/bin/python",
+        "<yao-meta-root>/scripts/yao.py",
+        "conformance",
+        "skills/seo",
+        "--target",
+        "openai",
+        "--output-json",
+        "reports/yao-meta/seo-conformance-openai.json",
+        "--output-md",
+        "reports/yao-meta/seo-conformance-openai.md"
+      ],
+      "exit_code": 0,
+      "status": "pass",
+      "structured_status": "pass",
+      "report_path": "reports/yao-meta/seo-conformance-openai.json",
+      "stdout_tail": "{\n  \"ok\": true,\n  \"skill\": \"seo\",\n  \"targets\": [\n    {\n      \"target\": \"openai\",\n      \"status\": \"pass\",\n      \"checks\": [\n        \"SKILL.md exists\",\n        \"frontmatter name exists\",\n        \"frontmatter description exists\",\n        \"description length <= 1024\",\n        \"name is runtime-safe\",\n        \"manifest.name exists\",\n        \"manifest.version exists\",\n        \"manifest.owner exists\",\n        \"manifest.status exists\",\n        \"manifest.maturity_tier exists\",\n        \"manifest.review_cadence exists\",\n        \"manifest declares openai\",\n        \"interface.display_name exists\",\n        \"interface.short_description exists\",\n        \"interface.default_prompt exists\",\n        \"adapter target declares openai\",\n        \"activation mode exists\",\n        \"execution context exists\",\n        \"execution shell exists\",\n        \"trust source tier exists\",\n        \"openai degradation note exists\",\n        \"Skill IR schema_version is 2.0.0\",\n        \"Skill IR name matches frontmatter\",\n        \"Skill IR description matches frontmatter\",\n        \"references resource resolves: references/input-example.json\",\n        \"references resource resolves: references/seo-method.md\",\n        \"scripts resource resolves: scripts/run_seo.py\",\n        \"reports resource resolves: reports/output_quality_scorecard.md\"\n      ],\n      \"failures\": [],\n      \"warnings\": []\n    }\n  ],\n  \"summary\": {\n    \"target_count\": 1,\n    \"pass_count\": 1,\n    \"fail_count\": 0\n  },\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/seo-conformance-openai.json\",\n    \"markdown\": \"reports/yao-meta/seo-conformance-openai.md\"\n  }\n}\n",
+      "stderr_tail": "",
+      "report_digest": "f01111c6c0de0be9c50187ac54af773686bab25a9653bc60a437759a06017506"
+    },
+    {
+      "skill_id": "seo",
+      "command": [
+        ".venv/bin/python",
+        "<yao-meta-root>/scripts/yao.py",
+        "compile-skill",
+        "skills/seo",
+        "--target",
+        "claude",
+        "--output-json",
+        "reports/yao-meta/seo-compiled-claude.json",
+        "--output-md",
+        "reports/yao-meta/seo-compiled-claude.md"
+      ],
+      "exit_code": 0,
+      "status": "pass",
+      "structured_status": "pass",
+      "report_path": "reports/yao-meta/seo-compiled-claude.json",
+      "stdout_tail": "y_name\",\n          \"default_prompt\": \"targets/claude/adapter.json::default_prompt\",\n          \"activation\": \"targets/claude/adapter.json::activation_mode\",\n          \"execution\": \"targets/claude/adapter.json::execution_context\",\n          \"trust\": \"targets/claude/adapter.json::trust_level\",\n          \"permissions\": \"targets/claude/adapter.json::target_permission_contract\",\n          \"degradation\": \"targets/claude/adapter.json::degradation_strategy\"\n        },\n        \"preserved_semantics\": [\n          \"trigger\",\n          \"workflow-counts\",\n          \"resources\",\n          \"eval-plan\",\n          \"risk\",\n          \"governance\",\n          \"runtime\",\n          \"trust\",\n          \"permissions\"\n        ],\n        \"degradation_strategy\": \"neutral-source-plus-adapter; keep live evidence missing when browsing is unavailable\",\n        \"permission_representation\": \"targets/claude/adapter.json::target_permission_contract and README notes\",\n        \"native_surface\": \"Claude-compatible neutral source folder with adapter notes\",\n        \"activation_policy\": \"Use SKILL.md frontmatter description as the primary activation contract and adapter.json for review metadata.\",\n        \"resource_strategy\": \"Preserve the source tree directly; write target notes in targets/claude/README.md.\",\n        \"script_strategy\": \"Scripts remain local package resources and must be reviewed through trust and permission reports before use.\",\n        \"permission_enforcement\": \"metadata-fallback\"\n      },\n      \"unsupported_features\": [\n        \"vendor-native metadata fields are carried as adapter JSON and README notes\"\n      ],\n      \"warnings\": [],\n      \"failures\": []\n    }\n  ],\n  \"failures\": [],\n  \"warnings\": [],\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/seo-compiled-claude.json\",\n    \"markdown\": \"reports/yao-meta/seo-compiled-claude.md\"\n  }\n}\n",
+      "stderr_tail": "",
+      "report_digest": "47055423e3c62ff6b5a383caad51a1d0ceaf51abb2f7f7d314e8a71fe1b165af"
+    },
+    {
+      "skill_id": "seo",
+      "command": [
+        ".venv/bin/python",
+        "<yao-meta-root>/scripts/yao.py",
+        "conformance",
+        "skills/seo",
+        "--target",
+        "claude",
+        "--output-json",
+        "reports/yao-meta/seo-conformance-claude.json",
+        "--output-md",
+        "reports/yao-meta/seo-conformance-claude.md"
+      ],
+      "exit_code": 0,
+      "status": "pass",
+      "structured_status": "pass",
+      "report_path": "reports/yao-meta/seo-conformance-claude.json",
+      "stdout_tail": "{\n  \"ok\": true,\n  \"skill\": \"seo\",\n  \"targets\": [\n    {\n      \"target\": \"claude\",\n      \"status\": \"pass\",\n      \"checks\": [\n        \"SKILL.md exists\",\n        \"frontmatter name exists\",\n        \"frontmatter description exists\",\n        \"description length <= 1024\",\n        \"name is runtime-safe\",\n        \"manifest.name exists\",\n        \"manifest.version exists\",\n        \"manifest.owner exists\",\n        \"manifest.status exists\",\n        \"manifest.maturity_tier exists\",\n        \"manifest.review_cadence exists\",\n        \"manifest declares claude\",\n        \"interface.display_name exists\",\n        \"interface.short_description exists\",\n        \"interface.default_prompt exists\",\n        \"adapter target declares claude\",\n        \"activation mode exists\",\n        \"execution context exists\",\n        \"execution shell exists\",\n        \"trust source tier exists\",\n        \"claude degradation note exists\",\n        \"Skill IR schema_version is 2.0.0\",\n        \"Skill IR name matches frontmatter\",\n        \"Skill IR description matches frontmatter\",\n        \"references resource resolves: references/input-example.json\",\n        \"references resource resolves: references/seo-method.md\",\n        \"scripts resource resolves: scripts/run_seo.py\",\n        \"reports resource resolves: reports/output_quality_scorecard.md\"\n      ],\n      \"failures\": [],\n      \"warnings\": []\n    }\n  ],\n  \"summary\": {\n    \"target_count\": 1,\n    \"pass_count\": 1,\n    \"fail_count\": 0\n  },\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/seo-conformance-claude.json\",\n    \"markdown\": \"reports/yao-meta/seo-conformance-claude.md\"\n  }\n}\n",
+      "stderr_tail": "",
+      "report_digest": "c56d51c92d1ea370b5297fa1a985180f1f61894a10574b966c992a58b2672dd8"
+    },
+    {
       "skill_id": "suite",
       "command": [
         ".venv/bin/python",
@@ -1389,21 +1663,21 @@
       "status": "pass",
       "structured_status": "pass",
       "report_path": "reports/skill-atlas.json",
-      "stdout_tail": "pes\": [\n        \"no telemetry\"\n      ],\n      \"recommendation\": \"Render adoption drift evidence or record a small metadata-only sample before release review.\",\n      \"actionable\": true,\n      \"scope\": \"release\",\n      \"summary\": {\n        \"event_count\": 0,\n        \"adoption_sample_count\": 0\n      }\n    },\n    {\n      \"name\": \"geo-discover\",\n      \"path\": \"geo-discover\",\n      \"source\": \"geo-discover/reports/adoption_drift_report.json\",\n      \"risk_band\": \"no-data\",\n      \"signal_types\": [\n        \"no telemetry\"\n      ],\n      \"recommendation\": \"Render adoption drift evidence or record a small metadata-only sample before release review.\",\n      \"actionable\": true,\n      \"scope\": \"release\",\n      \"summary\": {\n        \"event_count\": 0,\n        \"adoption_sample_count\": 0\n      }\n    },\n    {\n      \"name\": \"geo-measure\",\n      \"path\": \"geo-measure\",\n      \"source\": \"geo-measure/reports/adoption_drift_report.json\",\n      \"risk_band\": \"no-data\",\n      \"signal_types\": [\n        \"no telemetry\"\n      ],\n      \"recommendation\": \"Render adoption drift evidence or record a small metadata-only sample before release review.\",\n      \"actionable\": true,\n      \"scope\": \"release\",\n      \"summary\": {\n        \"event_count\": 0,\n        \"adoption_sample_count\": 0\n      }\n    }\n  ],\n  \"no_route_opportunities\": [],\n  \"artifacts\": {\n    \"catalog\": \"skill_atlas/catalog.json\",\n    \"route_overlap_matrix\": \"skill_atlas/route_overlap_matrix.csv\",\n    \"dependency_graph\": \"skill_atlas/dependency_graph.json\",\n    \"stale_skills\": \"skill_atlas/stale_skills.json\",\n    \"owner_review_gaps\": \"skill_atlas/owner_review_gaps.json\",\n    \"drift_signals\": \"skill_atlas/drift_signals.json\",\n    \"no_route_opportunities\": \"skill_atlas/no_route_opportunities.json\",\n    \"report_json\": \"reports/skill-atlas.json\",\n    \"report_html\": \"reports/skill-atlas.html\"\n  }\n}\n",
+      "stdout_tail": "\"no-data\",\n      \"signal_types\": [\n        \"no telemetry\"\n      ],\n      \"recommendation\": \"Render adoption drift evidence or record a small metadata-only sample before release review.\",\n      \"actionable\": true,\n      \"scope\": \"release\",\n      \"summary\": {\n        \"event_count\": 0,\n        \"adoption_sample_count\": 0\n      }\n    },\n    {\n      \"name\": \"geo-measure\",\n      \"path\": \"geo-measure\",\n      \"source\": \"geo-measure/reports/adoption_drift_report.json\",\n      \"risk_band\": \"no-data\",\n      \"signal_types\": [\n        \"no telemetry\"\n      ],\n      \"recommendation\": \"Render adoption drift evidence or record a small metadata-only sample before release review.\",\n      \"actionable\": true,\n      \"scope\": \"release\",\n      \"summary\": {\n        \"event_count\": 0,\n        \"adoption_sample_count\": 0\n      }\n    },\n    {\n      \"name\": \"seo\",\n      \"path\": \"seo\",\n      \"source\": \"seo/reports/adoption_drift_report.json\",\n      \"risk_band\": \"no-data\",\n      \"signal_types\": [\n        \"no telemetry\"\n      ],\n      \"recommendation\": \"Render adoption drift evidence or record a small metadata-only sample before release review.\",\n      \"actionable\": true,\n      \"scope\": \"release\",\n      \"summary\": {\n        \"event_count\": 0,\n        \"adoption_sample_count\": 0\n      }\n    }\n  ],\n  \"no_route_opportunities\": [],\n  \"artifacts\": {\n    \"catalog\": \"skill_atlas/catalog.json\",\n    \"route_overlap_matrix\": \"skill_atlas/route_overlap_matrix.csv\",\n    \"dependency_graph\": \"skill_atlas/dependency_graph.json\",\n    \"stale_skills\": \"skill_atlas/stale_skills.json\",\n    \"owner_review_gaps\": \"skill_atlas/owner_review_gaps.json\",\n    \"drift_signals\": \"skill_atlas/drift_signals.json\",\n    \"no_route_opportunities\": \"skill_atlas/no_route_opportunities.json\",\n    \"report_json\": \"reports/skill-atlas.json\",\n    \"report_html\": \"reports/skill-atlas.html\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "f2d537fbba2f7cd25823aed136b6e132c76e8265d5f784f0e837431d28a097da"
+      "report_digest": "dd21b0d0928f303b284f0bd3226d31657ff7a18e25d7579dad02fdeffe255b38"
     }
   ],
   "failed_commands": 0,
-  "source_digest": "2b9bd160c385073b5deff8526a8be6cfdbb6b09973f37443fc304126d62fa68c",
+  "source_digest": "e6478fd0ece2049512f25b485d5b06abbd55d112767018fc2068462c19735c10",
   "evidence_digests": {
-    "reports/eval-summary.json": "e26067d172df9ce8fcd7100b7e3eefcf64992be9e7310ddc5d38f5a26b2118fb",
-    "reports/package-verification.json": "d66d31350213264e49e883c772a741d0b9417de0bf724023a5e831e7993e7ef8",
-    "reports/install-simulation.json": "60a1d3e21aa9d24625c2310837b80abbc1d98bc92bf9f2f8bf4f5afcbf1aa81a",
-    "reports/python-compatibility.json": "ff7c634dfd1e471a4112d30241b9a65c0fd3324bccd003a0409f4d5be762e27a"
+    "reports/eval-summary.json": "7f6e377d074b8ab59aed8ba81bc73ebb35eb6c5300a939293bafeb0ee48c8a56",
+    "reports/package-verification.json": "1314f01e2052603d67b56d4c44f86b0eb795f5851e4e509dd2bc34387cfe5556",
+    "reports/install-simulation.json": "4e70f1f504c8af4ea53a31bb958b590652bd4f4179be9c2eb3aaadc55f6cfc5d",
+    "reports/python-compatibility.json": "e8cb6ccd557abeb64039c9cb68b198f800e8efc366f9e9a2335f33fe806fc932"
   },
-  "gate_schema_digest": "c6600dc9fbc90550bd59fc6cb208eff5569f146342a1f629a2b8bce14c536d1e",
-  "waiver_digest": "2eb4800207830662d7f706c8f3e921d5f4931a29800348d7c7944bd6f8b286f9",
+  "gate_schema_digest": "696d66ad1a8831a097dfb6d0ccb3f99e24cebb6aca0c354bcdcd2e3b4abfdf78",
+  "waiver_digest": "849ef32fade66dd6876c64f8fb1eae1eaa260889d769e276492e38f0dc3836ad",
   "deterministic_pass": [
     "geo-content:architecture-maintainability",
     "geo-content:context-budget",
@@ -1469,7 +1743,20 @@
     "geo:runtime-matrix",
     "geo:skill-atlas",
     "geo:trigger-lab",
-    "geo:trust-report"
+    "geo:trust-report",
+    "seo:architecture-maintainability",
+    "seo:context-budget",
+    "seo:intent-canvas",
+    "seo:output-lab",
+    "seo:permission-gates",
+    "seo:permission-runtime",
+    "seo:python-compat",
+    "seo:registry-audit",
+    "seo:review-waivers",
+    "seo:runtime-matrix",
+    "seo:skill-atlas",
+    "seo:trigger-lab",
+    "seo:trust-report"
   ],
   "waived_missing_evidence": [
     "geo-content:operations-loop",
@@ -1482,6 +1769,8 @@
     "geo-measure:release-notes",
     "geo:operations-loop",
     "geo:release-notes",
+    "seo:operations-loop",
+    "seo:release-notes",
     "suite:commercial-legal-review",
     "suite:human-blind-review",
     "suite:real-platform-benchmark"
@@ -1585,6 +1874,30 @@
       "classified_warning_count": 15
     },
     "geo-measure": {
+      "deterministic_pass": [
+        "architecture-maintainability",
+        "context-budget",
+        "intent-canvas",
+        "output-lab",
+        "permission-gates",
+        "permission-runtime",
+        "python-compat",
+        "registry-audit",
+        "review-waivers",
+        "runtime-matrix",
+        "skill-atlas",
+        "trigger-lab",
+        "trust-report"
+      ],
+      "waived_missing_evidence": [
+        "operations-loop",
+        "release-notes"
+      ],
+      "release_blocking": [],
+      "review_warning_count": 15,
+      "classified_warning_count": 15
+    },
+    "seo": {
       "deterministic_pass": [
         "architecture-maintainability",
         "context-budget",

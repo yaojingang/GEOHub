@@ -1,87 +1,96 @@
 {
   "status": "pass",
-  "package_count": 9,
+  "package_count": 10,
   "deterministic_repeat": true,
   "packages": [
     {
       "name": "geo-community-0.3.0.zip",
-      "sha256": "a5e79e3c55ed341909689ea082ff14424589c29c4584455a5b8fae90b4a4ee70",
-      "members": 66,
+      "sha256": "43c6ca5acd074b2630fbed42b4b4fe0b19b6d5fc8428fa8ae95311be9cbb6b62",
+      "members": 73,
       "skill_count": 1,
       "self_installable": true,
-      "resolved_active_entries": 5,
+      "resolved_active_entries": 6,
       "status": "pass"
     },
     {
       "name": "geo-content-community-0.3.0.zip",
-      "sha256": "a405b8f608365017aaf5aebd4cc3ffa45b2f3854da4f5a91498a40d14ec0918b",
-      "members": 69,
+      "sha256": "25303b23923bdd9c84e0048e6294ef596a5fbba9cf22449d3fafdfebc5d273d1",
+      "members": 76,
       "skill_count": 1,
       "self_installable": true,
-      "resolved_active_entries": 5,
+      "resolved_active_entries": 6,
       "status": "pass"
     },
     {
       "name": "geo-diagnose-community-0.3.0.zip",
-      "sha256": "98ba2a7c317ec24f89ce89de0a9a6e91efc313d6bf687c585ce066168c801f5a",
-      "members": 66,
+      "sha256": "0a4b1083cbaca2808bf8d01daace393808ba227cf83c8991338516c3c0d69372",
+      "members": 73,
       "skill_count": 1,
       "self_installable": true,
-      "resolved_active_entries": 5,
+      "resolved_active_entries": 6,
       "status": "pass"
     },
     {
       "name": "geo-discover-community-0.3.0.zip",
-      "sha256": "d0ef4eb78c65f59084d08a908fc8728eec76e8e14c8fbb6c3237de2b7aba93f5",
-      "members": 66,
+      "sha256": "62d7a5ffc73663f25ca686b0bd59ffc96a6a0b6a0735bff1b582201d44e0d000",
+      "members": 73,
       "skill_count": 1,
       "self_installable": true,
-      "resolved_active_entries": 5,
+      "resolved_active_entries": 6,
       "status": "pass"
     },
     {
       "name": "geo-measure-community-0.3.0.zip",
-      "sha256": "5fe4add93b252dbfd1d229d49e707d236083182d1f9c9a2b1b8eba3044623c38",
-      "members": 66,
+      "sha256": "5e609bd6af99f4ee942c0e8dfeca0eb853b23e9ccbfb2fb27ce6beb10e3c2728",
+      "members": 73,
       "skill_count": 1,
       "self_installable": true,
-      "resolved_active_entries": 5,
+      "resolved_active_entries": 6,
       "status": "pass"
     },
     {
       "name": "geo-seo-hub-claude-community-0.3.0.zip",
-      "sha256": "1b55d5303b3a76beb1b475640f4ad47097bdf00a9e4c9f001e7c5afada20304c",
-      "members": 71,
+      "sha256": "43a3c62b49dae553033b09b0eedb9fb9ae74a789a6fa9039df41259076c8ba50",
+      "members": 79,
       "skill_count": 1,
       "self_installable": true,
-      "resolved_active_entries": 5,
+      "resolved_active_entries": 6,
       "status": "pass"
     },
     {
       "name": "geo-seo-hub-codex-community-0.3.0.zip",
-      "sha256": "31a5b7a8007f111f6e1b5a4e25c92a2d407fa4ed54fd99d1e2d6743531c081e8",
-      "members": 71,
+      "sha256": "03303c9f6227f22abf0fa26ea0e27eab8418dfe26041a8d89854124043f02c11",
+      "members": 79,
       "skill_count": 1,
       "self_installable": true,
-      "resolved_active_entries": 5,
+      "resolved_active_entries": 6,
       "status": "pass"
     },
     {
       "name": "geo-seo-hub-source-0.3.0.zip",
-      "sha256": "a747b7b1098ca8fb8962674461db6e66f53ca67cea63e342d42ba95642307f84",
-      "members": 94,
-      "skill_count": 5,
+      "sha256": "be3d2a98da15f8b2319761dbfcbb56ef3e5466421e8d8972778d60cac2a56c5a",
+      "members": 103,
+      "skill_count": 6,
       "self_installable": true,
       "resolved_active_entries": 0,
       "status": "pass"
     },
     {
       "name": "geo-seo-hub-unified-community-0.3.0.zip",
-      "sha256": "4ddfe3fa8e72157bc983c7442debb8bd23d1e42945ab8688ae314860de19c80b",
-      "members": 70,
+      "sha256": "68ce95d6362dba59b316907c650933a9a966c4a231404ac86770819fbc59449c",
+      "members": 78,
       "skill_count": 1,
       "self_installable": true,
-      "resolved_active_entries": 5,
+      "resolved_active_entries": 6,
+      "status": "pass"
+    },
+    {
+      "name": "seo-community-0.3.0.zip",
+      "sha256": "1890541c716cd6015d0b3bc8be8958c2884b1fda8e22495cf91e1ee7f857ec4b",
+      "members": 73,
+      "skill_count": 1,
+      "self_installable": true,
+      "resolved_active_entries": 6,
       "status": "pass"
     }
   ]

@@ -2,8 +2,8 @@
   "ok": true,
   "workspace_root": "skills",
   "summary": {
-    "skill_count": 5,
-    "actionable_skill_count": 5,
+    "skill_count": 6,
+    "actionable_skill_count": 6,
     "route_collision_count": 0,
     "actionable_route_collision_count": 0,
     "owner_gap_count": 0,
@@ -13,8 +13,8 @@
     "shared_resource_count": 1,
     "no_route_opportunity_count": 0,
     "telemetry_report_count": 0,
-    "drift_signal_count": 5,
-    "actionable_drift_signal_count": 5,
+    "drift_signal_count": 6,
+    "actionable_drift_signal_count": 6,
     "non_actionable_issue_count": 0
   },
   "scope_policy": {
@@ -359,11 +359,88 @@
           "adoption_rate": 0,
           "candidate_count": 0
         }
+      },
+      {
+        "name": "seo",
+        "path": "seo",
+        "description": "Turn one natural-language request into an evidence-bounded SEO work plan across technical SEO, crawling and indexing, Search Console incidents, keyword-to-page mapping, migrations, experiments, international or ecommerce SEO, and AI-search foundations. Use for 一句话SEO、技术SEO、自然搜索、收录诊断、关键词页面映射 and website SEO. Exclude paid search, ASO, ranking guarantees, link spam, live mutation without authorization, and unsupported metrics.",
+        "owner": "姚金刚 / Yao",
+        "version": "0.3.0",
+        "status": "experimental",
+        "maturity": "library",
+        "updated_at": "2026-08-11",
+        "review_cadence": "per-release",
+        "targets": [
+          "openai",
+          "claude",
+          "generic"
+        ],
+        "resources": [
+          "scripts/run_seo.py",
+          "references/input-example.json",
+          "references/seo-method.md"
+        ],
+        "token_set": [
+          "across",
+          "ai-search",
+          "aso",
+          "authorization",
+          "console",
+          "crawling",
+          "ecommerce",
+          "evidence-bounded",
+          "exclude",
+          "experiments",
+          "foundations",
+          "guarantees",
+          "incidents",
+          "indexing",
+          "international",
+          "keyword-to-page",
+          "link",
+          "live",
+          "mapping",
+          "metrics",
+          "migrations",
+          "mutation",
+          "natural-language",
+          "one",
+          "or",
+          "paid",
+          "plan",
+          "ranking",
+          "request",
+          "search",
+          "seo",
+          "spam",
+          "technical",
+          "unsupported",
+          "website",
+          "without",
+          "work",
+          "一句话seo",
+          "关键词页面映射",
+          "技术seo",
+          "收录诊断",
+          "自然搜索"
+        ],
+        "atlas_scope": "release",
+        "actionable": true,
+        "scope_reason": "default release-actionable skill",
+        "telemetry": {
+          "report_present": false,
+          "report": "seo/reports/adoption_drift_report.json",
+          "risk_band": "missing",
+          "event_count": 0,
+          "adoption_sample_count": 0,
+          "adoption_rate": 0,
+          "candidate_count": 0
+        }
       }
     ],
     "summary": {
-      "skill_count": 5,
-      "actionable_skill_count": 5,
+      "skill_count": 6,
+      "actionable_skill_count": 6,
       "route_collision_count": 0,
       "actionable_route_collision_count": 0,
       "owner_gap_count": 0,
@@ -373,8 +450,8 @@
       "shared_resource_count": 1,
       "no_route_opportunity_count": 0,
       "telemetry_report_count": 0,
-      "drift_signal_count": 5,
-      "actionable_drift_signal_count": 5,
+      "drift_signal_count": 6,
+      "actionable_drift_signal_count": 6,
       "non_actionable_issue_count": 0
     }
   },
@@ -401,6 +478,10 @@
       {
         "name": "geo-measure",
         "path": "geo-measure"
+      },
+      {
+        "name": "seo",
+        "path": "seo"
       }
     ],
     "shared_resources": [
@@ -410,7 +491,8 @@
           "geo-content",
           "geo-diagnose",
           "geo-discover",
-          "geo-measure"
+          "geo-measure",
+          "seo"
         ]
       }
     ]
@@ -499,6 +581,22 @@
         "event_count": 0,
         "adoption_sample_count": 0
       }
+    },
+    {
+      "name": "seo",
+      "path": "seo",
+      "source": "seo/reports/adoption_drift_report.json",
+      "risk_band": "no-data",
+      "signal_types": [
+        "no telemetry"
+      ],
+      "recommendation": "Render adoption drift evidence or record a small metadata-only sample before release review.",
+      "actionable": true,
+      "scope": "release",
+      "summary": {
+        "event_count": 0,
+        "adoption_sample_count": 0
+      }
     }
   ],
   "actionable_drift_signals": [
@@ -570,6 +668,22 @@
       "name": "geo-measure",
       "path": "geo-measure",
       "source": "geo-measure/reports/adoption_drift_report.json",
+      "risk_band": "no-data",
+      "signal_types": [
+        "no telemetry"
+      ],
+      "recommendation": "Render adoption drift evidence or record a small metadata-only sample before release review.",
+      "actionable": true,
+      "scope": "release",
+      "summary": {
+        "event_count": 0,
+        "adoption_sample_count": 0
+      }
+    },
+    {
+      "name": "seo",
+      "path": "seo",
+      "source": "seo/reports/adoption_drift_report.json",
       "risk_band": "no-data",
       "signal_types": [
         "no telemetry"

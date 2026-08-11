@@ -58,6 +58,8 @@ where = ["src"]
   "schemas/research-context.schema.json",
   "schemas/research-evidence-registry.schema.json",
   "schemas/run-manifest.schema.json",
+  "schemas/seo-brief.schema.json",
+  "schemas/seo-plan.schema.json",
 ]
 "share/geo-seo-hub/skills/geo" = [
   "skills/geo/SKILL.md",
@@ -109,6 +111,16 @@ where = ["src"]
   "skills/geo-measure/references/input-example.json",
 ]
 "share/geo-seo-hub/skills/geo-measure/scripts" = ["skills/geo-measure/scripts/run_measure.py"]
+"share/geo-seo-hub/skills/seo" = [
+  "skills/seo/SKILL.md",
+  "skills/seo/manifest.json",
+]
+"share/geo-seo-hub/skills/seo/agents" = ["skills/seo/agents/interface.yaml"]
+"share/geo-seo-hub/skills/seo/references" = [
+  "skills/seo/references/seo-method.md",
+  "skills/seo/references/input-example.json",
+]
+"share/geo-seo-hub/skills/seo/scripts" = ["skills/seo/scripts/run_seo.py"]
 
 [tool.pytest.ini_options]
 addopts = "-q"

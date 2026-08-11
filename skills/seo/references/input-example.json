@@ -1,0 +1,1 @@
+{"protocol_version":"1.0.0","brief_id":"seo-example","request":"为 example.com 做一次技术 SEO 审计，先保持只读","target_urls":["https://example.com/"],"market":"zh-CN","language":"zh-CN","authorized_action":"advisory","rollback_boundary":null,"evidence":[]}

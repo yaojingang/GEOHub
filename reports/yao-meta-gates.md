@@ -2,10 +2,10 @@
 
 Status: **pass-with-waivers**
 
-Commands: 66; deterministic failures: 0.
+Commands: 79; deterministic failures: 0.
 
-Deterministic Review Studio dispositions: 65.
-Waived or missing external evidence: 13.
+Deterministic Review Studio dispositions: 78.
+Waived or missing external evidence: 15.
 Release-blocking items: 0.
 
 | Skill | Command | Exit | Structured status |
@@ -75,4 +75,17 @@ Release-blocking items: 0.
 | geo-measure | `conformance skills/geo-measure` | 0 | pass |
 | geo-measure | `compile-skill skills/geo-measure` | 0 | pass |
 | geo-measure | `conformance skills/geo-measure` | 0 | pass |
+| seo | `validate skills/seo` | 0 | pass |
+| seo | `--description Turn one natural-language request into an evidence-bounded SEO work plan across technical SEO, crawling and indexing, Search Console incidents, keyword-to-page mapping, migrations, experiments, international or ecommerce SEO, and AI-search foundations. Use for 一句话SEO、技术SEO、自然搜索、收录诊断、关键词页面映射 and website SEO. Exclude paid search, ASO, ranking guarantees, link spam, live mutation without authorization, and unsupported metrics.` | 0 | pass |
+| seo | `skill-ir skills/seo` | 0 | pass |
+| seo | `skill-ir skills/seo` | 0 | pass |
+| seo | `output-eval --cases` | 0 | pass |
+| seo | `trust skills/seo` | 0 | pass |
+| seo | `review-studio skills/seo` | 0 | review |
+| seo | `compile-skill skills/seo` | 0 | pass |
+| seo | `conformance skills/seo` | 0 | pass |
+| seo | `compile-skill skills/seo` | 0 | pass |
+| seo | `conformance skills/seo` | 0 | pass |
+| seo | `compile-skill skills/seo` | 0 | pass |
+| seo | `conformance skills/seo` | 0 | pass |
 | suite | `skill-atlas --workspace-root` | 0 | pass |

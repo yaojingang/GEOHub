@@ -7,29 +7,29 @@
       "python": "3.11.14",
       "environment": "fresh venv",
       "install": "pip install -e .[dev]",
-      "tests": "371 targeted router, research, measurement, secure I/O, and schema tests passed",
-      "evals": "373 router cases, 33 trigger cases, and 25 deterministic output cases passed"
+      "tests": "388 targeted router, research, measurement, secure I/O, schema, and one-line SEO tests passed",
+      "evals": "373 router cases, 39 trigger cases, and 30 deterministic output cases passed"
     },
     {
       "python": "3.12.3",
       "environment": "fresh venv",
       "install": "pip install -e .[dev]",
-      "tests": "371 targeted router, research, measurement, secure I/O, and schema tests passed",
-      "evals": "373 router cases, 33 trigger cases, and 25 deterministic output cases passed"
+      "tests": "388 targeted router, research, measurement, secure I/O, schema, and one-line SEO tests passed",
+      "evals": "373 router cases, 39 trigger cases, and 30 deterministic output cases passed"
     },
     {
       "python": "3.13.3",
       "environment": "fresh venv",
       "install": "pip install -e .[dev]",
-      "tests": "371 targeted router, research, measurement, secure I/O, and schema tests passed",
-      "evals": "373 router cases, 33 trigger cases, and 25 deterministic output cases passed"
+      "tests": "388 targeted router, research, measurement, secure I/O, schema, and one-line SEO tests passed",
+      "evals": "373 router cases, 39 trigger cases, and 30 deterministic output cases passed"
     },
     {
       "python": "3.14.6",
       "environment": "fresh venv",
       "install": "pip install -e .[dev]",
-      "tests": "371 targeted router, research, measurement, secure I/O, and schema tests passed",
-      "evals": "373 router cases, 33 trigger cases, and 25 deterministic output cases passed"
+      "tests": "388 targeted router, research, measurement, secure I/O, schema, and one-line SEO tests passed",
+      "evals": "373 router cases, 39 trigger cases, and 30 deterministic output cases passed"
     }
   ],
   "ci_matrix": ["3.11", "3.12", "3.13", "3.14"],

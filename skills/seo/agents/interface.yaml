@@ -1,0 +1,26 @@
+interface:
+  display_name: "GEO SEO Hub One-line SEO"
+  short_description: "Turn one request into an evidence-bounded SEO plan"
+  default_prompt: "Use $seo to classify this SEO request, declare scope and evidence gaps, and produce a safe rerunnable action plan without inventing metrics or outcomes."
+  input_contract:
+    required:
+      request: "one natural-language SEO request"
+      target_urls: "zero to 100 credential-free HTTP(S) URLs"
+      authorized_action: "advisory or implementation"
+      rollback_boundary: "required implementation rollback description; null for advisory work"
+    invariants: "site findings remain empty in the deterministic planner; implementation requires a target URL, explicit authorization, and rollback scope"
+  output_contract: ["input/seo-brief.json", "seo-plan.json", "report.md", "evidence-ledger.json", "quality-report.json", "run-manifest.json"]
+  permission_contract: {filesystem: "read one input and write selected runs root", network: "forbid in deterministic runtime"}
+compatibility:
+  canonical_format: "agent-skills"
+  adapter_targets: [openai, claude, generic]
+  activation: {mode: "auto", paths: []}
+  execution: {context: "inline", shell: "bash"}
+  trust: {source_tier: "local", remote_inline_execution: "forbid", remote_metadata_policy: "allow-metadata-only"}
+  degradation:
+    openai: "metadata-adapter; keep live evidence missing when browsing is unavailable"
+    claude: "neutral-source-plus-adapter; keep live evidence missing when browsing is unavailable"
+    generic: "neutral-source; keep live evidence missing when browsing is unavailable"
+    no_browser: "deliver an advisory plan and mark live/rendered evidence missing"
+    no_search_console: "do not infer index coverage, query performance, or traffic causes"
+    no_keyword_tool: "keep volume and difficulty unknown and use qualitative intent discovery"

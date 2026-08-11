@@ -4,8 +4,8 @@ Status: **pass**
 
 - Router cases: 373; precision `1.0000`; recall `1.0000`
 - Metric: Exact skill/workflow/runnable match is TP; every mismatch contributes one FP and one FN.
-- Skill trigger cases: 33; compliance `1.0000`
-- Output cases: 25; contract compliance `1.0000`
+- Skill trigger cases: 39; compliance `1.0000`
+- Output cases: 30; contract compliance `1.0000`
 - Fabricated citations: `0`
 - Failed routes: none
 - Failed outputs: none

@@ -16,7 +16,7 @@ from geo_seo_hub.registry import load_registry
 from geo_seo_hub import __version__
 
 ROOT = Path(__file__).resolve().parents[1]
-SKILLS = ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure")
+SKILLS = ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure", "seo")
 
 
 def test_geo_seo_hub_brand_and_compatibility_names_are_consistent():
@@ -29,7 +29,7 @@ def test_geo_seo_hub_brand_and_compatibility_names_are_consistent():
 
     assert readme.startswith("# GEO SEO Hub\n")
     assert "GEO-first · SEO-ready" in readme
-    assert "Dedicated SEO workflows and outcome claims" in readme
+    assert "dedicated one-line SEO entry" in readme
     assert project["name"] == "geo-seo-hub"
     assert project["scripts"] == {"geo-seo-hub": "geo_seo_hub.cli:main"}
     assert (ROOT / "src" / "geo_seo_hub").is_dir()
@@ -443,11 +443,11 @@ def test_install_simulation_uses_each_extracted_package_and_real_provider_execut
     source = inspect.getsource(installer.structural_smoke)
     assert "install_extracted(destination" in source
     assert 'wrappers["run_route.py"]' in source
-    assert all(f'"run_{provider}.py"' in source for provider in ("discover", "diagnose", "content", "measure"))
+    assert all(f'"run_{provider}.py"' in source for provider in ("discover", "diagnose", "content", "measure", "seo"))
     report = json.loads((ROOT / "reports" / "install-simulation.json").read_text())
-    assert report["source"]["cli_smokes"] == ["version", "route", "discover", "diagnose", "content", "measure"]
-    assert len(report["structural_packages"]) == 8
-    assert all(item["installed_from"] == "." and item["installed_share_resolved"] and item["resolved_entry"] and item["provider_executions"] == ["geo-discover", "geo-diagnose", "geo-content", "geo-measure"] for item in report["structural_packages"])
+    assert report["source"]["cli_smokes"] == ["version", "route", "discover", "diagnose", "content", "measure", "seo"]
+    assert len(report["structural_packages"]) == 9
+    assert all(item["installed_from"] == "." and item["installed_share_resolved"] and item["resolved_entry"] and item["provider_executions"] == ["geo-discover", "geo-diagnose", "geo-content", "geo-measure", "seo"] for item in report["structural_packages"])
 
 
 def test_supported_python_range_and_governance_contracts():

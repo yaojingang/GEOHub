@@ -1,0 +1,1 @@
+{"should_trigger":[{"text":"一句话 SEO：审计这个网站","family":"one-line-seo"},{"text":"Analyze this Search Console traffic drop","family":"incident"}],"should_not_trigger":[{"text":"写一篇 GEO 解释文章","family":"geo-content"},{"text":"只做 Google Ads 投放","family":"paid-search"}],"near_neighbor":[{"text":"拓展 AI 搜索问题","expected":"geo-discover"},{"text":"衡量 AI 引用率","expected":"geo-measure"}]}

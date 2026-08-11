@@ -258,5 +258,10 @@
     "expected_outcome": "success-with-missing-answer",
     "fixture_policy": "synthetic only",
     "fabricated_citations": 0
-  }
+  },
+  {"id":"o26","skill_id":"seo","case_type":"happy","input":"tests/fixtures/seo-brief.json","route_text":null,"expected_outcome":"success","fixture_policy":"synthetic only","fabricated_citations":0},
+  {"id":"o27","skill_id":"seo","case_type":"missing_input","input":null,"route_text":null,"expected_outcome":"error","fixture_policy":"synthetic only","fabricated_citations":0},
+  {"id":"o28","skill_id":"seo","case_type":"boundary","input":"tests/fixtures/seo-brief.json","route_text":"technical SEO guarantee rank one","expected_skill":"seo","expected_outcome":"boundary","fixture_policy":"synthetic only","fabricated_citations":0},
+  {"id":"o29","skill_id":"seo","case_type":"near_neighbor","input":null,"route_text":"Write a GEO explainer","expected_outcome":"geo-content","fixture_policy":"synthetic only","fabricated_citations":0},
+  {"id":"o30","skill_id":"seo","case_type":"source_shortfall","input":"tests/fixtures/seo-brief.json","route_text":null,"expected_outcome":"success","fixture_policy":"synthetic only","fabricated_citations":0}
 ]

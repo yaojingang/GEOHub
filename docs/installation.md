@@ -18,12 +18,12 @@ python3 -m venv .venv
 | Package | Use it for |
 |---|---|
 | Source ZIP | Full source checkout, CLI use, development, and local package builds |
-| Unified ZIP | One root Skill with all five active provider entries |
+| Unified ZIP | One root Skill with all six active provider entries |
 | `geo` provider ZIP | Registry-driven routing and workflow orchestration |
-| Discover, Diagnose, Content, or Measure provider ZIP | Installing one active capability as the root Skill |
-| Codex or Claude ZIP | Target-specific adapter layout with all five provider entries |
+| Discover, Diagnose, Content, Measure, or SEO provider ZIP | Installing one active capability as the root Skill |
+| Codex or Claude ZIP | Target-specific adapter layout with all six provider entries |
 
-Version `0.3.0` has no GitHub Release or prebuilt release assets. Build the nine community artifacts from a source checkout with `python3 scripts/package.py --target all --channel community`. Install a provider, unified, Codex, or Claude ZIP by safely extracting it into the target's skill directory. Each adapter contains one `SKILL.md`, runtime source, schemas, research registry, capability registry, project metadata, version, and legal notices.
+Version `0.3.0` has no GitHub Release or prebuilt release assets. Build the ten community artifacts from a source checkout with `python3 scripts/package.py --target all --channel community`. Install a provider, unified, Codex, or Claude ZIP by safely extracting it into the target's skill directory. Each adapter contains one `SKILL.md`, runtime source, schemas, research registry, capability registry, project metadata, version, and legal notices.
 
 Every community ZIP has a self-contained `pyproject.toml` and runtime data layout. For direct command-line use after extraction, create an isolated environment and install that extracted directory before invoking its wrapper:
 

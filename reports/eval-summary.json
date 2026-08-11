@@ -5241,8 +5241,8 @@
     ]
   },
   "triggers": {
-    "case_count": 33,
-    "passed": 33,
+    "case_count": 39,
+    "passed": 39,
     "compliance": 1.0,
     "results": [
       {
@@ -5475,12 +5475,54 @@
         "text": "Write an explainer",
         "passed": true,
         "actual": "geo-content"
+      },
+      {
+        "skill_id": "seo",
+        "family": "should_trigger",
+        "text": "一句话 SEO：审计这个网站",
+        "passed": true,
+        "actual": "seo"
+      },
+      {
+        "skill_id": "seo",
+        "family": "should_trigger",
+        "text": "Analyze this Search Console traffic drop",
+        "passed": true,
+        "actual": "seo"
+      },
+      {
+        "skill_id": "seo",
+        "family": "should_not_trigger",
+        "text": "写一篇 GEO 解释文章",
+        "passed": true,
+        "actual": "geo-content"
+      },
+      {
+        "skill_id": "seo",
+        "family": "should_not_trigger",
+        "text": "只做 Google Ads 投放",
+        "passed": true,
+        "actual": "geo"
+      },
+      {
+        "skill_id": "seo",
+        "family": "near_neighbor",
+        "text": "拓展 AI 搜索问题",
+        "passed": true,
+        "actual": "geo-discover"
+      },
+      {
+        "skill_id": "seo",
+        "family": "near_neighbor",
+        "text": "衡量 AI 引用率",
+        "passed": true,
+        "actual": "geo-measure"
       }
     ]
   },
   "outputs": {
-    "case_count": 25,
-    "passed": 25,
+    "case_count": 30,
+    "passed": 30,
     "contract_compliance": 1.0,
     "fabricated_citations": 0,
     "citation_metric_definition": "Every source_uri in a generated evidence ledger must occur in its snapshotted input JSON.",
@@ -5706,6 +5748,51 @@
       {
         "id": "o25",
         "skill_id": "geo-measure",
+        "case_type": "source_shortfall",
+        "passed": true,
+        "fabricated_citations": 0,
+        "detail": "contract satisfied",
+        "execution_kind": "deterministic_local"
+      },
+      {
+        "id": "o26",
+        "skill_id": "seo",
+        "case_type": "happy",
+        "passed": true,
+        "fabricated_citations": 0,
+        "detail": "contract satisfied",
+        "execution_kind": "deterministic_local"
+      },
+      {
+        "id": "o27",
+        "skill_id": "seo",
+        "case_type": "missing_input",
+        "passed": true,
+        "fabricated_citations": 0,
+        "detail": "contract satisfied",
+        "execution_kind": "deterministic_local"
+      },
+      {
+        "id": "o28",
+        "skill_id": "seo",
+        "case_type": "boundary",
+        "passed": true,
+        "fabricated_citations": 0,
+        "detail": "contract satisfied",
+        "execution_kind": "deterministic_local"
+      },
+      {
+        "id": "o29",
+        "skill_id": "seo",
+        "case_type": "near_neighbor",
+        "passed": true,
+        "fabricated_citations": 0,
+        "detail": "contract satisfied",
+        "execution_kind": "deterministic_local"
+      },
+      {
+        "id": "o30",
+        "skill_id": "seo",
         "case_type": "source_shortfall",
         "passed": true,
         "fabricated_citations": 0,

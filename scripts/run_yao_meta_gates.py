@@ -14,7 +14,7 @@ import yaml
 from jsonschema import Draft202012Validator, FormatChecker
 
 ROOT = Path(__file__).resolve().parents[1]
-SKILLS = ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure")
+SKILLS = ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure", "seo")
 REPORT_SCHEMA_VERSION = "2.0.0"
 WAIVER_PATH = ROOT / "reports" / "review-waivers.json"
 WAIVER_SCHEMA_PATH = ROOT / "reports" / "review-waivers.schema.json"

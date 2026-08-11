@@ -11,7 +11,7 @@ Routing uses normalized phrase matching. A broad or unmatched GEO request falls 
 
 The router may suggest 'geo-discover' when a downstream route is unavailable. A suggestion is not an assertion that discovery fulfills the unavailable stage.
 
-`geo-discover`, `geo-diagnose`, `geo-content`, and `geo-measure` are active alongside the `geo` umbrella router. Discovery covers intent and query research; diagnosis covers evidence-lined brand, site, and page audits; content covers title, explainer, comparison, ranking, page-blueprint, refine, and article-friendly requests; measurement aggregates explicit offline observation records with complete denominators and intervals.
+`geo-discover`, `geo-diagnose`, `geo-content`, `geo-measure`, and `seo` are active alongside the `geo` umbrella router. Discovery covers intent and query research; diagnosis covers evidence-lined brand, site, and page audits; content covers title, explainer, comparison, ranking, page-blueprint, refine, and article-friendly requests; measurement aggregates explicit offline observation records with complete denominators and intervals; SEO converts one request into a bounded, evidence-aware work plan.
 
 `geo-strategy`, `geo-knowledge`, and `geo-publish` remain planned roadmap routes with no runnable entry.
 # Routing contract
