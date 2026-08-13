@@ -17,11 +17,11 @@
     "slsa_level_claim": null,
     "trusted": false
   },
-  "generated_at": "2026-08-13T02:20:45.471271Z",
-  "sbom_sha256": "0eeefbc94b40cdc8db20a764ddfbe7138e21cdb61929d87749f833a65e23417a",
+  "generated_at": "2026-08-13T02:26:27.089162Z",
+  "sbom_sha256": "96256e982a080c0abfb63cc9edf6d8210ba0875b7ee2f5f5739210d83d63f695",
   "schema_version": "1.0.0",
   "source": {
-    "revision": "d3c2b5045105175d4061f1a2a04505f95c71de19",
+    "revision": "e2c0da8e2de96817f3ad286ee8c1d12a9978d137",
     "source_digest": "36bdbab22e6919537622a1e984a6ec9c4fb5edd015711b3bc607daabf9877fed",
     "state": "committed release source snapshot"
   },
