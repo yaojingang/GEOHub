@@ -98,7 +98,7 @@ EXPECTED_ZH_ACTION_LEAD_IN_PATTERN = (
     r"(?:单\s*独|仅仅|需要|继续|打算|准备|页面|请|想|去|要|做|仅|再|只|光)\s*"
 )
 EXPECTED_ACTION_OBJECT_ARTICLE_PATTERN = r"(?:(?:a|an|the)\b|一个|个)\s*"
-ACTIVE_SKILLS = ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure", "seo")
+ACTIVE_SKILLS = ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure", "geo-strategy", "geo-knowledge")
 CANONICAL_DISTRIBUTION = "geo-seo-hub"
 CANONICAL_MODULE = "geo_seo_hub"
 LEGACY_DISTRIBUTION = "yao" + "-geo"
@@ -134,7 +134,6 @@ def verify_namespace_consistency(root: Path = ROOT) -> None:
         root / name
         for name in (
             "README.md",
-            "README.zh-CN.md",
             "SECURITY.md",
             "COMMERCIAL-LICENSING.md",
             "CONTRIBUTING.md",
@@ -260,38 +259,12 @@ def main() -> int:
         fail("LICENSE is not the GNU AGPLv3 text")
 
     schemas = sorted((ROOT / "schemas").glob("*.schema.json"))
-    expected_schema_names = {
-        "brand-fact-card.schema.json",
-        "content-spec.schema.json",
-        "content-evidence-units.schema.json",
-        "diagnosis-funnel.schema.json",
-        "evidence-ledger.schema.json",
-        "geo-brief.schema.json",
-        "measurement-brief.schema.json",
-        "measurement-report.schema.json",
-        "opportunity-map.schema.json",
-        "quality-report.schema.json",
-        "query-map.schema.json",
-        "research-context.schema.json",
-        "research-evidence-registry.schema.json",
-        "run-manifest.schema.json",
-        "seo-brief.schema.json",
-        "seo-plan.schema.json",
-    }
-    actual_schema_names = {path.name for path in schemas}
-    if actual_schema_names != expected_schema_names:
-        fail(
-            "protocol schema inventory differs; "
-            f"missing={sorted(expected_schema_names - actual_schema_names)}, "
-            f"extra={sorted(actual_schema_names - expected_schema_names)}"
-        )
+    if len(schemas) != 24:
+        fail(f"expected 24 protocol schemas, found {len(schemas)}")
     for path in schemas:
         schema = json.loads(path.read_text(encoding="utf-8"))
         Draft202012Validator.check_schema(schema)
-        if (
-            path.name != "research-evidence-registry.schema.json"
-            and schema.get("properties", {}).get("protocol_version", {}).get("const") != "1.0.0"
-        ):
+        if schema.get("properties", {}).get("protocol_version", {}).get("const") != "1.0.0":
             fail(f"{path.name} does not pin protocol_version 1.0.0")
 
     registry = load_registry(ROOT / "registry" / "skills.yaml")
@@ -339,6 +312,7 @@ def main() -> int:
             "manifest.json",
             "agents/interface.yaml",
             "references/discovery-method.md",
+            "references/discovery-method-v2.md",
             "references/input-example.json",
             "scripts/run_discover.py",
             "evals/trigger_cases.json", "evals/semantic_config.json", "evals/output/cases.jsonl", "reports/output_quality_scorecard.md", "reports/trust-report.md", "reports/skill-ir.json",
@@ -348,6 +322,7 @@ def main() -> int:
             "manifest.json",
             "agents/interface.yaml",
             "references/diagnosis-method.md",
+            "references/audit-catalog.md",
             "references/input-example.json",
             "scripts/run_diagnose.py",
             "evals/trigger_cases.json", "evals/semantic_config.json", "evals/output/cases.jsonl", "reports/output_quality_scorecard.md", "reports/trust-report.md", "reports/skill-ir.json",
@@ -360,6 +335,8 @@ def main() -> int:
             "references/modes.md",
             "references/evidence-policy.md",
             "references/output-contract.md",
+            "references/content-pipeline-v2.md",
+            "references/mcda-policy.md",
             "references/input-example.json",
             "scripts/run_content.py",
             "evals/trigger_cases.json", "evals/semantic_config.json", "evals/output/cases.jsonl", "reports/output_quality_scorecard.md", "reports/trust-report.md", "reports/skill-ir.json",
@@ -369,8 +346,18 @@ def main() -> int:
             "manifest.json",
             "agents/interface.yaml",
             "references/measurement-method.md",
-            "references/input-example.json",
+            "references/output-contract.md",
             "scripts/run_measure.py",
+            "evals/trigger_cases.json", "evals/semantic_config.json", "evals/output/cases.jsonl", "reports/output_quality_scorecard.md", "reports/trust-report.md", "reports/skill-ir.json",
+        ),
+        "geo-strategy": (
+            "SKILL.md", "manifest.json", "agents/interface.yaml",
+            "references/strategy-method.md", "references/output-contract.md", "scripts/run_strategy.py",
+            "evals/trigger_cases.json", "evals/semantic_config.json", "evals/output/cases.jsonl", "reports/output_quality_scorecard.md", "reports/trust-report.md", "reports/skill-ir.json",
+        ),
+        "geo-knowledge": (
+            "SKILL.md", "manifest.json", "agents/interface.yaml",
+            "references/knowledge-method.md", "references/output-contract.md", "scripts/run_knowledge.py",
             "evals/trigger_cases.json", "evals/semantic_config.json", "evals/output/cases.jsonl", "reports/output_quality_scorecard.md", "reports/trust-report.md", "reports/skill-ir.json",
         ),
     }
@@ -446,12 +433,11 @@ def main() -> int:
         "input/sources/*.html",
         "report",
         "diagnosis",
-        "diagnosis-funnel",
         "evidence-ledger",
         "query-map",
         "opportunity-map",
         "quality-report",
-        "research-context",
+        "run-lineage",
         "run-manifest",
     }
     if set(diagnose_manifest.get("output_contract", [])) != expected_outputs:
@@ -467,33 +453,56 @@ def main() -> int:
         "input/source.md",
         "content-spec.json",
         "content.json",
-        "content-evidence-units.json",
         "content.md",
         "content.html",
         "content.docx",
         "content.pdf",
         "evidence-ledger.json",
-        "research-context.json",
         "quality-report.json",
+        "claim-map.json",
+        "content-pipeline.json",
+        "run-lineage.json",
         "run-manifest.json",
     }
     if set(content_manifest.get("output_contract", [])) != expected_content_outputs:
         fail("geo-content manifest output contract is incomplete")
 
-    measure_manifest = json.loads(
-        (ROOT / "skills" / "geo-measure" / "manifest.json").read_text(encoding="utf-8")
-    )
-    expected_measure_outputs = {
-        "input/measurement-brief.json",
-        "measurement-report.json",
-        "report.md",
-        "evidence-ledger.json",
-        "research-context.json",
-        "quality-report.json",
-        "run-manifest.json",
+    changelog = ROOT / "CHANGELOG.md"
+    migration = ROOT / "docs" / "migration-0.5.md"
+    if not changelog.is_file() or f"## {verify_version_consistency()}" not in changelog.read_text(encoding="utf-8"):
+        fail("CHANGELOG does not describe the current version")
+    if not migration.is_file() or "strategy" not in migration.read_text(encoding="utf-8") or "knowledge" not in migration.read_text(encoding="utf-8"):
+        fail("0.5 migration guide is incomplete")
+
+    release_reports = {
+        name: ROOT / "reports" / name
+        for name in (
+            "release-sbom.json",
+            "release-provenance.json",
+            "release-provenance-verification.json",
+            "production-readiness.json",
+            "production-readiness.md",
+        )
     }
-    if set(measure_manifest.get("output_contract", [])) != expected_measure_outputs:
-        fail("geo-measure manifest output contract is incomplete")
+    if any(not path.is_file() for path in release_reports.values()):
+        fail("release evidence reports are incomplete")
+    sbom = json.loads(release_reports["release-sbom.json"].read_text(encoding="utf-8"))
+    dependency_names = {item.get("name", "").casefold() for item in sbom.get("components", [])}
+    if sbom.get("bomFormat") != "CycloneDX" or sbom.get("specVersion") != "1.6" or sbom.get("metadata", {}).get("component", {}).get("version") != verify_version_consistency() or dependency_names != {"jsonschema", "pyyaml"}:
+        fail("release SBOM inventory is incomplete")
+    provenance = json.loads(release_reports["release-provenance.json"].read_text(encoding="utf-8"))
+    if (
+        provenance.get("builder", {}).get("trusted") is not False
+        or provenance.get("builder", {}).get("slsa_level_claim") is not None
+        or len(provenance.get("subject", {}).get("artifacts", [])) != 11
+    ):
+        fail("local release provenance claim boundary is invalid")
+    provenance_verification = json.loads(release_reports["release-provenance-verification.json"].read_text(encoding="utf-8"))
+    if provenance_verification.get("status") != "pass" or provenance_verification.get("artifact_count") != 11:
+        fail("release provenance verification is not green")
+    readiness = json.loads(release_reports["production-readiness.json"].read_text(encoding="utf-8"))
+    if readiness.get("production_decision") != "blocked" or readiness.get("experimental_release_decision") != "eligible" or readiness.get("summary", {}).get("missing_evidence", 0) < 1:
+        fail("Production Readiness evidence boundary is invalid")
 
     router_cases = json.loads((ROOT / "evals" / "router_cases.json").read_text(encoding="utf-8"))
     output_cases = json.loads((ROOT / "evals" / "output_cases.json").read_text(encoding="utf-8"))

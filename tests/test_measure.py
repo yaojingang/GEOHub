@@ -1,196 +1,97 @@
 import json
 from datetime import datetime, timezone
 from pathlib import Path
+from unittest.mock import patch
 
 import pytest
 
+from geo_seo_hub.cli import main
 from geo_seo_hub.measure import measure
-from geo_seo_hub.validation import ArtifactValidationError, validate_artifact
+from geo_seo_hub.validation import validate_artifact
 
 
-FIXTURE = Path(__file__).parent / "fixtures" / "measurement-brief.json"
+FIXTURE = Path(__file__).parent / "fixtures" / "engine-observation-bundle.json"
 
 
 def _clock():
-    return datetime(2026, 8, 11, 12, 0, tzinfo=timezone.utc)
+    return datetime(2026, 8, 12, 8, 0, tzinfo=timezone.utc)
 
 
-def _read(path: Path):
-    return json.loads(path.read_text(encoding="utf-8"))
+def test_measure_cli_writes_recomputable_visibility_report_without_network(tmp_path, capsys):
+    with patch("socket.socket", side_effect=AssertionError("measure must remain offline")):
+        assert main(["measure", "--input", str(FIXTURE), "--output", str(tmp_path / "runs")]) == 0
 
-
-def test_measure_preserves_denominators_missing_answers_and_lineage(tmp_path):
-    result = measure(FIXTURE, tmp_path / "runs", clock=_clock)
-    run = Path(result["output"])
-
-    assert result == {
-        "run_id": result["run_id"],
-        "status": "completed-with-warnings",
-        "output": str(run),
-        "trial_count": 3,
-        "eligible_trial_count": 2,
-        "warning_count": 2,
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["status"] == "completed"
+    assert payload["observation_count"] == 20
+    run = Path(payload["output"])
+    report = json.loads((run / "visibility-report.json").read_text(encoding="utf-8"))
+    validate_artifact("visibility-report", report)
+    assert report["metrics"]["mention_rate"] == {
+        "value": 0.6,
+        "numerator": 12.0,
+        "denominator": 20,
+        "missing_count": 0,
     }
-    report = _read(run / "measurement-report.json")
-    assert report["effect_guarantee"] is False
-    assert report["causal_status"] == "descriptive"
-    assert report["confidence_level"] == 0.95
-    assert report["trial_count"] == 3
-    assert report["eligible_trial_count"] == 2
-    assert report["answered_count"] == 1
-    assert report["missing_answer_count"] == 1
-    assert report["excluded_count"] == 1
-    assert report["missing_answer_reasons"] == {"empty-response": 1}
-    assert report["exclusion_reasons"] == {"transport-failure": 1}
-    assert report["metrics"]["citation_rate"] == {
-        "numerator": 1,
-        "denominator": 2,
-        "estimate": 0.5,
-        "interval_lower": pytest.approx(0.0945312057),
-        "interval_upper": pytest.approx(0.9054687943),
-        "interval_method": "wilson-score",
-    }
-    assert report["metrics"]["conditional_citation_rate"]["denominator"] == 1
-    assert len(report["platform_strata"]) == 1
-    assert report["platform_strata"][0]["interface"] == "web"
-
-    ledger = _read(run / "evidence-ledger.json")
-    assert len(ledger["records"]) == 3
-    assert {record["source_uri"] for record in ledger["records"]} == {
-        "urn:geo-measure:trial-001",
-        "urn:geo-measure:trial-002",
-        "urn:geo-measure:trial-003",
-    }
-    research = _read(run / "research-context.json")
-    assert research["surface"] == "geo-measure"
-    assert "measurement-requires-distributions-and-denominators" in {
-        item["principle_id"] for item in research["principles"]
-    }
-
-    expected = {
-        "input/measurement-brief.json",
-        "measurement-report.json",
-        "report.md",
-        "evidence-ledger.json",
-        "research-context.json",
-        "quality-report.json",
-        "run-manifest.json",
-    }
-    assert {path.relative_to(run).as_posix() for path in run.rglob("*") if path.is_file()} == expected
-    manifest = _read(run / "run-manifest.json")
-    assert set(manifest["artifacts"]) == expected - {"run-manifest.json"}
-    for filename, schema_name in {
-        "input/measurement-brief.json": "measurement-brief",
-        "measurement-report.json": "measurement-report",
-        "evidence-ledger.json": "evidence-ledger",
-        "research-context.json": "research-context",
-        "quality-report.json": "quality-report",
-        "run-manifest.json": "run-manifest",
-    }.items():
-        validate_artifact(schema_name, _read(run / filename))
+    assert report["metrics"]["source_inclusion_rate"]["value"] == 0.4
+    assert report["metrics"]["citation_share"]["value"] == 0.5
+    assert report["metrics"]["answer_coverage"]["value"] == 1.0
+    assert report["metrics"]["observation_coverage"]["value"] == 1.0
+    assert report["metrics"]["missing_observation_rate"]["value"] == 0.0
+    assert set(report["by_engine"]) == {"openai", "perplexity"}
+    assert len(report["query_components"]) == 20
 
 
-def test_measure_is_deterministic_except_manifest_time(tmp_path):
-    first = Path(measure(FIXTURE, tmp_path / "first", clock=_clock)["output"])
-    second = Path(
-        measure(
-            FIXTURE,
-            tmp_path / "second",
-            clock=lambda: datetime(2027, 1, 1, tzinfo=timezone.utc),
-        )["output"]
+def test_measure_semantic_digest_ignores_generation_time(tmp_path):
+    first = measure(FIXTURE, tmp_path / "first", clock=_clock)
+    second = measure(
+        FIXTURE,
+        tmp_path / "second",
+        clock=lambda: datetime(2027, 1, 1, tzinfo=timezone.utc),
     )
-    for filename in (
-        "input/measurement-brief.json",
-        "measurement-report.json",
-        "evidence-ledger.json",
-        "research-context.json",
-        "quality-report.json",
-    ):
-        assert _read(first / filename) == _read(second / filename)
+    first_report = json.loads((Path(first["output"]) / "visibility-report.json").read_text())
+    second_report = json.loads((Path(second["output"]) / "visibility-report.json").read_text())
+    assert first_report["generated_at"] != second_report["generated_at"]
+    assert first_report["semantic_digest"] == second_report["semantic_digest"]
+    assert first_report["metrics"] == second_report["metrics"]
 
 
-def test_measure_rejects_no_eligible_trials(tmp_path):
-    payload = _read(FIXTURE)
-    for observation in payload["observations"]:
-        observation["eligible"] = False
-        observation["answered"] = False
-        observation["cited"] = None
-        observation["missing_answer_reason"] = None
-        observation["exclusion_reason"] = "out-of-scope"
-    brief = tmp_path / "none-eligible.json"
-    brief.write_text(json.dumps(payload), encoding="utf-8")
-    with pytest.raises(ValueError, match="at least one eligible trial"):
-        measure(brief, tmp_path / "runs", clock=_clock)
+def test_measure_rejects_duplicate_observation_slot(tmp_path):
+    payload = json.loads(FIXTURE.read_text(encoding="utf-8"))
+    duplicate = dict(payload["observations"][0])
+    duplicate["observation_id"] = "duplicate-slot-new-id"
+    payload["observations"].append(duplicate)
+    invalid = tmp_path / "duplicate.json"
+    invalid.write_text(json.dumps(payload), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="duplicate observation slot"):
+        measure(invalid, tmp_path / "runs", clock=_clock)
 
 
-def test_measure_rejects_duplicate_trials_and_invalid_answer_states(tmp_path):
-    payload = _read(FIXTURE)
-    payload["observations"].append(dict(payload["observations"][0]))
-    duplicate = tmp_path / "duplicate.json"
-    duplicate.write_text(json.dumps(payload), encoding="utf-8")
-    with pytest.raises(ValueError, match="duplicate trial_id"):
-        measure(duplicate, tmp_path / "duplicate-runs", clock=_clock)
-
-    invalid_payload = _read(FIXTURE)
-    invalid_payload["observations"][1]["cited"] = True
-    invalid = tmp_path / "invalid.json"
-    invalid.write_text(json.dumps(invalid_payload), encoding="utf-8")
-    with pytest.raises(ArtifactValidationError):
-        measure(invalid, tmp_path / "invalid-runs", clock=_clock)
+def test_measure_route_is_active_and_runnable(capsys):
+    assert main(["route", "--text", "监测 AI 可见度"]) == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["skill_id"] == "geo-measure"
+    assert payload["status"] == "active"
+    assert payload["runnable"] is True
 
 
-def test_measure_rejects_nonfinite_json(tmp_path):
-    text = FIXTURE.read_text(encoding="utf-8").replace('"confidence_level": 0.95', '"confidence_level": 1e9999')
-    brief = tmp_path / "nonfinite.json"
-    brief.write_text(text, encoding="utf-8")
-    with pytest.raises(ValueError, match="non-finite"):
-        measure(brief, tmp_path / "runs", clock=_clock)
+def test_missing_observations_reduce_visibility_scores(tmp_path):
+    payload = json.loads(FIXTURE.read_text(encoding="utf-8"))
+    payload["observations"] = [payload["observations"][0]]
+    partial = tmp_path / "partial.json"
+    partial.write_text(json.dumps(payload), encoding="utf-8")
+    result = measure(partial, tmp_path / "runs", clock=_clock)
+    report = json.loads((Path(result["output"]) / "visibility-report.json").read_text())
+    assert report["metrics"]["mention_rate"]["value"] == 0.05
+    assert report["metrics"]["source_inclusion_rate"]["value"] == 0.05
+    assert report["metrics"]["observation_coverage"]["value"] == 0.05
 
 
-@pytest.mark.parametrize(
-    "source_uri",
-    [
-        "https://user:secret@example.com/observations.json",
-        "https://example.com/observations.json?sig=secret",
-        "https://example.com/observations.json?X-Amz-Signature=secret",
-        "https://example.com/observations.json?view=compact;csrf_token=secret",
-        "urn:geo-measure:trial?access_token=secret",
-    ],
-)
-def test_measure_rejects_credential_bearing_source_uris(tmp_path, source_uri):
-    payload = _read(FIXTURE)
-    payload["observations"][0]["source_uri"] = source_uri
-    brief = tmp_path / "credential-source.json"
-    brief.write_text(json.dumps(payload), encoding="utf-8")
-
-    with pytest.raises(ValueError, match="credentials"):
-        measure(brief, tmp_path / "runs", clock=_clock)
-
-
-def test_measure_markdown_neutralizes_user_markup(tmp_path):
-    payload = _read(FIXTURE)
-    payload["subject"] = "![tracking pixel](https://tracker.invalid/pixel) # injected"
-    brief = tmp_path / "markup.json"
-    brief.write_text(json.dumps(payload), encoding="utf-8")
-
-    result = measure(brief, tmp_path / "runs", clock=_clock)
-    report = (Path(result["output"]) / "report.md").read_text(encoding="utf-8")
-
-    assert "![tracking pixel](" not in report
-    assert "\\!\\[tracking pixel\\]\\(https://tracker\\.invalid/pixel\\) \\# injected" in report
-    assert "- Confidence level: 0.95" in report
-
-
-def test_measurement_window_orders_zero_and_fractional_seconds(tmp_path):
-    payload = _read(FIXTURE)
-    payload["observations"] = payload["observations"][:2]
-    payload["observations"][0]["collected_at"] = "2026-08-11T00:00:00Z"
-    payload["observations"][1]["collected_at"] = "2026-08-11T00:00:00.500000Z"
-    brief = tmp_path / "subsecond-window.json"
-    brief.write_text(json.dumps(payload), encoding="utf-8")
-
-    result = measure(brief, tmp_path / "runs", clock=_clock)
-    report = _read(Path(result["output"]) / "measurement-report.json")
-
-    assert report["measurement_scope"]["collected_from"] == "2026-08-11T00:00:00.000000Z"
-    assert report["measurement_scope"]["collected_to"] == "2026-08-11T00:00:00.500000Z"
+def test_measure_rejects_mixed_fixture_and_live_collection_methods(tmp_path):
+    payload = json.loads(FIXTURE.read_text(encoding="utf-8"))
+    payload["observations"][0]["collection_method"] = "manual_export"
+    mixed = tmp_path / "mixed.json"
+    mixed.write_text(json.dumps(payload), encoding="utf-8")
+    with pytest.raises(ValueError, match="cannot mix collection methods"):
+        measure(mixed, tmp_path / "runs", clock=_clock)

@@ -14,7 +14,7 @@ import yaml
 from jsonschema import Draft202012Validator, FormatChecker
 
 ROOT = Path(__file__).resolve().parents[1]
-SKILLS = ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure", "seo")
+SKILLS = ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure", "geo-strategy", "geo-knowledge")
 REPORT_SCHEMA_VERSION = "2.0.0"
 WAIVER_PATH = ROOT / "reports" / "review-waivers.json"
 WAIVER_SCHEMA_PATH = ROOT / "reports" / "review-waivers.schema.json"
@@ -122,21 +122,36 @@ def operation_report_semantics(report: dict, operation: str) -> bool:
         )
     if operation == "skill-atlas":
         catalog = report.get("catalog", {})
-        catalog_skills = catalog.get("skills") if isinstance(catalog, dict) else None
+        skills = catalog.get("skills", []) if isinstance(catalog, dict) else []
         return (
             bool(report.get("workspace_root"))
             and bool(catalog)
-            and isinstance(catalog_skills, list)
-            and bool(catalog_skills)
+            and isinstance(skills, list)
             and positive_count(summary.get("skill_count"))
-            and summary["skill_count"] == len(catalog_skills)
+            and summary["skill_count"] == len(skills)
             and bool(report.get("artifacts"))
         )
     return False
 
 
 def portable_text(value: str, meta_root: Path) -> str:
-    replacements = ((str(ROOT.resolve()) + "/", ""), (str(meta_root.resolve()) + "/", "<yao-meta-root>/"), (str(Path(sys.executable).resolve()), "python3"))
+    schema_root = (
+        (meta_root / "skill-ir").resolve().parent
+        if (meta_root / "skill-ir").exists()
+        else meta_root.resolve()
+    )
+    linked_roots = tuple(
+        (str(child.resolve()) + "/", f"<yao-meta-root>/{child.name}/")
+        for child in (meta_root.iterdir() if meta_root.is_dir() else ())
+        if child.is_symlink()
+    )
+    replacements = (
+        (str(ROOT.resolve()) + "/", ""),
+        (str(schema_root) + "/", "<yao-meta-root>/"),
+        *linked_roots,
+        (str(meta_root.resolve()) + "/", "<yao-meta-root>/"),
+        (str(Path(sys.executable).resolve()), "python3"),
+    )
     for source, replacement in replacements:
         value = value.replace(source, replacement)
     return value
@@ -242,6 +257,18 @@ def source_digest_paths() -> list[Path]:
         "scripts/run_evals.py",
         "scripts/verify_repository.py",
         "scripts/verify_all.py",
+        "scripts/generate_sbom.py",
+        "scripts/generate_provenance.py",
+        "scripts/verify_provenance.py",
+        "scripts/render_production_readiness.py",
+        ".github/workflows/release.yml",
+        "CHANGELOG.md",
+        "docs/migration-0.5.md",
+        "docs/decisions/0001-four-plane-modularization.md",
+        "docs/decisions/0002-artifact-protocol-compatibility.md",
+        "docs/decisions/0003-evaluation-and-measurement.md",
+        "docs/decisions/0004-provider-privacy-boundary.md",
+        "docs/decisions/0005-production-promotion.md",
         "reports/review-waivers.json",
         "reports/review-waivers.schema.json",
         "reports/yao-meta-gates.schema.json",

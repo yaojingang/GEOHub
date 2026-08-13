@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yao.example/geo/schemas/knowledge-query-result.schema.json",
+  "title": "Knowledge Query Result",
+  "type": "object",
+  "required": ["protocol_version", "mode", "query", "gaps"],
+  "properties": {"protocol_version": {"const": "1.0.0"}, "mode": {"enum": ["local", "global"]}, "query": {"type": "string", "pattern": "\\S"}, "entities": {"type": "array", "items": {"type": "object"}}, "relations": {"type": "array", "items": {"type": "object"}}, "source_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "\\S"}}, "communities": {"type": "array", "items": {"type": "object"}}, "coverage": {"type": "object"}, "conflicts": {"type": "array", "items": {"type": "object"}}, "gaps": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "\\S"}}},
+  "allOf": [{"if": {"properties": {"mode": {"const": "local"}}}, "then": {"required": ["entities", "relations", "source_ids"], "not": {"anyOf": [{"required": ["communities"]}, {"required": ["coverage"]}, {"required": ["conflicts"]}]}}}, {"if": {"properties": {"mode": {"const": "global"}}}, "then": {"required": ["communities", "coverage", "conflicts"], "not": {"anyOf": [{"required": ["entities"]}, {"required": ["relations"]}, {"required": ["source_ids"]}]}}}],
+  "additionalProperties": false
+}

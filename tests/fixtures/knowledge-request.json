@@ -1,0 +1,36 @@
+{
+  "protocol_version": "1.0.0",
+  "subject": "Acme GEO platform",
+  "query": {"mode": "local", "value": "Acme GEO"},
+  "sources": [
+    {
+      "source_id": "product-page",
+      "source_uri": "https://example.invalid/product",
+      "source_hash": "f15e28d4f489337764e22c7978ca1b09f62cbd9a81b007de96b1728fb7074752",
+      "reviewed_at": "2026-08-12T00:00:00Z",
+      "entities": [
+        {"entity_id": "acme", "type": "product", "canonical_name": "Acme GEO", "aliases": ["Acme"], "valid_from": "2026-01-01"},
+        {"entity_id": "enterprise", "type": "audience", "canonical_name": "Enterprise teams", "aliases": [], "valid_from": "2026-01-01"}
+      ],
+      "facts": [
+        {"entity_id": "acme", "attribute": "deployment", "value": "managed", "valid_from": "2026-01-01"}
+      ],
+      "relations": [
+        {"subject": "acme", "predicate": "serves", "object": "enterprise", "confidence": 0.9, "valid_from": "2026-01-01"}
+      ]
+    },
+    {
+      "source_id": "architecture-page",
+      "source_uri": "https://example.invalid/architecture",
+      "source_hash": "cb5baa09af6b3e2f7c25f63b699e39de35a46ebf29f0da74170758de5c261f30",
+      "reviewed_at": "2026-08-12T01:00:00Z",
+      "entities": [
+        {"entity_id": "platform", "type": "product", "canonical_name": "Acme GEO", "aliases": ["Acme GEO platform"], "valid_from": "2026-02-01"}
+      ],
+      "facts": [
+        {"entity_id": "platform", "attribute": "deployment", "value": "hybrid", "valid_from": "2026-02-01"}
+      ],
+      "relations": []
+    }
+  ]
+}

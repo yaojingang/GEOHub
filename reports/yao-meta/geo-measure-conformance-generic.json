@@ -30,8 +30,8 @@
         "Skill IR schema_version is 2.0.0",
         "Skill IR name matches frontmatter",
         "Skill IR description matches frontmatter",
-        "references resource resolves: references/input-example.json",
         "references resource resolves: references/measurement-method.md",
+        "references resource resolves: references/output-contract.md",
         "scripts resource resolves: scripts/run_measure.py",
         "reports resource resolves: reports/output_quality_scorecard.md"
       ],

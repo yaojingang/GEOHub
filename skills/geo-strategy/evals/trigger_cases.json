@@ -1,0 +1,16 @@
+{
+  "should_trigger": [
+    {"text": "Build a GEO strategy from this baseline", "family": "strategy"},
+    {"text": "制定 GEO 优化路线图", "family": "strategy"},
+    {"text": "Plan intervention experiments with early stopping", "family": "strategy"}
+  ],
+  "should_not_trigger": [
+    {"text": "Publish this article", "family": "planned"},
+    {"text": "Measure an observation bundle", "family": "measure"}
+  ],
+  "near_neighbor": [
+    {"text": "Discover AI search questions", "expected": "geo-discover"},
+    {"text": "Build a knowledge graph", "expected": "geo-knowledge"},
+    {"text": "Diagnose a site", "expected": "geo-diagnose"}
+  ]
+}

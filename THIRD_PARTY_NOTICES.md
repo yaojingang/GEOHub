@@ -13,6 +13,15 @@ Optional local rendering dependencies are declared under the `render` extra:
 
 Development and packaging tools may add their own transitive dependencies. Their copyright notices and license terms remain with their respective distributions. This file should be reviewed before each public release and updated when dependencies or bundled assets change.
 
+GitHub Actions workflows reference the following GitHub-maintained MIT-licensed actions without bundling their source into release archives:
+
+- `actions/checkout`
+- `actions/setup-python`
+- `actions/upload-artifact`
+- `actions/attest`
+
+`actions/attest` uses GitHub OIDC and Sigstore-backed artifact attestations when the release workflow runs. Local builds do not receive this attestation.
+
 The repository currently contains no copied customer data, platform responses, or third-party content corpus.
 
 The active `seo` provider takes structural inspiration from the MIT-licensed `joeseesun/qiaomu-seo` repository at commit `b892b70639ac2839e7fa61302ff54a60a6cc9b74`. GEOHub independently implements its Registry entry, schemas, deterministic runtime, Artifact Bus contract, tests, and documentation. Qiaomu SEO copyright remains with 向阳乔木 / Qiaomu; its MIT license remains available at `https://github.com/joeseesun/qiaomu-seo/blob/main/LICENSE`.

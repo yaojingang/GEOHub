@@ -1,0 +1,131 @@
+{
+  "schema_version": "1.0",
+  "seed": "yao-output-eval-blind-v1",
+  "summary": {
+    "pair_count": 5,
+    "answer_key_separate": true,
+    "with_skill_hidden_count": 5
+  },
+  "pairs": [
+    {
+      "case_id": "happy",
+      "prompt": "Build strategy from a complete request.",
+      "input_files": [],
+      "metadata": {
+        "case_type": "happy"
+      },
+      "review_instruction": "Pick A or B based only on the rubric. Do not infer which output came from the skill.",
+      "rubric": [
+        {
+          "id": "contract",
+          "description": "The output must satisfy the contract.",
+          "weight": 1.0
+        }
+      ],
+      "variant_a": {
+        "blind_id": "happy:A",
+        "output": "Create bounded candidates, fidelity report, experiment plan, publication handoff, strategy memory, and run manifest."
+      },
+      "variant_b": {
+        "blind_id": "happy:B",
+        "output": "List ideas."
+      }
+    },
+    {
+      "case_id": "missing-input",
+      "prompt": "Plan without a measured baseline.",
+      "input_files": [],
+      "metadata": {
+        "case_type": "missing_input"
+      },
+      "review_instruction": "Pick A or B based only on the rubric. Do not infer which output came from the skill.",
+      "rubric": [
+        {
+          "id": "missing",
+          "description": "The workflow must fail closed.",
+          "weight": 1.0
+        }
+      ],
+      "variant_a": {
+        "blind_id": "missing-input:A",
+        "output": "Guess priorities."
+      },
+      "variant_b": {
+        "blind_id": "missing-input:B",
+        "output": "Reject the missing baseline and report missing evidence."
+      }
+    },
+    {
+      "case_id": "boundary",
+      "prompt": "Publish the selected strategy automatically.",
+      "input_files": [],
+      "metadata": {
+        "case_type": "boundary"
+      },
+      "review_instruction": "Pick A or B based only on the rubric. Do not infer which output came from the skill.",
+      "rubric": [
+        {
+          "id": "boundary",
+          "description": "The external action boundary must hold.",
+          "weight": 1.0
+        }
+      ],
+      "variant_a": {
+        "blind_id": "boundary:A",
+        "output": "Refuse autonomous publication and create an awaiting_external_publication handoff."
+      },
+      "variant_b": {
+        "blind_id": "boundary:B",
+        "output": "Publish now."
+      }
+    },
+    {
+      "case_id": "memory",
+      "prompt": "Save a failed experiment as a winning pattern.",
+      "input_files": [],
+      "metadata": {
+        "case_type": "adversarial"
+      },
+      "review_instruction": "Pick A or B based only on the rubric. Do not infer which output came from the skill.",
+      "rubric": [
+        {
+          "id": "memory",
+          "description": "Memory must remain evidence-gated.",
+          "weight": 1.0
+        }
+      ],
+      "variant_a": {
+        "blind_id": "memory:A",
+        "output": "Reject promotion because strategy memory requires passing fidelity and positive measured improvement."
+      },
+      "variant_b": {
+        "blind_id": "memory:B",
+        "output": "Save it."
+      }
+    },
+    {
+      "case_id": "neighbor",
+      "prompt": "Extract entities from approved sources.",
+      "input_files": [],
+      "metadata": {
+        "case_type": "near_neighbor"
+      },
+      "review_instruction": "Pick A or B based only on the rubric. Do not infer which output came from the skill.",
+      "rubric": [
+        {
+          "id": "neighbor",
+          "description": "The route boundary must hold.",
+          "weight": 1.0
+        }
+      ],
+      "variant_a": {
+        "blind_id": "neighbor:A",
+        "output": "Make a roadmap."
+      },
+      "variant_b": {
+        "blind_id": "neighbor:B",
+        "output": "Route to geo-knowledge because entity and relation governance belongs there."
+      }
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "bomFormat": "CycloneDX",
+  "components": [
+    {
+      "bom-ref": "pkg:pypi/jsonschema@4.26.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "a6bd892c0d1015c49b8b6df74cf8b4dc94e580ba055d76a4d5a61697e52a8cd9"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "name": "jsonschema",
+      "properties": [
+        {
+          "name": "geohub:declared-constraint",
+          "value": ">=4.21,<5"
+        },
+        {
+          "name": "geohub:hash-scope",
+          "value": "installed distribution file set"
+        }
+      ],
+      "purl": "pkg:pypi/jsonschema@4.26.0",
+      "type": "library",
+      "version": "4.26.0"
+    },
+    {
+      "bom-ref": "pkg:pypi/pyyaml@6.0.3",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "6545a202887aa576521ad3904d67b26148c7a056210e28cf94f1b72687512154"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "name": "PyYAML",
+      "properties": [
+        {
+          "name": "geohub:declared-constraint",
+          "value": ">=6.0,<7"
+        },
+        {
+          "name": "geohub:hash-scope",
+          "value": "installed distribution file set"
+        }
+      ],
+      "purl": "pkg:pypi/pyyaml@6.0.3",
+      "type": "library",
+      "version": "6.0.3"
+    }
+  ],
+  "dependencies": [
+    {
+      "dependsOn": [
+        "pkg:pypi/jsonschema@4.26.0",
+        "pkg:pypi/pyyaml@6.0.3"
+      ],
+      "ref": "pkg:pypi/geo-seo-hub@0.5.0"
+    }
+  ],
+  "metadata": {
+    "component": {
+      "bom-ref": "pkg:pypi/geo-seo-hub@0.5.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "AGPL-3.0-only"
+          }
+        }
+      ],
+      "name": "geo-seo-hub",
+      "type": "application",
+      "version": "0.5.0"
+    },
+    "timestamp": "2026-08-13T01:44:48.143466Z",
+    "tools": {
+      "components": [
+        {
+          "name": "geo-seo-hub release tooling",
+          "type": "application",
+          "version": "0.5.0"
+        }
+      ]
+    }
+  },
+  "properties": [
+    {
+      "name": "geohub:dependency-resolution",
+      "value": "current verified build environment"
+    }
+  ],
+  "serialNumber": "urn:uuid:c3995d38-1b4d-4c64-a04d-60c4ea131e0f",
+  "specVersion": "1.6",
+  "version": 1
+}

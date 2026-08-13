@@ -11,12 +11,12 @@
 - File-write scripts: `0`
 - Permission approvals: `0 / 0`
 - Permission approval gaps: `0`
-- CLI help smoke checked: `0`
+- CLI help smoke checked: `1`
 - CLI help smoke failures: `0`
 - Interactive scripts: `0`
 - Package hash scope: `source-contract-without-generated-reports`
 - Package hash files: `9`
-- Package SHA256: `bfc174d2dbde4d932359d3ea6e019f194db30fc463b18da463d2c8b61aac7bb2`
+- Package SHA256: `3d95069463b6567034004ca4841a64b60562f47266ec2dcb1d84f1809d05355e`
 
 ## Failures
 
@@ -25,7 +25,6 @@
 ## Warnings
 
 - No dependency or lock file detected
-- CLI scripts without argparse/help surface: scripts/run_measure.py
 
 ## Dependency Evidence
 
@@ -55,12 +54,12 @@
 
 - Enabled: `True`
 - Timeout seconds: `5.0`
-- Checked scripts: `0`
-- Passed scripts: `0`
+- Checked scripts: `1`
+- Passed scripts: `1`
 - Failed scripts: `none`
 
 ## Script Surface
 
 | Script | Interface | Declared | Argparse | Main Guard | Input | Network | File Write | Subprocess | Reason |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| scripts/run_measure.py | cli | False | False | True | False | False | False | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
+| scripts/run_measure.py | cli | False | True | True | False | False | False | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |

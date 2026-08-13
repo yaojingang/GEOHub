@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yao.example/geo/schemas/knowledge-graph.schema.json",
+  "title": "Knowledge Graph",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "subject", "source_index", "entities", "relations", "communities", "conflicts", "coverage", "gaps", "semantic_digest"],
+  "properties": {
+    "protocol_version": {"const": "1.0.0"},
+    "subject": {"type": "string", "pattern": "\\S"},
+    "source_index": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source_id", "source_uri", "source_hash", "payload_digest", "reviewed_at"],
+        "properties": {
+          "source_id": {"type": "string", "pattern": "\\S"},
+          "source_uri": {"type": "string", "format": "uri"},
+          "source_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "payload_digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "reviewed_at": {"type": "string", "format": "date-time"}
+        }
+      }
+    },
+    "entities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["entity_id", "type", "canonical_name", "aliases", "source_ids", "valid_from", "reviewed_at", "facts"],
+        "properties": {
+          "entity_id": {"type": "string", "pattern": "^entity-[0-9a-f]{16}$"},
+          "type": {"type": "string", "pattern": "\\S"},
+          "canonical_name": {"type": "string", "pattern": "\\S"},
+          "aliases": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "\\S"}},
+          "source_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "\\S"}},
+          "valid_from": {"type": "string", "format": "date"},
+          "reviewed_at": {"type": "string", "format": "date-time"},
+          "facts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["attribute", "value", "source_ids", "valid_from"],
+              "properties": {
+                "attribute": {"type": "string", "pattern": "\\S"},
+                "value": {"type": "string", "pattern": "\\S"},
+                "source_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "\\S"}},
+                "valid_from": {"type": "string", "format": "date"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "relations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["relation_id", "subject", "predicate", "object", "source_ids", "confidence", "valid_from"],
+        "properties": {
+          "relation_id": {"type": "string", "pattern": "^relation-[0-9a-f]{16}$"},
+          "subject": {"type": "string", "pattern": "^entity-[0-9a-f]{16}$"},
+          "predicate": {"type": "string", "pattern": "\\S"},
+          "object": {"type": "string", "pattern": "^entity-[0-9a-f]{16}$"},
+          "source_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "\\S"}},
+          "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+          "valid_from": {"type": "string", "format": "date"}
+        }
+      }
+    },
+    "communities": {"type": "array", "items": {"type": "object"}},
+    "conflicts": {"type": "array", "items": {"type": "object"}},
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_coverage", "sources_indexed", "sources_requested", "entities", "relations"],
+      "properties": {
+        "source_coverage": {"type": "number", "minimum": 0, "maximum": 1},
+        "sources_indexed": {"type": "integer", "minimum": 0},
+        "sources_requested": {"type": "integer", "minimum": 0},
+        "entities": {"type": "integer", "minimum": 0},
+        "relations": {"type": "integer", "minimum": 0}
+      }
+    },
+    "gaps": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "\\S"}},
+    "semantic_digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

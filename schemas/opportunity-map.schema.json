@@ -8,6 +8,7 @@
   "properties": {
     "protocol_version": {"const": "1.0.0"},
     "run_id": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "semantic_digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "opportunities": {
       "type": "array",
       "items": {
@@ -20,7 +21,19 @@
           "asset_type": {"enum": ["article", "faq", "comparison", "landing-page", "knowledge-entry"]},
           "priority": {"type": "integer", "minimum": 1, "maximum": 100},
           "rationale": {"type": "string", "minLength": 1, "pattern": "\\S"},
-          "evidence_status": {"enum": ["provided", "missing"]}
+          "evidence_status": {"enum": ["provided", "missing"]},
+          "score_components": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["coverage", "relevance", "novelty", "evidence", "business_fit"],
+            "properties": {
+              "coverage": {"type": "number", "minimum": 0, "maximum": 1},
+              "relevance": {"type": "number", "minimum": 0, "maximum": 1},
+              "novelty": {"type": "number", "minimum": 0, "maximum": 1},
+              "evidence": {"type": "number", "minimum": 0, "maximum": 1},
+              "business_fit": {"type": "number", "minimum": 0, "maximum": 1}
+            }
+          }
         }
       }
     }

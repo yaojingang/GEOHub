@@ -6,8 +6,8 @@ Status: **pass**
 
 
 
-Fresh source install and CLI smokes: version, route, discover, diagnose, content, measure, seo.
+Fresh source install and CLI smokes: version, route, discover, diagnose, content, measure, strategy, knowledge.
 
-Fresh per-ZIP `pip install .`, route-entry resolution, and provider executions: 9.
+Fresh per-ZIP `pip install .`, route-entry resolution, and provider executions: 10.
 
 Temporary install roots were removed.

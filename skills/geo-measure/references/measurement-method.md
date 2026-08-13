@@ -1,19 +1,9 @@
-# Measurement method
+# GEO Measurement Method
 
-## Required observation unit
+Use one versioned query panel across comparable observations. Record engine, visible model or `unknown`, locale, session policy, collection method, timepoint, repetition, timestamp, answer, and citations for every slot.
 
-Each trial records a query ID, engine, interface, language, geography, collection time, model version, sample unit, eligibility, answer state, citation state, missing-answer or exclusion reason, and source URI. The normalized brief is the replay boundary.
+Accepted collection methods are `manual_export`, `approved_api`, and `recorded_fixture`. Confirm account authority and service terms before accepting real observations. Reject any material that required bypassing login, CAPTCHA, anti-automation, or regional controls.
 
-## Denominators
+The five core intents are brand, category, compare, evaluate, and act. A public outcome study uses at least 30 queries, three repetitions per engine, the same locale and session policy, and a 24-hour comparison window. A five-query fixture proves parsing and metric reconstruction only.
 
-- `answer_rate = answered eligible trials / eligible trials`
-- `citation_rate = cited eligible trials / eligible trials`
-- `conditional_citation_rate = cited eligible trials / answered eligible trials`
-
-Eligible unanswered trials remain in the first two denominators. Excluded trials remain visible in total counts and exclusion reasons. Every computable proportion uses a Wilson score interval at the declared confidence level. A zero answered denominator produces `not-computable` for the conditional citation rate.
-
-## Scope and interpretation
-
-Platform strata use engine, interface, language, geography, model version, and sample unit. Collection bounds come from normalized timestamps. The current runtime reports descriptive measurements only. A randomized or quasi-experimental label preserves the requested design metadata and does not unlock a causal estimate.
-
-Read `research-context.json` for source IDs, platform scope, proxy variables, controls, and limitations. Software tests validate the aggregation contract; they do not establish live-platform effectiveness.
+Report each engine separately. Keep numerator, denominator, missing count, and query-level component for every aggregate. Missing observations never improve a score.

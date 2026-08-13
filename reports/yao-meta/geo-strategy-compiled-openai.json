@@ -1,0 +1,456 @@
+{
+  "schema_version": "1.0",
+  "ok": true,
+  "generated_at": "2026-08-13",
+  "skill_dir": "skills/geo-strategy",
+  "summary": {
+    "target_count": 1,
+    "pass_count": 1,
+    "warn_count": 0,
+    "block_count": 0,
+    "failure_count": 0,
+    "warning_count": 0
+  },
+  "targets": [
+    {
+      "schema_version": "1.0",
+      "target": "openai",
+      "status": "pass",
+      "compiler": {
+        "name": "yao-skill-ir-compiler",
+        "schema_version": "1.0",
+        "source": "skill-ir",
+        "ir_source": "reports/skill-ir.json",
+        "ir_schema_version": "2.0.0"
+      },
+      "source": {
+        "skill_dir": "skills/geo-strategy",
+        "canonical_metadata": "agents/interface.yaml",
+        "declared_targets": [
+          "openai",
+          "claude",
+          "generic"
+        ]
+      },
+      "compiled_contract": {
+        "name": "geo-strategy",
+        "title": "GEO SEO Hub Strategy",
+        "version": "0.5.0",
+        "description": "Build an offline GEO optimization plan from explicit goals, diagnosis actions, approved evidence IDs, and a measured baseline. Use for GEO strategy, roadmap, experiment planning, intervention candidates, 策略, 路线图, and 优化实验. Exclude autonomous publication, fabricated outcome evidence, and memory promotion without positive external measurement.",
+        "job_to_be_done": "Build an offline GEO optimization plan from explicit goals, diagnosis actions, approved evidence IDs, and a measured baseline. Use for GEO strategy, roadmap, experiment planning, intervention candidates, 策略, 路线图, and 优化实验. Exclude autonomous publication, fabricated outcome evidence, and memory promotion without positive external measurement.",
+        "trigger": {
+          "description": "Build an offline GEO optimization plan from explicit goals, diagnosis actions, approved evidence IDs, and a measured baseline. Use for GEO strategy, roadmap, experiment planning, intervention candidates, 策略, 路线图, and 优化实验. Exclude autonomous publication, fabricated outcome evidence, and memory promotion without positive external measurement.",
+          "should_trigger": [
+            "Build a GEO strategy from this baseline",
+            "制定 GEO 优化路线图",
+            "Plan intervention experiments with early stopping"
+          ],
+          "should_not_trigger": [
+            "Publish this article",
+            "Measure an observation bundle"
+          ],
+          "edge_cases": [
+            "Discover AI search questions",
+            "Build a knowledge graph",
+            "Diagnose a site"
+          ]
+        },
+        "workflow": {
+          "steps": [
+            "Read `references/strategy-method.md` and prepare the complete file-backed request.",
+            "Run `python3 scripts/run_strategy.py --input <request.json> --output <runs-root>`.",
+            "Review all candidates and the fidelity report; choose an offline-approved candidate.",
+            "Hand `publication-handoff.json` to an authorized publisher and wait for a verified publication receipt.",
+            "Measure the unchanged query panel after the declared window. Promote memory only when fidelity passed and the weighted metric delta is positive."
+          ],
+          "decision_points": [],
+          "failure_modes": []
+        },
+        "resources": {
+          "references": [
+            "references/output-contract.md",
+            "references/strategy-method.md"
+          ],
+          "scripts": [
+            "scripts/run_strategy.py"
+          ],
+          "assets": [],
+          "reports": [
+            "reports/output_quality_scorecard.md"
+          ],
+          "counts": {
+            "references": 2,
+            "scripts": 1,
+            "assets": 0,
+            "reports": 1
+          }
+        },
+        "eval_plan": {
+          "trigger": [
+            "evals/output/cases.jsonl",
+            "evals/semantic_config.json",
+            "evals/trigger_cases.json"
+          ],
+          "output": [
+            "evals/output/cases.jsonl"
+          ],
+          "adversarial": [],
+          "baseline": "without_skill",
+          "counts": {
+            "trigger": 3,
+            "output": 1,
+            "adversarial": 0,
+            "baseline": 1
+          }
+        },
+        "risk": {
+          "output_risk": "low",
+          "execution_risk": "medium",
+          "trust_boundary": "team"
+        },
+        "governance": {
+          "owner": "姚金刚 / Yao",
+          "maturity": "library",
+          "review_cadence": "per-release",
+          "review_due": ""
+        },
+        "runtime": {
+          "activation": {
+            "mode": "auto",
+            "paths": []
+          },
+          "execution": {
+            "context": "inline",
+            "shell": "bash"
+          },
+          "trust": {
+            "source_tier": "local",
+            "remote_inline_execution": "forbid",
+            "remote_metadata_policy": "allow-metadata-only"
+          },
+          "adapter_targets": [
+            "openai",
+            "claude",
+            "generic"
+          ],
+          "canonical_format": "agent-skills"
+        },
+        "permissions": {
+          "schema_version": "1.0",
+          "source": "missing-security-trust-report",
+          "source_available": false,
+          "declared_capabilities": [],
+          "review_required": false,
+          "capabilities": {
+            "network": {
+              "required": false,
+              "script_count": 0,
+              "scripts": [],
+              "review_reason": ""
+            },
+            "file_write": {
+              "required": false,
+              "script_count": 0,
+              "scripts": [],
+              "review_reason": ""
+            },
+            "subprocess": {
+              "required": false,
+              "script_count": 0,
+              "scripts": [],
+              "review_reason": ""
+            },
+            "interactive": {
+              "required": false,
+              "script_count": 0,
+              "scripts": [],
+              "review_reason": ""
+            }
+          },
+          "network_policy": {
+            "source": "security/network_policy.json",
+            "covered_scripts": [],
+            "missing_scripts": [],
+            "mismatches": []
+          },
+          "help_smoke": {
+            "enabled": false,
+            "checked_count": 0,
+            "failed_count": 0,
+            "failed_scripts": []
+          },
+          "trust_summary": {
+            "secret_findings": 0,
+            "network_script_count": 0,
+            "file_write_script_count": 0,
+            "subprocess_script_count": 0,
+            "interactive_script_count": 0,
+            "help_smoke_failed_count": 0
+          }
+        },
+        "source_files_count": 3,
+        "target": "openai",
+        "target_permission_contract": {
+          "schema_version": "1.0",
+          "target": "openai",
+          "permission_model": "metadata-only",
+          "native_enforcement": false,
+          "representation": "targets/openai/agents/openai.yaml::compatibility.permission_contract plus adapter.json",
+          "review_required": false,
+          "declared_capabilities": [],
+          "capability_counts": {
+            "network": 0,
+            "file_write": 0,
+            "subprocess": 0,
+            "interactive": 0
+          },
+          "evidence": "missing-security-trust-report",
+          "operator_note": "OpenAI target carries permission metadata for reviewer visibility; host enforcement remains outside the package."
+        },
+        "target_native_contract": {
+          "schema_version": "1.0",
+          "target": "openai",
+          "native_surface": "OpenAI-style interface metadata plus neutral Agent Skills source",
+          "activation": {
+            "policy": "Use frontmatter description for catalog routing and targets/openai/agents/openai.yaml for display name, default prompt, and compatibility metadata.",
+            "trigger_description": "Build an offline GEO optimization plan from explicit goals, diagnosis actions, approved evidence IDs, and a measured baseline. Use for GEO strategy, roadmap, experiment planning, intervention candidates, 策略, 路线图, and 优化实验. Exclude autonomous publication, fabricated outcome evidence, and memory promotion without positive external measurement.",
+            "manual_activation_supported": true,
+            "automatic_activation_note": "Depends on the target client route/catalog implementation."
+          },
+          "resources": {
+            "strategy": "Ship the neutral source tree and expose OpenAI-facing interface metadata as a generated companion file.",
+            "counts": {
+              "references": 2,
+              "scripts": 1,
+              "assets": 0,
+              "reports": 1
+            },
+            "generated_files": [
+              "targets/openai/adapter.json",
+              "targets/openai/agents/openai.yaml"
+            ]
+          },
+          "scripts": {
+            "strategy": "Keep scripts as local package resources; expose help-smoke and permission metadata for reviewer approval before execution.",
+            "script_count": 1,
+            "help_smoke_failed_count": 0
+          },
+          "permissions": {
+            "enforcement": "metadata-only",
+            "native_enforcement": false,
+            "declared_capabilities": [],
+            "review_required": false
+          },
+          "review": {
+            "artifacts": [
+              "targets/openai/agents/openai.yaml",
+              "targets/openai/adapter.json",
+              "reports/review-studio.html"
+            ],
+            "fallback_behavior": "If OpenAI-native metadata is ignored, the package remains readable as neutral Agent Skills source.",
+            "unsupported_native_features": [
+              "client-native permission prompts",
+              "provider-executed scripts",
+              "client-native script permission prompts are represented as permission contract metadata"
+            ]
+          },
+          "install_scope": "plugin or skill package consumer"
+        },
+        "degradation_strategy": "metadata-adapter",
+        "target_runtime": {
+          "adapter_mode": "metadata-adapter",
+          "generated_files": [
+            "targets/openai/adapter.json",
+            "targets/openai/agents/openai.yaml"
+          ],
+          "metadata_mapping": {
+            "display_name": "targets/openai/agents/openai.yaml::interface.display_name",
+            "default_prompt": "targets/openai/agents/openai.yaml::interface.default_prompt",
+            "activation": "targets/openai/agents/openai.yaml::compatibility.activation_mode",
+            "execution": "targets/openai/agents/openai.yaml::compatibility.execution_context",
+            "trust": "targets/openai/agents/openai.yaml::compatibility.trust_level",
+            "permissions": "targets/openai/agents/openai.yaml::compatibility.permission_contract",
+            "degradation": "targets/openai/agents/openai.yaml::compatibility.degradation_strategy"
+          },
+          "preserved_semantics": [
+            "trigger",
+            "workflow-counts",
+            "resources",
+            "eval-plan",
+            "risk",
+            "governance",
+            "runtime",
+            "trust",
+            "permissions"
+          ],
+          "native_surface": "OpenAI-style interface metadata plus neutral Agent Skills source"
+        }
+      },
+      "permission_contract": {
+        "schema_version": "1.0",
+        "source": "missing-security-trust-report",
+        "source_available": false,
+        "declared_capabilities": [],
+        "review_required": false,
+        "capabilities": {
+          "network": {
+            "required": false,
+            "script_count": 0,
+            "scripts": [],
+            "review_reason": ""
+          },
+          "file_write": {
+            "required": false,
+            "script_count": 0,
+            "scripts": [],
+            "review_reason": ""
+          },
+          "subprocess": {
+            "required": false,
+            "script_count": 0,
+            "scripts": [],
+            "review_reason": ""
+          },
+          "interactive": {
+            "required": false,
+            "script_count": 0,
+            "scripts": [],
+            "review_reason": ""
+          }
+        },
+        "network_policy": {
+          "source": "security/network_policy.json",
+          "covered_scripts": [],
+          "missing_scripts": [],
+          "mismatches": []
+        },
+        "help_smoke": {
+          "enabled": false,
+          "checked_count": 0,
+          "failed_count": 0,
+          "failed_scripts": []
+        },
+        "trust_summary": {
+          "secret_findings": 0,
+          "network_script_count": 0,
+          "file_write_script_count": 0,
+          "subprocess_script_count": 0,
+          "interactive_script_count": 0,
+          "help_smoke_failed_count": 0
+        }
+      },
+      "target_permission_contract": {
+        "schema_version": "1.0",
+        "target": "openai",
+        "permission_model": "metadata-only",
+        "native_enforcement": false,
+        "representation": "targets/openai/agents/openai.yaml::compatibility.permission_contract plus adapter.json",
+        "review_required": false,
+        "declared_capabilities": [],
+        "capability_counts": {
+          "network": 0,
+          "file_write": 0,
+          "subprocess": 0,
+          "interactive": 0
+        },
+        "evidence": "missing-security-trust-report",
+        "operator_note": "OpenAI target carries permission metadata for reviewer visibility; host enforcement remains outside the package."
+      },
+      "target_native_contract": {
+        "schema_version": "1.0",
+        "target": "openai",
+        "native_surface": "OpenAI-style interface metadata plus neutral Agent Skills source",
+        "activation": {
+          "policy": "Use frontmatter description for catalog routing and targets/openai/agents/openai.yaml for display name, default prompt, and compatibility metadata.",
+          "trigger_description": "Build an offline GEO optimization plan from explicit goals, diagnosis actions, approved evidence IDs, and a measured baseline. Use for GEO strategy, roadmap, experiment planning, intervention candidates, 策略, 路线图, and 优化实验. Exclude autonomous publication, fabricated outcome evidence, and memory promotion without positive external measurement.",
+          "manual_activation_supported": true,
+          "automatic_activation_note": "Depends on the target client route/catalog implementation."
+        },
+        "resources": {
+          "strategy": "Ship the neutral source tree and expose OpenAI-facing interface metadata as a generated companion file.",
+          "counts": {
+            "references": 2,
+            "scripts": 1,
+            "assets": 0,
+            "reports": 1
+          },
+          "generated_files": [
+            "targets/openai/adapter.json",
+            "targets/openai/agents/openai.yaml"
+          ]
+        },
+        "scripts": {
+          "strategy": "Keep scripts as local package resources; expose help-smoke and permission metadata for reviewer approval before execution.",
+          "script_count": 1,
+          "help_smoke_failed_count": 0
+        },
+        "permissions": {
+          "enforcement": "metadata-only",
+          "native_enforcement": false,
+          "declared_capabilities": [],
+          "review_required": false
+        },
+        "review": {
+          "artifacts": [
+            "targets/openai/agents/openai.yaml",
+            "targets/openai/adapter.json",
+            "reports/review-studio.html"
+          ],
+          "fallback_behavior": "If OpenAI-native metadata is ignored, the package remains readable as neutral Agent Skills source.",
+          "unsupported_native_features": [
+            "client-native permission prompts",
+            "provider-executed scripts",
+            "client-native script permission prompts are represented as permission contract metadata"
+          ]
+        },
+        "install_scope": "plugin or skill package consumer"
+      },
+      "target_transform": {
+        "target": "openai",
+        "adapter_mode": "metadata-adapter",
+        "generated_files": [
+          "targets/openai/adapter.json",
+          "targets/openai/agents/openai.yaml"
+        ],
+        "metadata_mapping": {
+          "display_name": "targets/openai/agents/openai.yaml::interface.display_name",
+          "default_prompt": "targets/openai/agents/openai.yaml::interface.default_prompt",
+          "activation": "targets/openai/agents/openai.yaml::compatibility.activation_mode",
+          "execution": "targets/openai/agents/openai.yaml::compatibility.execution_context",
+          "trust": "targets/openai/agents/openai.yaml::compatibility.trust_level",
+          "permissions": "targets/openai/agents/openai.yaml::compatibility.permission_contract",
+          "degradation": "targets/openai/agents/openai.yaml::compatibility.degradation_strategy"
+        },
+        "preserved_semantics": [
+          "trigger",
+          "workflow-counts",
+          "resources",
+          "eval-plan",
+          "risk",
+          "governance",
+          "runtime",
+          "trust",
+          "permissions"
+        ],
+        "degradation_strategy": "metadata-adapter",
+        "permission_representation": "targets/openai/agents/openai.yaml::compatibility.permission_contract plus adapter.json",
+        "native_surface": "OpenAI-style interface metadata plus neutral Agent Skills source",
+        "activation_policy": "Use frontmatter description for catalog routing and targets/openai/agents/openai.yaml for display name, default prompt, and compatibility metadata.",
+        "resource_strategy": "Ship the neutral source tree and expose OpenAI-facing interface metadata as a generated companion file.",
+        "script_strategy": "Keep scripts as local package resources; expose help-smoke and permission metadata for reviewer approval before execution.",
+        "permission_enforcement": "metadata-only"
+      },
+      "unsupported_features": [
+        "client-native script permission prompts are represented as permission contract metadata"
+      ],
+      "warnings": [],
+      "failures": []
+    }
+  ],
+  "failures": [],
+  "warnings": [],
+  "artifacts": {
+    "json": "reports/yao-meta/geo-strategy-compiled-openai.json",
+    "markdown": "reports/yao-meta/geo-strategy-compiled-openai.md"
+  }
+}

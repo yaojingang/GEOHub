@@ -14,6 +14,10 @@ STEPS = (
     (sys.executable, "scripts/package.py", "--target", "all", "--channel", "community"),
     (sys.executable, "scripts/verify_packages.py"),
     (sys.executable, "scripts/install_simulation.py", "--target", "all"),
+    (sys.executable, "scripts/generate_sbom.py"),
+    (sys.executable, "scripts/generate_provenance.py"),
+    (sys.executable, "scripts/verify_provenance.py"),
+    (sys.executable, "scripts/render_production_readiness.py"),
 )
 
 

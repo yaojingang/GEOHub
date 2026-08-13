@@ -1,212 +1,286 @@
-[
-  {
-    "id": "o01",
-    "prompt": "Evaluate the happy result for geo.",
-    "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
-    "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o02",
-    "prompt": "Evaluate the missing_input result for geo.",
-    "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o03",
-    "prompt": "Evaluate the boundary result for geo.",
-    "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
-    "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o04",
-    "prompt": "Evaluate the near_neighbor result for geo.",
-    "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o05",
-    "prompt": "Evaluate the source_shortfall result for geo.",
-    "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o06",
-    "prompt": "Evaluate the happy result for geo-discover.",
-    "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o07",
-    "prompt": "Evaluate the missing_input result for geo-discover.",
-    "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
-    "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o08",
-    "prompt": "Evaluate the boundary result for geo-discover.",
-    "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
-    "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o09",
-    "prompt": "Evaluate the near_neighbor result for geo-discover.",
-    "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
-    "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o10",
-    "prompt": "Evaluate the source_shortfall result for geo-discover.",
-    "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
-    "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o11",
-    "prompt": "Evaluate the happy result for geo-diagnose.",
-    "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
-    "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o12",
-    "prompt": "Evaluate the missing_input result for geo-diagnose.",
-    "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o13",
-    "prompt": "Evaluate the boundary result for geo-diagnose.",
-    "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o14",
-    "prompt": "Evaluate the near_neighbor result for geo-diagnose.",
-    "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o15",
-    "prompt": "Evaluate the source_shortfall result for geo-diagnose.",
-    "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
-    "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o16",
-    "prompt": "Evaluate the happy result for geo-content.",
-    "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
-    "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o17",
-    "prompt": "Evaluate the missing_input result for geo-content.",
-    "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o18",
-    "prompt": "Evaluate the boundary result for geo-content.",
-    "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
-    "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o19",
-    "prompt": "Evaluate the near_neighbor result for geo-content.",
-    "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
-    "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o20",
-    "prompt": "Evaluate the source_shortfall result for geo-content.",
-    "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
-    "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o21",
-    "prompt": "Evaluate the happy result for geo-measure.",
-    "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o22",
-    "prompt": "Evaluate the missing_input result for geo-measure.",
-    "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o23",
-    "prompt": "Evaluate the boundary result for geo-measure.",
-    "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
-    "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o24",
-    "prompt": "Evaluate the near_neighbor result for geo-measure.",
-    "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
-    "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o25",
-    "prompt": "Evaluate the source_shortfall result for geo-measure.",
-    "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o26",
-    "prompt": "Evaluate the happy result for seo.",
-    "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
-    "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o27",
-    "prompt": "Evaluate the missing_input result for seo.",
-    "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o28",
-    "prompt": "Evaluate the boundary result for seo.",
-    "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o29",
-    "prompt": "Evaluate the near_neighbor result for seo.",
-    "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
-    "review_status": "pending; missing evidence"
-  },
-  {
-    "id": "o30",
-    "prompt": "Evaluate the source_shortfall result for seo.",
-    "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
-    "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
-    "review_status": "pending; missing evidence"
-  }
-]
+{
+  "protocol_version": "1.0.0",
+  "suite_id": "geohub-deterministic-output-v1",
+  "pairs": [
+    {
+      "pair_id": "o01",
+      "task_id": "o01",
+      "prompt": "Evaluate the happy result for geo.",
+      "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
+      "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o02",
+      "task_id": "o02",
+      "prompt": "Evaluate the missing_input result for geo.",
+      "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o03",
+      "task_id": "o03",
+      "prompt": "Evaluate the boundary result for geo.",
+      "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
+      "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o04",
+      "task_id": "o04",
+      "prompt": "Evaluate the near_neighbor result for geo.",
+      "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o05",
+      "task_id": "o05",
+      "prompt": "Evaluate the source_shortfall result for geo.",
+      "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o06",
+      "task_id": "o06",
+      "prompt": "Evaluate the happy result for geo-discover.",
+      "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o07",
+      "task_id": "o07",
+      "prompt": "Evaluate the missing_input result for geo-discover.",
+      "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
+      "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o08",
+      "task_id": "o08",
+      "prompt": "Evaluate the boundary result for geo-discover.",
+      "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
+      "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o09",
+      "task_id": "o09",
+      "prompt": "Evaluate the near_neighbor result for geo-discover.",
+      "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
+      "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o10",
+      "task_id": "o10",
+      "prompt": "Evaluate the source_shortfall result for geo-discover.",
+      "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
+      "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o11",
+      "task_id": "o11",
+      "prompt": "Evaluate the happy result for geo-diagnose.",
+      "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
+      "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o12",
+      "task_id": "o12",
+      "prompt": "Evaluate the missing_input result for geo-diagnose.",
+      "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o13",
+      "task_id": "o13",
+      "prompt": "Evaluate the boundary result for geo-diagnose.",
+      "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o14",
+      "task_id": "o14",
+      "prompt": "Evaluate the near_neighbor result for geo-diagnose.",
+      "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o15",
+      "task_id": "o15",
+      "prompt": "Evaluate the source_shortfall result for geo-diagnose.",
+      "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
+      "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o16",
+      "task_id": "o16",
+      "prompt": "Evaluate the happy result for geo-content.",
+      "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
+      "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o17",
+      "task_id": "o17",
+      "prompt": "Evaluate the missing_input result for geo-content.",
+      "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o18",
+      "task_id": "o18",
+      "prompt": "Evaluate the boundary result for geo-content.",
+      "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
+      "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o19",
+      "task_id": "o19",
+      "prompt": "Evaluate the near_neighbor result for geo-content.",
+      "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
+      "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o20",
+      "task_id": "o20",
+      "prompt": "Evaluate the source_shortfall result for geo-content.",
+      "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
+      "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o21",
+      "task_id": "o21",
+      "prompt": "Evaluate the happy result for geo-measure.",
+      "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o22",
+      "task_id": "o22",
+      "prompt": "Evaluate the missing_input result for geo-measure.",
+      "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o23",
+      "task_id": "o23",
+      "prompt": "Evaluate the boundary result for geo-measure.",
+      "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
+      "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o24",
+      "task_id": "o24",
+      "prompt": "Evaluate the near_neighbor result for geo-measure.",
+      "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
+      "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o25",
+      "task_id": "o25",
+      "prompt": "Evaluate the source_shortfall result for geo-measure.",
+      "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o26",
+      "task_id": "o26",
+      "prompt": "Evaluate the happy result for geo-strategy.",
+      "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
+      "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o27",
+      "task_id": "o27",
+      "prompt": "Evaluate the missing_input result for geo-strategy.",
+      "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o28",
+      "task_id": "o28",
+      "prompt": "Evaluate the boundary result for geo-strategy.",
+      "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o29",
+      "task_id": "o29",
+      "prompt": "Evaluate the near_neighbor result for geo-strategy.",
+      "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o30",
+      "task_id": "o30",
+      "prompt": "Evaluate the source_shortfall result for geo-strategy.",
+      "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
+      "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o31",
+      "task_id": "o31",
+      "prompt": "Evaluate the happy result for geo-knowledge.",
+      "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
+      "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o32",
+      "task_id": "o32",
+      "prompt": "Evaluate the missing_input result for geo-knowledge.",
+      "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
+      "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o33",
+      "task_id": "o33",
+      "prompt": "Evaluate the boundary result for geo-knowledge.",
+      "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o34",
+      "task_id": "o34",
+      "prompt": "Evaluate the near_neighbor result for geo-knowledge.",
+      "variant_a": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "variant_b": "General response without declared input, evidence, permission, or artifact contracts.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    },
+    {
+      "pair_id": "o35",
+      "task_id": "o35",
+      "prompt": "Evaluate the source_shortfall result for geo-knowledge.",
+      "variant_a": "General response without declared input, evidence, permission, or artifact contracts.",
+      "variant_b": "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.",
+      "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."
+    }
+  ]
+}

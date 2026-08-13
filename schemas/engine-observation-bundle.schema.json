@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yao.example/geo/schemas/engine-observation-bundle.schema.json",
+  "title": "Engine Observation Bundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "bundle_id", "subject", "panel", "collection", "observations"],
+  "properties": {
+    "protocol_version": {"const": "1.0.0"},
+    "bundle_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"},
+    "subject": {
+      "type": "object", "additionalProperties": false,
+      "required": ["name", "aliases", "target_source_uris"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1, "pattern": "\\S"},
+        "aliases": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1, "pattern": "\\S"}},
+        "target_source_uris": {"type": "array", "uniqueItems": true, "items": {"type": "string", "format": "uri"}}
+      }
+    },
+    "panel": {
+      "type": "object", "additionalProperties": false,
+      "required": ["panel_version", "queries", "expected_engines", "expected_timepoints", "expected_repetitions"],
+      "properties": {
+        "panel_version": {"type": "string", "minLength": 1, "pattern": "\\S"},
+        "queries": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["query_id", "query_text", "intent"],
+            "properties": {
+              "query_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"},
+              "query_text": {"type": "string", "minLength": 1, "pattern": "\\S"},
+              "intent": {"enum": ["brand", "category", "compare", "evaluate", "act"]}
+            }
+          }
+        },
+        "expected_engines": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1, "pattern": "\\S"}},
+        "expected_timepoints": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1, "pattern": "\\S"}},
+        "expected_repetitions": {"type": "integer", "minimum": 1, "maximum": 20}
+      }
+    },
+    "collection": {
+      "type": "object", "additionalProperties": false,
+      "required": ["collector", "permission_scope", "source_note"],
+      "properties": {"collector": {"type": "string", "minLength": 1, "pattern": "\\S"}, "permission_scope": {"type": "string", "minLength": 1, "pattern": "\\S"}, "source_note": {"type": "string", "minLength": 1, "pattern": "\\S"}}
+    },
+    "observations": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/observation"}}
+  },
+  "$defs": {
+    "observation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["observation_id", "engine", "model", "query_id", "query_text", "answer_text", "citations", "observed_at", "locale", "session_policy", "panel_version", "collection_method", "timepoint", "repetition"],
+      "properties": {
+        "observation_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,191}$"},
+        "engine": {"type": "string", "minLength": 1, "pattern": "\\S"},
+        "model": {"type": "string", "minLength": 1, "pattern": "\\S"},
+        "query_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"},
+        "query_text": {"type": "string", "minLength": 1, "pattern": "\\S"},
+        "answer_text": {"type": "string"},
+        "citations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["uri", "position"],
+            "properties": {
+              "uri": {"type": "string", "format": "uri"},
+              "position": {"type": "integer", "minimum": 1}
+            }
+          }
+        },
+        "observed_at": {"type": "string", "format": "date-time"},
+        "locale": {"type": "string", "minLength": 2, "pattern": "\\S"},
+        "session_policy": {"enum": ["anonymous-clean-session", "authenticated-approved-session", "recorded-session"]},
+        "panel_version": {"type": "string", "minLength": 1, "pattern": "\\S"},
+        "collection_method": {"enum": ["manual_export", "approved_api", "recorded_fixture"]},
+        "timepoint": {"type": "string", "minLength": 1, "pattern": "\\S"},
+        "repetition": {"type": "integer", "minimum": 1, "maximum": 20}
+      }
+    }
+  }
+}

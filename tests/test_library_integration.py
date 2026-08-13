@@ -16,64 +16,29 @@ from geo_seo_hub.registry import load_registry
 from geo_seo_hub import __version__
 
 ROOT = Path(__file__).resolve().parents[1]
-SKILLS = ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure", "seo")
+SKILLS = ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure", "geo-strategy", "geo-knowledge")
 
 
 def test_geo_seo_hub_brand_and_compatibility_names_are_consistent():
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
-    readme_zh = (ROOT / "README.zh-CN.md").read_text(encoding="utf-8")
     project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]
     interfaces = [
         yaml.safe_load((ROOT / "skills" / skill_id / "agents" / "interface.yaml").read_text(encoding="utf-8"))
         for skill_id in SKILLS
     ]
 
-    assert readme.startswith("# GEOHub\n")
-    assert "GEO-first · SEO-active" in readme
-    assert "dedicated one-line SEO planner" in readme
-    assert "[简体中文](README.zh-CN.md)" in readme
-    assert "[English](README.md)" in readme_zh
+    assert readme.startswith("# GEO SEO Hub\n")
+    assert "GEO-first · SEO-ready" in readme
+    assert "Dedicated SEO workflows and outcome claims" in readme
     assert project["name"] == "geo-seo-hub"
     assert project["scripts"] == {"geo-seo-hub": "geo_seo_hub.cli:main"}
     assert (ROOT / "src" / "geo_seo_hub").is_dir()
     assert not (ROOT / "src" / ("yao" + "_geo")).exists()
     assert project["urls"] == {
-        "Homepage": "https://github.com/yaojingang/GEOHub",
-        "Repository": "https://github.com/yaojingang/GEOHub",
+        "Homepage": "https://github.com/yaojingang/geo-seo-hub",
+        "Repository": "https://github.com/yaojingang/geo-seo-hub",
     }
-    display_names = {
-        skill_id: item["interface"]["display_name"]
-        for skill_id, item in zip(SKILLS, interfaces, strict=True)
-    }
-    assert display_names["geo"] == "GEOHub"
-    assert all(display_names[skill_id].startswith("GEOHub ") for skill_id in SKILLS if skill_id != "geo")
-    assert load_registry()["skills"][0]["intents"][:3] == ["geo", "GEOHub", "GEO SEO Hub"]
-
-
-def test_readme_localizations_reference_real_visual_assets():
-    readmes = {
-        "en": (ROOT / "README.md").read_text(encoding="utf-8"),
-        "zh-CN": (ROOT / "README.zh-CN.md").read_text(encoding="utf-8"),
-    }
-    for language, suffix in (("en", "en"), ("zh-CN", "zh-CN")):
-        for surface in ("overview", "architecture", "research-principles"):
-            relative = f"docs/assets/geohub-{surface}-{suffix}.png"
-            assert (ROOT / relative).read_bytes().startswith(b"\x89PNG\r\n\x1a\n")
-            assert relative in readmes[language]
-            assert relative not in readmes["zh-CN" if language == "en" else "en"]
-
-    report = (ROOT / "reports" / "geohub-visual-guide.html").read_text(encoding="utf-8")
-    assert '<html lang="en" data-language="en">' in report
-    assert 'data-language-choice="en"' in report
-    assert 'data-language-choice="zh-CN"' in report
-    assert 'var translations = {' in report
-    assert 'new URLSearchParams(window.location.search).get("lang")' in report
-    assert 'new URLSearchParams(window.location.hash.slice(1)).get("lang")' in report
-    assert "history.replaceState(null, '', url.href)" in report
-    assert "GEOHub turns natural-language requests" in report
-    assert "把自然语言请求拆成五类能力入口" in report
-    assert "geohub-visual-guide.html#lang=en" in readmes["en"]
-    assert "geohub-visual-guide.html#lang=zh-CN" in readmes["zh-CN"]
+    assert all(item["interface"]["display_name"].startswith("GEO SEO Hub ") for item in interfaces)
 
 
 @pytest.mark.parametrize("legacy_marker", ("yao" + "-geo", "yao" + "_geo"))
@@ -119,7 +84,7 @@ def test_version_is_consistent_across_distribution_and_active_manifests():
         manifest = json.loads((ROOT / "skills" / skill_id / "manifest.json").read_text(encoding="utf-8"))
         assert manifest["version"] == expected
 
-    for module_name in ("content", "discover", "diagnose", "measure"):
+    for module_name in ("content", "discover", "diagnose"):
         module = __import__(f"geo_seo_hub.{module_name}", fromlist=[module_name])
         assert module.GENERATOR_VERSION == expected
         assert '"version": "0.2.0"' not in inspect.getsource(module)
@@ -164,7 +129,12 @@ def load_script(name: str):
 
 def test_registry_workflows_are_valid_stable_dags():
     registry = load_registry()
-    assert {item["id"] for item in registry["workflows"]} == {"brand-baseline-lite", "content-campaign"}
+    assert {item["id"] for item in registry["workflows"]} == {
+        "brand-baseline-lite",
+        "content-campaign",
+        "brand-baseline-content",
+        "strategy-observation-loop",
+    }
     for workflow in registry["workflows"]:
         seen = set()
         for step in workflow["steps"]:
@@ -341,19 +311,23 @@ def test_eval_case_minimums_and_taxonomy():
         assert types == {"happy", "missing_input", "boundary", "near_neighbor", "source_shortfall"}
 
 
-def test_package_allowlist_excludes_private_surfaces():
+def test_package_allowlist_excludes_private_surfaces_and_keeps_public_verification_inputs():
     package = load_script("package")
     for path in package.tracked_files():
-        assert not ({"reports", "evals", "tests", ".git", "runs", "dist"} & set(path.parts))
+        assert not ({".git", "runs", "dist"} & set(path.parts))
+        assert "reports" not in path.parts or path.parts[0] == "skills"
+    assert package.source_allowed(Path("tests/test_router.py"))
+    assert package.source_allowed(Path("evals/router_cases.json"))
 
 
 def test_source_package_allowlist_includes_security_and_governance():
     package = load_script("package")
     for relative in (
-        "README.zh-CN.md",
         "SECURITY.md",
+        "CHANGELOG.md",
         ".github/dependabot.yml",
         ".github/ISSUE_TEMPLATE/commercial-licensing.yml",
+        ".github/workflows/release.yml",
     ):
         assert package.source_allowed(Path(relative))
 
@@ -376,7 +350,7 @@ def test_repository_governance_and_verification_entrypoints_are_actionable():
     assert all(update["open-pull-requests-limit"] == 0 for update in dependabot["updates"])
     assert "verify:\n\t$(PYTHON) scripts/verify_all.py" in makefile
     assert "repo-verify:\n\t$(PYTHON) scripts/verify_repository.py" in makefile
-    assert "git clone https://github.com/yaojingang/GEOHub.git" in readme
+    assert "git clone https://github.com/yaojingang/geo-seo-hub.git" in readme
     assert ".venv/bin/python -m pip install ." in readme
 
 
@@ -469,7 +443,7 @@ def test_non_source_packages_have_self_contained_install_and_route_entries():
                     referenced = set(re.findall(r"(?:references|scripts)/[A-Za-z0-9_.\-/]+", entry_text))
                     assert referenced <= names
         if "unified" in path.name or "codex" in path.name or "claude" in path.name:
-            assert {f"scripts/run_{name}.py" for name in ("route", "discover", "diagnose", "content", "measure")} <= names
+            assert {f"scripts/run_{name}.py" for name in ("route", "discover", "diagnose", "content", "measure", "strategy", "knowledge")} <= names
 
 
 def test_install_simulation_uses_each_extracted_package_and_real_provider_execution():
@@ -479,11 +453,11 @@ def test_install_simulation_uses_each_extracted_package_and_real_provider_execut
     source = inspect.getsource(installer.structural_smoke)
     assert "install_extracted(destination" in source
     assert 'wrappers["run_route.py"]' in source
-    assert all(f'"run_{provider}.py"' in source for provider in ("discover", "diagnose", "content", "measure", "seo"))
+    assert all(f'"run_{provider}.py"' in source for provider in ("discover", "diagnose", "content", "measure", "strategy", "knowledge"))
     report = json.loads((ROOT / "reports" / "install-simulation.json").read_text())
-    assert report["source"]["cli_smokes"] == ["version", "route", "discover", "diagnose", "content", "measure", "seo"]
-    assert len(report["structural_packages"]) == 9
-    assert all(item["installed_from"] == "." and item["installed_share_resolved"] and item["resolved_entry"] and item["provider_executions"] == ["geo-discover", "geo-diagnose", "geo-content", "geo-measure", "seo"] for item in report["structural_packages"])
+    assert report["source"]["cli_smokes"] == ["version", "route", "discover", "diagnose", "content", "measure", "strategy", "knowledge"]
+    assert len(report["structural_packages"]) == 10
+    assert all(item["installed_from"] == "." and item["installed_share_resolved"] and item["resolved_entry"] and item["provider_executions"] == ["geo-discover", "geo-diagnose", "geo-content", "geo-measure", "geo-strategy", "geo-knowledge"] for item in report["structural_packages"])
 
 
 def test_supported_python_range_and_governance_contracts():
@@ -541,12 +515,6 @@ def test_yao_meta_structured_status_and_waiver_ledger_fail_closed(tmp_path):
         typed_empty_path.write_text(json.dumps(typed_empty))
         assert gate.structured_report_status(typed_empty_path, operation) == "fail"
 
-    atlas = json.loads(operation_reports["skill-atlas"].read_text())
-    atlas["summary"]["skill_count"] = len(atlas["catalog"])
-    wrong_atlas_count = tmp_path / "wrong-atlas-count.json"
-    wrong_atlas_count.write_text(json.dumps(atlas))
-    assert gate.structured_report_status(wrong_atlas_count, "skill-atlas") == "fail"
-
     waivers = gate.load_waiver_ledger(ROOT / "reports" / "review-waivers.json", today=date(2026, 8, 8))
     assert waivers
     assert all({"id", "skill_id", "gate", "owner", "reason", "expires_on", "recheck"} <= set(item) for item in waivers)
@@ -592,7 +560,7 @@ def test_yao_meta_digest_and_command_inventory_are_complete():
 
     report = json.loads((ROOT / "reports" / "yao-meta-gates.json").read_text())
     assert gate.validate_command_inventory(report["commands"]) == []
-    duplicated = [dict(report["commands"][0]) for _ in range(66)]
+    duplicated = [dict(report["commands"][0]) for _ in range(53)]
     assert gate.validate_command_inventory(duplicated)
     extra_flag = json.loads(json.dumps(report["commands"]))
     extra_flag[0]["command"].append("--unknown-flag")

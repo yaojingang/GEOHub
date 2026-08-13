@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yao.example/geo/schemas/run-lineage.schema.json",
+  "title": "Run Lineage",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "trace_id", "run_id", "skill_id", "data_class", "events"],
+  "properties": {
+    "protocol_version": {"const": "1.0.0"},
+    "trace_id": {"type": "string", "pattern": "^trace-[0-9a-f]{16}$"},
+    "run_id": {"type": "string", "pattern": "^run-[A-Za-z0-9._-]+$"},
+    "skill_id": {"type": "string", "pattern": "^geo(?:-[a-z0-9]+)*$"},
+    "data_class": {"enum": ["L0", "L1", "L2", "L3"]},
+    "events": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["span_id", "parent_span_id", "stage", "status", "duration_ms", "artifact_hashes", "metric_names", "token_count", "cost_usd", "error_class"],
+        "properties": {
+          "span_id": {"type": "string", "pattern": "^span-[0-9a-f]{16}$"},
+          "parent_span_id": {"type": ["string", "null"], "pattern": "^span-[0-9a-f]{16}$"},
+          "stage": {"type": "string", "pattern": "^[a-z][a-z0-9-]{0,63}$"},
+          "status": {"enum": ["completed", "completed-with-warnings", "failed"]},
+          "duration_ms": {"type": "integer", "minimum": 0},
+          "artifact_hashes": {
+            "type": "object",
+            "maxProperties": 100,
+            "propertyNames": {"pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+$"},
+            "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+          },
+          "metric_names": {"type": "array", "uniqueItems": true, "maxItems": 100, "items": {"type": "string", "pattern": "^[a-z][a-z0-9._-]{0,63}$"}},
+          "token_count": {"type": "integer", "minimum": 0},
+          "cost_usd": {"type": "number", "minimum": 0},
+          "error_class": {"type": ["string", "null"], "pattern": "^[a-z][a-z0-9-]{0,63}$"}
+        }
+      }
+    }
+  }
+}

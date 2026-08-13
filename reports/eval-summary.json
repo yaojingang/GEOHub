@@ -8,8 +8,8 @@
     "fabricated_citations": 0
   },
   "router": {
-    "case_count": 374,
-    "tp": 374,
+    "case_count": 373,
+    "tp": 373,
     "fp": 0,
     "fn": 0,
     "precision": 1.0,
@@ -358,12 +358,12 @@
         "expected": {
           "skill_id": "geo-strategy",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         },
         "actual": {
           "skill_id": "geo-strategy",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         }
       },
       {
@@ -372,12 +372,12 @@
         "expected": {
           "skill_id": "geo-strategy",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         },
         "actual": {
           "skill_id": "geo-strategy",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         }
       },
       {
@@ -386,12 +386,12 @@
         "expected": {
           "skill_id": "geo-knowledge",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         },
         "actual": {
           "skill_id": "geo-knowledge",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         }
       },
       {
@@ -400,12 +400,12 @@
         "expected": {
           "skill_id": "geo-knowledge",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         },
         "actual": {
           "skill_id": "geo-knowledge",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         }
       },
       {
@@ -722,12 +722,12 @@
         "expected": {
           "skill_id": "geo-strategy",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         },
         "actual": {
           "skill_id": "geo-strategy",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         }
       },
       {
@@ -778,26 +778,26 @@
         "expected": {
           "skill_id": "geo-knowledge",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         },
         "actual": {
           "skill_id": "geo-knowledge",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         }
       },
       {
         "id": "r056",
         "passed": true,
         "expected": {
-          "skill_id": "geo-strategy",
+          "skill_id": "geo-diagnose",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         },
         "actual": {
-          "skill_id": "geo-strategy",
+          "skill_id": "geo-diagnose",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         }
       },
       {
@@ -860,12 +860,12 @@
         "id": "r061",
         "passed": true,
         "expected": {
-          "skill_id": "geo",
+          "skill_id": "geo-measure",
           "workflow_id": null,
           "runnable": true
         },
         "actual": {
-          "skill_id": "geo",
+          "skill_id": "geo-measure",
           "workflow_id": null,
           "runnable": true
         }
@@ -876,12 +876,12 @@
         "expected": {
           "skill_id": "geo-knowledge",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         },
         "actual": {
           "skill_id": "geo-knowledge",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         }
       },
       {
@@ -917,12 +917,12 @@
         "passed": true,
         "expected": {
           "skill_id": "geo-discover",
-          "workflow_id": "brand-baseline-lite+content-campaign",
+          "workflow_id": "brand-baseline-content",
           "runnable": true
         },
         "actual": {
           "skill_id": "geo-discover",
-          "workflow_id": "brand-baseline-lite+content-campaign",
+          "workflow_id": "brand-baseline-content",
           "runnable": true
         }
       },
@@ -1996,12 +1996,12 @@
         "expected": {
           "skill_id": "geo-strategy",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         },
         "actual": {
           "skill_id": "geo-strategy",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         }
       },
       {
@@ -2024,12 +2024,12 @@
         "expected": {
           "skill_id": "geo-knowledge",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         },
         "actual": {
           "skill_id": "geo-knowledge",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         }
       },
       {
@@ -2066,12 +2066,12 @@
         "expected": {
           "skill_id": "geo-strategy",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         },
         "actual": {
           "skill_id": "geo-strategy",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         }
       },
       {
@@ -2094,12 +2094,12 @@
         "expected": {
           "skill_id": "geo-strategy",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         },
         "actual": {
           "skill_id": "geo-strategy",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         }
       },
       {
@@ -2108,12 +2108,12 @@
         "expected": {
           "skill_id": "geo-knowledge",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         },
         "actual": {
           "skill_id": "geo-knowledge",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         }
       },
       {
@@ -2358,14 +2358,14 @@
         "id": "r168",
         "passed": true,
         "expected": {
-          "skill_id": "geo-strategy",
+          "skill_id": "geo-diagnose",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         },
         "actual": {
-          "skill_id": "geo-strategy",
+          "skill_id": "geo-diagnose",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         }
       },
       {
@@ -3451,12 +3451,12 @@
         "passed": true,
         "expected": {
           "skill_id": "geo-discover",
-          "workflow_id": "brand-baseline-lite+content-campaign",
+          "workflow_id": "brand-baseline-content",
           "runnable": true
         },
         "actual": {
           "skill_id": "geo-discover",
-          "workflow_id": "brand-baseline-lite+content-campaign",
+          "workflow_id": "brand-baseline-content",
           "runnable": true
         }
       },
@@ -3465,12 +3465,12 @@
         "passed": true,
         "expected": {
           "skill_id": "geo-discover",
-          "workflow_id": "brand-baseline-lite+content-campaign",
+          "workflow_id": "brand-baseline-content",
           "runnable": true
         },
         "actual": {
           "skill_id": "geo-discover",
-          "workflow_id": "brand-baseline-lite+content-campaign",
+          "workflow_id": "brand-baseline-content",
           "runnable": true
         }
       },
@@ -3563,12 +3563,12 @@
         "passed": true,
         "expected": {
           "skill_id": "geo-discover",
-          "workflow_id": "brand-baseline-lite+content-campaign",
+          "workflow_id": "brand-baseline-content",
           "runnable": true
         },
         "actual": {
           "skill_id": "geo-discover",
-          "workflow_id": "brand-baseline-lite+content-campaign",
+          "workflow_id": "brand-baseline-content",
           "runnable": true
         }
       },
@@ -3577,12 +3577,12 @@
         "passed": true,
         "expected": {
           "skill_id": "geo-discover",
-          "workflow_id": "brand-baseline-lite+content-campaign",
+          "workflow_id": "brand-baseline-content",
           "runnable": true
         },
         "actual": {
           "skill_id": "geo-discover",
-          "workflow_id": "brand-baseline-lite+content-campaign",
+          "workflow_id": "brand-baseline-content",
           "runnable": true
         }
       },
@@ -3591,12 +3591,12 @@
         "passed": true,
         "expected": {
           "skill_id": "geo-discover",
-          "workflow_id": "brand-baseline-lite+content-campaign",
+          "workflow_id": "brand-baseline-content",
           "runnable": true
         },
         "actual": {
           "skill_id": "geo-discover",
-          "workflow_id": "brand-baseline-lite+content-campaign",
+          "workflow_id": "brand-baseline-content",
           "runnable": true
         }
       },
@@ -3731,12 +3731,12 @@
         "passed": true,
         "expected": {
           "skill_id": "geo-discover",
-          "workflow_id": "brand-baseline-lite+content-campaign",
+          "workflow_id": "brand-baseline-content",
           "runnable": true
         },
         "actual": {
           "skill_id": "geo-discover",
-          "workflow_id": "brand-baseline-lite+content-campaign",
+          "workflow_id": "brand-baseline-content",
           "runnable": true
         }
       },
@@ -3745,12 +3745,12 @@
         "passed": true,
         "expected": {
           "skill_id": "geo-discover",
-          "workflow_id": "brand-baseline-lite+content-campaign",
+          "workflow_id": "brand-baseline-content",
           "runnable": true
         },
         "actual": {
           "skill_id": "geo-discover",
-          "workflow_id": "brand-baseline-lite+content-campaign",
+          "workflow_id": "brand-baseline-content",
           "runnable": true
         }
       },
@@ -3759,12 +3759,12 @@
         "passed": true,
         "expected": {
           "skill_id": "geo-discover",
-          "workflow_id": "brand-baseline-lite+content-campaign",
+          "workflow_id": "brand-baseline-content",
           "runnable": true
         },
         "actual": {
           "skill_id": "geo-discover",
-          "workflow_id": "brand-baseline-lite+content-campaign",
+          "workflow_id": "brand-baseline-content",
           "runnable": true
         }
       },
@@ -3773,12 +3773,12 @@
         "passed": true,
         "expected": {
           "skill_id": "geo-discover",
-          "workflow_id": "brand-baseline-lite+content-campaign",
+          "workflow_id": "brand-baseline-content",
           "runnable": true
         },
         "actual": {
           "skill_id": "geo-discover",
-          "workflow_id": "brand-baseline-lite+content-campaign",
+          "workflow_id": "brand-baseline-content",
           "runnable": true
         }
       },
@@ -4375,12 +4375,12 @@
         "passed": true,
         "expected": {
           "skill_id": "geo-discover",
-          "workflow_id": "brand-baseline-lite+content-campaign",
+          "workflow_id": "brand-baseline-content",
           "runnable": true
         },
         "actual": {
           "skill_id": "geo-discover",
-          "workflow_id": "brand-baseline-lite+content-campaign",
+          "workflow_id": "brand-baseline-content",
           "runnable": true
         }
       },
@@ -4389,12 +4389,12 @@
         "passed": true,
         "expected": {
           "skill_id": "geo-discover",
-          "workflow_id": "brand-baseline-lite+content-campaign",
+          "workflow_id": "brand-baseline-content",
           "runnable": true
         },
         "actual": {
           "skill_id": "geo-discover",
-          "workflow_id": "brand-baseline-lite+content-campaign",
+          "workflow_id": "brand-baseline-content",
           "runnable": true
         }
       },
@@ -5216,12 +5216,12 @@
         "expected": {
           "skill_id": "geo-strategy",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         },
         "actual": {
           "skill_id": "geo-strategy",
           "workflow_id": null,
-          "runnable": false
+          "runnable": true
         }
       },
       {
@@ -5230,42 +5230,127 @@
         "expected": {
           "skill_id": "geo-knowledge",
           "workflow_id": null,
-          "runnable": false
-        },
-        "actual": {
-          "skill_id": "geo-knowledge",
-          "workflow_id": null,
-          "runnable": false
-        }
-      },
-      {
-        "id": "r374",
-        "passed": true,
-        "expected": {
-          "skill_id": "geo",
-          "workflow_id": null,
           "runnable": true
         },
         "actual": {
-          "skill_id": "geo",
+          "skill_id": "geo-knowledge",
           "workflow_id": null,
           "runnable": true
         }
       }
     ]
   },
-  "triggers": {
-    "case_count": 40,
-    "passed": 40,
-    "compliance": 1.0,
+  "router_shadow": {
+    "case_count": 12,
+    "precision": 1.0,
+    "recall": 1.0,
+    "planned_activations": 0,
+    "production_changed": false,
+    "threshold_version": "semantic-shadow-1.0.0",
     "results": [
       {
-        "skill_id": "geo",
-        "family": "should_trigger",
-        "text": "Which GEOHub capability handles this?",
+        "id": "shadow-01",
         "passed": true,
-        "actual": "geo"
+        "production_skill_id": "geo-diagnose",
+        "shadow_skill_id": "geo-diagnose",
+        "disagreed": false,
+        "decision_reason": "Shadow candidate agrees with lexical production route geo-diagnose."
       },
+      {
+        "id": "shadow-02",
+        "passed": true,
+        "production_skill_id": "geo-discover",
+        "shadow_skill_id": "geo-discover",
+        "disagreed": false,
+        "decision_reason": "Shadow candidate agrees with lexical production route geo-discover."
+      },
+      {
+        "id": "shadow-03",
+        "passed": true,
+        "production_skill_id": "geo-content",
+        "shadow_skill_id": "geo-content",
+        "disagreed": false,
+        "decision_reason": "Shadow candidate agrees with lexical production route geo-content."
+      },
+      {
+        "id": "shadow-04",
+        "passed": true,
+        "production_skill_id": "geo-measure",
+        "shadow_skill_id": "geo-measure",
+        "disagreed": false,
+        "decision_reason": "Shadow candidate agrees with lexical production route geo-measure."
+      },
+      {
+        "id": "shadow-05",
+        "passed": true,
+        "production_skill_id": "geo-strategy",
+        "shadow_skill_id": "geo-strategy",
+        "disagreed": false,
+        "decision_reason": "Shadow candidate agrees with lexical production route geo-strategy."
+      },
+      {
+        "id": "shadow-06",
+        "passed": true,
+        "production_skill_id": "geo-knowledge",
+        "shadow_skill_id": "geo-knowledge",
+        "disagreed": false,
+        "decision_reason": "Shadow candidate agrees with lexical production route geo-knowledge."
+      },
+      {
+        "id": "shadow-07",
+        "passed": true,
+        "production_skill_id": "geo-publish",
+        "shadow_skill_id": "geo-content",
+        "disagreed": true,
+        "decision_reason": "Shadow candidate geo-content differs from lexical production route geo-publish; production remains unchanged."
+      },
+      {
+        "id": "shadow-08",
+        "passed": true,
+        "production_skill_id": "geo-discover",
+        "shadow_skill_id": "geo-discover",
+        "disagreed": false,
+        "decision_reason": "Shadow candidate agrees with lexical production route geo-discover."
+      },
+      {
+        "id": "shadow-09",
+        "passed": true,
+        "production_skill_id": "geo-diagnose",
+        "shadow_skill_id": "geo-diagnose",
+        "disagreed": false,
+        "decision_reason": "Shadow candidate agrees with lexical production route geo-diagnose."
+      },
+      {
+        "id": "shadow-10",
+        "passed": true,
+        "production_skill_id": "geo",
+        "shadow_skill_id": "geo",
+        "disagreed": false,
+        "decision_reason": "Shadow candidate agrees with lexical production route geo."
+      },
+      {
+        "id": "shadow-11",
+        "passed": true,
+        "production_skill_id": "geo-measure",
+        "shadow_skill_id": "geo-measure",
+        "disagreed": false,
+        "decision_reason": "Shadow candidate agrees with lexical production route geo-measure."
+      },
+      {
+        "id": "shadow-12",
+        "passed": true,
+        "production_skill_id": "geo-content",
+        "shadow_skill_id": "geo-content",
+        "disagreed": false,
+        "decision_reason": "Shadow candidate agrees with lexical production route geo-content."
+      }
+    ]
+  },
+  "triggers": {
+    "case_count": 51,
+    "passed": 51,
+    "compliance": 1.0,
+    "results": [
       {
         "skill_id": "geo",
         "family": "should_trigger",
@@ -5458,21 +5543,28 @@
       {
         "skill_id": "geo-measure",
         "family": "should_trigger",
-        "text": "Measure citation rate from these observation records",
+        "text": "Measure GEO visibility from this observation export",
         "passed": true,
         "actual": "geo-measure"
       },
       {
         "skill_id": "geo-measure",
         "family": "should_trigger",
-        "text": "衡量这批 AI 可见度观测",
+        "text": "监测 AI 可见度",
+        "passed": true,
+        "actual": "geo-measure"
+      },
+      {
+        "skill_id": "geo-measure",
+        "family": "should_trigger",
+        "text": "计算品牌提及率和引用份额",
         "passed": true,
         "actual": "geo-measure"
       },
       {
         "skill_id": "geo-measure",
         "family": "should_not_trigger",
-        "text": "Audit this website",
+        "text": "Audit this landing page",
         "passed": true,
         "actual": "geo-diagnose"
       },
@@ -5486,9 +5578,16 @@
       {
         "skill_id": "geo-measure",
         "family": "near_neighbor",
-        "text": "Run query research for customer questions",
+        "text": "Diagnose brand evidence gaps",
         "passed": true,
-        "actual": "geo-discover"
+        "actual": "geo-diagnose"
+      },
+      {
+        "skill_id": "geo-measure",
+        "family": "near_neighbor",
+        "text": "Build a GEO strategy",
+        "passed": true,
+        "actual": "geo-strategy"
       },
       {
         "skill_id": "geo-measure",
@@ -5498,52 +5597,122 @@
         "actual": "geo-content"
       },
       {
-        "skill_id": "seo",
+        "skill_id": "geo-strategy",
         "family": "should_trigger",
-        "text": "一句话 SEO：审计这个网站",
+        "text": "Build a GEO strategy from this baseline",
         "passed": true,
-        "actual": "seo"
+        "actual": "geo-strategy"
       },
       {
-        "skill_id": "seo",
+        "skill_id": "geo-strategy",
         "family": "should_trigger",
-        "text": "Analyze this Search Console traffic drop",
+        "text": "制定 GEO 优化路线图",
         "passed": true,
-        "actual": "seo"
+        "actual": "geo-strategy"
       },
       {
-        "skill_id": "seo",
+        "skill_id": "geo-strategy",
+        "family": "should_trigger",
+        "text": "Plan intervention experiments with early stopping",
+        "passed": true,
+        "actual": "geo-strategy"
+      },
+      {
+        "skill_id": "geo-strategy",
         "family": "should_not_trigger",
-        "text": "写一篇 GEO 解释文章",
+        "text": "Publish this article",
         "passed": true,
-        "actual": "geo-content"
+        "actual": "geo-publish"
       },
       {
-        "skill_id": "seo",
+        "skill_id": "geo-strategy",
         "family": "should_not_trigger",
-        "text": "只做 Google Ads 投放",
+        "text": "Measure an observation bundle",
         "passed": true,
-        "actual": "geo"
+        "actual": "geo-measure"
       },
       {
-        "skill_id": "seo",
+        "skill_id": "geo-strategy",
         "family": "near_neighbor",
-        "text": "拓展 AI 搜索问题",
+        "text": "Discover AI search questions",
         "passed": true,
         "actual": "geo-discover"
       },
       {
-        "skill_id": "seo",
+        "skill_id": "geo-strategy",
         "family": "near_neighbor",
-        "text": "衡量 AI 引用率",
+        "text": "Build a knowledge graph",
+        "passed": true,
+        "actual": "geo-knowledge"
+      },
+      {
+        "skill_id": "geo-strategy",
+        "family": "near_neighbor",
+        "text": "Diagnose a site",
+        "passed": true,
+        "actual": "geo-diagnose"
+      },
+      {
+        "skill_id": "geo-knowledge",
+        "family": "should_trigger",
+        "text": "Build a knowledge graph from these approved sources",
+        "passed": true,
+        "actual": "geo-knowledge"
+      },
+      {
+        "skill_id": "geo-knowledge",
+        "family": "should_trigger",
+        "text": "治理品牌实体和关系",
+        "passed": true,
+        "actual": "geo-knowledge"
+      },
+      {
+        "skill_id": "geo-knowledge",
+        "family": "should_trigger",
+        "text": "Query the local entity neighborhood",
+        "passed": true,
+        "actual": "geo-knowledge"
+      },
+      {
+        "skill_id": "geo-knowledge",
+        "family": "should_not_trigger",
+        "text": "Publish this page",
+        "passed": true,
+        "actual": "geo-publish"
+      },
+      {
+        "skill_id": "geo-knowledge",
+        "family": "should_not_trigger",
+        "text": "Write an explainer",
+        "passed": true,
+        "actual": "geo-content"
+      },
+      {
+        "skill_id": "geo-knowledge",
+        "family": "near_neighbor",
+        "text": "Plan a GEO roadmap",
+        "passed": true,
+        "actual": "geo-strategy"
+      },
+      {
+        "skill_id": "geo-knowledge",
+        "family": "near_neighbor",
+        "text": "Diagnose site gaps",
+        "passed": true,
+        "actual": "geo-diagnose"
+      },
+      {
+        "skill_id": "geo-knowledge",
+        "family": "near_neighbor",
+        "text": "Measure AI visibility",
         "passed": true,
         "actual": "geo-measure"
       }
     ]
   },
   "outputs": {
-    "case_count": 30,
-    "passed": 30,
+    "case_count": 35,
+    "passed": 35,
     "contract_compliance": 1.0,
     "fabricated_citations": 0,
     "citation_metric_definition": "Every source_uri in a generated evidence ledger must occur in its snapshotted input JSON.",
@@ -5777,7 +5946,7 @@
       },
       {
         "id": "o26",
-        "skill_id": "seo",
+        "skill_id": "geo-strategy",
         "case_type": "happy",
         "passed": true,
         "fabricated_citations": 0,
@@ -5786,7 +5955,7 @@
       },
       {
         "id": "o27",
-        "skill_id": "seo",
+        "skill_id": "geo-strategy",
         "case_type": "missing_input",
         "passed": true,
         "fabricated_citations": 0,
@@ -5795,7 +5964,7 @@
       },
       {
         "id": "o28",
-        "skill_id": "seo",
+        "skill_id": "geo-strategy",
         "case_type": "boundary",
         "passed": true,
         "fabricated_citations": 0,
@@ -5804,7 +5973,7 @@
       },
       {
         "id": "o29",
-        "skill_id": "seo",
+        "skill_id": "geo-strategy",
         "case_type": "near_neighbor",
         "passed": true,
         "fabricated_citations": 0,
@@ -5813,7 +5982,52 @@
       },
       {
         "id": "o30",
-        "skill_id": "seo",
+        "skill_id": "geo-strategy",
+        "case_type": "source_shortfall",
+        "passed": true,
+        "fabricated_citations": 0,
+        "detail": "contract satisfied",
+        "execution_kind": "deterministic_local"
+      },
+      {
+        "id": "o31",
+        "skill_id": "geo-knowledge",
+        "case_type": "happy",
+        "passed": true,
+        "fabricated_citations": 0,
+        "detail": "contract satisfied",
+        "execution_kind": "deterministic_local"
+      },
+      {
+        "id": "o32",
+        "skill_id": "geo-knowledge",
+        "case_type": "missing_input",
+        "passed": true,
+        "fabricated_citations": 0,
+        "detail": "contract satisfied",
+        "execution_kind": "deterministic_local"
+      },
+      {
+        "id": "o33",
+        "skill_id": "geo-knowledge",
+        "case_type": "boundary",
+        "passed": true,
+        "fabricated_citations": 0,
+        "detail": "contract satisfied",
+        "execution_kind": "deterministic_local"
+      },
+      {
+        "id": "o34",
+        "skill_id": "geo-knowledge",
+        "case_type": "near_neighbor",
+        "passed": true,
+        "fabricated_citations": 0,
+        "detail": "contract satisfied",
+        "execution_kind": "deterministic_local"
+      },
+      {
+        "id": "o35",
+        "skill_id": "geo-knowledge",
         "case_type": "source_shortfall",
         "passed": true,
         "fabricated_citations": 0,

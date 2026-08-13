@@ -1,0 +1,80 @@
+{
+  "schema_version": "2.0.0",
+  "name": "geo-strategy",
+  "title": "GEO SEO Hub Strategy",
+  "job_to_be_done": "Build an offline GEO optimization plan from explicit goals, diagnosis actions, approved evidence IDs, and a measured baseline. Use for GEO strategy, roadmap, experiment planning, intervention candidates, 策略, 路线图, and 优化实验. Exclude autonomous publication, fabricated outcome evidence, and memory promotion without positive external measurement.",
+  "trigger_surface": {
+    "description": "Build an offline GEO optimization plan from explicit goals, diagnosis actions, approved evidence IDs, and a measured baseline. Use for GEO strategy, roadmap, experiment planning, intervention candidates, 策略, 路线图, and 优化实验. Exclude autonomous publication, fabricated outcome evidence, and memory promotion without positive external measurement.",
+    "should_trigger": [
+      "Build a GEO strategy from this baseline",
+      "制定 GEO 优化路线图",
+      "Plan intervention experiments with early stopping"
+    ],
+    "should_not_trigger": [
+      "Publish this article",
+      "Measure an observation bundle"
+    ],
+    "edge_cases": [
+      "Discover AI search questions",
+      "Build a knowledge graph",
+      "Diagnose a site"
+    ]
+  },
+  "workflow": {
+    "steps": [
+      "Read `references/strategy-method.md` and prepare the complete file-backed request.",
+      "Run `python3 scripts/run_strategy.py --input <request.json> --output <runs-root>`.",
+      "Review all candidates and the fidelity report; choose an offline-approved candidate.",
+      "Hand `publication-handoff.json` to an authorized publisher and wait for a verified publication receipt.",
+      "Measure the unchanged query panel after the declared window. Promote memory only when fidelity passed and the weighted metric delta is positive."
+    ],
+    "decision_points": [],
+    "failure_modes": []
+  },
+  "resources": {
+    "references": [
+      "references/output-contract.md",
+      "references/strategy-method.md"
+    ],
+    "scripts": [
+      "scripts/run_strategy.py"
+    ],
+    "assets": [],
+    "reports": [
+      "reports/output_quality_scorecard.md"
+    ]
+  },
+  "eval_plan": {
+    "trigger": [
+      "evals/output/cases.jsonl",
+      "evals/semantic_config.json",
+      "evals/trigger_cases.json"
+    ],
+    "output": [
+      "evals/output/cases.jsonl"
+    ],
+    "adversarial": [],
+    "baseline": "without_skill"
+  },
+  "risk": {
+    "output_risk": "low",
+    "execution_risk": "medium",
+    "trust_boundary": "team"
+  },
+  "governance": {
+    "owner": "姚金刚 / Yao",
+    "maturity": "library",
+    "review_cadence": "per-release",
+    "review_due": ""
+  },
+  "targets": [
+    "openai",
+    "claude",
+    "generic"
+  ],
+  "source_files": [
+    "SKILL.md",
+    "manifest.json",
+    "agents/interface.yaml"
+  ]
+}

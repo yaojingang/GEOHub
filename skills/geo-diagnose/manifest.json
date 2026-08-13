@@ -1,8 +1,8 @@
 {
   "name": "geo-diagnose",
-  "version": "0.3.1",
+  "version": "0.5.0",
   "owner": "姚金刚 / Yao",
-  "updated_at": "2026-08-11",
+  "updated_at": "2026-08-12",
   "review_cadence": "per-release",
   "status": "experimental",
   "maturity": "experimental",
@@ -20,7 +20,7 @@
   "copyright_owner": "姚金刚 / Yao",
   "third_party_notice_required": true,
   "input_files": ["file-backed fixture: diagnosis brief JSON and up to five replayable source_html snapshots"],
-  "output_contract": ["input/diagnosis-brief.json", "input/sources/*.html", "report", "diagnosis", "diagnosis-funnel", "evidence-ledger", "query-map", "opportunity-map", "research-context", "quality-report", "run-manifest"],
+  "output_contract": ["input/diagnosis-brief.json", "input/sources/*.html", "report", "diagnosis", "evidence-ledger", "query-map", "opportunity-map", "quality-report", "run-lineage", "run-manifest"],
   "rollback_boundary": "Remove generated diagnosis run directories and revert diagnose, CLI, registry, packaging, and geo-diagnose together.",
   "factory_components": ["references", "scripts", "evals", "reports", "agents"]
 }

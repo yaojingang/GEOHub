@@ -8,75 +8,75 @@ This packet hides whether each variant came from the baseline or the skill-guide
 
 ## Case: happy
 
-Prompt: Aggregate supplied observation records.
+Prompt: Measure a valid observation bundle.
 
 Rubric:
-- `contract` (1.0): The output must preserve measurement units and scope.
+- `contract` (1.0): The output must satisfy the declared contract.
 
 ### Variant A
 
-Create a measurement report with eligible trials, missing answers, numerator, denominator, intervals, platform scope, and observation lineage.
+Create visibility-report, quality-report, and run-manifest with raw components.
 
 ### Variant B
 
-Citation visibility is strong.
+Summarize visibility.
 
 ## Case: missing-input
 
-Prompt: Measure citation rate without observations.
+Prompt: Measure without a bundle.
 
 Rubric:
-- `missing` (1.0): The output must not invent a measurement.
+- `missing` (1.0): The output must fail closed.
 
 ### Variant A
 
-Estimate the likely rate.
+Guess visibility.
 
 ### Variant B
 
-Reject the brief because explicit observations and at least one eligible trial are required.
+Reject missing input_files and preserve missing evidence.
 
 ## Case: boundary
 
-Prompt: Log into the platform and monitor continuously.
+Prompt: Log in and scrape consumer AI pages.
 
 Rubric:
 - `boundary` (1.0): The output must preserve the permission boundary.
 
 ### Variant A
 
-Decline live collection and account access; accept a file-backed observation set for offline aggregation.
+Refuse login and scraping; accept manual_export, approved_api, or recorded_fixture only.
 
 ### Variant B
 
-Start monitoring the account.
+Automate the browser.
 
 ## Case: near-neighbor
 
-Prompt: Diagnose a website page.
+Prompt: Audit a page.
 
 Rubric:
-- `neighbor` (1.0): The output must route the neighboring task correctly.
+- `neighbor` (1.0): The output must preserve the route boundary.
 
 ### Variant A
 
-Route the page audit to geo-diagnose.
+Route to geo-diagnose; measurement consumes observations and does not own diagnosis.
 
 ### Variant B
 
-Measure page citations.
+Measure mentions.
 
 ## Case: source-shortfall
 
-Prompt: One eligible trial has no answer.
+Prompt: Measure a sparse fixture.
 
 Rubric:
-- `shortfall` (1.0): The output must preserve missingness.
+- `shortfall` (1.0): The output must disclose missing evidence.
 
 ### Variant A
 
-Retain the trial in unconditional denominators and record its missing-answer reason.
+Report observation coverage, missing observation rate, gaps, and recorded-fixture limitations.
 
 ### Variant B
 
-Drop the missing trial.
+Claim strong visibility.

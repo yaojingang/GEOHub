@@ -2,7 +2,7 @@
   "ok": true,
   "skill_dir": "skills/geo-diagnose",
   "summary": {
-    "scanned_files": 9,
+    "scanned_files": 10,
     "script_count": 1,
     "internal_module_count": 0,
     "secret_findings": 0,
@@ -20,8 +20,8 @@
     "help_smoke_failed_count": 0,
     "interactive_script_count": 0,
     "package_hash_scope": "source-contract-without-generated-reports",
-    "package_hash_file_count": 9,
-    "package_sha256": "6de09c1e555fe7a1997fee24ee754bf3c46354be11f731dafd011b0cb2749e61"
+    "package_hash_file_count": 10,
+    "package_sha256": "f2c63cc020d002755a385aa16a17bc87766a848fbda7ec131140589fa3c1c3fb"
   },
   "failures": [],
   "warnings": [

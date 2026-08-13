@@ -1,5 +1,5 @@
 protocol_version: 1.0.0
-registry_version: 0.3.1
+registry_version: 0.5.0
 workflows:
   - id: brand-baseline-lite
     required_skills: [geo-discover, geo-diagnose]
@@ -11,13 +11,24 @@ workflows:
     steps:
       - {id: discover, skill_id: geo-discover, depends_on: []}
       - {id: content, skill_id: geo-content, depends_on: [discover]}
+  - id: brand-baseline-content
+    required_skills: [geo-discover, geo-diagnose, geo-content]
+    steps:
+      - {id: discover, skill_id: geo-discover, depends_on: []}
+      - {id: diagnose, skill_id: geo-diagnose, depends_on: [discover]}
+      - {id: content, skill_id: geo-content, depends_on: [discover]}
+  - id: strategy-observation-loop
+    required_skills: [geo-strategy, geo-measure]
+    steps:
+      - {id: strategy, skill_id: geo-strategy, depends_on: []}
+      - {id: measure, skill_id: geo-measure, depends_on: [strategy]}
 skills:
   - id: geo
     status: active
     active_placeholder: false
     entry: skills/geo/SKILL.md
     summary: Unified GEO intent router and capability status surface.
-    intents: [geo, GEOHub, GEO SEO Hub, generative engine optimization, 生成式引擎优化, AI搜索优化]
+    intents: [geo, generative engine optimization, 生成式引擎优化, AI搜索优化]
     outputs: [route-decision]
   - id: geo-discover
     status: active
@@ -25,41 +36,35 @@ skills:
     entry: skills/geo-discover/SKILL.md
     summary: Deterministic query and opportunity discovery from evidence-aware briefs.
     intents: [discover, discovery, intent mining, query research, query expansion, keyword expansion, keyword research, 意图挖掘, 问题挖掘, AI搜索问题, AI 搜索问题, 查询拓展, 关键词拓展, 关键词扩展, 拓词, 选题发现]
-    outputs: [query-map, opportunity-map, evidence-ledger, research-context, run-manifest, quality-report]
+    outputs: [query-map, opportunity-map, evidence-ledger, run-lineage, run-manifest, quality-report]
   - id: geo-diagnose
     status: active
     active_placeholder: false
     entry: skills/geo-diagnose/SKILL.md
     summary: Evidence-lined brand, site, and page GEO diagnosis from explicit sources.
     intents: [diagnose, audit, brand diagnosis, brand audit, site diagnosis, site audit, website diagnosis, website audit, page diagnosis, page audit, 诊断, 审计, 差距分析, 品牌诊断, 网站诊断, 页面诊断]
-    outputs: [report, diagnosis, diagnosis-funnel, evidence-ledger, query-map, opportunity-map, research-context, quality-report, run-manifest]
+    outputs: [report, diagnosis, evidence-ledger, query-map, opportunity-map, quality-report, run-lineage, run-manifest]
   - id: geo-content
     status: active
     active_placeholder: false
     entry: skills/geo-content/SKILL.md
     summary: Offline evidence-lined content generation across seven bounded modes.
     intents: [content, draft, write article, title, headline, explainer, explanation, comparison, ranking, page blueprint, content refine, article-friendly, 内容生产, 内容优化, 写文章, 生成文章, 文章生成, 标题, 科普, 解释, 对比, 榜单, 排名, 页面蓝图, 文章友好]
-    outputs: [content-spec, content, content-evidence-units, markdown, json, html, docx, pdf, evidence-ledger, research-context, quality-report, run-manifest]
+    outputs: [content-spec, content, markdown, json, html, docx, pdf, evidence-ledger, claim-map, content-pipeline, quality-report, run-lineage, run-manifest]
   - id: geo-strategy
-    status: planned
+    status: active
     active_placeholder: false
-    entry: null
-    nearest_active: geo-discover
-    required_inputs: [subject, goals, constraints]
-    closest_v0_artifact: opportunity-map
-    summary: Roadmap route for strategy planning.
-    intents: [strategy, roadmap, 策略, 路线图]
-    outputs: [opportunity-map]
+    entry: skills/geo-strategy/SKILL.md
+    summary: Offline optimization planning with bounded interventions, fidelity gates, publication handoff, and positive-only strategy memory.
+    intents: [strategy, roadmap, intervention planning, intervention experiments, experiment planning, optimization plan, 策略, 路线图, 优化方案, 优化实验]
+    outputs: [strategy-candidates, fidelity-report, experiment-plan, publication-handoff, strategy-memory, quality-report, run-lineage, run-manifest]
   - id: geo-knowledge
-    status: planned
+    status: active
     active_placeholder: false
-    entry: null
-    nearest_active: geo-content
-    required_inputs: [subject, approved_sources]
-    closest_v0_artifact: brand-fact-card
-    summary: Roadmap route for knowledge operations.
-    intents: [knowledge, knowledge base, 知识库, 知识治理]
-    outputs: [brand-fact-card]
+    entry: skills/geo-knowledge/SKILL.md
+    summary: Evidence-lined entity and relation governance with conflict preservation and incremental source-hash updates.
+    intents: [knowledge, knowledge graph, knowledge base, entity graph, entity neighborhood, relation governance, 知识图谱, 知识库, 知识治理, 实体关系, 实体和关系]
+    outputs: [knowledge-graph, knowledge-query-result, evidence-ledger, quality-report, run-lineage, run-manifest]
   - id: geo-publish
     status: planned
     active_placeholder: false
@@ -74,13 +79,6 @@ skills:
     status: active
     active_placeholder: false
     entry: skills/geo-measure/SKILL.md
-    summary: Offline aggregation of explicit platform observations with denominators, missing-answer accounting, strata, and intervals.
-    intents: [measure, monitor, tracking, 监测, 衡量, 效果]
-    outputs: [measurement-report, report, evidence-ledger, research-context, quality-report, run-manifest]
-  - id: seo
-    status: active
-    active_placeholder: false
-    entry: skills/seo/SKILL.md
-    summary: One-line, evidence-bounded SEO planning across technical, content, incident, migration, experiment, and specialty modes.
-    intents: [one-line SEO, one sentence SEO, technical SEO, organic search, Search Console, keyword-to-page map, site migration SEO, international SEO, ecommerce SEO, 一句话SEO, 一句话 SEO, 搜索引擎优化, 自然搜索, 技术SEO, 技术 SEO, 收录诊断, SEO实验, SEO 实验]
-    outputs: [seo-plan, report, evidence-ledger, quality-report, run-manifest]
+    summary: Offline GEO visibility measurement from approved engine observation bundles.
+    intents: [measure, monitor, tracking, visibility measurement, citation share, mention rate, 监测, 衡量, 效果, 可见度监测, 引用份额, 提及率]
+    outputs: [visibility-report, quality-report, run-lineage, run-manifest]

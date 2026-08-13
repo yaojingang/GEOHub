@@ -81,6 +81,7 @@ def test_page_source_html_writes_complete_valid_run(tmp_path):
         "quality-report.json",
         "research-context.json",
         "run-manifest.json",
+        "run-lineage.json",
     }
     assert {str(path.relative_to(output)) for path in output.rglob("*") if path.is_file()} == expected
 
@@ -92,6 +93,7 @@ def test_page_source_html_writes_complete_valid_run(tmp_path):
         "diagnosis-funnel.json": "diagnosis-funnel",
         "research-context.json": "research-context",
         "run-manifest.json": "run-manifest",
+        "run-lineage.json": "run-lineage",
     }.items():
         validate_artifact(schema_name, _load(output / filename))
     manifest = _load(output / "run-manifest.json")

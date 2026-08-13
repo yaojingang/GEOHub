@@ -1,0 +1,456 @@
+{
+  "schema_version": "1.0",
+  "ok": true,
+  "generated_at": "2026-08-13",
+  "skill_dir": "skills/geo-knowledge",
+  "summary": {
+    "target_count": 1,
+    "pass_count": 1,
+    "warn_count": 0,
+    "block_count": 0,
+    "failure_count": 0,
+    "warning_count": 0
+  },
+  "targets": [
+    {
+      "schema_version": "1.0",
+      "target": "claude",
+      "status": "pass",
+      "compiler": {
+        "name": "yao-skill-ir-compiler",
+        "schema_version": "1.0",
+        "source": "skill-ir",
+        "ir_source": "reports/skill-ir.json",
+        "ir_schema_version": "2.0.0"
+      },
+      "source": {
+        "skill_dir": "skills/geo-knowledge",
+        "canonical_metadata": "agents/interface.yaml",
+        "declared_targets": [
+          "openai",
+          "claude",
+          "generic"
+        ]
+      },
+      "compiled_contract": {
+        "name": "geo-knowledge",
+        "title": "GEO SEO Hub Knowledge",
+        "version": "0.5.0",
+        "description": "Build and query an evidence-lined GEO knowledge graph from approved source bundles. Use for entity normalization, relation lineage, conflicting fact preservation, incremental source-hash updates, local/global knowledge queries, 知识图谱, 知识库, and 知识治理. Exclude unsourced facts, hidden conflict resolution, autonomous crawling, and external database mutation.",
+        "job_to_be_done": "Build and query an evidence-lined GEO knowledge graph from approved source bundles. Use for entity normalization, relation lineage, conflicting fact preservation, incremental source-hash updates, local/global knowledge queries, 知识图谱, 知识库, and 知识治理. Exclude unsourced facts, hidden conflict resolution, autonomous crawling, and external database mutation.",
+        "trigger": {
+          "description": "Build and query an evidence-lined GEO knowledge graph from approved source bundles. Use for entity normalization, relation lineage, conflicting fact preservation, incremental source-hash updates, local/global knowledge queries, 知识图谱, 知识库, and 知识治理. Exclude unsourced facts, hidden conflict resolution, autonomous crawling, and external database mutation.",
+          "should_trigger": [
+            "Build a knowledge graph from these approved sources",
+            "治理品牌实体和关系",
+            "Query the local entity neighborhood"
+          ],
+          "should_not_trigger": [
+            "Publish this page",
+            "Write an explainer"
+          ],
+          "edge_cases": [
+            "Plan a GEO roadmap",
+            "Diagnose site gaps",
+            "Measure AI visibility"
+          ]
+        },
+        "workflow": {
+          "steps": [
+            "Read `references/knowledge-method.md` and prepare approved source bundles with stable IDs and SHA-256 hashes.",
+            "Run `python3 scripts/run_knowledge.py --input <request.json> --output <runs-root>`.",
+            "Inspect canonical identities, aliases, relation source IDs, validity dates, source coverage, conflicts, and gaps.",
+            "Use the local query for an entity neighborhood or the global query for communities, coverage, conflicts, and gaps.",
+            "For incremental updates, replace only source bundles whose hashes changed and rebuild the governed graph."
+          ],
+          "decision_points": [],
+          "failure_modes": []
+        },
+        "resources": {
+          "references": [
+            "references/knowledge-method.md",
+            "references/output-contract.md"
+          ],
+          "scripts": [
+            "scripts/run_knowledge.py"
+          ],
+          "assets": [],
+          "reports": [
+            "reports/output_quality_scorecard.md"
+          ],
+          "counts": {
+            "references": 2,
+            "scripts": 1,
+            "assets": 0,
+            "reports": 1
+          }
+        },
+        "eval_plan": {
+          "trigger": [
+            "evals/output/cases.jsonl",
+            "evals/semantic_config.json",
+            "evals/trigger_cases.json"
+          ],
+          "output": [
+            "evals/output/cases.jsonl"
+          ],
+          "adversarial": [],
+          "baseline": "without_skill",
+          "counts": {
+            "trigger": 3,
+            "output": 1,
+            "adversarial": 0,
+            "baseline": 1
+          }
+        },
+        "risk": {
+          "output_risk": "low",
+          "execution_risk": "medium",
+          "trust_boundary": "team"
+        },
+        "governance": {
+          "owner": "姚金刚 / Yao",
+          "maturity": "library",
+          "review_cadence": "per-release",
+          "review_due": ""
+        },
+        "runtime": {
+          "activation": {
+            "mode": "auto",
+            "paths": []
+          },
+          "execution": {
+            "context": "inline",
+            "shell": "bash"
+          },
+          "trust": {
+            "source_tier": "local",
+            "remote_inline_execution": "forbid",
+            "remote_metadata_policy": "allow-metadata-only"
+          },
+          "adapter_targets": [
+            "openai",
+            "claude",
+            "generic"
+          ],
+          "canonical_format": "agent-skills"
+        },
+        "permissions": {
+          "schema_version": "1.0",
+          "source": "missing-security-trust-report",
+          "source_available": false,
+          "declared_capabilities": [],
+          "review_required": false,
+          "capabilities": {
+            "network": {
+              "required": false,
+              "script_count": 0,
+              "scripts": [],
+              "review_reason": ""
+            },
+            "file_write": {
+              "required": false,
+              "script_count": 0,
+              "scripts": [],
+              "review_reason": ""
+            },
+            "subprocess": {
+              "required": false,
+              "script_count": 0,
+              "scripts": [],
+              "review_reason": ""
+            },
+            "interactive": {
+              "required": false,
+              "script_count": 0,
+              "scripts": [],
+              "review_reason": ""
+            }
+          },
+          "network_policy": {
+            "source": "security/network_policy.json",
+            "covered_scripts": [],
+            "missing_scripts": [],
+            "mismatches": []
+          },
+          "help_smoke": {
+            "enabled": false,
+            "checked_count": 0,
+            "failed_count": 0,
+            "failed_scripts": []
+          },
+          "trust_summary": {
+            "secret_findings": 0,
+            "network_script_count": 0,
+            "file_write_script_count": 0,
+            "subprocess_script_count": 0,
+            "interactive_script_count": 0,
+            "help_smoke_failed_count": 0
+          }
+        },
+        "source_files_count": 3,
+        "target": "claude",
+        "target_permission_contract": {
+          "schema_version": "1.0",
+          "target": "claude",
+          "permission_model": "neutral-source-plus-adapter",
+          "native_enforcement": false,
+          "representation": "targets/claude/adapter.json::target_permission_contract and README notes",
+          "review_required": false,
+          "declared_capabilities": [],
+          "capability_counts": {
+            "network": 0,
+            "file_write": 0,
+            "subprocess": 0,
+            "interactive": 0
+          },
+          "evidence": "missing-security-trust-report",
+          "operator_note": "Claude-compatible package keeps permission intent in adapter metadata for install review."
+        },
+        "target_native_contract": {
+          "schema_version": "1.0",
+          "target": "claude",
+          "native_surface": "Claude-compatible neutral source folder with adapter notes",
+          "activation": {
+            "policy": "Use SKILL.md frontmatter description as the primary activation contract and adapter.json for review metadata.",
+            "trigger_description": "Build and query an evidence-lined GEO knowledge graph from approved source bundles. Use for entity normalization, relation lineage, conflicting fact preservation, incremental source-hash updates, local/global knowledge queries, 知识图谱, 知识库, and 知识治理. Exclude unsourced facts, hidden conflict resolution, autonomous crawling, and external database mutation.",
+            "manual_activation_supported": true,
+            "automatic_activation_note": "Depends on the target client route/catalog implementation."
+          },
+          "resources": {
+            "strategy": "Preserve the source tree directly; write target notes in targets/claude/README.md.",
+            "counts": {
+              "references": 2,
+              "scripts": 1,
+              "assets": 0,
+              "reports": 1
+            },
+            "generated_files": [
+              "targets/claude/adapter.json",
+              "targets/claude/README.md"
+            ]
+          },
+          "scripts": {
+            "strategy": "Scripts remain local package resources and must be reviewed through trust and permission reports before use.",
+            "script_count": 1,
+            "help_smoke_failed_count": 0
+          },
+          "permissions": {
+            "enforcement": "metadata-fallback",
+            "native_enforcement": false,
+            "declared_capabilities": [],
+            "review_required": false
+          },
+          "review": {
+            "artifacts": [
+              "targets/claude/README.md",
+              "targets/claude/adapter.json",
+              "reports/review-studio.html"
+            ],
+            "fallback_behavior": "If Claude-specific metadata is not consumed, SKILL.md and references remain the source of truth.",
+            "unsupported_native_features": [
+              "vendor-native permission enforcement",
+              "provider-specific execution transforms",
+              "vendor-native metadata fields are carried as adapter JSON and README notes"
+            ]
+          },
+          "install_scope": "user or project skill directory"
+        },
+        "degradation_strategy": "neutral-source-plus-adapter",
+        "target_runtime": {
+          "adapter_mode": "neutral-source-plus-adapter",
+          "generated_files": [
+            "targets/claude/adapter.json",
+            "targets/claude/README.md"
+          ],
+          "metadata_mapping": {
+            "display_name": "targets/claude/adapter.json::display_name",
+            "default_prompt": "targets/claude/adapter.json::default_prompt",
+            "activation": "targets/claude/adapter.json::activation_mode",
+            "execution": "targets/claude/adapter.json::execution_context",
+            "trust": "targets/claude/adapter.json::trust_level",
+            "permissions": "targets/claude/adapter.json::target_permission_contract",
+            "degradation": "targets/claude/adapter.json::degradation_strategy"
+          },
+          "preserved_semantics": [
+            "trigger",
+            "workflow-counts",
+            "resources",
+            "eval-plan",
+            "risk",
+            "governance",
+            "runtime",
+            "trust",
+            "permissions"
+          ],
+          "native_surface": "Claude-compatible neutral source folder with adapter notes"
+        }
+      },
+      "permission_contract": {
+        "schema_version": "1.0",
+        "source": "missing-security-trust-report",
+        "source_available": false,
+        "declared_capabilities": [],
+        "review_required": false,
+        "capabilities": {
+          "network": {
+            "required": false,
+            "script_count": 0,
+            "scripts": [],
+            "review_reason": ""
+          },
+          "file_write": {
+            "required": false,
+            "script_count": 0,
+            "scripts": [],
+            "review_reason": ""
+          },
+          "subprocess": {
+            "required": false,
+            "script_count": 0,
+            "scripts": [],
+            "review_reason": ""
+          },
+          "interactive": {
+            "required": false,
+            "script_count": 0,
+            "scripts": [],
+            "review_reason": ""
+          }
+        },
+        "network_policy": {
+          "source": "security/network_policy.json",
+          "covered_scripts": [],
+          "missing_scripts": [],
+          "mismatches": []
+        },
+        "help_smoke": {
+          "enabled": false,
+          "checked_count": 0,
+          "failed_count": 0,
+          "failed_scripts": []
+        },
+        "trust_summary": {
+          "secret_findings": 0,
+          "network_script_count": 0,
+          "file_write_script_count": 0,
+          "subprocess_script_count": 0,
+          "interactive_script_count": 0,
+          "help_smoke_failed_count": 0
+        }
+      },
+      "target_permission_contract": {
+        "schema_version": "1.0",
+        "target": "claude",
+        "permission_model": "neutral-source-plus-adapter",
+        "native_enforcement": false,
+        "representation": "targets/claude/adapter.json::target_permission_contract and README notes",
+        "review_required": false,
+        "declared_capabilities": [],
+        "capability_counts": {
+          "network": 0,
+          "file_write": 0,
+          "subprocess": 0,
+          "interactive": 0
+        },
+        "evidence": "missing-security-trust-report",
+        "operator_note": "Claude-compatible package keeps permission intent in adapter metadata for install review."
+      },
+      "target_native_contract": {
+        "schema_version": "1.0",
+        "target": "claude",
+        "native_surface": "Claude-compatible neutral source folder with adapter notes",
+        "activation": {
+          "policy": "Use SKILL.md frontmatter description as the primary activation contract and adapter.json for review metadata.",
+          "trigger_description": "Build and query an evidence-lined GEO knowledge graph from approved source bundles. Use for entity normalization, relation lineage, conflicting fact preservation, incremental source-hash updates, local/global knowledge queries, 知识图谱, 知识库, and 知识治理. Exclude unsourced facts, hidden conflict resolution, autonomous crawling, and external database mutation.",
+          "manual_activation_supported": true,
+          "automatic_activation_note": "Depends on the target client route/catalog implementation."
+        },
+        "resources": {
+          "strategy": "Preserve the source tree directly; write target notes in targets/claude/README.md.",
+          "counts": {
+            "references": 2,
+            "scripts": 1,
+            "assets": 0,
+            "reports": 1
+          },
+          "generated_files": [
+            "targets/claude/adapter.json",
+            "targets/claude/README.md"
+          ]
+        },
+        "scripts": {
+          "strategy": "Scripts remain local package resources and must be reviewed through trust and permission reports before use.",
+          "script_count": 1,
+          "help_smoke_failed_count": 0
+        },
+        "permissions": {
+          "enforcement": "metadata-fallback",
+          "native_enforcement": false,
+          "declared_capabilities": [],
+          "review_required": false
+        },
+        "review": {
+          "artifacts": [
+            "targets/claude/README.md",
+            "targets/claude/adapter.json",
+            "reports/review-studio.html"
+          ],
+          "fallback_behavior": "If Claude-specific metadata is not consumed, SKILL.md and references remain the source of truth.",
+          "unsupported_native_features": [
+            "vendor-native permission enforcement",
+            "provider-specific execution transforms",
+            "vendor-native metadata fields are carried as adapter JSON and README notes"
+          ]
+        },
+        "install_scope": "user or project skill directory"
+      },
+      "target_transform": {
+        "target": "claude",
+        "adapter_mode": "neutral-source-plus-adapter",
+        "generated_files": [
+          "targets/claude/adapter.json",
+          "targets/claude/README.md"
+        ],
+        "metadata_mapping": {
+          "display_name": "targets/claude/adapter.json::display_name",
+          "default_prompt": "targets/claude/adapter.json::default_prompt",
+          "activation": "targets/claude/adapter.json::activation_mode",
+          "execution": "targets/claude/adapter.json::execution_context",
+          "trust": "targets/claude/adapter.json::trust_level",
+          "permissions": "targets/claude/adapter.json::target_permission_contract",
+          "degradation": "targets/claude/adapter.json::degradation_strategy"
+        },
+        "preserved_semantics": [
+          "trigger",
+          "workflow-counts",
+          "resources",
+          "eval-plan",
+          "risk",
+          "governance",
+          "runtime",
+          "trust",
+          "permissions"
+        ],
+        "degradation_strategy": "neutral-source-plus-adapter",
+        "permission_representation": "targets/claude/adapter.json::target_permission_contract and README notes",
+        "native_surface": "Claude-compatible neutral source folder with adapter notes",
+        "activation_policy": "Use SKILL.md frontmatter description as the primary activation contract and adapter.json for review metadata.",
+        "resource_strategy": "Preserve the source tree directly; write target notes in targets/claude/README.md.",
+        "script_strategy": "Scripts remain local package resources and must be reviewed through trust and permission reports before use.",
+        "permission_enforcement": "metadata-fallback"
+      },
+      "unsupported_features": [
+        "vendor-native metadata fields are carried as adapter JSON and README notes"
+      ],
+      "warnings": [],
+      "failures": []
+    }
+  ],
+  "failures": [],
+  "warnings": [],
+  "artifacts": {
+    "json": "reports/yao-meta/geo-knowledge-compiled-claude.json",
+    "markdown": "reports/yao-meta/geo-knowledge-compiled-claude.md"
+  }
+}

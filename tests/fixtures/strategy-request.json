@@ -1,0 +1,18 @@
+{
+  "protocol_version": "1.0.0",
+  "subject": "Acme GEO platform",
+  "goals": ["increase qualified AI-answer visibility", "improve cited source coverage"],
+  "audience": ["enterprise AI leaders", "technical evaluators"],
+  "constraints": ["offline planning only", "approved sources only"],
+  "risks": ["unsupported causal attribution", "brand drift"],
+  "brand_rules": ["preserve product naming", "surface evidence gaps"],
+  "metric_weights": {"mention_rate": 0.4, "citation_share": 0.35, "source_inclusion_rate": 0.25},
+  "baseline": {
+    "semantic_digest": "56a39b4b6f0c2787ccf7ea34585cbccaf34074763757b8b3c9e38f5f330967ab",
+    "query_panel": ["What is Acme GEO?", "How does Acme GEO support enterprise teams?"],
+    "metrics": {"mention_rate": 0.2, "citation_share": 0.1, "source_inclusion_rate": 0.15}
+  },
+  "diagnosis_actions": ["publish an evidence-led product definition", "strengthen source-linked comparison coverage"],
+  "evidence_ids": ["evidence-product-page", "evidence-security-page"],
+  "observation_window_days": 28
+}

@@ -1,0 +1,1239 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>GEOHub 世界级对标审计 · 2026-08-12</title>
+  <style>
+    :root {
+      --canvas: oklch(0.965 0.012 82);
+      --paper: oklch(0.987 0.006 82);
+      --paper-strong: oklch(1 0 0);
+      --ink: oklch(0.225 0.025 255);
+      --ink-soft: oklch(0.43 0.025 255);
+      --line: oklch(0.83 0.018 82);
+      --line-strong: oklch(0.69 0.025 255);
+      --blue: oklch(0.48 0.16 255);
+      --blue-soft: oklch(0.9 0.045 255);
+      --amber: oklch(0.72 0.15 70);
+      --amber-soft: oklch(0.93 0.045 78);
+      --red: oklch(0.56 0.18 28);
+      --green: oklch(0.53 0.11 155);
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --shadow: 0 1px 3px rgba(25, 34, 51, 0.12), 0 10px 30px rgba(25, 34, 51, 0.05);
+      --sidebar: 258px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--canvas);
+      font-family: -apple-system, "SF Pro Text", "PingFang SC", "Noto Sans SC", sans-serif;
+      line-height: 1.74;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    body, button, input { font-variant-numeric: tabular-nums; }
+    a { color: var(--blue); text-underline-offset: 3px; }
+    a:hover { text-decoration-thickness: 2px; }
+    button, a { touch-action: manipulation; }
+    button:focus-visible, a:focus-visible {
+      outline: 3px solid color-mix(in oklch, var(--blue) 55%, white);
+      outline-offset: 3px;
+    }
+    .skip-link {
+      position: fixed;
+      left: 18px;
+      top: -80px;
+      z-index: 100;
+      padding: 10px 14px;
+      background: var(--ink);
+      color: white;
+      border-radius: var(--radius-sm);
+    }
+    .skip-link:focus { top: 18px; }
+
+    .shell {
+      display: grid;
+      grid-template-columns: var(--sidebar) minmax(0, 1fr);
+      min-height: 100vh;
+    }
+    aside {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 28px 24px;
+      background: oklch(0.93 0.018 82);
+      box-shadow: 1px 0 0 var(--line);
+      overflow-y: auto;
+    }
+    .wordmark {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin-bottom: 30px;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 760;
+      letter-spacing: -0.012em;
+    }
+    .mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: var(--ink);
+      border-radius: var(--radius-sm);
+      font-family: "Iowan Old Style", "Songti SC", serif;
+      font-size: 18px;
+    }
+    .side-label {
+      margin: 25px 0 8px;
+      color: var(--ink-soft);
+      font-size: 11px;
+      font-weight: 760;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    nav a {
+      display: block;
+      min-height: 40px;
+      padding: 8px 10px;
+      margin-left: -10px;
+      color: var(--ink-soft);
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-size: 14px;
+    }
+    nav a:hover { background: rgba(255,255,255,0.55); color: var(--ink); }
+    nav a.active {
+      color: var(--ink);
+      box-shadow: inset 2px 0 0 var(--blue);
+      background: rgba(255,255,255,0.48);
+    }
+    .side-meta {
+      margin-top: 30px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      color: var(--ink-soft);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    main {
+      width: min(1500px, 100%);
+      padding: 42px clamp(28px, 5vw, 84px) 110px;
+    }
+    .report-head {
+      padding-bottom: 36px;
+      border-bottom: 1px solid var(--line-strong);
+    }
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 17px;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 780;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 3px;
+      background: var(--blue);
+    }
+    h1, h2, h3 {
+      text-wrap: balance;
+      font-family: "Iowan Old Style", "Songti SC", "Noto Serif SC", serif;
+      font-weight: 680;
+    }
+    h1 {
+      max-width: 980px;
+      margin: 0;
+      font-size: clamp(42px, 6vw, 78px);
+      line-height: 1.02;
+      letter-spacing: -0.022em;
+    }
+    h1 span { color: var(--blue); }
+    .dek {
+      max-width: 900px;
+      margin: 24px 0 0;
+      color: var(--ink-soft);
+      font-size: clamp(17px, 1.8vw, 22px);
+      line-height: 1.75;
+      text-wrap: pretty;
+    }
+    .head-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px 18px;
+      margin-top: 28px;
+      color: var(--ink-soft);
+      font-size: 13px;
+    }
+    .head-meta span { white-space: nowrap; }
+
+    section {
+      scroll-margin-top: 24px;
+      padding: 64px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .section-kicker {
+      margin: 0 0 10px;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 760;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    h2 {
+      max-width: 980px;
+      margin: 0;
+      font-size: clamp(31px, 4vw, 52px);
+      line-height: 1.12;
+      letter-spacing: -0.018em;
+    }
+    .section-intro {
+      max-width: 850px;
+      margin: 16px 0 34px;
+      color: var(--ink-soft);
+      font-size: 17px;
+      text-wrap: pretty;
+    }
+
+    .verdict {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(320px, 0.6fr);
+      gap: clamp(34px, 5vw, 80px);
+      align-items: start;
+    }
+    .verdict-quote {
+      margin: 0;
+      max-width: 900px;
+      font-family: "Iowan Old Style", "Songti SC", serif;
+      font-size: clamp(28px, 3.5vw, 46px);
+      line-height: 1.42;
+      letter-spacing: -0.012em;
+    }
+    .verdict-quote mark {
+      padding: 0 0.12em;
+      color: inherit;
+      background: linear-gradient(transparent 58%, var(--amber-soft) 58%);
+    }
+    .score-seal {
+      display: grid;
+      grid-template-columns: 118px 1fr;
+      gap: 18px;
+      align-items: center;
+      padding: 24px;
+      background: var(--paper-strong);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow);
+    }
+    .score-seal strong {
+      font-family: "Iowan Old Style", "Songti SC", serif;
+      font-size: 52px;
+      line-height: 1;
+      color: var(--blue);
+    }
+    .score-seal strong small { font-size: 18px; color: var(--ink-soft); }
+    .score-seal p { margin: 0; color: var(--ink-soft); font-size: 13px; line-height: 1.6; }
+
+    .metric-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-top: 46px;
+      border-top: 1px solid var(--line-strong);
+      border-bottom: 1px solid var(--line-strong);
+    }
+    .metric {
+      padding: 24px 22px;
+      border-right: 1px solid var(--line);
+    }
+    .metric:last-child { border-right: 0; }
+    .metric b {
+      display: block;
+      font-family: "Iowan Old Style", "Songti SC", serif;
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1;
+    }
+    .metric span { display: block; margin-top: 8px; color: var(--ink-soft); font-size: 13px; }
+
+    .maturity-bars {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 22px;
+      margin-top: 40px;
+    }
+    .maturity-item { min-width: 0; }
+    .maturity-head { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; }
+    .maturity-head b { font-size: 18px; }
+    .bar {
+      height: 8px;
+      margin-top: 10px;
+      background: oklch(0.9 0.014 82);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .bar i { display: block; height: 100%; background: var(--blue); border-radius: inherit; }
+    .bar i.warn { background: var(--amber); }
+    .maturity-item p { margin: 9px 0 0; color: var(--ink-soft); font-size: 12px; line-height: 1.6; }
+
+    .architecture-map {
+      display: grid;
+      grid-template-columns: 1.05fr 1.25fr 1.25fr 1fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+    .arch-column {
+      min-height: 310px;
+      padding: 18px;
+      background: rgba(255,255,255,0.36);
+      border-top: 3px solid var(--ink);
+      box-shadow: inset 0 -1px 0 var(--line), inset -1px 0 0 var(--line), inset 1px 0 0 var(--line);
+    }
+    .arch-column:nth-child(2) { border-top-color: var(--blue); }
+    .arch-column:nth-child(3) { border-top-color: var(--amber); }
+    .arch-column:nth-child(4) { border-top-color: var(--green); }
+    .arch-column h3 { margin: 0 0 6px; font-size: 20px; }
+    .arch-column > p { margin: 0 0 16px; color: var(--ink-soft); font-size: 12px; }
+    .arch-node {
+      margin-top: 9px;
+      padding: 11px 12px;
+      background: var(--paper-strong);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+    }
+    .arch-node span { display: block; color: var(--ink-soft); font-size: 11px; }
+    .arch-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 22px;
+      margin-top: 18px;
+      color: var(--ink-soft);
+      font-size: 12px;
+    }
+    .dot { display: inline-block; width: 9px; height: 9px; margin-right: 6px; border-radius: 50%; background: var(--green); }
+    .dot.amber { background: var(--amber); }
+    .dot.red { background: var(--red); }
+
+    .strengths {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 44px;
+      border-top: 1px solid var(--line-strong);
+    }
+    .strength {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 16px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .strength-num {
+      font-family: "Iowan Old Style", serif;
+      color: var(--blue);
+      font-size: 24px;
+    }
+    .strength h3 { margin: 0 0 6px; font-size: 20px; }
+    .strength p { margin: 0; color: var(--ink-soft); font-size: 14px; }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 28px 0 18px;
+    }
+    .filter {
+      min-height: 40px;
+      padding: 8px 14px;
+      color: var(--ink-soft);
+      background: transparent;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      font: inherit;
+      font-size: 13px;
+      cursor: pointer;
+      transition-property: transform, background-color, color, border-color;
+      transition-duration: 130ms;
+      transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .filter:active { transform: scale(0.96); }
+    .filter[aria-pressed="true"] { color: white; background: var(--ink); border-color: var(--ink); }
+
+    .matrix-wrap {
+      overflow-x: auto;
+      background: var(--paper-strong);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 14px 16px; text-align: left; vertical-align: middle; }
+    th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: oklch(0.945 0.015 82);
+      color: var(--ink-soft);
+      border-bottom: 1px solid var(--line-strong);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    td { border-bottom: 1px solid rgba(25,34,51,0.07); font-size: 13px; }
+    tbody tr:hover td { background: oklch(0.98 0.006 82); }
+    .module-name { min-width: 200px; }
+    .module-name b { display: block; font-size: 14px; }
+    .module-name span { color: var(--ink-soft); font-size: 11px; }
+    .score-cell { min-width: 128px; }
+    .mini-bar { display: flex; align-items: center; gap: 9px; }
+    .mini-track { width: 72px; height: 6px; background: oklch(0.9 0.012 82); border-radius: 99px; overflow: hidden; }
+    .mini-track i { display: block; height: 100%; background: var(--blue); }
+    .mini-track i.benchmark { background: var(--ink); }
+    .gap-value { color: var(--red); font-weight: 720; }
+    .priority {
+      display: inline-flex;
+      min-width: 38px;
+      justify-content: center;
+      padding: 3px 7px;
+      border-radius: var(--radius-sm);
+      background: var(--amber-soft);
+      color: oklch(0.38 0.1 55);
+      font-weight: 760;
+      font-size: 11px;
+    }
+    .priority.p1 { background: var(--blue-soft); color: var(--blue); }
+    .priority.p2 { background: oklch(0.92 0.012 255); color: var(--ink-soft); }
+    .detail-button {
+      min-width: 40px;
+      min-height: 40px;
+      border: 0;
+      background: transparent;
+      color: var(--blue);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font: inherit;
+      font-weight: 760;
+      transition-property: transform, background-color;
+      transition-duration: 130ms;
+      transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .detail-button:hover { background: var(--blue-soft); }
+    .detail-button:active { transform: scale(0.96); }
+    .detail-row td { padding: 0; background: oklch(0.98 0.006 82); }
+    .detail-panel {
+      display: none;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      background: var(--line);
+      border-bottom: 1px solid var(--line-strong);
+    }
+    .detail-row.open .detail-panel { display: grid; }
+    .detail-block { padding: 22px; background: var(--paper); }
+    .detail-block.wide { grid-column: span 3; }
+    .detail-block h4 {
+      margin: 0 0 8px;
+      color: var(--blue);
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .detail-block p { margin: 0; color: var(--ink-soft); font-size: 13px; line-height: 1.75; }
+    .detail-block a { font-weight: 680; }
+    .evidence-list { margin: 0; padding-left: 18px; color: var(--ink-soft); font-size: 12px; }
+    .evidence-list li + li { margin-top: 5px; }
+
+    .target-map {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .plane {
+      padding: 20px;
+      background: var(--paper-strong);
+      border: 1px solid var(--line);
+      border-top: 4px solid var(--ink);
+      box-shadow: 0 1px 3px rgba(25,34,51,0.1);
+    }
+    .plane:nth-child(2) { border-top-color: var(--blue); }
+    .plane:nth-child(3) { border-top-color: var(--amber); }
+    .plane:nth-child(4) { border-top-color: var(--green); }
+    .plane h3 { margin: 0 0 6px; font-size: 22px; }
+    .plane > p { min-height: 65px; margin: 0 0 14px; color: var(--ink-soft); font-size: 12px; }
+    .plane ul { list-style: none; margin: 0; padding: 0; }
+    .plane li { padding: 9px 0; border-top: 1px solid var(--line); font-size: 13px; }
+    .plane li span { display: block; color: var(--ink-soft); font-size: 11px; }
+
+    .roadmap {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: 1px solid var(--line-strong);
+      border-bottom: 1px solid var(--line-strong);
+    }
+    .phase { padding: 26px 24px 30px; border-right: 1px solid var(--line); }
+    .phase:last-child { border-right: 0; }
+    .phase-time { color: var(--blue); font-size: 12px; font-weight: 760; letter-spacing: 0.06em; }
+    .phase h3 { margin: 8px 0 12px; font-size: 24px; }
+    .phase ol { margin: 0; padding-left: 20px; }
+    .phase li { padding: 7px 0; color: var(--ink-soft); font-size: 13px; }
+    .gate {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      font-size: 12px;
+      color: var(--ink);
+    }
+
+    .priority-board {
+      position: relative;
+      min-height: 480px;
+      margin-top: 34px;
+      background:
+        linear-gradient(to right, transparent 49.9%, var(--line) 50%, transparent 50.1%),
+        linear-gradient(to bottom, transparent 49.9%, var(--line) 50%, transparent 50.1%);
+      border: 1px solid var(--line-strong);
+    }
+    .axis-x, .axis-y { position: absolute; color: var(--ink-soft); font-size: 11px; }
+    .axis-x { bottom: 8px; left: 50%; transform: translateX(-50%); }
+    .axis-y { top: 50%; left: 8px; transform: translateY(-50%) rotate(-90deg); transform-origin: left top; }
+    .quad-label { position: absolute; color: var(--ink-soft); font-size: 11px; }
+    .quad-label.q1 { top: 10px; right: 12px; }
+    .quad-label.q2 { top: 10px; left: 12px; }
+    .quad-label.q3 { bottom: 10px; left: 12px; }
+    .quad-label.q4 { bottom: 10px; right: 12px; }
+    .priority-dot {
+      position: absolute;
+      width: 150px;
+      min-height: 56px;
+      padding: 9px 11px;
+      background: var(--paper-strong);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-sm);
+      box-shadow: 0 2px 10px rgba(25,34,51,0.08);
+      font-size: 11px;
+      line-height: 1.45;
+    }
+    .priority-dot b { display: block; color: var(--blue); font-size: 12px; }
+
+    .guardrails {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px 34px;
+    }
+    .guardrail { padding: 18px 0; border-top: 1px solid var(--line-strong); }
+    .guardrail h3 { margin: 0 0 6px; font-size: 20px; }
+    .guardrail p { margin: 0; color: var(--ink-soft); font-size: 13px; }
+
+    .source-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 34px;
+      border-top: 1px solid var(--line-strong);
+    }
+    .source-item {
+      display: grid;
+      grid-template-columns: 32px 1fr auto;
+      gap: 12px;
+      align-items: start;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .source-item b { color: var(--blue); font-family: "Iowan Old Style", serif; }
+    .source-item a { color: var(--ink); font-weight: 700; text-decoration: none; }
+    .source-item a:hover { color: var(--blue); }
+    .source-item p { margin: 3px 0 0; color: var(--ink-soft); font-size: 11px; }
+    .source-item span { color: var(--ink-soft); font-size: 11px; white-space: nowrap; }
+
+    .method-note {
+      max-width: 940px;
+      padding: 24px 26px;
+      background: var(--amber-soft);
+      border: 1px solid color-mix(in oklch, var(--amber) 45%, var(--line));
+      border-radius: var(--radius-md);
+      color: oklch(0.35 0.045 62);
+    }
+    .method-note p { margin: 0; }
+    .method-note p + p { margin-top: 10px; }
+    .local-links { margin-top: 22px; color: var(--ink-soft); font-size: 13px; }
+    footer { padding: 36px 0 0; color: var(--ink-soft); font-size: 12px; }
+
+    @media (max-width: 1080px) {
+      .shell { grid-template-columns: minmax(0, 1fr); width: 100%; }
+      aside {
+        position: sticky;
+        z-index: 20;
+        height: auto;
+        width: 100%;
+        min-width: 0;
+        max-width: 100vw;
+        padding: 12px 20px;
+        box-shadow: 0 1px 3px rgba(25,34,51,0.12);
+        overflow-x: auto;
+      }
+      .wordmark { display: none; }
+      .side-label, .side-meta { display: none; }
+      nav { display: flex; gap: 4px; width: max-content; min-width: 0; }
+      nav a { margin: 0; padding: 8px 11px; }
+      nav a.active { box-shadow: inset 0 -2px 0 var(--blue); }
+      main { width: 100%; min-width: 0; max-width: 100vw; padding-top: 32px; }
+      .architecture-map, .target-map { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .maturity-bars { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 760px) {
+      main { padding: 26px 18px 80px; }
+      section { padding: 48px 0; }
+      .verdict { grid-template-columns: 1fr; }
+      .score-seal { max-width: 420px; }
+      .metric-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .metric:nth-child(2) { border-right: 0; }
+      .metric:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .architecture-map, .target-map, .strengths, .source-grid, .guardrails { grid-template-columns: 1fr; }
+      .roadmap { grid-template-columns: 1fr; }
+      .phase { border-right: 0; border-bottom: 1px solid var(--line); }
+      .phase:last-child { border-bottom: 0; }
+      .detail-panel { grid-template-columns: 1fr; }
+      .detail-block.wide { grid-column: auto; }
+      .priority-board {
+        display: grid;
+        min-height: 0;
+        padding: 12px;
+        gap: 10px;
+        background: none;
+      }
+      .priority-dot {
+        position: relative;
+        width: auto;
+        min-height: 0;
+        left: auto !important;
+        top: auto !important;
+      }
+      .axis-x, .axis-y, .quad-label { display: none; }
+    }
+    @media (max-width: 430px) {
+      h1 { font-size: 40px; }
+      .maturity-bars { grid-template-columns: 1fr; }
+      .head-meta { display: grid; gap: 4px; }
+      .score-seal { grid-template-columns: 94px 1fr; padding: 18px; }
+      .score-seal strong { font-size: 44px; }
+      th, td { padding: 12px 11px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    }
+    @media print {
+      body { background: white; }
+      .shell { display: block; }
+      aside, .filters, .detail-button, .skip-link { display: none !important; }
+      main { width: 100%; padding: 0; }
+      section { break-inside: avoid; }
+      .matrix-wrap, .score-seal { box-shadow: none; }
+      .detail-row .detail-panel { display: grid; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳到正文</a>
+  <div class="shell">
+    <aside aria-label="报告导航">
+      <a class="wordmark" href="#top"><span class="mark">G</span><span>GEOHub Audit</span></a>
+      <div class="side-label">Report index</div>
+      <nav id="report-nav">
+        <a href="#verdict">总判断</a>
+        <a href="#current-architecture">当前能力地图</a>
+        <a href="#strengths">GEOHub 强项</a>
+        <a href="#benchmark">19 项逐一对标</a>
+        <a href="#target-architecture">建议拆分</a>
+        <a href="#roadmap">90 天路线</a>
+        <a href="#guardrails">借鉴边界</a>
+        <a href="#sources">来源与方法</a>
+      </nav>
+      <div class="side-meta">
+        Snapshot 2026-08-12<br>
+        GEO SEO Hub 0.2.0<br>
+        Revision 9c21f09ee309
+      </div>
+    </aside>
+
+    <main id="main-content">
+      <header class="report-head" id="top">
+        <p class="eyebrow">Independent capability benchmark</p>
+        <h1>GEOHub <span>世界级对标</span>审计</h1>
+        <p class="dek">把 GEOHub 拆成 19 个关键要素，逐项对照顶级开源项目、论文与标准。报告关注现有优势、真实差距、可复用机制和下一轮质量门槛。</p>
+        <div class="head-meta" aria-label="报告元数据">
+          <span>审计日期：2026-08-12</span>
+          <span>本地版本：0.2.0 Experimental</span>
+          <span>Git：9c21f09ee309</span>
+          <span>研究范围：本地仓库 + 19 个一手来源</span>
+        </div>
+      </header>
+
+      <section id="verdict">
+        <p class="section-kicker">Executive verdict</p>
+        <div class="verdict">
+          <p class="verdict-quote">GEOHub 已经具备一套很扎实的<mark>协议、安全、证据和发布骨架</mark>。下一轮质量跃迁取决于四件事：真实引擎测量、研究型发现算法、可学习的优化循环、生产反馈数据。</p>
+          <div class="score-seal" aria-label="综合成熟度 57 分">
+            <strong>57<small>/100</small></strong>
+            <p>专家成熟度指数。结构工程得分高，领域智能、效果证据与运营反馈拉低总分。此分数用于排优先级，不代表公开性能基准。</p>
+          </div>
+        </div>
+
+        <div class="metric-strip" aria-label="仓库证据快照">
+          <div class="metric"><b>483</b><span>测试收集数，482 通过，1 跳过</span></div>
+          <div class="metric"><b>373</b><span>路由评测用例，当前报告为 100%</span></div>
+          <div class="metric"><b>19</b><span>关键能力逐一对标</span></div>
+          <div class="metric"><b>4</b><span>关键缺证：模型、平台、人审、采用率</span></div>
+        </div>
+
+        <div class="maturity-bars" aria-label="四类成熟度">
+          <div class="maturity-item">
+            <div class="maturity-head"><span>结构工程</span><b>84</b></div>
+            <div class="bar"><i style="width:84%"></i></div>
+            <p>Skill 边界、契约、原子发布、安全读取、打包验证都很完整。</p>
+          </div>
+          <div class="maturity-item">
+            <div class="maturity-head"><span>领域智能</span><b>36</b></div>
+            <div class="bar"><i class="warn" style="width:36%"></i></div>
+            <p>发现、诊断和内容生成主要依赖固定模板、关键词与启发式分数。</p>
+          </div>
+          <div class="maturity-item">
+            <div class="maturity-head"><span>效果证据</span><b>44</b></div>
+            <div class="bar"><i class="warn" style="width:44%"></i></div>
+            <p>契约合规证据很强，真实模型质量与生成引擎效果仍缺数据。</p>
+          </div>
+          <div class="maturity-item">
+            <div class="maturity-head"><span>运营反馈</span><b>24</b></div>
+            <div class="bar"><i class="warn" style="width:24%"></i></div>
+            <p>Skill Atlas 明确标出四个采用与漂移信号，当前没有遥测样本。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="current-architecture">
+        <p class="section-kicker">Current system map</p>
+        <h2>现在的 GEOHub 强在“可控执行”，智能层仍然很薄</h2>
+        <p class="section-intro">四个活跃 Skill、一个注册表、两条稳定工作流和一套 Artifact Bus 组成现有主链路。图中颜色表示成熟度：绿色接近可复用，琥珀需要增强，红色尚未形成真实能力。</p>
+        <div class="architecture-map" role="img" aria-label="GEOHub 当前架构分为入口、执行、可信和反馈四列">
+          <div class="arch-column">
+            <h3>入口与选择</h3>
+            <p>决定请求归属，披露不可用能力</p>
+            <div class="arch-node">geo Router<span>词法路由、否定作用域、计划路由</span></div>
+            <div class="arch-node">Registry<span>4 active + 4 planned</span></div>
+            <div class="arch-node">2 stable DAGs<span>discover → diagnose / content</span></div>
+          </div>
+          <div class="arch-column">
+            <h3>领域执行</h3>
+            <p>把 brief 变成确定性产物</p>
+            <div class="arch-node">geo-discover<span>4 类模板 × audience × scenario</span></div>
+            <div class="arch-node">geo-diagnose<span>HTML 信号 + 规则评分</span></div>
+            <div class="arch-node">geo-content<span>7 种固定模式 + 证据门槛</span></div>
+          </div>
+          <div class="arch-column">
+            <h3>可信与契约</h3>
+            <p>当前最成熟的一组能力</p>
+            <div class="arch-node">Artifact Bus<span>暂存、校验、原子发布</span></div>
+            <div class="arch-node">8 JSON Schemas<span>协议 1.0.0 与严格字段</span></div>
+            <div class="arch-node">Evidence Ledger<span>provided / observed / gap</span></div>
+            <div class="arch-node">Secure I/O<span>SSRF、文件描述符、预算控制</span></div>
+          </div>
+          <div class="arch-column">
+            <h3>评测与运营</h3>
+            <p>本地门禁完整，外部证据不足</p>
+            <div class="arch-node">Deterministic Evals<span>route、trigger、contract</span></div>
+            <div class="arch-node">Package Gates<span>可重复 ZIP 与隔离安装</span></div>
+            <div class="arch-node">Provider + Human<span>missing evidence</span></div>
+            <div class="arch-node">Adoption + Drift<span>0 telemetry reports</span></div>
+          </div>
+        </div>
+        <div class="arch-legend">
+          <span><i class="dot"></i>接近可复用</span>
+          <span><i class="dot amber"></i>有清晰骨架，能力深度不足</span>
+          <span><i class="dot red"></i>缺真实执行或证据</span>
+        </div>
+      </section>
+
+      <section id="strengths">
+        <p class="section-kicker">What GEOHub already does exceptionally well</p>
+        <h2>六项能力已经达到很高的工程标准</h2>
+        <p class="section-intro">这些能力值得保留为系统约束。引入任何外部框架时，都要继续满足现有的确定性、诚实降级和回放边界。</p>
+        <div class="strengths">
+          <article class="strength"><span class="strength-num">01</span><div><h3>证据缺口从不被悄悄补齐</h3><p>provided、observed、inferred、source_gap 和 blocked-by-evidence 贯穿输出。排名缺少同口径矩阵时直接停止生成结果。</p></div></article>
+          <article class="strength"><span class="strength-num">02</span><div><h3>Artifact Bus 的发布语义很稳</h3><p>同文件系统暂存、完整文件集校验、manifest 对账、最终原子 rename，失败运行不会暴露半成品目录。</p></div></article>
+          <article class="strength"><span class="strength-num">03</span><div><h3>诊断输入安全做得很深</h3><p>显式 URL、公共地址校验、DNS 和连接预算、重定向复验、媒体类型与字节上限、无跟随文件读取均有测试覆盖。</p></div></article>
+          <article class="strength"><span class="strength-num">04</span><div><h3>Skill 包轻量且边界清楚</h3><p>四个 SKILL.md 合计约 5 KB，详细方法下沉到 references，执行下沉到 scripts，符合渐进加载的方向。</p></div></article>
+          <article class="strength"><span class="strength-num">05</span><div><h3>不可用能力会诚实返回 planned</h3><p>strategy、knowledge、publish、measure 保留清晰的最近可用能力和所需输入，没有把 roadmap 包装成现成功能。</p></div></article>
+          <article class="strength"><span class="strength-num">06</span><div><h3>发布与安装验证超过多数早期 Skill</h3><p>8 个包可重复构建、fresh venv 安装模拟、多 Python 版本、跨 OpenAI、Claude、generic 适配器，形成了可审计的发布面。</p></div></article>
+        </div>
+      </section>
+
+      <section id="benchmark">
+        <p class="section-kicker">19 one-to-one comparisons</p>
+        <h2>逐项对标：结构能力领先，领域算法差距集中</h2>
+        <p class="section-intro">每项采用 1 到 5 分专家评分。GEOHub 分数来自本地代码、测试和报告；对标分数来自项目公开能力与方法成熟度。点击“展开”查看现状、可借鉴机制和建议动作。</p>
+        <div class="filters" role="group" aria-label="能力分类筛选">
+          <button class="filter" type="button" data-filter="all" aria-pressed="true">全部 19 项</button>
+          <button class="filter" type="button" data-filter="control" aria-pressed="false">控制面</button>
+          <button class="filter" type="button" data-filter="trust" aria-pressed="false">可信与协议</button>
+          <button class="filter" type="button" data-filter="intelligence" aria-pressed="false">领域智能</button>
+          <button class="filter" type="button" data-filter="quality" aria-pressed="false">质量与运营</button>
+        </div>
+        <div class="matrix-wrap">
+          <table aria-label="GEOHub 与世界级案例逐项对比">
+            <thead>
+              <tr>
+                <th scope="col">关键要素</th>
+                <th scope="col">选定对标</th>
+                <th scope="col">GEOHub</th>
+                <th scope="col">对标成熟度</th>
+                <th scope="col">差距</th>
+                <th scope="col">优先级</th>
+                <th scope="col">证据</th>
+              </tr>
+            </thead>
+            <tbody id="benchmark-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="target-architecture">
+        <p class="section-kicker">Recommended decomposition</p>
+        <h2>把 GEOHub 拆成四个平面、十五个可独立演进的模块</h2>
+        <p class="section-intro">拆分以稳定契约为边界。每个模块拥有输入、输出、评测和回滚边界，GEOHub 继续承担套件级注册、路由、编排和发布。</p>
+        <div class="target-map">
+          <article class="plane">
+            <h3>控制平面</h3>
+            <p>决定调用谁、按什么顺序执行、何时暂停。</p>
+            <ul>
+              <li>geo-registry<span>所有能力、owner、版本、依赖、状态</span></li>
+              <li>geo-router<span>规则优先 + 语义影子路由 + abstain</span></li>
+              <li>geo-workflow<span>状态图、checkpoint、人工确认、恢复</span></li>
+            </ul>
+          </article>
+          <article class="plane">
+            <h3>可信平面</h3>
+            <p>统一输入、证据、产物、安全和供应链边界。</p>
+            <ul>
+              <li>geo-contracts<span>类型模型与生成 Schema</span></li>
+              <li>geo-artifacts<span>run index、diff、resume、export</span></li>
+              <li>geo-evidence<span>source → claim → decision → output 谱系</span></li>
+              <li>geo-security<span>URL policy、文件边界、权限与威胁模型</span></li>
+            </ul>
+          </article>
+          <article class="plane">
+            <h3>智能平面</h3>
+            <p>决定 GEOHub 能否产出真正有竞争力的结果。</p>
+            <ul>
+              <li>geo-discovery<span>模板、HyDE、问题生成、聚类、去重</span></li>
+              <li>geo-audit<span>gatherer、audit、score、custom audits</span></li>
+              <li>geo-content<span>研究、提纲、成稿、证据、人工评审</span></li>
+              <li>geo-optimize<span>候选生成、引擎评价、fidelity、memory</span></li>
+              <li>geo-knowledge<span>实体关系、community、local/global query</span></li>
+            </ul>
+          </article>
+          <article class="plane">
+            <h3>质量平面</h3>
+            <p>用真实结果决定版本能否升级。</p>
+            <ul>
+              <li>geo-evals<span>model × provider × task × judge</span></li>
+              <li>geo-observability<span>trace、cost、quality、drift、adoption</span></li>
+              <li>geo-release<span>SBOM、provenance、sign、verify</span></li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="roadmap">
+        <p class="section-kicker">90-day upgrade path</p>
+        <h2>先补效果证据，再升级算法，最后扩展知识与规模</h2>
+        <p class="section-intro">顺序来自依赖关系。没有真实评测，算法升级无法判断收益；没有运行谱系，优化循环无法复盘；没有采用数据，Library 成熟度无法长期维持。</p>
+        <div class="roadmap">
+          <article class="phase">
+            <span class="phase-time">0-30 DAYS · P0</span>
+            <h3>建立可信基线</h3>
+            <ol>
+              <li>用真实输出替换 expectation-level blind pack，接入 Inspect 风格 task、solver、scorer。</li>
+              <li>增加 provider-backed GEO benchmark，固定 query、source、engine、prompt、时间与成本。</li>
+              <li>加入 Ragas 风格 claim faithfulness、answer relevance 和 citation support 指标。</li>
+              <li>为 route、skill、artifact、eval 增加隐私安全的 OpenTelemetry spans。</li>
+            </ol>
+            <div class="gate"><b>升级门槛：</b>至少 5 个真实 GEO 任务、2 个模型、2 个引擎、20 组盲评，公开失败分类。</div>
+          </article>
+          <article class="phase">
+            <span class="phase-time">31-60 DAYS · P0/P1</span>
+            <h3>升级领域算法</h3>
+            <ol>
+              <li>发现链路加入模板基线、HyDE、问题生成、聚类和新颖度评测。</li>
+              <li>诊断链路改为 Lighthouse 式 gatherer、audit、score、report 四层。</li>
+              <li>内容链路增加 STORM 式 research、outline、draft、polish，可保留纯离线 profile。</li>
+              <li>排名链路增加 MCDA 规范化、criteria polarity、敏感性和不确定性分析。</li>
+            </ol>
+            <div class="gate"><b>升级门槛：</b>真实任务质量相对 0.2.0 提升，成本、时延和事实性均有记录，边界用例无回归。</div>
+          </article>
+          <article class="phase">
+            <span class="phase-time">61-90 DAYS · P1/P2</span>
+            <h3>形成学习循环</h3>
+            <ol>
+              <li>引入 MAGEO 式 preference、planner、editor、evaluator、fidelity、memory 主循环。</li>
+              <li>工作流升级为可 checkpoint、恢复、人工确认的状态图。</li>
+              <li>建立 GraphRAG 式品牌事实与实体关系层，支持 local 和 global 查询。</li>
+              <li>发布加入 SLSA provenance、SBOM、签名与第三方验证。</li>
+            </ol>
+            <div class="gate"><b>升级门槛：</b>策略可复用收益、回归风险、知识更新成本和供应链验证均可复现。</div>
+          </article>
+        </div>
+
+        <div class="priority-board" role="img" aria-label="改进项按影响和实施成本分布">
+          <span class="axis-x">实施成本 →</span>
+          <span class="axis-y">质量影响 →</span>
+          <span class="quad-label q1">高影响 / 高投入</span>
+          <span class="quad-label q2">高影响 / 低投入</span>
+          <span class="quad-label q3">低影响 / 低投入</span>
+          <span class="quad-label q4">低影响 / 高投入</span>
+          <div class="priority-dot" style="left:12%;top:12%"><b>P0 · 真实输出评测</b>Inspect + blind A/B + provider matrix</div>
+          <div class="priority-dot" style="left:36%;top:24%"><b>P0 · claim 级指标</b>faithfulness、support、relevance</div>
+          <div class="priority-dot" style="left:59%;top:9%"><b>P0 · GEO benchmark</b>真实引擎、多目标可见性指标</div>
+          <div class="priority-dot" style="left:71%;top:30%"><b>P1 · MAGEO 循环</b>候选、fidelity、memory、early stop</div>
+          <div class="priority-dot" style="left:18%;top:61%"><b>P1 · OTel 运行谱系</b>route、run、artifact、eval spans</div>
+          <div class="priority-dot" style="left:48%;top:67%"><b>P1 · 审计插件化</b>gatherer、audit、score、report</div>
+          <div class="priority-dot" style="left:74%;top:73%"><b>P2 · GraphRAG</b>品牌实体图与全局知识查询</div>
+        </div>
+      </section>
+
+      <section id="guardrails">
+        <p class="section-kicker">Borrow the mechanism, preserve the boundary</p>
+        <h2>六条借鉴边界，防止把 GEOHub 做重</h2>
+        <p class="section-intro">这些世界级项目覆盖面很广。GEOHub 只借能提高可靠性或效果证据的机制，继续保留当前的离线、确定性和诚实降级优势。</p>
+        <div class="guardrails">
+          <article class="guardrail"><h3>语义路由先跑影子模式</h3><p>保留词法路由作为安全权威。语义层只记录候选、置信度和分歧，达到 holdout 门槛后再参与决策。</p></article>
+          <article class="guardrail"><h3>LangGraph 只服务动态长流程</h3><p>单步 discover、diagnose、content 继续用当前 CLI。需要暂停、恢复、人工确认和多分支时才进入状态图。</p></article>
+          <article class="guardrail"><h3>STORM 分成 offline 和 research 两个 profile</h3><p>纯证据包继续离线执行。联网研究必须显式授权，并记录检索器、查询、来源快照和时间。</p></article>
+          <article class="guardrail"><h3>GraphRAG 从品牌事实卡起步</h3><p>先验证实体去重、关系证据和增量更新，再决定是否引入昂贵的 community summarization。</p></article>
+          <article class="guardrail"><h3>观测数据只留元数据</h3><p>默认记录 skill_id、run_id、时延、状态、错误类型、artifact digest 和质量分。客户内容、URL 与证据正文保持本地。</p></article>
+          <article class="guardrail"><h3>科学评分必须保留原始分量</h3><p>GEO visibility、faithfulness、authority、cost 和 latency 分开记录。聚合分可用于排序，原始指标负责复核。</p></article>
+        </div>
+      </section>
+
+      <section id="sources">
+        <p class="section-kicker">Primary sources and audit method</p>
+        <h2>19 个一手来源，评分与事实分开</h2>
+        <p class="section-intro">仓库、论文和标准均链接到原始来源。GitHub stars 为 2026-08-12 API 快照，只表示社区触达范围。报告中的成熟度分数属于专家判断。</p>
+        <div class="source-grid" id="source-grid"></div>
+        <div class="method-note" style="margin-top:32px">
+          <p><b>审计方法：</b>先检查本地架构、Skill、运行时代码、Schema、测试、评测和发布报告，再把能力拆成控制、可信、智能、质量四类。每个要素选择一个方法最贴近、公开证据充分的对标对象。</p>
+          <p><b>主要限制：</b>GEOHub 当前没有 provider-backed 模型运行、真实 AI 平台测量、已完成的人类盲评和采用遥测。报告把这些项保留为 missing evidence。所有数字判断都带有日期和证据范围。</p>
+        </div>
+        <p class="local-links">支持材料：<a href="geohub-world-class-benchmark-sources-2026-08-12.md">研究来源账本</a> · <a href="eval-summary.md">本地评测摘要</a> · <a href="yao-meta-gates.md">yao-meta 门禁</a> · <a href="trust-report.md">信任报告</a></p>
+      </section>
+
+      <footer>
+        GEO SEO Hub 0.2.0 comparative learning report · Generated 2026-08-12 · Local, offline HTML
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    const modules = [
+      {
+        id: "skill-format", cat: "control", element: "Skill 包格式与渐进加载", layer: "控制面", current: 4.3, benchmark: 4.8, priority: "P1",
+        project: "Agent Skills", href: "https://github.com/agentskills/agentskills", stars: "24,178",
+        why: "开放 Skill 格式已形成广泛客户端支持，并明确 metadata、SKILL.md、resources 三段式渐进加载。",
+        strong: "四个 SKILL.md 合计约 5 KB，核心指令很短，references、scripts、evals、reports 的职责清楚。",
+        gap: "manifest.json 与 agents/interface.yaml 承担了大量自定义语义，和开放规范之间仍需一层正式映射与兼容性测试。",
+        learn: "用官方 skills-ref 做基础校验；把 compatibility、权限、输入输出契约映射成可降级的扩展字段；建立不同客户端的激活一致性 holdout。",
+        action: "把现有编译器升级为 Agent Skills conformance suite，记录每个目标丢失或降级的字段。",
+        evidence: ["skills/*/SKILL.md", "skills/*/manifest.json", "skills/*/agents/interface.yaml", "reports/yao-meta/*conformance*"]
+      },
+      {
+        id: "registry", cat: "control", element: "能力注册表与治理目录", layer: "控制面", current: 3.5, benchmark: 4.8, priority: "P1",
+        project: "Backstage", href: "https://github.com/backstage/backstage", stars: "34,121",
+        why: "Backstage 把软件、owner、lifecycle、关系、文档和模板放进统一 catalog，适合参考 Skill 组合治理。",
+        strong: "registry/skills.yaml 是单一事实源，active 与 planned 分开，planned 路由公开最近可用能力、所需输入和 v0 产物。",
+        gap: "owner、版本、依赖、权限、SLO、review_due、替代关系分散在 manifest 与报告中；缺面向维护者的目录查询和依赖影响分析。",
+        learn: "给每个 Skill 建立稳定 entity kind、namespace、owner、lifecycle、dependsOn、providesArtifact、permission facets。",
+        action: "增加 registry v2 schema 和生成式 catalog 页面，变更时输出 affected skills、contracts 与 packages。",
+        evidence: ["registry/skills.yaml", "registry/skills.schema.json", "reports/skill-atlas.json", "skills/*/manifest.json"]
+      },
+      {
+        id: "router", cat: "control", element: "意图路由与拒答边界", layer: "控制面", current: 4.0, benchmark: 4.5, priority: "P1",
+        project: "Semantic Router", href: "https://github.com/aurelio-labs/semantic-router", stars: "3,797",
+        why: "Semantic Router 用样例 utterances、embedding、hybrid route 与阈值优化解决自然语言路由泛化。",
+        strong: "938 行规则解析器覆盖中英文否定、连接词、引号、替换、顺序和计划路由；302 个路由单测与 373 个路由评测全部通过。",
+        gap: "高准确率建立在手工词表和密集回归用例上。近义改写、新行业词和长请求的泛化成本会继续上升。",
+        learn: "采用规则权威、语义影子、低置信 abstain 的混合结构。语义候选不能绕过 planned 与权限边界。",
+        action: "为现有 373 例生成语义 holdout，加 100 个未见改写，连续两个版本无回归后再启用混合评分。",
+        evidence: ["src/geo_seo_hub/router.py", "tests/test_router.py", "evals/router_cases.json", "skills/RESOLVER.md"]
+      },
+      {
+        id: "workflow", cat: "control", element: "工作流 DAG 与长程执行", layer: "控制面", current: 2.0, benchmark: 4.9, priority: "P1",
+        project: "LangGraph", href: "https://github.com/langchain-ai/langgraph", stars: "39,531",
+        why: "LangGraph 的状态图、checkpoint、interrupt、durable execution 和 human-in-the-loop 适合多阶段 agent 工作流。",
+        strong: "两个稳定 DAG 和组合 workflow 的依赖顺序清楚，planned 能阻断错误执行。",
+        gap: "当前 resolver 只返回 DAG 描述，缺执行状态、重试、checkpoint、恢复、人工确认和并发分支的实际运行语义。",
+        learn: "把 workflow state、artifact refs、failure policy、approval point 和 resume token 写进独立协议。",
+        action: "先用 brand-baseline-lite 做一个可恢复执行器，故障后从已发布 run 继续，避免重跑 discover。",
+        evidence: ["registry/skills.yaml", "skills/RESOLVER.md", "src/geo_seo_hub/router.py", "tests/test_library_integration.py"]
+      },
+      {
+        id: "contracts", cat: "trust", element: "类型契约与 Schema", layer: "可信与协议", current: 4.1, benchmark: 4.7, priority: "P1",
+        project: "Pydantic", href: "https://github.com/pydantic/pydantic", stars: "28,528",
+        why: "Pydantic 让类型、验证、序列化和 JSON Schema 共享一个 Python 模型源，并支持严格模式。",
+        strong: "协议 1.0.0、8 个 Draft 2020-12 Schema、非有限数字拒绝、精确字段验证和跨产物 lineage 校验都已存在。",
+        gap: "验证逻辑同时存在于 JSON Schema、Python 手写代码和 tests，新增字段会增加三处漂移风险。",
+        learn: "以类型模型生成 Schema，保留 jsonschema 做外部协议验证；增加 forward/backward fixture 与 migration tests。",
+        action: "先迁移 geo-brief 和 run-manifest 两个低风险契约，比较生成 Schema 与现有 Schema 的语义差异。",
+        evidence: ["schemas/*.schema.json", "src/geo_seo_hub/validation.py", "tests/test_schemas.py", "src/geo_seo_hub/content.py"]
+      },
+      {
+        id: "artifact-bus", cat: "trust", element: "运行与 Artifact Bus", layer: "可信与协议", current: 4.5, benchmark: 4.9, priority: "P1",
+        project: "MLflow", href: "https://github.com/mlflow/mlflow", stars: "27,480",
+        why: "MLflow 把 run、artifact、trace、evaluation、prompt 和 monitoring 放进同一生命周期。",
+        strong: "暂存目录、regular-file 校验、manifest 对账、原子 rename、稳定 run ID 和明确回滚边界已经很成熟。",
+        gap: "run 目录缺全局索引、标签、父子运行、对比、搜索、保留策略、trace 关联和迁移工具。",
+        learn: "在文件优先前提下增加 run metadata index、parent_run_id、artifact digest、metric refs 与可插拔后端。",
+        action: "实现 geo-seo-hub runs list/show/diff/export，先不引入服务端数据库。",
+        evidence: ["src/geo_seo_hub/artifact_bus.py", "schemas/run-manifest.schema.json", "docs/artifact-contract.md", "tests/test_secure_io.py"]
+      },
+      {
+        id: "lineage", cat: "trust", element: "证据谱系与可追溯性", layer: "可信与协议", current: 3.6, benchmark: 4.8, priority: "P0",
+        project: "OpenLineage", href: "https://github.com/OpenLineage/OpenLineage", stars: "2,599",
+        why: "OpenLineage 用 run、job、dataset 和 extensible facets 描述跨系统数据谱系。",
+        strong: "证据 ID 稳定、来源状态明确，finding、query、opportunity 与 content claim 已能解析到 ledger。",
+        gap: "ledger 记录事实来源，尚未描述 source → parse → metric → finding → decision → output 的完整转换关系。",
+        learn: "为每一步增加 input facets、output facets、code version、parameters、digest 和 parent run。",
+        action: "新增 lineage.json，先覆盖 diagnose 的 HTML snapshot 到 finding 与 opportunity 两段。",
+        evidence: ["schemas/evidence-ledger.schema.json", "src/geo_seo_hub/diagnose.py", "src/geo_seo_hub/content.py", "docs/artifact-contract.md"]
+      },
+      {
+        id: "discovery", cat: "intelligence", element: "查询发现与扩展算法", layer: "领域智能", current: 2.1, benchmark: 4.3, priority: "P0",
+        project: "HyDE", href: "https://github.com/texttron/hyde", stars: "583",
+        why: "HyDE 通过生成假想文档并在真实文档向量空间检索，提供研究支持的零样本查询变换。",
+        strong: "模板输出可重复，stable ID、audience、scenario、intent 与 evidence_status 全部可审计。",
+        gap: "每个 seed 固定生成 learn、compare、evaluate、act 四个模板，缺语义聚类、检索反馈、实体扩展、长尾问题与新颖度评价。",
+        learn: "保留模板 baseline，增加 HyDE、question generation、retrieval-backed expansion、dedup、cluster coverage 和 novelty metrics。",
+        action: "建立 50 个主题的 discovery benchmark，比较模板、HyDE 和 LLM question generation 的覆盖率、重复率与检索命中。",
+        evidence: ["src/geo_seo_hub/discover.py", "skills/geo-discover/references/discovery-method.md", "schemas/query-map.schema.json"]
+      },
+      {
+        id: "geo-benchmark", cat: "intelligence", element: "GEO 目标与真实效果测量", layer: "领域智能", current: 1.2, benchmark: 4.6, priority: "P0",
+        project: "GEO, KDD 2024", href: "https://arxiv.org/abs/2311.09735", stars: "paper",
+        why: "这项工作提出 GEO-bench、visibility metrics 和黑盒优化框架，为 GEO 效果建立可实验目标。",
+        strong: "现有文档清楚声明不推断平台 response、volume、ranking、conversion 或 citation share。",
+        gap: "geo-measure 仍为 planned。当前得分只反映输入页面启发式，无法说明生成引擎可见性、引用、影响或变化原因。",
+        learn: "引入固定 queries、source corpus、engine snapshots、control/treatment、visibility、position、citation 与 answer influence 指标。",
+        action: "把 geo-measure 提升为第一个 P0 新 Skill，输出 engine-sample、visibility-report、experiment-manifest 和 limitations。",
+        evidence: ["registry/skills.yaml", "README.md", "docs/evaluation-policy.md", "reports/output_quality_scorecard.md"]
+      },
+      {
+        id: "optimization", cat: "intelligence", element: "GEO 优化反馈与策略记忆", layer: "领域智能", current: 1.0, benchmark: 4.7, priority: "P0",
+        project: "MAGEO", href: "https://github.com/Wu-beining/MAGEO", stars: "39",
+        why: "MAGEO 直接覆盖偏好建模、规划、多候选编辑、DSV-CF 评分、fidelity gate、层级记忆与早停。",
+        strong: "GEOHub 已有证据门槛、内容模式、稳定产物和可回放输入，适合作为优化循环的可信底座。",
+        gap: "当前执行为单次转换，成功经验不会跨 step、query、document 或 engine 复用，也没有 candidate-level evaluation。",
+        learn: "把优化拆成 preference、planner、editor、evaluator、selector、memory 六个独立模块，原始内容与引用忠实度保留硬门槛。",
+        action: "先做离线 optimizer：同一 brief 生成 3 个候选，用人工和自动指标选优，记录 edit trace 与失败候选。",
+        evidence: ["src/geo_seo_hub/content.py", "registry/skills.yaml", "reports/skill-atlas.json", "skills/geo-content/SKILL.md"]
+      },
+      {
+        id: "diagnosis", cat: "intelligence", element: "网页采集与 GEO 诊断", layer: "领域智能", current: 3.4, benchmark: 4.8, priority: "P1",
+        project: "Lighthouse", href: "https://github.com/GoogleChrome/lighthouse", stars: "30,650",
+        why: "Lighthouse 的 gatherer、audit、scoring、report、custom audit 和 CI assertion 架构经过长期验证。",
+        strong: "显式 source、SSRF 防护、snapshot replay、source_gap、限制说明和 evidence-linked finding 很强。",
+        gap: "evidence、authority、freshness 主要靠关键词正则；结构分数与 300 字阈值缺公开校准；audit 规则集中在单个模块。",
+        learn: "分离 gatherers、audits、scoring model 与 report renderer；每项 audit 公开适用范围、failure mode、weight 和校准数据。",
+        action: "先拆出 10 个内置 audit，并允许通过 registry 添加 custom audit，不改变现有输入安全层。",
+        evidence: ["src/geo_seo_hub/diagnose.py", "skills/geo-diagnose/references/diagnosis-method.md", "tests/test_diagnose.py"]
+      },
+      {
+        id: "content", cat: "intelligence", element: "证据型内容研究与生成", layer: "领域智能", current: 2.3, benchmark: 4.7, priority: "P1",
+        project: "STORM", href: "https://github.com/stanford-oval/storm", stars: "30,929",
+        why: "STORM 用多视角问题、模拟访谈、研究、提纲、写作和润色生成带引用的长内容。",
+        strong: "七个模式有清楚边界，比较与排名会因缺证停止，Markdown、HTML、DOCX、PDF 的降级语义明确。",
+        gap: "explainer、title、blueprint 多数为固定结构与固定文案；refine 基本保留原文；没有基于资料的论点组织与段落生成。",
+        learn: "增加 research、outline、draft、polish 四阶段；让问题视角和证据覆盖决定提纲；保留 offline supplied-evidence profile。",
+        action: "先升级 explainer 模式，用 5 个真实 evidence pack 做 STORM 式提纲与引用成稿 A/B。",
+        evidence: ["src/geo_seo_hub/content.py", "skills/geo-content/references/modes.md", "skills/geo-content/references/evidence-policy.md"]
+      },
+      {
+        id: "mcda", cat: "intelligence", element: "比较、排名与多准则决策", layer: "领域智能", current: 3.0, benchmark: 4.6, priority: "P1",
+        project: "Scikit-Criteria", href: "https://github.com/quatrope/scikit-criteria", stars: "103",
+        why: "Scikit-Criteria 提供 TOPSIS、ELECTRE 等 MCDA 方法和科学 Python 集成，适合规范化排名逻辑。",
+        strong: "完整 entity × dimension 矩阵、冲突重复分数拒绝、finite 检查、无证据不排名和稳定 tie order 很可靠。",
+        gap: "现有算法只有加权平均，缺 criteria polarity、normalization、scale compatibility、uncertainty、sensitivity 和 outranking。",
+        learn: "把 evidence matrix、normalizer、weighter、decision method、sensitivity report 分层，原始分与归一化分同时保留。",
+        action: "新增 weighted-sum 与 TOPSIS 两种正式 method，任何排序必须输出权重敏感性和最小翻转条件。",
+        evidence: ["src/geo_seo_hub/content.py", "skills/geo-content/references/modes.md", "tests/test_content.py"]
+      },
+      {
+        id: "evals", cat: "quality", element: "Agent 评测框架与真实运行", layer: "质量与运营", current: 2.8, benchmark: 4.8, priority: "P0",
+        project: "Inspect AI", href: "https://github.com/UKGovernmentBEIS/inspect_ai", stars: "2,529",
+        why: "Inspect AI 把 dataset、task、solver、tool、scorer、model judge 和 inspectable log 组合成可复现评测。",
+        strong: "路由、trigger、boundary、missing-input、package 和 install gates 覆盖很广，失败会阻断发布。",
+        gap: "每 Skill 的 output cases 使用预写 baseline_output 与 with_skill_output 文本；suite 主要检查文件存在与 source_uri 集合，blind pack 没有真实模型产物。",
+        learn: "每个 case 运行真实 baseline 和 with-skill，保存 transcript、tool calls、artifacts、timing、tokens、judge result 与 human decision。",
+        action: "先迁移 20 个 output cases，禁止手写 Variant A/B 内容，pending reviewer 不计通过。",
+        evidence: ["evals/output_cases.json", "skills/*/evals/output/cases.jsonl", "scripts/run_evals.py", "reports/output-blind-pack.md"]
+      },
+      {
+        id: "factual-eval", cat: "quality", element: "事实性、相关性与引用质量", layer: "质量与运营", current: 1.5, benchmark: 4.6, priority: "P0",
+        project: "Ragas", href: "https://github.com/vibrantlabsai/ragas", stars: "15,291",
+        why: "Ragas 提供 LLM 应用指标、测试数据生成、集成和生产反馈循环，覆盖 RAG 的质量维度。",
+        strong: "fabricated citation 指标要求生成 ledger 的 source_uri 必须来自 snapshotted input，当前报告为 0。",
+        gap: "URI 存在无法证明 claim 得到来源支持。当前缺 claim faithfulness、citation entailment、answer relevance、context precision/recall 与 style rubric。",
+        learn: "把 claim 切分、evidence support、citation correctness、completeness、relevance 和 usefulness 分开评分。",
+        action: "为 diagnose 与 content 各建 10 个 claim-level gold cases，自动指标与人审相关性达到门槛后再进 release gate。",
+        evidence: ["scripts/run_evals.py", "reports/eval-summary.md", "reports/output_quality_scorecard.md", "schemas/evidence-ledger.schema.json"]
+      },
+      {
+        id: "observability", cat: "quality", element: "可观测性、采用率与漂移", layer: "质量与运营", current: 1.0, benchmark: 4.8, priority: "P0",
+        project: "OpenTelemetry", href: "https://github.com/open-telemetry/opentelemetry-specification", stars: "4,302",
+        why: "OpenTelemetry 用 trace、span、metric、log、baggage 和 context propagation 构成跨后端观测标准。",
+        strong: "Skill Atlas 已定义 adoption、missed-trigger、bad-output、script-error 和 review-drift 的检查面，并清楚标注数据缺失。",
+        gap: "四个 Skill 都没有 adoption_drift_report，事件数、样本数和采用率均为 0。运行产物也没有跨步骤 trace context。",
+        learn: "把 route、workflow step、tool call、artifact publish、eval 和 reviewer decision 建成 spans，内容默认不进入 telemetry。",
+        action: "先落一个本地 JSONL exporter，只记录 metadata 和 digest，每个 release 生成 adoption_drift_report。",
+        evidence: ["reports/skill-atlas.json", "docs/evaluation-policy.md", "reports/yao-meta-gates.md"]
+      },
+      {
+        id: "supply-chain", cat: "quality", element: "可重复构建与供应链证明", layer: "质量与运营", current: 4.0, benchmark: 4.8, priority: "P1",
+        project: "SLSA", href: "https://github.com/slsa-framework/slsa", stars: "1,908",
+        why: "SLSA 用受信构建器、provenance、签名和独立验证保护 source 到 artifact 的供应链。",
+        strong: "8 个 ZIP 重复构建 hash 一致，包成员、安全路径、fresh venv 安装和 provider wrapper 都有验证。",
+        gap: "现有 hash 由同一流程自证，缺签名 provenance、SBOM、依赖 lock、受信 builder identity 和第三方 verifier。GitHub Actions 仍按 tag 引用。",
+        learn: "生成 SLSA provenance 与 CycloneDX/SPDX SBOM，release artifact 签名，CI action 固定 commit SHA。",
+        action: "先为 source ZIP 和 unified ZIP 生成 provenance + SBOM，并在 install simulation 前独立验证。",
+        evidence: ["scripts/package.py", "scripts/verify_packages.py", "reports/package-verification.md", ".github/workflows/ci.yml"]
+      },
+      {
+        id: "knowledge", cat: "intelligence", element: "知识图谱与品牌事实运营", layer: "领域智能", current: 1.0, benchmark: 4.8, priority: "P2",
+        project: "GraphRAG", href: "https://github.com/microsoft/graphrag", stars: "35,446",
+        why: "GraphRAG 把非结构化文本变成实体、关系和 community，并提供 local、global、DRIFT 与 basic query。",
+        strong: "brand-fact-card Schema、evidence ledger、planned geo-knowledge 路由和 Artifact Bus 已提供起点。",
+        gap: "geo-knowledge 没有 entrypoint，实体去重、关系证据、版本更新、局部查询和全局主题汇总均未实现。",
+        learn: "从 evidence-backed entity graph 开始，关系必须带 source refs；随后增加 local query，再评估 community summarization。",
+        action: "先实现 brand-fact-card → entity graph 的确定性编译器，50 个品牌事实 fixture 通过后再加 LLM extraction。",
+        evidence: ["schemas/brand-fact-card.schema.json", "registry/skills.yaml", "README.md"]
+      },
+      {
+        id: "security", cat: "trust", element: "安全 URL 与文件输入", layer: "可信与协议", current: 4.7, benchmark: 4.9, priority: "P2",
+        project: "OWASP SSRF", href: "https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html", stars: "standard",
+        why: "OWASP SSRF 指南是 URL allowlist、DNS、redirect 和网络边界的权威安全参考。",
+        strong: "公共地址校验、原 IP 绑定、SNI 保留、每次 redirect 复验、无 query、媒体类型、时间和字节预算、O_NOFOLLOW 文件读取都已实现。",
+        gap: "当前信任报告明确不构成安全认证。缺独立渗透测试、property fuzz、持续漏洞扫描和公开 threat model。",
+        learn: "把攻击面、信任假设、残余风险、测试策略和响应流程写成版本化 threat model。",
+        action: "保持现有实现，补 URL parser fuzz、IPv4/IPv6 corpus、DNS rebinding 测试与第三方安全复核。",
+        evidence: ["src/geo_seo_hub/diagnose.py", "src/geo_seo_hub/validation.py", "tests/test_secure_io.py", "reports/trust-report.md"]
+      }
+    ];
+
+    const sources = [
+      ["Agent Skills", "https://github.com/agentskills/agentskills", "Skill format / progressive disclosure", "24.2k"],
+      ["Backstage", "https://github.com/backstage/backstage", "Catalog / ownership / lifecycle", "34.1k"],
+      ["Semantic Router", "https://github.com/aurelio-labs/semantic-router", "Semantic and hybrid intent routing", "3.8k"],
+      ["LangGraph", "https://github.com/langchain-ai/langgraph", "Durable state graphs", "39.5k"],
+      ["Pydantic", "https://github.com/pydantic/pydantic", "Typed validation and JSON Schema", "28.5k"],
+      ["MLflow", "https://github.com/mlflow/mlflow", "Runs, artifacts, traces and evals", "27.5k"],
+      ["OpenLineage", "https://github.com/OpenLineage/OpenLineage", "Run, job and dataset lineage", "2.6k"],
+      ["HyDE", "https://github.com/texttron/hyde", "Zero-shot query transformation", "583"],
+      ["GEO, KDD 2024", "https://arxiv.org/abs/2311.09735", "GEO-bench and visibility optimization", "paper"],
+      ["MAGEO", "https://github.com/Wu-beining/MAGEO", "Reusable strategy learning for GEO", "39"],
+      ["Lighthouse", "https://github.com/GoogleChrome/lighthouse", "Gatherer, audit, scoring and report", "30.7k"],
+      ["STORM", "https://github.com/stanford-oval/storm", "Cited long-form research and writing", "30.9k"],
+      ["Scikit-Criteria", "https://github.com/quatrope/scikit-criteria", "Multiple-criteria decision analysis", "103"],
+      ["Inspect AI", "https://github.com/UKGovernmentBEIS/inspect_ai", "LLM and agent evaluation", "2.5k"],
+      ["Ragas", "https://github.com/vibrantlabsai/ragas", "LLM quality metrics and test generation", "15.3k"],
+      ["OpenTelemetry", "https://github.com/open-telemetry/opentelemetry-specification", "Portable traces, metrics and logs", "4.3k"],
+      ["SLSA", "https://github.com/slsa-framework/slsa", "Build provenance and supply chain", "1.9k"],
+      ["GraphRAG", "https://github.com/microsoft/graphrag", "Graph-based knowledge retrieval", "35.4k"],
+      ["OWASP SSRF", "https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html", "Canonical SSRF prevention guidance", "standard"]
+    ];
+
+    function scoreBar(value, kind = "current") {
+      const width = Math.max(0, Math.min(100, value / 5 * 100));
+      return `<div class="mini-bar"><span class="mini-track"><i class="${kind === "benchmark" ? "benchmark" : ""}" style="width:${width}%"></i></span><b>${value.toFixed(1)}</b></div>`;
+    }
+
+    function renderModules(filter = "all") {
+      const body = document.getElementById("benchmark-body");
+      const visible = modules.filter(item => filter === "all" || item.cat === filter);
+      body.innerHTML = visible.map((item, index) => {
+        const gap = (item.benchmark - item.current).toFixed(1);
+        const evidence = item.evidence.map(entry => `<li><code>${entry}</code></li>`).join("");
+        return `
+          <tr data-id="${item.id}">
+            <td class="module-name"><b>${String(index + 1).padStart(2, "0")} · ${item.element}</b><span>${item.layer}</span></td>
+            <td><a href="${item.href}" target="_blank" rel="noreferrer">${item.project}</a><br><small>${item.stars === "paper" || item.stars === "standard" ? item.stars : item.stars + " stars"}</small></td>
+            <td class="score-cell">${scoreBar(item.current)}</td>
+            <td class="score-cell">${scoreBar(item.benchmark, "benchmark")}</td>
+            <td class="gap-value">-${gap}</td>
+            <td><span class="priority ${item.priority.toLowerCase()}">${item.priority}</span></td>
+            <td><button class="detail-button" type="button" aria-expanded="false" aria-controls="detail-${item.id}" data-detail="${item.id}">展开</button></td>
+          </tr>
+          <tr class="detail-row" id="detail-${item.id}" data-detail-row="${item.id}">
+            <td colspan="7">
+              <div class="detail-panel">
+                <div class="detail-block"><h4>GEOHub 已有优势</h4><p>${item.strong}</p></div>
+                <div class="detail-block"><h4>关键差距</h4><p>${item.gap}</p></div>
+                <div class="detail-block"><h4>对标案例为什么入选</h4><p>${item.why}</p></div>
+                <div class="detail-block"><h4>最值得学习的机制</h4><p>${item.learn}</p></div>
+                <div class="detail-block"><h4>建议的下一步</h4><p>${item.action}</p></div>
+                <div class="detail-block"><h4>本地证据</h4><ul class="evidence-list">${evidence}</ul></div>
+              </div>
+            </td>
+          </tr>`;
+      }).join("");
+      bindDetails();
+    }
+
+    function bindDetails() {
+      document.querySelectorAll("[data-detail]").forEach(button => {
+        button.addEventListener("click", () => {
+          const id = button.dataset.detail;
+          const row = document.querySelector(`[data-detail-row="${id}"]`);
+          const open = row.classList.toggle("open");
+          button.setAttribute("aria-expanded", String(open));
+          button.textContent = open ? "收起" : "展开";
+        });
+      });
+    }
+
+    document.querySelectorAll(".filter").forEach(button => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll(".filter").forEach(item => item.setAttribute("aria-pressed", "false"));
+        button.setAttribute("aria-pressed", "true");
+        renderModules(button.dataset.filter);
+      });
+    });
+
+    document.getElementById("source-grid").innerHTML = sources.map((source, index) => `
+      <article class="source-item">
+        <b>${String(index + 1).padStart(2, "0")}</b>
+        <div><a href="${source[1]}" target="_blank" rel="noreferrer">${source[0]}</a><p>${source[2]}</p></div>
+        <span>${source[3]}</span>
+      </article>`).join("");
+
+    const sections = [...document.querySelectorAll("main section")];
+    const navLinks = [...document.querySelectorAll("#report-nav a")];
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach(link => link.classList.toggle("active", link.getAttribute("href") === `#${entry.target.id}`));
+      });
+    }, { rootMargin: "-18% 0px -72% 0px" });
+    sections.forEach(section => observer.observe(section));
+
+    renderModules();
+  </script>
+</body>
+</html>

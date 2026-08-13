@@ -1370,9 +1370,9 @@
     "upgrade_check": {},
     "manifest": {
       "name": "geo-discover",
-      "version": "0.3.1",
+      "version": "0.5.0",
       "owner": "姚金刚 / Yao",
-      "updated_at": "2026-08-11",
+      "updated_at": "2026-08-12",
       "review_cadence": "per-release",
       "status": "experimental",
       "maturity_tier": "library",
@@ -1404,8 +1404,9 @@
         "query-map",
         "opportunity-map",
         "evidence-ledger",
-        "research-context",
-        "quality-report"
+        "quality-report",
+        "run-lineage",
+        "run-manifest"
       ],
       "rollback_boundary": "Remove the generated run directory and revert discover, Artifact Bus, schemas, and registry together.",
       "factory_components": [
@@ -1422,7 +1423,7 @@
     },
     "interface": {
       "interface": {
-        "display_name": "GEOHub Discover",
+        "display_name": "GEO SEO Hub Discover",
         "short_description": "Build deterministic evidence-aware GEO discovery artifacts",
         "default_prompt": "Use $geo-discover to create an evidence-aware query and opportunity map from this brief under the requested runs root.",
         "input_contract": {
@@ -1435,8 +1436,8 @@
           "query-map",
           "opportunity-map",
           "evidence-ledger",
-          "research-context",
           "quality-report",
+          "run-lineage",
           "run-manifest"
         ],
         "permission_contract": {

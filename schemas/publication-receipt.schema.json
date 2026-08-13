@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yao.example/geo/schemas/publication-receipt.schema.json",
+  "title": "Publication Receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "publication_id", "candidate_digest", "handoff_digest", "target_uri", "published_at", "status", "semantic_digest"],
+  "properties": {
+    "protocol_version": {"const": "1.0.0"},
+    "publication_id": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "candidate_digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "handoff_digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "target_uri": {"type": "string", "format": "uri"},
+    "published_at": {"type": "string", "format": "date-time"},
+    "status": {"const": "verified"},
+    "semantic_digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

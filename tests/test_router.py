@@ -9,15 +9,6 @@ from geo_seo_hub.registry import load_registry
 from geo_seo_hub.router import build_action_phrase_index, route
 
 
-@pytest.mark.parametrize("text", ["一句话 SEO：审计这个网站", "检查 canonical、robots.txt 和 sitemap 的技术 SEO", "Analyze this Search Console traffic drop", "Create a keyword-to-page map for organic search"])
-def test_dedicated_seo_requests_route_to_seo_provider(text):
-    result = route(text)
-    assert result["skill_id"] == "seo"
-    assert result["status"] == "active"
-    assert result["runnable"] is True
-    assert result["entry"] == "skills/seo/SKILL.md"
-
-
 def test_routes_chinese_discovery_request():
     result = route("帮我做 AI 搜索意图挖掘和问题挖掘")
     assert result["skill_id"] == "geo-discover"
@@ -37,13 +28,12 @@ def test_routes_english_discovery_request():
     assert result["entry"] == "skills/geo-discover/SKILL.md"
 
 
-def test_planned_route_is_honest():
+def test_strategy_route_is_active_and_runnable():
     result = route("请给出 GEO strategy 和 roadmap")
     assert result["skill_id"] == "geo-strategy"
-    assert result["status"] == "planned"
-    assert result["runnable"] is False
-    assert result["entry"] is None
-    assert result["suggestion"] == "geo-discover"
+    assert result["status"] == "active"
+    assert result["runnable"] is True
+    assert result["entry"] == "skills/geo-strategy/SKILL.md"
 
 
 def test_routes_chinese_website_diagnosis():
@@ -108,8 +98,6 @@ def test_content_campaign_requires_both_stage_intents():
 
 def test_planned_routes_have_domain_nearest_active_suggestions():
     cases = {
-        "strategy": "geo-discover",
-        "knowledge base": "geo-content",
         "publish": "geo-content",
     }
     for text, expected in cases.items():
@@ -127,12 +115,17 @@ def test_workflows_require_positive_ordered_exact_two_stage_intent():
     assert "workflow" not in reversed_order
 
     three_stage = route("Discover questions, audit our site, then write an explainer")
-    assert three_stage["workflow"]["id"] == "brand-baseline-lite+content-campaign"
-    assert three_stage["workflow"]["recipes"] == ["brand-baseline-lite", "content-campaign"]
+    assert three_stage["workflow"]["id"] == "brand-baseline-content"
     assert three_stage["workflow"]["steps"][-1] == {"id": "content", "skill_id": "geo-content", "depends_on": ["discover"]}
 
     noun_phrase = route("We need content discovery")
     assert "workflow" not in noun_phrase
+
+
+def test_registry_driven_workflow_supports_new_active_skills_without_router_edits():
+    result = route("Build a GEO strategy, then monitor AI visibility")
+    assert result["workflow"]["id"] == "strategy-observation-loop"
+    assert [step["skill_id"] for step in result["workflow"]["steps"]] == ["geo-strategy", "geo-measure"]
 
 
 def test_negated_planned_intent_does_not_override_active_intent():
@@ -159,7 +152,7 @@ def test_keyword_expansion_then_article_uses_content_campaign_dag():
 
 
 def test_planned_route_exposes_inputs_and_closest_v0_artifact():
-    result = route("制定 GEO strategy roadmap")
+    result = route("发布到 CMS")
     assert result["status"] == "planned"
     assert result["runnable"] is False
     assert result["required_inputs"]
@@ -170,13 +163,8 @@ def test_planned_route_exposes_inputs_and_closest_v0_artifact():
     "text,skill_id",
     (
         ("No keyword research then publish", "geo-publish"),
-        ("No keyword research then strategy", "geo-strategy"),
-        ("Skip website audit then knowledge base", "geo-knowledge"),
         ("Avoid content generation then publish to CMS", "geo-publish"),
-        ("Avoid content, then build a roadmap", "geo-strategy"),
         ("不拓词然后发布", "geo-publish"),
-        ("不写文章然后策略", "geo-strategy"),
-        ("不写文章然后知识库", "geo-knowledge"),
         ("不拓词然后分发", "geo-publish"),
     ),
 )
@@ -188,19 +176,6 @@ def test_planned_intents_after_negated_sequence_scope_remain_planned(text, skill
     assert result["entry"] is None
     assert result["required_inputs"]
     assert result["closest_v0_artifact"]
-    assert "workflow" not in result
-
-
-@pytest.mark.parametrize(
-    "text",
-    ("No content then monitor", "No diagnosis then measure AI visibility", "不诊断然后监测"),
-)
-def test_measure_intents_after_negated_sequence_scope_are_active(text):
-    result = route(text)
-    assert result["skill_id"] == "geo-measure"
-    assert result["status"] == "active"
-    assert result["runnable"] is True
-    assert result["entry"] == "skills/geo-measure/SKILL.md"
     assert "workflow" not in result
 
 
@@ -810,7 +785,7 @@ def test_raw_replacement_blocks_later_additive_exception(text, skill_id):
 def test_lexical_buzhi_does_not_block_additive_exception(text):
     result = route(text)
     assert result["skill_id"] == "geo-discover"
-    assert result["workflow"]["id"] == "brand-baseline-lite+content-campaign"
+    assert result["workflow"]["id"] == "brand-baseline-content"
     assert result["runnable"] is True
 
 
@@ -827,7 +802,7 @@ def test_lexical_buzhi_does_not_block_additive_exception(text):
 def test_lexical_positive_qualifier_with_shi_protects_internal_zhi(text):
     result = route(text)
     assert result["skill_id"] == "geo-discover"
-    assert result["workflow"]["id"] == "brand-baseline-lite+content-campaign"
+    assert result["workflow"]["id"] == "brand-baseline-content"
     assert result["runnable"] is True
 
 
@@ -841,12 +816,12 @@ def test_lexical_positive_qualifier_with_shi_protects_internal_zhi(text):
         (
             "不 单 是 只 拓词并诊断网站还要写文章",
             "geo-discover",
-            "brand-baseline-lite+content-campaign",
+            "brand-baseline-content",
         ),
         (
             "不　仅　是　只　拓词并诊断网站还要写文章",
             "geo-discover",
-            "brand-baseline-lite+content-campaign",
+            "brand-baseline-content",
         ),
     ),
 )
@@ -1212,20 +1187,12 @@ def test_balanced_or_unclosed_quoted_mentions_do_not_route(text, skill_id):
         ("构建知识库", "geo-knowledge"),
     ),
 )
-def test_standalone_planned_intents_keep_registered_routes(text, skill_id):
+def test_standalone_routes_keep_registered_routes(text, skill_id):
     result = route(text)
     assert result["skill_id"] == skill_id
-    assert result["status"] == "planned"
-    assert result["runnable"] is False
-
-
-@pytest.mark.parametrize("text", ("monitor AI visibility", "监测 AI 可见度", "衡量效果"))
-def test_standalone_measure_intents_are_runnable(text):
-    result = route(text)
-    assert result["skill_id"] == "geo-measure"
-    assert result["status"] == "active"
-    assert result["runnable"] is True
-    assert result["entry"] == "skills/geo-measure/SKILL.md"
+    expected_active = skill_id in {"geo-strategy", "geo-knowledge"}
+    assert result["status"] == ("active" if expected_active else "planned")
+    assert result["runnable"] is expected_active
 
 
 @pytest.mark.parametrize(
@@ -1413,8 +1380,8 @@ def test_english_planned_negation_keeps_the_active_scope(text, skill_id):
 
 
 def test_positive_planned_intent_still_has_non_runnable_precedence():
-    result = route("制定策略只诊断网站")
-    assert result["skill_id"] == "geo-strategy"
+    result = route("发布只诊断网站")
+    assert result["skill_id"] == "geo-publish"
     assert result["status"] == "planned"
     assert result["runnable"] is False
 

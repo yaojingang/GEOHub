@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yao.example/geo/schemas/strategy-memory.schema.json",
+  "title": "Strategy Memory",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "run_id", "context_signature", "status", "records", "pending_candidates", "early_stop", "semantic_digest"],
+  "properties": {
+    "protocol_version": {"const": "1.0.0"},
+    "run_id": {"type": "string", "pattern": "\\S"},
+    "context_signature": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "status": {"enum": ["offline-approved", "awaiting-external-publication", "observation-complete"]},
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["candidate_id", "candidate_digest", "fidelity_passed", "metric_delta", "promotion"],
+        "properties": {
+          "candidate_id": {"type": "string", "pattern": "\\S"},
+          "candidate_digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "fidelity_passed": {"const": true},
+          "metric_delta": {"type": "number", "exclusiveMinimum": 0},
+          "promotion": {"const": "promoted"}
+        }
+      }
+    },
+    "pending_candidates": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "\\S"}},
+    "early_stop": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stop", "reason", "consecutive_no_improvement"],
+      "properties": {
+        "stop": {"type": "boolean"},
+        "reason": {"type": ["string", "null"]},
+        "consecutive_no_improvement": {"type": "integer", "minimum": 0}
+      }
+    },
+    "semantic_digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

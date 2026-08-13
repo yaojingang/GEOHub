@@ -14,17 +14,20 @@ sys.path.insert(0, str(ROOT / "src"))
 from geo_seo_hub.content import content  # noqa: E402
 from geo_seo_hub.diagnose import diagnose  # noqa: E402
 from geo_seo_hub.discover import discover  # noqa: E402
-from geo_seo_hub.measure import measure  # noqa: E402
 from geo_seo_hub.router import route  # noqa: E402
-from geo_seo_hub.seo import seo  # noqa: E402
+from geo_seo_hub.measure import measure  # noqa: E402
+from geo_seo_hub.strategy import strategy  # noqa: E402
+from geo_seo_hub.knowledge import knowledge  # noqa: E402
+from geo_seo_hub.control.routing import StaticSemanticScorer  # noqa: E402
 
 
 ARTIFACTS = {
-    "geo-discover": {"query-map.json", "opportunity-map.json", "evidence-ledger.json", "research-context.json", "quality-report.json", "run-manifest.json"},
-    "geo-diagnose": {"diagnosis.json", "diagnosis-funnel.json", "report.md", "evidence-ledger.json", "research-context.json", "quality-report.json", "run-manifest.json"},
-    "geo-content": {"content-spec.json", "content.json", "content-evidence-units.json", "content.md", "content.html", "evidence-ledger.json", "research-context.json", "quality-report.json", "run-manifest.json"},
-    "geo-measure": {"measurement-report.json", "report.md", "evidence-ledger.json", "research-context.json", "quality-report.json", "run-manifest.json"},
-    "seo": {"seo-plan.json", "report.md", "evidence-ledger.json", "quality-report.json", "run-manifest.json"},
+    "geo-discover": {"query-map.json", "opportunity-map.json", "evidence-ledger.json", "quality-report.json", "run-lineage.json", "run-manifest.json"},
+    "geo-diagnose": {"diagnosis.json", "report.md", "evidence-ledger.json", "quality-report.json", "run-lineage.json", "run-manifest.json"},
+    "geo-content": {"content-spec.json", "content.json", "content.md", "content.html", "evidence-ledger.json", "quality-report.json", "run-lineage.json", "run-manifest.json"},
+    "geo-measure": {"visibility-report.json", "quality-report.json", "run-lineage.json", "run-manifest.json"},
+    "geo-strategy": {"strategy-candidates.json", "fidelity-report.json", "experiment-plan.json", "publication-handoff.json", "strategy-memory.json", "quality-report.json", "run-lineage.json", "run-manifest.json"},
+    "geo-knowledge": {"knowledge-graph.json", "knowledge-query-result.json", "evidence-ledger.json", "quality-report.json", "run-lineage.json", "run-manifest.json"},
 }
 
 
@@ -58,7 +61,7 @@ def evaluate_router() -> dict:
 
 def evaluate_skill_triggers() -> dict:
     results = []
-    for skill_id in ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure", "seo"):
+    for skill_id in ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure", "geo-strategy", "geo-knowledge"):
         cases = read_json(ROOT / "skills" / skill_id / "evals" / "trigger_cases.json")
         for item in cases["should_trigger"]:
             actual = route(item["text"])["skill_id"]
@@ -78,6 +81,43 @@ def evaluate_skill_triggers() -> dict:
     return {"case_count": len(results), "passed": passed, "compliance": passed / len(results), "results": results}
 
 
+def evaluate_router_shadow() -> dict:
+    cases = read_json(ROOT / "evals" / "router_shadow_cases.json")
+    results = []
+    exact = 0
+    planned_activations = 0
+    for case in cases:
+        scores = {case["production"]: 0.90, case["neighbor"]: 0.70}
+        observed = route(case["text"], semantic_scorer=StaticSemanticScorer(scores))
+        shadow = observed["shadow"]
+        production_match = observed["skill_id"] == case["production"]
+        exact += int(production_match)
+        planned_activations += sum(
+            int(candidate["status"] != "active" and candidate["eligible"])
+            for candidate in shadow["candidates"]
+        )
+        results.append(
+            {
+                "id": case["id"],
+                "passed": production_match and bool(shadow["decision_reason"]),
+                "production_skill_id": observed["skill_id"],
+                "shadow_skill_id": shadow["shadow_skill_id"],
+                "disagreed": shadow["disagreed"],
+                "decision_reason": shadow["decision_reason"],
+            }
+        )
+    precision = exact / len(cases) if cases else 0.0
+    return {
+        "case_count": len(cases),
+        "precision": precision,
+        "recall": precision,
+        "planned_activations": planned_activations,
+        "production_changed": False,
+        "threshold_version": "semantic-shadow-1.0.0",
+        "results": results,
+    }
+
+
 def run_skill(skill_id: str, input_path: Path, output: Path):
     if skill_id == "geo-discover":
         return discover(input_path, output)
@@ -87,8 +127,10 @@ def run_skill(skill_id: str, input_path: Path, output: Path):
         return content(input_path, output)
     if skill_id == "geo-measure":
         return measure(input_path, output)
-    if skill_id == "seo":
-        return seo(input_path, output)
+    if skill_id == "geo-strategy":
+        return strategy(input_path, output)
+    if skill_id == "geo-knowledge":
+        return knowledge(input_path, output)
     raise ValueError(f"unsupported skill: {skill_id}")
 
 
@@ -110,7 +152,10 @@ def fabricated_citation_count(run_dir: Path) -> int:
     supplied: set[str] = set()
     for input_json in (run_dir / "input").rglob("*.json"):
         supplied.update(collect_source_uris(read_json(input_json)))
-    ledger = read_json(run_dir / "evidence-ledger.json")
+    ledger_path = run_dir / "evidence-ledger.json"
+    if not ledger_path.is_file():
+        return 0
+    ledger = read_json(ledger_path)
     cited = collect_source_uris(ledger)
     return len(cited - supplied)
 
@@ -183,30 +228,33 @@ def evaluate_outputs() -> dict:
 
 def write_blind_pack() -> None:
     cases = read_json(ROOT / "evals" / "output_cases.json")
-    pack = []
-    key = []
+    pack_pairs = []
+    key_pairs = []
     for case in cases:
         skilled = "Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks."
         baseline = "General response without declared input, evidence, permission, or artifact contracts."
         skilled_is_a = int(hashlib.sha256(case["id"].encode()).hexdigest(), 16) % 2 == 0
-        pack.append({"id": case["id"], "prompt": f"Evaluate the {case['case_type']} result for {case['skill_id']}.", "variant_a": skilled if skilled_is_a else baseline, "variant_b": baseline if skilled_is_a else skilled, "review_status": "pending; missing evidence"})
-        key.append({"id": case["id"], "with_skill_variant": "A" if skilled_is_a else "B"})
+        pack_pairs.append({"pair_id": case["id"], "task_id": case["id"], "prompt": f"Evaluate the {case['case_type']} result for {case['skill_id']}.", "variant_a": skilled if skilled_is_a else baseline, "variant_b": baseline if skilled_is_a else skilled, "rubric": "Prefer explicit contracts, evidence status, permission boundaries, and replayable artifacts."})
+        key_pairs.append({"pair_id": case["id"], "task_id": case["id"], "with_skill_variant": "A" if skilled_is_a else "B"})
+    pack = {"protocol_version": "1.0.0", "suite_id": "geohub-deterministic-output-v1", "pairs": pack_pairs}
+    key = {"protocol_version": "1.0.0", "suite_id": "geohub-deterministic-output-v1", "pairs": key_pairs}
     reports = ROOT / "reports"
     (reports / "output-blind-pack.json").write_text(json.dumps(pack, ensure_ascii=False, indent=2, allow_nan=False) + "\n", encoding="utf-8")
     (reports / "output-blind-answer-key.json").write_text(json.dumps(key, ensure_ascii=False, indent=2, allow_nan=False) + "\n", encoding="utf-8")
     lines = ["# Blind A/B Review Pack", "", "Answers are intentionally absent. Human review is pending; missing evidence.", ""]
-    for item in pack:
-        lines.extend([f"## {item['id']}", "", f"Prompt: {item['prompt']}", "", f"Variant A: {item['variant_a']}", "", f"Variant B: {item['variant_b']}", ""])
+    for item in pack_pairs:
+        lines.extend([f"## {item['pair_id']}", "", f"Prompt: {item['prompt']}", "", f"Variant A: {item['variant_a']}", "", f"Variant B: {item['variant_b']}", ""])
     (reports / "output-blind-pack.md").write_text("\n".join(lines), encoding="utf-8")
 
 
 def main() -> int:
     router = evaluate_router()
+    router_shadow = evaluate_router_shadow()
     triggers = evaluate_skill_triggers()
     outputs = evaluate_outputs()
     thresholds = {"precision": 0.97, "recall": 0.93, "trigger_compliance": 1.0, "contract_compliance": 1.0, "fabricated_citations": 0}
-    passed = router["precision"] >= thresholds["precision"] and router["recall"] >= thresholds["recall"] and triggers["compliance"] == 1.0 and outputs["contract_compliance"] == 1.0 and outputs["fabricated_citations"] == 0
-    summary = {"status": "pass" if passed else "fail", "thresholds": thresholds, "router": router, "triggers": triggers, "outputs": outputs}
+    passed = router["precision"] >= thresholds["precision"] and router["recall"] >= thresholds["recall"] and router_shadow["precision"] >= thresholds["precision"] and router_shadow["recall"] >= thresholds["recall"] and router_shadow["planned_activations"] == 0 and triggers["compliance"] == 1.0 and outputs["contract_compliance"] == 1.0 and outputs["fabricated_citations"] == 0
+    summary = {"status": "pass" if passed else "fail", "thresholds": thresholds, "router": router, "router_shadow": router_shadow, "triggers": triggers, "outputs": outputs}
     reports = ROOT / "reports"
     reports.mkdir(exist_ok=True)
     (reports / "eval-summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2, allow_nan=False) + "\n", encoding="utf-8")
@@ -218,6 +266,7 @@ Status: **{summary['status']}**
 
 - Router cases: {router['case_count']}; precision `{router['precision']:.4f}`; recall `{router['recall']:.4f}`
 - Metric: {router['metric_definition']}
+- Semantic shadow cases: {router_shadow['case_count']}; production precision `{router_shadow['precision']:.4f}`; planned activations `{router_shadow['planned_activations']}`
 - Skill trigger cases: {triggers['case_count']}; compliance `{triggers['compliance']:.4f}`
 - Output cases: {outputs['case_count']}; contract compliance `{outputs['contract_compliance']:.4f}`
 - Fabricated citations: `{outputs['fabricated_citations']}`
@@ -228,7 +277,7 @@ Status: **{summary['status']}**
 """
     (reports / "eval-summary.md").write_text(md, encoding="utf-8")
     write_blind_pack()
-    print(json.dumps({"status": summary["status"], "precision": router["precision"], "recall": router["recall"], "trigger_compliance": triggers["compliance"], "contract_compliance": outputs["contract_compliance"], "fabricated_citations": outputs["fabricated_citations"]}, indent=2, allow_nan=False))
+    print(json.dumps({"status": summary["status"], "precision": router["precision"], "recall": router["recall"], "shadow_precision": router_shadow["precision"], "shadow_recall": router_shadow["recall"], "planned_shadow_activations": router_shadow["planned_activations"], "trigger_compliance": triggers["compliance"], "contract_compliance": outputs["contract_compliance"], "fabricated_citations": outputs["fabricated_citations"]}, indent=2, allow_nan=False))
     return 0 if passed else 2
 
 

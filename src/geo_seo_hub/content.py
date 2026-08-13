@@ -13,10 +13,12 @@ import unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
+from urllib.parse import urlsplit
 
 from .artifact_bus import ArtifactBus
-from .research import build_research_context
-from .validation import normalize_artifact_uri, read_bounded_regular_file, strict_json_loads, validate_artifact
+from .quality.lineage import build_run_lineage
+from .intelligence.content import build_claim_map, build_content_pipeline, evaluate_mcda
+from .validation import read_bounded_regular_file, strict_json_loads, validate_artifact
 from .version import package_version
 
 PROTOCOL_VERSION = "1.0.0"
@@ -83,7 +85,10 @@ def _string_list(value: Any, field: str, *, unique: bool = True) -> list[str]:
 
 
 def _source_uri(value: Any, field: str) -> str:
-    return normalize_artifact_uri(value, field=field)
+    uri = _require_text(value, field)
+    if not urlsplit(uri).scheme or re.search(r"\s", uri):
+        raise ValueError(f"{field} must be an absolute URI")
+    return uri
 
 
 def _open_flags(*, directory: bool = False) -> int:
@@ -134,7 +139,7 @@ def _validate_evaluation_method(value: Any) -> str | dict[str, Any]:
         return _require_text(value, "evaluation_method")
     if not isinstance(value, dict):
         raise ValueError("evaluation_method must be a non-blank string or an object")
-    allowed = {"name", "criteria", "score_scale"}
+    allowed = {"name", "criteria", "score_scale", "normalization", "weighting", "missing_value", "tie_policy"}
     extra = sorted(set(value) - allowed)
     if extra:
         raise ValueError(f"evaluation_method has unknown fields: {', '.join(extra)}")
@@ -146,7 +151,7 @@ def _validate_evaluation_method(value: Any) -> str | dict[str, Any]:
         seen: set[str] = set()
         normalized_criteria = []
         for index, criterion in enumerate(criteria):
-            if not isinstance(criterion, dict) or set(criterion) - {"name", "weight"} or "name" not in criterion:
+            if not isinstance(criterion, dict) or set(criterion) - {"name", "weight", "polarity"} or "name" not in criterion:
                 raise ValueError(f"evaluation_method.criteria[{index}] has invalid fields")
             name = _require_text(criterion["name"], f"evaluation_method.criteria[{index}].name")
             if name.casefold() in seen:
@@ -155,9 +160,14 @@ def _validate_evaluation_method(value: Any) -> str | dict[str, Any]:
             weight = criterion.get("weight", 1.0)
             if not isinstance(weight, (int, float)) or isinstance(weight, bool) or not math.isfinite(weight) or weight <= 0:
                 raise ValueError(f"evaluation_method.criteria[{index}].weight must be positive")
-            normalized_criteria.append({"name": name, "weight": float(weight)})
+            normalized_criterion = {"name": name, "weight": float(weight)}
+            if "polarity" in criterion:
+                if criterion["polarity"] not in {"benefit", "cost"}:
+                    raise ValueError(f"evaluation_method.criteria[{index}].polarity must be benefit or cost")
+                normalized_criterion["polarity"] = criterion["polarity"]
+            normalized_criteria.append(normalized_criterion)
         normalized["criteria"] = normalized_criteria
-    for field in ("score_scale",):
+    for field in ("score_scale", "normalization", "weighting", "missing_value", "tie_policy"):
         if field in value:
             normalized[field] = _require_text(value[field], f"evaluation_method.{field}")
     return normalized
@@ -282,8 +292,7 @@ def _read_relative_source(source: dict[str, Any], input_path: Path) -> tuple[str
     digest = hashlib.sha256(body.encode("utf-8")).hexdigest()
     if source.get("sha256") and source["sha256"] != digest:
         raise ValueError("source_content digest does not match its file snapshot")
-    source_uri = source.get("source_uri", "urn:geo-seo-hub:input:source-content")
-    return body, normalize_artifact_uri(source_uri, field="source_content.source_uri")
+    return body, source.get("source_uri", "urn:geo-seo-hub:input:source-content")
 
 
 def _normalize_brief(brief: dict[str, Any], input_path: Path) -> tuple[dict[str, Any], str | None]:
@@ -536,7 +545,13 @@ def _ranking_rows(
     return rows
 
 
-def _build_content(brief: dict[str, Any], run_id: str, source_text: str | None) -> dict[str, Any]:
+def _build_content(
+    brief: dict[str, Any],
+    run_id: str,
+    source_text: str | None,
+    *,
+    execution_mode: str = "legacy",
+) -> dict[str, Any]:
     mode = brief["mode"]
     entities = _entities(brief)
     evidence_by_entity = {
@@ -680,21 +695,60 @@ def _build_content(brief: dict[str, Any], run_id: str, source_text: str | None) 
             for entity in entities
             if entity.casefold() in missing_dimension_entities
         )
+        if execution_mode != "legacy":
+            if not isinstance(method, dict):
+                ranking_gaps.append("MCDA requires a structured evaluation_method object")
+            elif any(item.get("polarity") not in {"benefit", "cost"} for item in method.get("criteria", [])):
+                ranking_gaps.append("MCDA requires benefit or cost polarity for every criterion")
+            for field, expected in (
+                ("normalization", "min-max"),
+                ("weighting", "normalized-explicit"),
+                ("missing_value", "reject"),
+                ("tie_policy", "no-winner"),
+            ):
+                if isinstance(method, dict) and method.get(field, expected) != expected:
+                    ranking_gaps.append(f"MCDA {field} must be {expected}")
         eligible = bool(method) and bool(dimensions) and not ranking_gaps
+        mcda = None
         if eligible:
             rows = _ranking_rows(entities, dimensions, score_cells)
+            if execution_mode != "legacy":
+                matrix = {
+                    entity: {
+                        dimension: float(score_cells[(entity.casefold(), dimension.casefold())][0]["score"])
+                        for dimension, _weight in dimensions
+                    }
+                    for entity in entities
+                }
+                criteria = [
+                    {
+                        "name": item["name"],
+                        "weight": item["weight"],
+                        "polarity": item["polarity"],
+                    }
+                    for item in method["criteria"]
+                ]
+                mcda = evaluate_mcda(
+                    matrix,
+                    criteria,
+                    normalization=method.get("normalization", "min-max"),
+                    weighting=method.get("weighting", "normalized-explicit"),
+                    missing_value=method.get("missing_value", "reject"),
+                    tie_policy=method.get("tie_policy", "no-winner"),
+                )
         else:
             status = "blocked-by-evidence"
             rows = []
             supplement_requests.extend(ranking_gaps)
-        mode_data = {
-            "ranking": {
-                "evaluation_method": method,
-                "rows": rows,
-                "limitations": ["排序只覆盖输入证据与明确方法；同分时内部使用稳定的实体名称顺序。"],
-                "source_evidence_ids": [item["label"] for item in brief.get("evidence", [])],
-            }
+        ranking_data = {
+            "evaluation_method": method,
+            "rows": rows,
+            "limitations": ["排序只覆盖输入证据与明确方法；同分时内部使用稳定的实体名称顺序。"],
+            "source_evidence_ids": [item["label"] for item in brief.get("evidence", [])],
         }
+        if execution_mode != "legacy":
+            ranking_data["mcda"] = mcda
+        mode_data = {"ranking": ranking_data}
     elif mode == "page-blueprint":
         factual_text = [item["claim"] for item in brief.get("evidence", [])]
         mode_data = {
@@ -810,99 +864,6 @@ def _content_spec(brief: dict[str, Any], content: dict[str, Any]) -> dict[str, A
         "sections": content["sections"],
         "status": spec_status,
     }
-
-
-def _content_evidence_units(
-    content: dict[str, Any],
-    research_context: dict[str, Any],
-) -> dict[str, Any]:
-    units: list[dict[str, Any]] = []
-
-    def add(
-        lineage_type: str,
-        text: str,
-        status: str,
-        *,
-        evidence_ids: list[str] | None = None,
-        research_source_ids: list[str] | None = None,
-        causal_status: str = "not-applicable",
-        limitations: list[str],
-    ) -> None:
-        evidence = sorted(set(evidence_ids or []))
-        research_sources = sorted(set(research_source_ids or []))
-        unit_id = _stable_id(
-            "unit",
-            lineage_type,
-            text,
-            "|".join(evidence),
-            "|".join(research_sources),
-        )
-        units.append(
-            {
-                "unit_id": unit_id,
-                "lineage_type": lineage_type,
-                "text": text,
-                "status": status,
-                "evidence_ids": evidence,
-                "research_source_ids": research_sources,
-                "causal_status": causal_status,
-                "limitations": sorted(set(limitations)),
-            }
-        )
-
-    for claim in content["factual_claims"]:
-        add(
-            "input-evidence",
-            claim["text"],
-            "provided",
-            evidence_ids=claim["evidence_ids"],
-            limitations=["Claim support is limited to the supplied evidence and its stated scope."],
-        )
-    refinement = content["mode_data"].get("refinement")
-    if refinement:
-        for claim in refinement["source_claims"]:
-            add(
-                "source-preserved",
-                claim["text"],
-                "provided" if claim["evidence_ids"] else "unverified",
-                evidence_ids=claim["evidence_ids"],
-                limitations=["Preserved source text remains unverified unless it resolves to supplied evidence."],
-            )
-    for guidance in content["guidance"]:
-        add(
-            "operational-guidance",
-            guidance,
-            "guidance",
-            limitations=["Operational guidance is not a factual or effectiveness claim."],
-        )
-    for request in content["supplement_requests"]:
-        add(
-            "evidence-gap",
-            request,
-            "blocked",
-            limitations=["The requested evidence is missing from the current run."],
-        )
-    for principle in research_context["principles"]:
-        for control in principle["required_controls"]:
-            add(
-                "research-method",
-                control,
-                "guidance",
-                research_source_ids=principle["source_ids"],
-                causal_status=principle["causal_status"],
-                limitations=principle["limitations"],
-            )
-
-    unique_units = {unit["unit_id"]: unit for unit in units}
-    artifact = {
-        "protocol_version": PROTOCOL_VERSION,
-        "run_id": content["run_id"],
-        "mode": content["mode"],
-        "effect_guarantee": False,
-        "units": [unique_units[key] for key in sorted(unique_units)],
-    }
-    validate_artifact("content-evidence-units", artifact)
-    return artifact
 
 
 def _surface_title(content: dict[str, Any]) -> str:
@@ -1066,7 +1027,7 @@ def _html_document(content: dict[str, Any], ledger: dict[str, Any]) -> str:
     return f"""<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title}</title><style>
-:root{{--ink:#17202a;--muted:#52606d;--line:#d8dee4;--paper:#fff;--accent:#2457d6}}*{{box-sizing:border-box}}body{{margin:0;color:var(--ink);background:var(--paper);font:16px/1.7 system-ui,sans-serif}}nav{{position:sticky;top:0;background:#fffffff2;border-bottom:1px solid var(--line);padding:.8rem 5vw;backdrop-filter:blur(8px)}}nav a{{color:var(--accent);margin-right:1rem}}main{{max-width:880px;margin:auto;padding:2rem 5vw 5rem}}h1{{margin-top:2.5rem}}h2{{margin-top:1.8rem}}code{{overflow-wrap:anywhere}}.status{{color:var(--muted)}}.source{{white-space:pre-wrap}}@media print{{nav{{display:none}}main{{max-width:none;padding:0}}a{{color:inherit;text-decoration:none}}}}
+:root{{--ink:#17202a;--muted:#52606d;--line:#d8dee4;--paper:#fff;--accent:#2457d6}}*{{box-sizing:border-box}}html,body{{max-width:100%;overflow-x:hidden}}body{{margin:0;color:var(--ink);background:var(--paper);font:16px/1.7 system-ui,sans-serif;overflow-wrap:anywhere}}nav{{position:sticky;top:0;background:#fffffff2;border-bottom:1px solid var(--line);padding:.8rem 5vw;backdrop-filter:blur(8px)}}nav a{{color:var(--accent);margin-right:1rem}}a:focus-visible,button:focus-visible{{outline:3px solid var(--accent);outline-offset:3px}}main{{max-width:880px;margin:auto;padding:2rem 5vw 5rem}}h1{{margin-top:2.5rem}}h2{{margin-top:1.8rem}}code{{overflow-wrap:anywhere}}.status{{color:var(--muted)}}.source{{white-space:pre-wrap}}.table-scroll{{max-width:100%;overflow-x:auto}}@media print{{nav{{display:none}}main{{max-width:none;padding:0}}a{{color:inherit;text-decoration:none}}}}
 </style></head><body><nav aria-label="内容导航"><a href="#main-content">内容主体</a><a href="#references">补充说明与参考来源</a></nav><main><p class="status">标题：{title} · 模式：{html.escape(content['mode'])} · 状态：{status}</p><section id="main-content"><h1>内容主体</h1>{''.join(rendered)}</section><section id="references"><h1>补充说明与参考来源</h1><ul>{''.join(refs)}</ul><h2>补证与风险说明</h2><ul>{''.join(supplements) or '<li>当前无额外补证请求。</li>'}</ul></section></main></body></html>"""
 
 
@@ -1141,12 +1102,36 @@ def _render_pdf(html_document: str, markdown: str) -> tuple[bytes, list[str], li
         ) from fallback_exc
 
 
-def content(input_path: Path, output_path: Path, *, clock: Clock | None = None) -> dict[str, Any]:
+def content(
+    input_path: Path,
+    output_path: Path,
+    *,
+    clock: Clock | None = None,
+    execution_mode: str = "legacy",
+) -> dict[str, Any]:
     """Create one offline, evidence-lined geo-content Artifact Bus run."""
+    if execution_mode not in {"legacy", "deterministic", "research", "provider"}:
+        raise ValueError("execution mode must be legacy, deterministic, research, or provider")
+    execution_failures = (
+        ["provider mode has no configured drafting adapter; deterministic pipeline completed"]
+        if execution_mode == "provider"
+        else []
+    )
     brief = validate_content_brief(_load_content_brief(input_path))
     normalized, source_text = _normalize_brief(brief, input_path)
     validate_content_brief(normalized)
-    canonical = json.dumps(normalized, ensure_ascii=False, sort_keys=True, separators=(",", ":"), allow_nan=False)
+    identity = (
+        normalized
+        if execution_mode == "legacy"
+        else {"brief": normalized, "execution_mode": execution_mode}
+    )
+    canonical = json.dumps(
+        identity,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+        allow_nan=False,
+    )
     run_id = _stable_id("run", canonical)
     now = (clock or (lambda: datetime.now(timezone.utc)))()
     if now.tzinfo is None:
@@ -1154,10 +1139,29 @@ def content(input_path: Path, output_path: Path, *, clock: Clock | None = None) 
     created_at = now.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
 
     ledger = _evidence_ledger(normalized, run_id)
-    generated_content = _build_content(normalized, run_id, source_text)
+    generated_content = _build_content(
+        normalized,
+        run_id,
+        source_text,
+        execution_mode=execution_mode,
+    )
     spec = _content_spec(normalized, generated_content)
-    research_context = build_research_context(run_id, f"geo-content:{normalized['mode']}")
-    evidence_units = _content_evidence_units(generated_content, research_context)
+    claim_map = None
+    pipeline = None
+    semantic_digest: str | None = None
+    if execution_mode != "legacy":
+        claim_map = build_claim_map(generated_content, ledger)
+        validate_artifact("claim-map", claim_map)
+        pipeline = build_content_pipeline(
+            normalized,
+            source_text,
+            generated_content,
+            claim_map,
+            execution_mode=execution_mode,
+            failures=execution_failures,
+        )
+        validate_artifact("content-pipeline", pipeline)
+        semantic_digest = pipeline["semantic_digest"]
     markdown = _markdown(generated_content, ledger)
     html_document = _html_document(generated_content, ledger)
     validate_artifact("evidence-ledger", ledger)
@@ -1165,6 +1169,7 @@ def content(input_path: Path, output_path: Path, *, clock: Clock | None = None) 
 
     requested = set(normalized["desired_formats"])
     warnings: list[str] = []
+    warnings.extend(execution_failures)
     missing_dependencies: set[str] = set()
     renderer_errors: set[str] = set()
     binary_artifacts: dict[str, bytes] = {}
@@ -1193,6 +1198,8 @@ def content(input_path: Path, output_path: Path, *, clock: Clock | None = None) 
             warnings.append(f"degraded: PDF renderer failed; core artifacts succeeded: {exc}")
     if generated_content["status"] != "ready":
         warnings.append(f"content status is {generated_content['status']}; review evidence and supplement requests")
+    if claim_map is not None and claim_map["summary"]["support_rate"] < 0.95:
+        warnings.append("claim support rate is below 0.95; repair unsupported claims before publication")
 
     quality = {
         "protocol_version": PROTOCOL_VERSION,
@@ -1200,10 +1207,9 @@ def content(input_path: Path, output_path: Path, *, clock: Clock | None = None) 
         "passed_checks": [
             "content brief contract valid",
             "factual claim evidence lineage resolved",
-            "content units classify input evidence, preserved source text, method guidance, and evidence gaps",
-            "research context is source-resolved and effect-bounded",
             "HTML generated locally with escaped user text",
             "Artifact Bus file set prepared atomically",
+            f"execution mode recorded: {execution_mode}",
         ],
         "warnings": sorted(set(warnings)),
         "failed_checks": [],
@@ -1211,19 +1217,19 @@ def content(input_path: Path, output_path: Path, *, clock: Clock | None = None) 
     }
     validate_artifact("quality-report", quality)
 
-    artifacts = [
+    lineage_inputs = [
         "input/content-brief.json",
         *( ["input/source.md"] if source_text is not None else [] ),
         "content-spec.json",
         "content.json",
-        "content-evidence-units.json",
         "content.md",
         "content.html",
         "evidence-ledger.json",
         "quality-report.json",
-        "research-context.json",
+        *(["claim-map.json", "content-pipeline.json"] if execution_mode != "legacy" else []),
         *sorted(binary_artifacts),
     ]
+    artifacts = [*lineage_inputs, "run-lineage.json"]
     manifest = {
         "protocol_version": PROTOCOL_VERSION,
         "run_id": run_id,
@@ -1232,7 +1238,7 @@ def content(input_path: Path, output_path: Path, *, clock: Clock | None = None) 
         "input_artifact": "input/content-brief.json",
         "artifacts": artifacts,
         "status": "completed-with-warnings" if warnings else "completed",
-        "degraded": bool(missing_dependencies or renderer_errors),
+        "degraded": bool(missing_dependencies or renderer_errors or execution_failures),
         "missing_dependencies": sorted(missing_dependencies),
         "renderer_errors": sorted(renderer_errors),
     }
@@ -1244,21 +1250,35 @@ def content(input_path: Path, output_path: Path, *, clock: Clock | None = None) 
             bus.write_text("input/source.md", source_text)
         bus.write_json("content-spec.json", spec, "content-spec")
         bus.write_json("content.json", generated_content)
-        bus.write_json("content-evidence-units.json", evidence_units, "content-evidence-units")
         bus.write_text("content.md", markdown)
         bus.write_text("content.html", html_document)
         bus.write_json("evidence-ledger.json", ledger, "evidence-ledger")
         bus.write_json("quality-report.json", quality, "quality-report")
-        bus.write_json("research-context.json", research_context, "research-context")
+        if claim_map is not None and pipeline is not None:
+            bus.write_json("claim-map.json", claim_map, "claim-map")
+            bus.write_json("content-pipeline.json", pipeline, "content-pipeline")
         for relative, payload in binary_artifacts.items():
             bus.write_bytes(relative, payload)
+        lineage = build_run_lineage(
+            bus.root,
+            run_id=run_id,
+            skill_id="geo-content",
+            status=manifest["status"],
+            artifact_paths=lineage_inputs,
+            metric_names=("warning-count",),
+        )
+        bus.write_json("run-lineage.json", lineage, "run-lineage")
         bus.write_json("run-manifest.json", manifest, "run-manifest")
         bus.publish(set(artifacts) | {"run-manifest.json"})
-    return {
+    result = {
         "run_id": run_id,
         "status": manifest["status"],
         "content_status": generated_content["status"],
         "output": str(run_path.resolve()),
         "artifacts": artifacts,
         "warning_count": len(quality["warnings"]),
+        "execution_mode": execution_mode,
     }
+    if semantic_digest is not None:
+        result["semantic_digest"] = semantic_digest
+    return result

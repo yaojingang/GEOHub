@@ -1,8 +1,8 @@
 {
   "name": "geo-content",
-  "version": "0.3.1",
+  "version": "0.5.0",
   "owner": "姚金刚 / Yao",
-  "updated_at": "2026-08-11",
+  "updated_at": "2026-08-12",
   "review_cadence": "per-release",
   "status": "experimental",
   "maturity": "experimental",
@@ -20,7 +20,7 @@
   "copyright_owner": "姚金刚 / Yao",
   "third_party_notice_required": true,
   "input_files": ["file-backed fixture: strict content brief JSON and optional replayable source_content snapshot"],
-  "output_contract": ["input/content-brief.json", "input/source.md", "content-spec.json", "content.json", "content-evidence-units.json", "content.md", "content.html", "content.docx", "content.pdf", "evidence-ledger.json", "research-context.json", "quality-report.json", "run-manifest.json"],
+  "output_contract": ["input/content-brief.json", "input/source.md", "content-spec.json", "content.json", "content.md", "content.html", "content.docx", "content.pdf", "evidence-ledger.json", "quality-report.json", "claim-map.json", "content-pipeline.json", "run-lineage.json", "run-manifest.json"],
   "rollback_boundary": "Remove generated content run directories and revert content, CLI, registry, packaging, and geo-content together.",
   "factory_components": ["references", "scripts", "evals", "reports", "agents"]
 }

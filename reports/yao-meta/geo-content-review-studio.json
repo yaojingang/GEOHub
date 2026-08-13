@@ -1370,9 +1370,9 @@
     "upgrade_check": {},
     "manifest": {
       "name": "geo-content",
-      "version": "0.3.1",
+      "version": "0.5.0",
       "owner": "姚金刚 / Yao",
-      "updated_at": "2026-08-11",
+      "updated_at": "2026-08-12",
       "review_cadence": "per-release",
       "status": "experimental",
       "maturity": "experimental",
@@ -1405,14 +1405,15 @@
         "input/source.md",
         "content-spec.json",
         "content.json",
-        "content-evidence-units.json",
         "content.md",
         "content.html",
         "content.docx",
         "content.pdf",
         "evidence-ledger.json",
-        "research-context.json",
         "quality-report.json",
+        "claim-map.json",
+        "content-pipeline.json",
+        "run-lineage.json",
         "run-manifest.json"
       ],
       "rollback_boundary": "Remove generated content run directories and revert content, CLI, registry, packaging, and geo-content together.",
@@ -1430,7 +1431,7 @@
     },
     "interface": {
       "interface": {
-        "display_name": "GEOHub Content",
+        "display_name": "GEO SEO Hub Content",
         "short_description": "Create offline evidence-lined GEO content artifacts",
         "default_prompt": "Use $geo-content to create the requested content mode, preserve evidence lineage, and surface source gaps.",
         "input_contract": {
@@ -1451,7 +1452,7 @@
             "desired_formats": "markdown, json, html, docx, pdf",
             "compliance_notes": "unique non-blank strings",
             "page_type": "non-blank string",
-            "evaluation_method": "non-blank string or strict object with name, criteria[{name, weight}], and optional score_scale; tie_breaker is rejected in v0.1"
+            "evaluation_method": "legacy string or strict object; MCDA uses criteria[{name, weight, polarity}], min-max normalization, normalized-explicit weighting, reject missing values, and no-winner ties"
           }
         },
         "output_contract": [
@@ -1459,13 +1460,13 @@
           "input/source.md when supplied",
           "content-spec.json",
           "content.json",
-          "content-evidence-units.json",
           "content.md",
           "content.html",
           "evidence-ledger.json",
-          "research-context.json",
           "quality-report.json",
+          "run-lineage.json",
           "run-manifest.json",
+          "claim-map.json and content-pipeline.json for non-legacy execution",
           "content.docx/content.pdf when requested and rendered"
         ],
         "permission_contract": {

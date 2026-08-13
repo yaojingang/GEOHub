@@ -1,1 +1,16 @@
-{"fallback_positive_concepts":["owned"],"positive_concepts":{"owned":{"weight":1.0,"phrases":["measure citation rate","monitor ai visibility","aggregate observations","衡量效果","监测 AI 可见度","衡量这批 AI 可见度观测"]}},"negative_concepts":{"neighbor":{"weight":1.0,"exclusive":true,"phrases":["website audit","query research","write article","publish content"]}}}
+{
+  "fallback_positive_concepts": ["owned"],
+  "positive_concepts": {
+    "owned": {
+      "weight": 1.0,
+      "phrases": ["measure", "monitor", "visibility measurement", "citation share", "mention rate", "监测", "衡量", "可见度监测", "引用份额", "提及率"]
+    }
+  },
+  "negative_concepts": {
+    "neighbor": {
+      "weight": 1.0,
+      "exclusive": true,
+      "phrases": ["audit", "diagnosis", "write", "publish", "strategy", "不要监测"]
+    }
+  }
+}

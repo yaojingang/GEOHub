@@ -204,7 +204,7 @@ Variant B: General response without declared input, evidence, permission, or art
 
 ## o26
 
-Prompt: Evaluate the happy result for seo.
+Prompt: Evaluate the happy result for geo-strategy.
 
 Variant A: General response without declared input, evidence, permission, or artifact contracts.
 
@@ -212,7 +212,7 @@ Variant B: Contract-aware output: explicit inputs, evidence status, boundaries, 
 
 ## o27
 
-Prompt: Evaluate the missing_input result for seo.
+Prompt: Evaluate the missing_input result for geo-strategy.
 
 Variant A: Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.
 
@@ -220,7 +220,7 @@ Variant B: General response without declared input, evidence, permission, or art
 
 ## o28
 
-Prompt: Evaluate the boundary result for seo.
+Prompt: Evaluate the boundary result for geo-strategy.
 
 Variant A: Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.
 
@@ -228,7 +228,7 @@ Variant B: General response without declared input, evidence, permission, or art
 
 ## o29
 
-Prompt: Evaluate the near_neighbor result for seo.
+Prompt: Evaluate the near_neighbor result for geo-strategy.
 
 Variant A: Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.
 
@@ -236,7 +236,47 @@ Variant B: General response without declared input, evidence, permission, or art
 
 ## o30
 
-Prompt: Evaluate the source_shortfall result for seo.
+Prompt: Evaluate the source_shortfall result for geo-strategy.
+
+Variant A: General response without declared input, evidence, permission, or artifact contracts.
+
+Variant B: Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.
+
+## o31
+
+Prompt: Evaluate the happy result for geo-knowledge.
+
+Variant A: General response without declared input, evidence, permission, or artifact contracts.
+
+Variant B: Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.
+
+## o32
+
+Prompt: Evaluate the missing_input result for geo-knowledge.
+
+Variant A: General response without declared input, evidence, permission, or artifact contracts.
+
+Variant B: Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.
+
+## o33
+
+Prompt: Evaluate the boundary result for geo-knowledge.
+
+Variant A: Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.
+
+Variant B: General response without declared input, evidence, permission, or artifact contracts.
+
+## o34
+
+Prompt: Evaluate the near_neighbor result for geo-knowledge.
+
+Variant A: Contract-aware output: explicit inputs, evidence status, boundaries, and deterministic artifact checks.
+
+Variant B: General response without declared input, evidence, permission, or artifact contracts.
+
+## o35
+
+Prompt: Evaluate the source_shortfall result for geo-knowledge.
 
 Variant A: General response without declared input, evidence, permission, or artifact contracts.
 

@@ -19,7 +19,7 @@ interface:
       desired_formats: "markdown, json, html, docx, pdf"
       compliance_notes: "unique non-blank strings"
       page_type: "non-blank string"
-      evaluation_method: "non-blank string or strict object with name, criteria[{name, weight}], and optional score_scale; tie_breaker is rejected in v0.1"
+      evaluation_method: "legacy string or strict object; MCDA uses criteria[{name, weight, polarity}], min-max normalization, normalized-explicit weighting, reject missing values, and no-winner ties"
   output_contract:
     - "input/content-brief.json"
     - "input/source.md when supplied"
@@ -31,7 +31,9 @@ interface:
     - "evidence-ledger.json"
     - "research-context.json"
     - "quality-report.json"
+    - "run-lineage.json"
     - "run-manifest.json"
+    - "claim-map.json and content-pipeline.json for non-legacy execution"
     - "content.docx/content.pdf when requested and rendered"
   permission_contract: {filesystem: "read inputs and write selected runs root", network: "forbid"}
 compatibility:

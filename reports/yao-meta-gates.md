@@ -2,16 +2,16 @@
 
 Status: **pass-with-waivers**
 
-Commands: 79; deterministic failures: 0.
+Commands: 92; deterministic failures: 0.
 
-Deterministic Review Studio dispositions: 78.
-Waived or missing external evidence: 15.
+Deterministic Review Studio dispositions: 91.
+Waived or missing external evidence: 17.
 Release-blocking items: 0.
 
 | Skill | Command | Exit | Structured status |
 | --- | --- | ---: | --- |
 | geo | `validate skills/geo` | 0 | pass |
-| geo | `--description Route GEO and generative engine optimization requests to an available GEOHub capability. Use for broad GEO requests, GEOHub workflow selection, capability checks, or requests spanning discovery, brand/site/page diagnosis, content, strategy, knowledge, publishing, and measurement.` | 0 | pass |
+| geo | `--description Route GEO and generative engine optimization requests to an available GEO SEO Hub capability. Use for broad GEO requests, workflow selection, capability checks, or requests spanning discovery, brand/site/page diagnosis, content, strategy, knowledge, publishing, and measurement.` | 0 | pass |
 | geo | `skill-ir skills/geo` | 0 | pass |
 | geo | `skill-ir skills/geo` | 0 | pass |
 | geo | `output-eval --cases` | 0 | pass |
@@ -63,7 +63,7 @@ Release-blocking items: 0.
 | geo-content | `compile-skill skills/geo-content` | 0 | pass |
 | geo-content | `conformance skills/geo-content` | 0 | pass |
 | geo-measure | `validate skills/geo-measure` | 0 | pass |
-| geo-measure | `--description Aggregate explicit GEO or AI-search observation records into transparent rates, denominators, missing-answer counts, platform strata, and intervals. Use for citation measurement, AI visibility tracking, repeated observation analysis, and 引用监测、AI 可见度衡量、效果测量. Requires supplied observations and excludes live platform collection, account access, causal attribution, ranking guarantees, and continuous monitoring.` | 0 | pass |
+| geo-measure | `--description Measure GEO visibility from an approved, file-backed engine observation bundle. Use for AI answer mention rate, source inclusion, citation share, query-panel coverage, GEO monitoring, 监测 AI 可见度, 衡量 GEO 效果, and offline baseline comparison. Exclude live scraping, platform login, automated collection, and unsupported causal claims.` | 0 | pass |
 | geo-measure | `skill-ir skills/geo-measure` | 0 | pass |
 | geo-measure | `skill-ir skills/geo-measure` | 0 | pass |
 | geo-measure | `output-eval --cases` | 0 | pass |
@@ -75,17 +75,30 @@ Release-blocking items: 0.
 | geo-measure | `conformance skills/geo-measure` | 0 | pass |
 | geo-measure | `compile-skill skills/geo-measure` | 0 | pass |
 | geo-measure | `conformance skills/geo-measure` | 0 | pass |
-| seo | `validate skills/seo` | 0 | pass |
-| seo | `--description Turn one natural-language request into an evidence-bounded SEO work plan across technical SEO, crawling and indexing, Search Console incidents, keyword-to-page mapping, migrations, experiments, international or ecommerce SEO, and AI-search foundations. Use for 一句话SEO、技术SEO、自然搜索、收录诊断、关键词页面映射 and website SEO. Exclude paid search, ASO, ranking guarantees, link spam, live mutation without authorization, and unsupported metrics.` | 0 | pass |
-| seo | `skill-ir skills/seo` | 0 | pass |
-| seo | `skill-ir skills/seo` | 0 | pass |
-| seo | `output-eval --cases` | 0 | pass |
-| seo | `trust skills/seo` | 0 | pass |
-| seo | `review-studio skills/seo` | 0 | review |
-| seo | `compile-skill skills/seo` | 0 | pass |
-| seo | `conformance skills/seo` | 0 | pass |
-| seo | `compile-skill skills/seo` | 0 | pass |
-| seo | `conformance skills/seo` | 0 | pass |
-| seo | `compile-skill skills/seo` | 0 | pass |
-| seo | `conformance skills/seo` | 0 | pass |
+| geo-strategy | `validate skills/geo-strategy` | 0 | pass |
+| geo-strategy | `--description Build an offline GEO optimization plan from explicit goals, diagnosis actions, approved evidence IDs, and a measured baseline. Use for GEO strategy, roadmap, experiment planning, intervention candidates, 策略, 路线图, and 优化实验. Exclude autonomous publication, fabricated outcome evidence, and memory promotion without positive external measurement.` | 0 | pass |
+| geo-strategy | `skill-ir skills/geo-strategy` | 0 | pass |
+| geo-strategy | `skill-ir skills/geo-strategy` | 0 | pass |
+| geo-strategy | `output-eval --cases` | 0 | pass |
+| geo-strategy | `trust skills/geo-strategy` | 0 | pass |
+| geo-strategy | `review-studio skills/geo-strategy` | 0 | review |
+| geo-strategy | `compile-skill skills/geo-strategy` | 0 | pass |
+| geo-strategy | `conformance skills/geo-strategy` | 0 | pass |
+| geo-strategy | `compile-skill skills/geo-strategy` | 0 | pass |
+| geo-strategy | `conformance skills/geo-strategy` | 0 | pass |
+| geo-strategy | `compile-skill skills/geo-strategy` | 0 | pass |
+| geo-strategy | `conformance skills/geo-strategy` | 0 | pass |
+| geo-knowledge | `validate skills/geo-knowledge` | 0 | pass |
+| geo-knowledge | `--description Build and query an evidence-lined GEO knowledge graph from approved source bundles. Use for entity normalization, relation lineage, conflicting fact preservation, incremental source-hash updates, local/global knowledge queries, 知识图谱, 知识库, and 知识治理. Exclude unsourced facts, hidden conflict resolution, autonomous crawling, and external database mutation.` | 0 | pass |
+| geo-knowledge | `skill-ir skills/geo-knowledge` | 0 | pass |
+| geo-knowledge | `skill-ir skills/geo-knowledge` | 0 | pass |
+| geo-knowledge | `output-eval --cases` | 0 | pass |
+| geo-knowledge | `trust skills/geo-knowledge` | 0 | pass |
+| geo-knowledge | `review-studio skills/geo-knowledge` | 0 | review |
+| geo-knowledge | `compile-skill skills/geo-knowledge` | 0 | pass |
+| geo-knowledge | `conformance skills/geo-knowledge` | 0 | pass |
+| geo-knowledge | `compile-skill skills/geo-knowledge` | 0 | pass |
+| geo-knowledge | `conformance skills/geo-knowledge` | 0 | pass |
+| geo-knowledge | `compile-skill skills/geo-knowledge` | 0 | pass |
+| geo-knowledge | `conformance skills/geo-knowledge` | 0 | pass |
 | suite | `skill-atlas --workspace-root` | 0 | pass |

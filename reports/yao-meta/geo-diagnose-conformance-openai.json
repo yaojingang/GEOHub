@@ -30,6 +30,7 @@
         "Skill IR schema_version is 2.0.0",
         "Skill IR name matches frontmatter",
         "Skill IR description matches frontmatter",
+        "references resource resolves: references/audit-catalog.md",
         "references resource resolves: references/diagnosis-method.md",
         "references resource resolves: references/input-example.json",
         "scripts resource resolves: scripts/run_diagnose.py",

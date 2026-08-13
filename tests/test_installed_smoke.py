@@ -100,7 +100,8 @@ def test_offline_wheel_install_runs_diagnose_outside_repository(tmp_path):
                 "assert (prefix/'share/geo-seo-hub/skills/geo-content/SKILL.md').is_file(); "
                 "assert (prefix/'share/geo-seo-hub/skills/geo-content/references/modes.md').is_file(); "
                 "assert (prefix/'share/geo-seo-hub/skills/geo-measure/SKILL.md').is_file(); "
-                "assert (prefix/'share/geo-seo-hub/skills/geo-measure/references/measurement-method.md').is_file(); "
+                "assert (prefix/'share/geo-seo-hub/skills/geo-strategy/SKILL.md').is_file(); "
+                "assert (prefix/'share/geo-seo-hub/skills/geo-knowledge/SKILL.md').is_file(); "
                 "print(prefix)"
             ),
         ],
@@ -114,7 +115,7 @@ def test_offline_wheel_install_runs_diagnose_outside_repository(tmp_path):
     )
     assert version_payload == {
         "distribution": "geo-seo-hub",
-        "name": "GEOHub",
+        "name": "GEO SEO Hub",
         "version": expected_version,
     }
 
@@ -136,15 +137,14 @@ def test_offline_wheel_install_runs_diagnose_outside_repository(tmp_path):
     expected = {
         "input/diagnosis-brief.json",
         "input/sources/source-html-1.html",
-            "diagnosis.json",
-            "diagnosis-funnel.json",
-            "report.md",
+        "diagnosis.json",
+        "report.md",
         "evidence-ledger.json",
         "query-map.json",
         "opportunity-map.json",
-            "quality-report.json",
-            "research-context.json",
-            "run-manifest.json",
+        "quality-report.json",
+        "run-manifest.json",
+        "run-lineage.json",
     }
     actual = {
         path.relative_to(run).as_posix()
@@ -174,20 +174,3 @@ def test_offline_wheel_install_runs_diagnose_outside_repository(tmp_path):
         _run([str(console), "route", "--text", "Create an article-friendly draft"], cwd=outside, env=environment).stdout
     )
     assert routed["skill_id"] == "geo-content"
-
-    measure_completed = _run(
-        [
-            str(console),
-            "measure",
-            "--input",
-            str(root / "tests" / "fixtures" / "measurement-brief.json"),
-            "--output",
-            str(tmp_path / "measure-runs"),
-        ],
-        cwd=outside,
-        env=environment,
-    )
-    measure_payload = json.loads(measure_completed.stdout)
-    measure_run = Path(measure_payload["output"])
-    assert (measure_run / "measurement-report.json").is_file()
-    assert (measure_run / "research-context.json").is_file()

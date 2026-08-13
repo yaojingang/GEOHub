@@ -1,0 +1,440 @@
+{
+  "schema_version": "1.0",
+  "ok": true,
+  "generated_at": "2026-08-13",
+  "skill_dir": "skills/geo-knowledge",
+  "summary": {
+    "target_count": 1,
+    "pass_count": 1,
+    "warn_count": 0,
+    "block_count": 0,
+    "failure_count": 0,
+    "warning_count": 0
+  },
+  "targets": [
+    {
+      "schema_version": "1.0",
+      "target": "generic",
+      "status": "pass",
+      "compiler": {
+        "name": "yao-skill-ir-compiler",
+        "schema_version": "1.0",
+        "source": "skill-ir",
+        "ir_source": "reports/skill-ir.json",
+        "ir_schema_version": "2.0.0"
+      },
+      "source": {
+        "skill_dir": "skills/geo-knowledge",
+        "canonical_metadata": "agents/interface.yaml",
+        "declared_targets": [
+          "openai",
+          "claude",
+          "generic"
+        ]
+      },
+      "compiled_contract": {
+        "name": "geo-knowledge",
+        "title": "GEO SEO Hub Knowledge",
+        "version": "0.5.0",
+        "description": "Build and query an evidence-lined GEO knowledge graph from approved source bundles. Use for entity normalization, relation lineage, conflicting fact preservation, incremental source-hash updates, local/global knowledge queries, 知识图谱, 知识库, and 知识治理. Exclude unsourced facts, hidden conflict resolution, autonomous crawling, and external database mutation.",
+        "job_to_be_done": "Build and query an evidence-lined GEO knowledge graph from approved source bundles. Use for entity normalization, relation lineage, conflicting fact preservation, incremental source-hash updates, local/global knowledge queries, 知识图谱, 知识库, and 知识治理. Exclude unsourced facts, hidden conflict resolution, autonomous crawling, and external database mutation.",
+        "trigger": {
+          "description": "Build and query an evidence-lined GEO knowledge graph from approved source bundles. Use for entity normalization, relation lineage, conflicting fact preservation, incremental source-hash updates, local/global knowledge queries, 知识图谱, 知识库, and 知识治理. Exclude unsourced facts, hidden conflict resolution, autonomous crawling, and external database mutation.",
+          "should_trigger": [
+            "Build a knowledge graph from these approved sources",
+            "治理品牌实体和关系",
+            "Query the local entity neighborhood"
+          ],
+          "should_not_trigger": [
+            "Publish this page",
+            "Write an explainer"
+          ],
+          "edge_cases": [
+            "Plan a GEO roadmap",
+            "Diagnose site gaps",
+            "Measure AI visibility"
+          ]
+        },
+        "workflow": {
+          "steps": [
+            "Read `references/knowledge-method.md` and prepare approved source bundles with stable IDs and SHA-256 hashes.",
+            "Run `python3 scripts/run_knowledge.py --input <request.json> --output <runs-root>`.",
+            "Inspect canonical identities, aliases, relation source IDs, validity dates, source coverage, conflicts, and gaps.",
+            "Use the local query for an entity neighborhood or the global query for communities, coverage, conflicts, and gaps.",
+            "For incremental updates, replace only source bundles whose hashes changed and rebuild the governed graph."
+          ],
+          "decision_points": [],
+          "failure_modes": []
+        },
+        "resources": {
+          "references": [
+            "references/knowledge-method.md",
+            "references/output-contract.md"
+          ],
+          "scripts": [
+            "scripts/run_knowledge.py"
+          ],
+          "assets": [],
+          "reports": [
+            "reports/output_quality_scorecard.md"
+          ],
+          "counts": {
+            "references": 2,
+            "scripts": 1,
+            "assets": 0,
+            "reports": 1
+          }
+        },
+        "eval_plan": {
+          "trigger": [
+            "evals/output/cases.jsonl",
+            "evals/semantic_config.json",
+            "evals/trigger_cases.json"
+          ],
+          "output": [
+            "evals/output/cases.jsonl"
+          ],
+          "adversarial": [],
+          "baseline": "without_skill",
+          "counts": {
+            "trigger": 3,
+            "output": 1,
+            "adversarial": 0,
+            "baseline": 1
+          }
+        },
+        "risk": {
+          "output_risk": "low",
+          "execution_risk": "medium",
+          "trust_boundary": "team"
+        },
+        "governance": {
+          "owner": "姚金刚 / Yao",
+          "maturity": "library",
+          "review_cadence": "per-release",
+          "review_due": ""
+        },
+        "runtime": {
+          "activation": {
+            "mode": "auto",
+            "paths": []
+          },
+          "execution": {
+            "context": "inline",
+            "shell": "bash"
+          },
+          "trust": {
+            "source_tier": "local",
+            "remote_inline_execution": "forbid",
+            "remote_metadata_policy": "allow-metadata-only"
+          },
+          "adapter_targets": [
+            "openai",
+            "claude",
+            "generic"
+          ],
+          "canonical_format": "agent-skills"
+        },
+        "permissions": {
+          "schema_version": "1.0",
+          "source": "missing-security-trust-report",
+          "source_available": false,
+          "declared_capabilities": [],
+          "review_required": false,
+          "capabilities": {
+            "network": {
+              "required": false,
+              "script_count": 0,
+              "scripts": [],
+              "review_reason": ""
+            },
+            "file_write": {
+              "required": false,
+              "script_count": 0,
+              "scripts": [],
+              "review_reason": ""
+            },
+            "subprocess": {
+              "required": false,
+              "script_count": 0,
+              "scripts": [],
+              "review_reason": ""
+            },
+            "interactive": {
+              "required": false,
+              "script_count": 0,
+              "scripts": [],
+              "review_reason": ""
+            }
+          },
+          "network_policy": {
+            "source": "security/network_policy.json",
+            "covered_scripts": [],
+            "missing_scripts": [],
+            "mismatches": []
+          },
+          "help_smoke": {
+            "enabled": false,
+            "checked_count": 0,
+            "failed_count": 0,
+            "failed_scripts": []
+          },
+          "trust_summary": {
+            "secret_findings": 0,
+            "network_script_count": 0,
+            "file_write_script_count": 0,
+            "subprocess_script_count": 0,
+            "interactive_script_count": 0,
+            "help_smoke_failed_count": 0
+          }
+        },
+        "source_files_count": 3,
+        "target": "generic",
+        "target_permission_contract": {
+          "schema_version": "1.0",
+          "target": "generic",
+          "permission_model": "agent-skills-compatible-metadata",
+          "native_enforcement": false,
+          "representation": "targets/generic/adapter.json::target_permission_contract",
+          "review_required": false,
+          "declared_capabilities": [],
+          "capability_counts": {
+            "network": 0,
+            "file_write": 0,
+            "subprocess": 0,
+            "interactive": 0
+          },
+          "evidence": "missing-security-trust-report",
+          "operator_note": "Generic target exposes permission metadata for downstream clients to enforce or review."
+        },
+        "target_native_contract": {
+          "schema_version": "1.0",
+          "target": "generic",
+          "native_surface": "Agent Skills compatible neutral package",
+          "activation": {
+            "policy": "Use SKILL.md name and description; consumers decide automatic or manual activation.",
+            "trigger_description": "Build and query an evidence-lined GEO knowledge graph from approved source bundles. Use for entity normalization, relation lineage, conflicting fact preservation, incremental source-hash updates, local/global knowledge queries, 知识图谱, 知识库, and 知识治理. Exclude unsourced facts, hidden conflict resolution, autonomous crawling, and external database mutation.",
+            "manual_activation_supported": true,
+            "automatic_activation_note": "Depends on the target client route/catalog implementation."
+          },
+          "resources": {
+            "strategy": "Preserve references, scripts, assets, evals, reports, and adapter metadata as relative package resources.",
+            "counts": {
+              "references": 2,
+              "scripts": 1,
+              "assets": 0,
+              "reports": 1
+            },
+            "generated_files": [
+              "targets/generic/adapter.json"
+            ]
+          },
+          "scripts": {
+            "strategy": "Expose script and permission metadata for downstream clients or installers to enforce.",
+            "script_count": 1,
+            "help_smoke_failed_count": 0
+          },
+          "permissions": {
+            "enforcement": "consumer-enforced-or-metadata-only",
+            "native_enforcement": false,
+            "declared_capabilities": [],
+            "review_required": false
+          },
+          "review": {
+            "artifacts": [
+              "targets/generic/adapter.json",
+              "reports/review-studio.html"
+            ],
+            "fallback_behavior": "Neutral source is the runtime fallback.",
+            "unsupported_native_features": []
+          },
+          "install_scope": "generic Agent Skills compatible root"
+        },
+        "degradation_strategy": "neutral-source",
+        "target_runtime": {
+          "adapter_mode": "agent-skills-compatible",
+          "generated_files": [
+            "targets/generic/adapter.json"
+          ],
+          "metadata_mapping": {
+            "display_name": "targets/generic/adapter.json::display_name",
+            "default_prompt": "targets/generic/adapter.json::default_prompt",
+            "activation": "targets/generic/adapter.json::activation_mode",
+            "execution": "targets/generic/adapter.json::execution_context",
+            "trust": "targets/generic/adapter.json::trust_level",
+            "permissions": "targets/generic/adapter.json::target_permission_contract",
+            "degradation": "targets/generic/adapter.json::degradation_strategy"
+          },
+          "preserved_semantics": [
+            "trigger",
+            "workflow-counts",
+            "resources",
+            "eval-plan",
+            "risk",
+            "governance",
+            "runtime",
+            "trust",
+            "permissions"
+          ],
+          "native_surface": "Agent Skills compatible neutral package"
+        }
+      },
+      "permission_contract": {
+        "schema_version": "1.0",
+        "source": "missing-security-trust-report",
+        "source_available": false,
+        "declared_capabilities": [],
+        "review_required": false,
+        "capabilities": {
+          "network": {
+            "required": false,
+            "script_count": 0,
+            "scripts": [],
+            "review_reason": ""
+          },
+          "file_write": {
+            "required": false,
+            "script_count": 0,
+            "scripts": [],
+            "review_reason": ""
+          },
+          "subprocess": {
+            "required": false,
+            "script_count": 0,
+            "scripts": [],
+            "review_reason": ""
+          },
+          "interactive": {
+            "required": false,
+            "script_count": 0,
+            "scripts": [],
+            "review_reason": ""
+          }
+        },
+        "network_policy": {
+          "source": "security/network_policy.json",
+          "covered_scripts": [],
+          "missing_scripts": [],
+          "mismatches": []
+        },
+        "help_smoke": {
+          "enabled": false,
+          "checked_count": 0,
+          "failed_count": 0,
+          "failed_scripts": []
+        },
+        "trust_summary": {
+          "secret_findings": 0,
+          "network_script_count": 0,
+          "file_write_script_count": 0,
+          "subprocess_script_count": 0,
+          "interactive_script_count": 0,
+          "help_smoke_failed_count": 0
+        }
+      },
+      "target_permission_contract": {
+        "schema_version": "1.0",
+        "target": "generic",
+        "permission_model": "agent-skills-compatible-metadata",
+        "native_enforcement": false,
+        "representation": "targets/generic/adapter.json::target_permission_contract",
+        "review_required": false,
+        "declared_capabilities": [],
+        "capability_counts": {
+          "network": 0,
+          "file_write": 0,
+          "subprocess": 0,
+          "interactive": 0
+        },
+        "evidence": "missing-security-trust-report",
+        "operator_note": "Generic target exposes permission metadata for downstream clients to enforce or review."
+      },
+      "target_native_contract": {
+        "schema_version": "1.0",
+        "target": "generic",
+        "native_surface": "Agent Skills compatible neutral package",
+        "activation": {
+          "policy": "Use SKILL.md name and description; consumers decide automatic or manual activation.",
+          "trigger_description": "Build and query an evidence-lined GEO knowledge graph from approved source bundles. Use for entity normalization, relation lineage, conflicting fact preservation, incremental source-hash updates, local/global knowledge queries, 知识图谱, 知识库, and 知识治理. Exclude unsourced facts, hidden conflict resolution, autonomous crawling, and external database mutation.",
+          "manual_activation_supported": true,
+          "automatic_activation_note": "Depends on the target client route/catalog implementation."
+        },
+        "resources": {
+          "strategy": "Preserve references, scripts, assets, evals, reports, and adapter metadata as relative package resources.",
+          "counts": {
+            "references": 2,
+            "scripts": 1,
+            "assets": 0,
+            "reports": 1
+          },
+          "generated_files": [
+            "targets/generic/adapter.json"
+          ]
+        },
+        "scripts": {
+          "strategy": "Expose script and permission metadata for downstream clients or installers to enforce.",
+          "script_count": 1,
+          "help_smoke_failed_count": 0
+        },
+        "permissions": {
+          "enforcement": "consumer-enforced-or-metadata-only",
+          "native_enforcement": false,
+          "declared_capabilities": [],
+          "review_required": false
+        },
+        "review": {
+          "artifacts": [
+            "targets/generic/adapter.json",
+            "reports/review-studio.html"
+          ],
+          "fallback_behavior": "Neutral source is the runtime fallback.",
+          "unsupported_native_features": []
+        },
+        "install_scope": "generic Agent Skills compatible root"
+      },
+      "target_transform": {
+        "target": "generic",
+        "adapter_mode": "agent-skills-compatible",
+        "generated_files": [
+          "targets/generic/adapter.json"
+        ],
+        "metadata_mapping": {
+          "display_name": "targets/generic/adapter.json::display_name",
+          "default_prompt": "targets/generic/adapter.json::default_prompt",
+          "activation": "targets/generic/adapter.json::activation_mode",
+          "execution": "targets/generic/adapter.json::execution_context",
+          "trust": "targets/generic/adapter.json::trust_level",
+          "permissions": "targets/generic/adapter.json::target_permission_contract",
+          "degradation": "targets/generic/adapter.json::degradation_strategy"
+        },
+        "preserved_semantics": [
+          "trigger",
+          "workflow-counts",
+          "resources",
+          "eval-plan",
+          "risk",
+          "governance",
+          "runtime",
+          "trust",
+          "permissions"
+        ],
+        "degradation_strategy": "neutral-source",
+        "permission_representation": "targets/generic/adapter.json::target_permission_contract",
+        "native_surface": "Agent Skills compatible neutral package",
+        "activation_policy": "Use SKILL.md name and description; consumers decide automatic or manual activation.",
+        "resource_strategy": "Preserve references, scripts, assets, evals, reports, and adapter metadata as relative package resources.",
+        "script_strategy": "Expose script and permission metadata for downstream clients or installers to enforce.",
+        "permission_enforcement": "consumer-enforced-or-metadata-only"
+      },
+      "unsupported_features": [],
+      "warnings": [],
+      "failures": []
+    }
+  ],
+  "failures": [],
+  "warnings": [],
+  "artifacts": {
+    "json": "reports/yao-meta/geo-knowledge-compiled-generic.json",
+    "markdown": "reports/yao-meta/geo-knowledge-compiled-generic.md"
+  }
+}

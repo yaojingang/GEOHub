@@ -2,14 +2,21 @@ from __future__ import annotations
 
 import hashlib
 import json
-import unicodedata
+import math
+import re
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any, Callable, Protocol
 
 from .artifact_bus import ArtifactBus
-from .research import build_research_context
-from .validation import load_bounded_json, normalize_artifact_uri, validate_artifact
+from .quality.lineage import build_run_lineage
+from .intelligence.discovery import (
+    ProviderHypothesis,
+    build_v2_maps,
+    cluster_and_prune,
+    generate_discovery_candidates,
+)
+from .validation import load_bounded_json, validate_artifact
 from .version import package_version
 
 PROTOCOL_VERSION = "1.0.0"
@@ -17,55 +24,21 @@ GENERATOR_VERSION = package_version()
 Clock = Callable[[], datetime]
 
 
+class DiscoveryProviderAdapter(Protocol):
+    def generate_hypothesis(self, brief: dict[str, Any]) -> ProviderHypothesis: ...
+
+
 def _stable_id(prefix: str, *parts: str) -> str:
     canonical = "\x1f".join(parts).encode("utf-8")
     return f"{prefix}-{hashlib.sha256(canonical).hexdigest()[:12]}"
 
 
-def _normalize_text(value: str) -> str:
-    return " ".join(unicodedata.normalize("NFKC", value).split())
-
-
 def _ordered(values: list[str] | None, fallback: str | None = None) -> list[str]:
-    unique: dict[str, str] = {}
-    for value in values or []:
-        cleaned = _normalize_text(value)
-        if not cleaned:
-            continue
-        key = cleaned.casefold()
-        current = unique.get(key)
-        if current is None or cleaned < current:
-            unique[key] = cleaned
-    ordered = sorted(unique.values(), key=lambda value: (value.casefold(), value))
+    cleaned = {value.strip() for value in (values or []) if value.strip()}
+    ordered = sorted(cleaned, key=lambda value: (value.casefold(), value))
     if ordered or fallback is None:
         return ordered
     return [fallback]
-
-
-def _normalize_brief(brief: dict[str, Any]) -> dict[str, Any]:
-    normalized = dict(brief)
-    for field in ("brief_id", "subject", "brand", "locale"):
-        if field in normalized:
-            normalized[field] = _normalize_text(normalized[field])
-    for field in ("seed_queries", "audiences", "scenarios", "competitors"):
-        if field in normalized:
-            normalized[field] = _ordered(normalized[field])
-    evidence = []
-    for record in brief.get("evidence", []):
-        item = {
-            "evidence_id": _normalize_text(record["evidence_id"]),
-            "claim": _normalize_text(record["claim"]),
-            "source_uri": normalize_artifact_uri(record["source_uri"], field="evidence.source_uri"),
-        }
-        if "observed_at" in record:
-            item["observed_at"] = record["observed_at"].strip()
-        evidence.append(item)
-    if "evidence" in normalized:
-        normalized["evidence"] = sorted(
-            evidence,
-            key=lambda item: (item["evidence_id"].casefold(), item["evidence_id"]),
-        )
-    return normalized
 
 
 def _question(
@@ -128,12 +101,6 @@ def _build_query_map(brief: dict[str, Any], run_id: str) -> dict[str, Any]:
                             "evidence_status": evidence_status,
                         }
                     )
-    query_ids = [item["query_id"] for item in queries]
-    normalized_questions = [_normalize_text(item["question"]).casefold() for item in queries]
-    if len(query_ids) != len(set(query_ids)):
-        raise ValueError("query generation produced duplicate query IDs")
-    if len(normalized_questions) != len(set(normalized_questions)):
-        raise ValueError("query generation produced duplicate normalized questions")
     return {"protocol_version": PROTOCOL_VERSION, "run_id": run_id, "queries": queries}
 
 
@@ -192,39 +159,104 @@ def discover(
     output_path: Path,
     *,
     clock: Clock | None = None,
+    execution_mode: str = "legacy",
+    provider_adapter: DiscoveryProviderAdapter | None = None,
 ) -> dict[str, Any]:
     """Generate one validated discover run and return a compact run summary."""
     brief = load_bounded_json(input_path, max_bytes=1024 * 1024, field="GEO brief")
     validate_artifact("geo-brief", brief)
-    brief = _normalize_brief(brief)
-    validate_artifact("geo-brief", brief)
     evidence_ids = [item["evidence_id"] for item in brief.get("evidence", [])]
     if len(evidence_ids) != len(set(evidence_ids)):
         raise ValueError("GEO brief contains duplicate evidence_id values")
+    if execution_mode not in {"legacy", "deterministic", "research", "provider"}:
+        raise ValueError("execution mode must be legacy, deterministic, research, or provider")
     canonical = json.dumps(brief, ensure_ascii=False, sort_keys=True, separators=(",", ":"), allow_nan=False)
-    run_id = _stable_id("run", canonical)
+
+    provider_hypothesis: ProviderHypothesis | None = None
+    execution_failures: list[str] = []
+    if execution_mode == "provider":
+        if provider_adapter is None:
+            execution_failures.append("provider adapter unavailable; deterministic fallback completed")
+        else:
+            try:
+                provider_hypothesis = provider_adapter.generate_hypothesis(brief)
+                if (
+                    not isinstance(provider_hypothesis, ProviderHypothesis)
+                    or not provider_hypothesis.text.strip()
+                    or len(provider_hypothesis.text.encode("utf-8")) > 32 * 1024
+                    or not provider_hypothesis.provider.strip()
+                    or not provider_hypothesis.model.strip()
+                    or re.fullmatch(r"[0-9a-f]{64}", provider_hypothesis.prompt_digest) is None
+                    or isinstance(provider_hypothesis.token_count, bool)
+                    or not isinstance(provider_hypothesis.token_count, int)
+                    or provider_hypothesis.token_count < 0
+                    or isinstance(provider_hypothesis.cost_usd, bool)
+                    or not isinstance(provider_hypothesis.cost_usd, (int, float))
+                    or not math.isfinite(provider_hypothesis.cost_usd)
+                    or provider_hypothesis.cost_usd < 0
+                ):
+                    raise ValueError("provider returned an invalid bounded hypothesis")
+            except (OSError, RuntimeError, ValueError) as exc:
+                execution_failures.append(
+                    f"provider adapter failed; deterministic fallback completed: {type(exc).__name__}"
+                )
+                provider_hypothesis = None
+    if execution_mode == "research" and not brief.get("evidence"):
+        execution_failures.append("approved evidence unavailable; deterministic research fallback completed")
+
+    identity_mode = "" if execution_mode == "legacy" else f"\x1f{execution_mode}"
+    identity_provider = provider_hypothesis.prompt_digest if provider_hypothesis else ""
+    run_id = _stable_id("run", canonical + identity_mode + identity_provider)
     now = (clock or (lambda: datetime.now(timezone.utc)))()
     if now.tzinfo is None:
         now = now.replace(tzinfo=timezone.utc)
     created_at = now.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
 
-    query_map = _build_query_map(brief, run_id)
-    opportunity_map = _build_opportunity_map(query_map)
+    semantic_digest: str | None = None
+    if execution_mode == "legacy":
+        query_map = _build_query_map(brief, run_id)
+        opportunity_map = _build_opportunity_map(query_map)
+    else:
+        effective_mode = execution_mode
+        if execution_mode == "provider" and provider_hypothesis is None:
+            effective_mode = "deterministic"
+        execution = {
+            "mode": execution_mode,
+            "status": "degraded" if execution_failures else "completed",
+            "provider": provider_hypothesis.provider if provider_hypothesis else None,
+            "model": provider_hypothesis.model if provider_hypothesis else None,
+            "prompt_digest": provider_hypothesis.prompt_digest if provider_hypothesis else None,
+            "token_count": provider_hypothesis.token_count if provider_hypothesis else 0,
+            "cost_usd": provider_hypothesis.cost_usd if provider_hypothesis else 0.0,
+            "failures": execution_failures,
+        }
+        candidates = cluster_and_prune(
+            generate_discovery_candidates(
+                brief,
+                execution_mode=effective_mode,
+                provider_hypothesis=provider_hypothesis,
+            )
+        )
+        query_map, opportunity_map, semantic_digest = build_v2_maps(
+            brief,
+            run_id,
+            candidates,
+            execution,
+        )
     evidence_ledger = _build_evidence_ledger(brief, run_id)
-    research_context = build_research_context(run_id, "geo-discover")
     warnings = []
     if evidence_ledger["missing_evidence"]:
         warnings.append("missing evidence: review evidence-ledger.json before downstream use")
+    warnings.extend(execution_failures)
     quality_report = {
         "protocol_version": PROTOCOL_VERSION,
         "run_id": run_id,
         "passed_checks": [
             "geo brief schema valid",
             "query map generated deterministically",
-            "query dimensions normalized and deduplicated",
             "opportunity map preserves query lineage",
             "evidence status recorded",
-            "research context is source-resolved and effect-bounded",
+            f"execution mode recorded: {execution_mode}",
         ],
         "warnings": warnings,
         "failed_checks": [],
@@ -236,12 +268,12 @@ def discover(
         "query-map.json": (query_map, "query-map"),
         "opportunity-map.json": (opportunity_map, "opportunity-map"),
         "quality-report.json": (quality_report, "quality-report"),
-        "research-context.json": (research_context, "research-context"),
     }
     for artifact, schema_name in artifacts.values():
         validate_artifact(schema_name, artifact)
 
-    manifest_paths = ["input/geo-brief.json", *artifacts.keys()]
+    lineage_inputs = ["input/geo-brief.json", *artifacts.keys()]
+    manifest_paths = [*lineage_inputs, "run-lineage.json"]
     run_manifest = {
         "protocol_version": PROTOCOL_VERSION,
         "run_id": run_id,
@@ -258,12 +290,25 @@ def discover(
         bus.write_json("input/geo-brief.json", brief, "geo-brief")
         for relative_path, (artifact, schema_name) in artifacts.items():
             bus.write_json(relative_path, artifact, schema_name)
+        lineage = build_run_lineage(
+            bus.root,
+            run_id=run_id,
+            skill_id="geo-discover",
+            status=run_manifest["status"],
+            artifact_paths=lineage_inputs,
+            metric_names=("query-count", "warning-count"),
+        )
+        bus.write_json("run-lineage.json", lineage, "run-lineage")
         bus.write_json("run-manifest.json", run_manifest, "run-manifest")
         bus.publish(set(manifest_paths) | {"run-manifest.json"})
-    return {
+    result = {
         "run_id": run_id,
         "status": run_manifest["status"],
         "output": str(run_path.resolve()),
         "query_count": len(query_map["queries"]),
         "warning_count": len(warnings),
+        "execution_mode": execution_mode,
     }
+    if semantic_digest is not None:
+        result["semantic_digest"] = semantic_digest
+    return result

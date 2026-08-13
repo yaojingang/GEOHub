@@ -1,7 +1,7 @@
 PYTHON := $(if $(wildcard .venv/bin/python),.venv/bin/python,python3)
 PYTHON314 ?= python3.14
 
-.PHONY: install test eval repo-verify verify package package-verify install-smoke python314-smoke ci clean
+.PHONY: install test eval repo-verify verify package package-verify install-smoke release-evidence python314-smoke ci clean
 
 install:
 	$(PYTHON) -m pip install -e '.[dev]'
@@ -27,6 +27,12 @@ package-verify: package
 
 install-smoke: package-verify
 	$(PYTHON) scripts/install_simulation.py --target all
+
+release-evidence: install-smoke
+	$(PYTHON) scripts/generate_sbom.py
+	$(PYTHON) scripts/generate_provenance.py
+	$(PYTHON) scripts/verify_provenance.py
+	$(PYTHON) scripts/render_production_readiness.py
 
 python314-smoke:
 	$(PYTHON314) -m pytest tests/test_router.py tests/test_library_integration.py

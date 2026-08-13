@@ -1,21 +1,22 @@
 ---
 name: geo-measure
-description: Aggregate explicit GEO or AI-search observation records into transparent rates, denominators, missing-answer counts, platform strata, and intervals. Use for citation measurement, AI visibility tracking, repeated observation analysis, and 引用监测、AI 可见度衡量、效果测量. Requires supplied observations and excludes live platform collection, account access, causal attribution, ranking guarantees, and continuous monitoring.
+description: Measure GEO visibility from an approved, file-backed engine observation bundle. Use for AI answer mention rate, source inclusion, citation share, query-panel coverage, GEO monitoring, 监测 AI 可见度, 衡量 GEO 效果, and offline baseline comparison. Exclude live scraping, platform login, automated collection, and unsupported causal claims.
 ---
 
 # GEO Measure
 
 ## Workflow
 
-1. Read `references/measurement-method.md` and prepare a strict measurement brief.
-2. Run `python3 scripts/run_measure.py --input <brief.json> --output <runs-root>` or `python -m geo_seo_hub measure --input <brief.json> --output <runs-root>`.
-3. Inspect `measurement-report.json`, `research-context.json`, `evidence-ledger.json`, and `quality-report.json` together.
-4. Report the declared platform scope, collection window, eligible trials, missing answers, exclusions, numerators, denominators, intervals, and limitations.
+1. Read `references/measurement-method.md` and verify collection permission.
+2. Prepare a protocol `1.0.0` engine observation bundle from manual export, approved API, or recorded fixture.
+3. Run `python3 scripts/run_measure.py --input <bundle.json> --output <runs-root>`.
+4. Inspect `visibility-report.json`, `quality-report.json`, and `run-lineage.json`; surface every gap and collection limitation.
+5. Deliver the Artifact Bus run directory as the output contract.
 
 ## Output contract
 
-Return `<runs-root>/<run-id>/` with the normalized brief, structured measurement report, Markdown summary, observation lineage, research context, quality report, and run manifest.
+Produce the input snapshot, `visibility-report.json`, `quality-report.json`, `run-lineage.json`, and `run-manifest.json`. Preserve query-level components, per-engine metrics, numerators, denominators, missing counts, panel version, and semantic digest.
 
 ## Boundaries
 
-Operate offline on explicit observation records. Keep eligible unanswered trials in unconditional denominators. Treat all v0.3 results as descriptive, including briefs that declare an intervention and comparator. Never collect platform data, infer missing responses, convert readiness proxies into outcomes, or promise citation, ranking, traffic, revenue, or future platform effects.
+Measurement is offline and file-backed. It never logs in, scrapes consumer AI pages, bypasses access controls, or turns recorded fixtures into live-effect evidence. Read `references/output-contract.md` before making a comparison claim.

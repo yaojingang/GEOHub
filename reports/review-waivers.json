@@ -42,7 +42,7 @@
       "skill_id": "geo",
       "gate": "release-notes",
       "owner": "Yao maintainer",
-      "reason": "Maturity promotion beyond experimental remains blocked pending external legal and human review evidence; experimental 0.3.1 source publication may continue.",
+      "reason": "Maturity promotion beyond experimental remains blocked pending external legal and human review evidence; experimental 0.5.0 source publication may continue.",
       "expires_on": "2026-11-01",
       "recheck": "Record a reviewer decision before any maturity promotion beyond experimental or this expiry date."
     },
@@ -60,7 +60,7 @@
       "skill_id": "geo-discover",
       "gate": "release-notes",
       "owner": "Yao maintainer",
-      "reason": "Maturity promotion beyond experimental remains blocked pending external legal and human review evidence; experimental 0.3.1 source publication may continue.",
+      "reason": "Maturity promotion beyond experimental remains blocked pending external legal and human review evidence; experimental 0.5.0 source publication may continue.",
       "expires_on": "2026-11-01",
       "recheck": "Record a reviewer decision before any maturity promotion beyond experimental or this expiry date."
     },
@@ -78,7 +78,7 @@
       "skill_id": "geo-diagnose",
       "gate": "release-notes",
       "owner": "Yao maintainer",
-      "reason": "Maturity promotion beyond experimental remains blocked pending external legal and human review evidence; experimental 0.3.1 source publication may continue.",
+      "reason": "Maturity promotion beyond experimental remains blocked pending external legal and human review evidence; experimental 0.5.0 source publication may continue.",
       "expires_on": "2026-11-01",
       "recheck": "Record a reviewer decision before any maturity promotion beyond experimental or this expiry date."
     },
@@ -96,7 +96,7 @@
       "skill_id": "geo-content",
       "gate": "release-notes",
       "owner": "Yao maintainer",
-      "reason": "Maturity promotion beyond experimental remains blocked pending external legal and human review evidence; experimental 0.3.1 source publication may continue.",
+      "reason": "Maturity promotion beyond experimental remains blocked pending external legal and human review evidence; experimental 0.5.0 source publication may continue.",
       "expires_on": "2026-11-01",
       "recheck": "Record a reviewer decision before any maturity promotion beyond experimental or this expiry date."
     },
@@ -114,25 +114,43 @@
       "skill_id": "geo-measure",
       "gate": "release-notes",
       "owner": "Yao maintainer",
-      "reason": "Maturity promotion beyond experimental remains blocked pending external legal and human review evidence; experimental 0.3.1 source publication may continue.",
+      "reason": "Maturity promotion beyond experimental remains blocked pending external legal and human review evidence; experimental 0.5.0 source publication may continue.",
       "expires_on": "2026-11-01",
       "recheck": "Record a reviewer decision before any maturity promotion beyond experimental or this expiry date."
     },
     {
-      "id": "seo-operations-loop",
-      "skill_id": "seo",
+      "id": "geo-strategy-operations-loop",
+      "skill_id": "geo-strategy",
       "gate": "operations-loop",
       "owner": "Yao maintainer",
-      "reason": "The experimental package has no governed real-usage telemetry sample.",
+      "reason": "The experimental package has no governed real-usage telemetry sample or verified external intervention result.",
       "expires_on": "2026-11-01",
-      "recheck": "Review privacy-approved adoption evidence before the next public release."
+      "recheck": "Review privacy-approved adoption and measured intervention evidence before the next public release."
     },
     {
-      "id": "seo-release-notes",
-      "skill_id": "seo",
+      "id": "geo-strategy-release-notes",
+      "skill_id": "geo-strategy",
       "gate": "release-notes",
       "owner": "Yao maintainer",
-      "reason": "Maturity promotion beyond experimental remains blocked pending external legal and human review evidence; experimental source publication may continue.",
+      "reason": "Maturity promotion beyond experimental remains blocked pending verified publication, external measurement, legal, and human review evidence; experimental 0.5.0 source publication may continue.",
+      "expires_on": "2026-11-01",
+      "recheck": "Record a reviewer decision before any maturity promotion beyond experimental or this expiry date."
+    },
+    {
+      "id": "geo-knowledge-operations-loop",
+      "skill_id": "geo-knowledge",
+      "gate": "operations-loop",
+      "owner": "Yao maintainer",
+      "reason": "The experimental package has no governed real-usage telemetry sample or production graph query evidence.",
+      "expires_on": "2026-11-01",
+      "recheck": "Review privacy-approved adoption and production query evidence before the next public release."
+    },
+    {
+      "id": "geo-knowledge-release-notes",
+      "skill_id": "geo-knowledge",
+      "gate": "release-notes",
+      "owner": "Yao maintainer",
+      "reason": "Maturity promotion beyond experimental remains blocked pending production graph evaluation, legal, and human review evidence; experimental 0.5.0 source publication may continue.",
       "expires_on": "2026-11-01",
       "recheck": "Record a reviewer decision before any maturity promotion beyond experimental or this expiry date."
     }

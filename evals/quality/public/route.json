@@ -1,0 +1,16 @@
+{
+  "protocol_version": "1.0.0",
+  "task_id": "route-public-01",
+  "skill_id": "geo",
+  "case_type": "happy",
+  "prompt": "Discover AI search questions for an evidence-backed GEO brief.",
+  "input_files": [],
+  "limits": {"max_input_bytes": 32768, "max_output_tokens": 2048},
+  "variants": {
+    "baseline": {"output": {"answer": "Try researching some AI questions."}},
+    "with_skill": {"output": {"answer": "Route to geo-discover with explicit inputs and boundaries.", "skill_id": "geo-discover", "status": "active", "runnable": true}}
+  },
+  "assertions": {"required_json_paths": ["skill_id", "status", "runnable"], "required_terms": ["geo-discover"], "forbidden_terms": ["auto publish"], "allowed_source_ids": []},
+  "rubric": "Prefer the result that selects one runnable skill and states its boundary.",
+  "tags": ["public", "routing"]
+}

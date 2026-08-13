@@ -7,12 +7,12 @@ description: Create evidence-lined GEO titles, explainers, neutral comparisons, 
 
 ## Workflow
 
-1. Read `references/content-method.md`, then select one mode from `references/modes.md`.
+1. Read `references/content-method.md`, then select one mode from `references/modes.md`. Read `references/content-pipeline-v2.md` for non-legacy execution and `references/mcda-policy.md` for ranking.
 2. Prepare a strict content brief using `references/input-example.json` and `references/evidence-policy.md`.
-3. Run the deterministic `python3 scripts/run_content.py --input <brief.json> --output <runs-root>` wrapper or `python -m geo_seo_hub content --input <brief.json> --output <runs-root>`.
-4. Inspect `content-evidence-units.json`, `research-context.json`, `quality-report.json`, `evidence-ledger.json`, content status, and supplement requests.
+3. Run `python3 scripts/run_content.py --input <brief.json> --output <runs-root> --execution-mode <legacy|deterministic|research|provider>`. Legacy remains the compatibility default.
+4. Inspect `quality-report.json`, `run-lineage.json`, `evidence-ledger.json`, claim map when present, content status, and supplement requests.
 5. Deliver the complete run described by `references/output-contract.md`.
 
 ## Boundaries
 
-Run offline. Treat only supplied evidence as factual. Classify every evidence, preserved-source, research-method, operational-guidance, and evidence-gap unit with explicit lineage. Keep research methods conditional and free of effect guarantees. Render HTML locally with escaped text and no external assets. Optional DOCX/PDF failures degrade explicitly while core artifacts remain usable.
+Run offline. Treat only supplied evidence as factual. Keep unsupported material as guidance, `unverified`, `source_gap`, or `blocked-by-evidence`. Provider mode has no packaged drafting adapter and records a degraded deterministic fallback. Render HTML locally with escaped text and no external assets. Optional DOCX/PDF failures degrade explicitly while core artifacts remain usable.

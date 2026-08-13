@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yao.example/geo/schemas/workflow-state.schema.json",
+  "title": "Workflow State",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "workflow_id", "workflow_version", "run_id", "status", "current_step", "steps", "inputs", "artifact_refs", "checkpoints", "approval", "failure_boundary"],
+  "properties": {
+    "protocol_version": {"const": "1.0.0"},
+    "workflow_id": {"type": "string", "minLength": 1, "maxLength": 64, "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"},
+    "workflow_version": {"const": "1.0.0"},
+    "run_id": {"type": "string", "pattern": "^run-[A-Za-z0-9._-]+$"},
+    "status": {"enum": ["running", "awaiting_approval", "awaiting_external_publication", "awaiting_external_observation", "completed", "failed", "aborted"]},
+    "current_step": {"type": ["string", "null"], "pattern": "^[a-z][a-z0-9-]{0,63}$"},
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "skill_id", "depends_on", "status", "attempt"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z][a-z0-9-]{0,63}$"},
+          "skill_id": {"type": "string", "pattern": "^geo(?:-[a-z0-9]+)*$"},
+          "depends_on": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-z][a-z0-9-]{0,63}$"}},
+          "status": {"enum": ["pending", "running", "completed", "failed", "aborted"]},
+          "attempt": {"type": "integer", "minimum": 1, "maximum": 100}
+        }
+      }
+    },
+    "inputs": {"type": "object", "maxProperties": 100, "propertyNames": {"pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"}, "additionalProperties": {"type": ["string", "number", "integer", "boolean", "null"]}},
+    "artifact_refs": {"type": "array", "uniqueItems": true, "maxItems": 500, "items": {"type": "string", "pattern": "^(?!/)(?!.*\\.\\.)[A-Za-z0-9._/-]+$"}},
+    "checkpoints": {
+      "type": "array",
+      "maxItems": 500,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["checkpoint_id", "kind", "step_id", "state_status", "artifact_refs", "artifact_digests", "checksum", "resumed"],
+        "properties": {
+          "checkpoint_id": {"type": "string", "pattern": "^cp-[0-9a-f]{16}$"},
+          "kind": {"enum": ["step", "external-publication", "external-observation"]},
+          "step_id": {"type": ["string", "null"], "pattern": "^[a-z][a-z0-9-]{0,63}$"},
+          "state_status": {"enum": ["running", "awaiting_external_publication", "awaiting_external_observation", "completed"]},
+          "artifact_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^(?!/)(?!.*\\.\\.)[A-Za-z0-9._/-]+$"}},
+          "artifact_digests": {"type": "object", "propertyNames": {"pattern": "^(?!/)(?!.*\\.\\.)[A-Za-z0-9._/-]+$"}, "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+          "checksum": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "resumed": {"type": "boolean"}
+        }
+      }
+    },
+    "approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required", "request", "decision", "reviewer"],
+      "properties": {
+        "required": {"type": "boolean"},
+        "request": {"type": ["string", "null"], "minLength": 1, "maxLength": 500},
+        "decision": {"enum": [null, "pending", "approved", "rejected"]},
+        "reviewer": {"type": ["string", "null"], "minLength": 1, "maxLength": 100}
+      }
+    },
+    "failure_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["step_id", "error_class", "message", "attempt"],
+      "properties": {
+        "step_id": {"type": ["string", "null"], "pattern": "^[a-z][a-z0-9-]{0,63}$"},
+        "error_class": {"type": ["string", "null"], "pattern": "^[a-z][a-z0-9-]{0,63}$"},
+        "message": {"type": ["string", "null"], "minLength": 1, "maxLength": 1000},
+        "attempt": {"type": "integer", "minimum": 1, "maximum": 100}
+      }
+    }
+  }
+}

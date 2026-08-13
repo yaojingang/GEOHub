@@ -1,122 +1,181 @@
-[
-  {
-    "id": "o01",
-    "with_skill_variant": "B"
-  },
-  {
-    "id": "o02",
-    "with_skill_variant": "A"
-  },
-  {
-    "id": "o03",
-    "with_skill_variant": "B"
-  },
-  {
-    "id": "o04",
-    "with_skill_variant": "A"
-  },
-  {
-    "id": "o05",
-    "with_skill_variant": "A"
-  },
-  {
-    "id": "o06",
-    "with_skill_variant": "A"
-  },
-  {
-    "id": "o07",
-    "with_skill_variant": "B"
-  },
-  {
-    "id": "o08",
-    "with_skill_variant": "B"
-  },
-  {
-    "id": "o09",
-    "with_skill_variant": "B"
-  },
-  {
-    "id": "o10",
-    "with_skill_variant": "B"
-  },
-  {
-    "id": "o11",
-    "with_skill_variant": "B"
-  },
-  {
-    "id": "o12",
-    "with_skill_variant": "A"
-  },
-  {
-    "id": "o13",
-    "with_skill_variant": "A"
-  },
-  {
-    "id": "o14",
-    "with_skill_variant": "A"
-  },
-  {
-    "id": "o15",
-    "with_skill_variant": "B"
-  },
-  {
-    "id": "o16",
-    "with_skill_variant": "B"
-  },
-  {
-    "id": "o17",
-    "with_skill_variant": "A"
-  },
-  {
-    "id": "o18",
-    "with_skill_variant": "B"
-  },
-  {
-    "id": "o19",
-    "with_skill_variant": "B"
-  },
-  {
-    "id": "o20",
-    "with_skill_variant": "B"
-  },
-  {
-    "id": "o21",
-    "with_skill_variant": "A"
-  },
-  {
-    "id": "o22",
-    "with_skill_variant": "A"
-  },
-  {
-    "id": "o23",
-    "with_skill_variant": "B"
-  },
-  {
-    "id": "o24",
-    "with_skill_variant": "B"
-  },
-  {
-    "id": "o25",
-    "with_skill_variant": "A"
-  },
-  {
-    "id": "o26",
-    "with_skill_variant": "B"
-  },
-  {
-    "id": "o27",
-    "with_skill_variant": "A"
-  },
-  {
-    "id": "o28",
-    "with_skill_variant": "A"
-  },
-  {
-    "id": "o29",
-    "with_skill_variant": "A"
-  },
-  {
-    "id": "o30",
-    "with_skill_variant": "B"
-  }
-]
+{
+  "protocol_version": "1.0.0",
+  "suite_id": "geohub-deterministic-output-v1",
+  "pairs": [
+    {
+      "pair_id": "o01",
+      "task_id": "o01",
+      "with_skill_variant": "B"
+    },
+    {
+      "pair_id": "o02",
+      "task_id": "o02",
+      "with_skill_variant": "A"
+    },
+    {
+      "pair_id": "o03",
+      "task_id": "o03",
+      "with_skill_variant": "B"
+    },
+    {
+      "pair_id": "o04",
+      "task_id": "o04",
+      "with_skill_variant": "A"
+    },
+    {
+      "pair_id": "o05",
+      "task_id": "o05",
+      "with_skill_variant": "A"
+    },
+    {
+      "pair_id": "o06",
+      "task_id": "o06",
+      "with_skill_variant": "A"
+    },
+    {
+      "pair_id": "o07",
+      "task_id": "o07",
+      "with_skill_variant": "B"
+    },
+    {
+      "pair_id": "o08",
+      "task_id": "o08",
+      "with_skill_variant": "B"
+    },
+    {
+      "pair_id": "o09",
+      "task_id": "o09",
+      "with_skill_variant": "B"
+    },
+    {
+      "pair_id": "o10",
+      "task_id": "o10",
+      "with_skill_variant": "B"
+    },
+    {
+      "pair_id": "o11",
+      "task_id": "o11",
+      "with_skill_variant": "B"
+    },
+    {
+      "pair_id": "o12",
+      "task_id": "o12",
+      "with_skill_variant": "A"
+    },
+    {
+      "pair_id": "o13",
+      "task_id": "o13",
+      "with_skill_variant": "A"
+    },
+    {
+      "pair_id": "o14",
+      "task_id": "o14",
+      "with_skill_variant": "A"
+    },
+    {
+      "pair_id": "o15",
+      "task_id": "o15",
+      "with_skill_variant": "B"
+    },
+    {
+      "pair_id": "o16",
+      "task_id": "o16",
+      "with_skill_variant": "B"
+    },
+    {
+      "pair_id": "o17",
+      "task_id": "o17",
+      "with_skill_variant": "A"
+    },
+    {
+      "pair_id": "o18",
+      "task_id": "o18",
+      "with_skill_variant": "B"
+    },
+    {
+      "pair_id": "o19",
+      "task_id": "o19",
+      "with_skill_variant": "B"
+    },
+    {
+      "pair_id": "o20",
+      "task_id": "o20",
+      "with_skill_variant": "B"
+    },
+    {
+      "pair_id": "o21",
+      "task_id": "o21",
+      "with_skill_variant": "A"
+    },
+    {
+      "pair_id": "o22",
+      "task_id": "o22",
+      "with_skill_variant": "A"
+    },
+    {
+      "pair_id": "o23",
+      "task_id": "o23",
+      "with_skill_variant": "B"
+    },
+    {
+      "pair_id": "o24",
+      "task_id": "o24",
+      "with_skill_variant": "B"
+    },
+    {
+      "pair_id": "o25",
+      "task_id": "o25",
+      "with_skill_variant": "A"
+    },
+    {
+      "pair_id": "o26",
+      "task_id": "o26",
+      "with_skill_variant": "B"
+    },
+    {
+      "pair_id": "o27",
+      "task_id": "o27",
+      "with_skill_variant": "A"
+    },
+    {
+      "pair_id": "o28",
+      "task_id": "o28",
+      "with_skill_variant": "A"
+    },
+    {
+      "pair_id": "o29",
+      "task_id": "o29",
+      "with_skill_variant": "A"
+    },
+    {
+      "pair_id": "o30",
+      "task_id": "o30",
+      "with_skill_variant": "B"
+    },
+    {
+      "pair_id": "o31",
+      "task_id": "o31",
+      "with_skill_variant": "B"
+    },
+    {
+      "pair_id": "o32",
+      "task_id": "o32",
+      "with_skill_variant": "B"
+    },
+    {
+      "pair_id": "o33",
+      "task_id": "o33",
+      "with_skill_variant": "A"
+    },
+    {
+      "pair_id": "o34",
+      "task_id": "o34",
+      "with_skill_variant": "A"
+    },
+    {
+      "pair_id": "o35",
+      "task_id": "o35",
+      "with_skill_variant": "B"
+    }
+  ]
+}

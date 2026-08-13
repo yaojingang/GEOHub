@@ -1,0 +1,24 @@
+{
+  "ok": true,
+  "summary": {
+    "path": "geohub-upgrade-visual-report-2026-08-13.html",
+    "size_bytes": 105227,
+    "chart_count": 11,
+    "anchor_count": 9,
+    "nav_anchor_count": 8,
+    "section_count": 9,
+    "report_heading_count": 1,
+    "section_heading_count": 9,
+    "module_heading_count": 11,
+    "heading_break_count": 0,
+    "heading_contract_count": 21,
+    "heading_flow": "stacked-full-width",
+    "typography_mode": "editorial-serif",
+    "section_id_count": 22,
+    "remote_asset_count": 0,
+    "errors": 0,
+    "warnings": 0
+  },
+  "errors": [],
+  "warnings": []
+}

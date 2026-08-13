@@ -1,0 +1,80 @@
+{
+  "schema_version": "2.0.0",
+  "name": "geo-knowledge",
+  "title": "GEO SEO Hub Knowledge",
+  "job_to_be_done": "Build and query an evidence-lined GEO knowledge graph from approved source bundles. Use for entity normalization, relation lineage, conflicting fact preservation, incremental source-hash updates, local/global knowledge queries, 知识图谱, 知识库, and 知识治理. Exclude unsourced facts, hidden conflict resolution, autonomous crawling, and external database mutation.",
+  "trigger_surface": {
+    "description": "Build and query an evidence-lined GEO knowledge graph from approved source bundles. Use for entity normalization, relation lineage, conflicting fact preservation, incremental source-hash updates, local/global knowledge queries, 知识图谱, 知识库, and 知识治理. Exclude unsourced facts, hidden conflict resolution, autonomous crawling, and external database mutation.",
+    "should_trigger": [
+      "Build a knowledge graph from these approved sources",
+      "治理品牌实体和关系",
+      "Query the local entity neighborhood"
+    ],
+    "should_not_trigger": [
+      "Publish this page",
+      "Write an explainer"
+    ],
+    "edge_cases": [
+      "Plan a GEO roadmap",
+      "Diagnose site gaps",
+      "Measure AI visibility"
+    ]
+  },
+  "workflow": {
+    "steps": [
+      "Read `references/knowledge-method.md` and prepare approved source bundles with stable IDs and SHA-256 hashes.",
+      "Run `python3 scripts/run_knowledge.py --input <request.json> --output <runs-root>`.",
+      "Inspect canonical identities, aliases, relation source IDs, validity dates, source coverage, conflicts, and gaps.",
+      "Use the local query for an entity neighborhood or the global query for communities, coverage, conflicts, and gaps.",
+      "For incremental updates, replace only source bundles whose hashes changed and rebuild the governed graph."
+    ],
+    "decision_points": [],
+    "failure_modes": []
+  },
+  "resources": {
+    "references": [
+      "references/knowledge-method.md",
+      "references/output-contract.md"
+    ],
+    "scripts": [
+      "scripts/run_knowledge.py"
+    ],
+    "assets": [],
+    "reports": [
+      "reports/output_quality_scorecard.md"
+    ]
+  },
+  "eval_plan": {
+    "trigger": [
+      "evals/output/cases.jsonl",
+      "evals/semantic_config.json",
+      "evals/trigger_cases.json"
+    ],
+    "output": [
+      "evals/output/cases.jsonl"
+    ],
+    "adversarial": [],
+    "baseline": "without_skill"
+  },
+  "risk": {
+    "output_risk": "low",
+    "execution_risk": "medium",
+    "trust_boundary": "team"
+  },
+  "governance": {
+    "owner": "姚金刚 / Yao",
+    "maturity": "library",
+    "review_cadence": "per-release",
+    "review_due": ""
+  },
+  "targets": [
+    "openai",
+    "claude",
+    "generic"
+  ],
+  "source_files": [
+    "SKILL.md",
+    "manifest.json",
+    "agents/interface.yaml"
+  ]
+}

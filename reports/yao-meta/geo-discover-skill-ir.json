@@ -1,7 +1,7 @@
 {
   "schema_version": "2.0.0",
   "name": "geo-discover",
-  "title": "GEOHub Discover",
+  "title": "GEO SEO Hub Discover",
   "job_to_be_done": "Discover evidence-aware GEO questions, query rewrites, intent clusters, and prioritized content opportunities from a structured brief. Use for AI search intent mining, question or keyword expansion, query research, FAQ discovery, 拓词, and GEO topic discovery in Chinese or English.",
   "trigger_surface": {
     "description": "Discover evidence-aware GEO questions, query rewrites, intent clusters, and prioritized content opportunities from a structured brief. Use for AI search intent mining, question or keyword expansion, query research, FAQ discovery, 拓词, and GEO topic discovery in Chinese or English.",
@@ -23,9 +23,10 @@
   },
   "workflow": {
     "steps": [
-      "Read 'references/discovery-method.md' and prepare a protocol '1.0.0' GEO brief.",
-      "Run the deterministic `python3 scripts/run_discover.py --input <brief.json> --output <runs-root>` wrapper or `python -m geo_seo_hub discover --input <brief.json> --output <runs-root>`.",
-      "Inspect 'research-context.json' and 'quality-report.json'; surface the source scope, limitations, warnings, and failed checks.",
+      "Read `references/discovery-method.md`; read `references/discovery-method-v2.md` when requesting a non-legacy execution mode.",
+      "Prepare a protocol `1.0.0` file-backed GEO brief.",
+      "Run `python3 scripts/run_discover.py --input <brief.json> --output <runs-root> --execution-mode <legacy|deterministic|research|provider>`. Legacy remains the compatibility default.",
+      "Inspect `quality-report.json` and `run-lineage.json`; surface all warnings and failed checks.",
       "Deliver the Artifact Bus directory as the output contract."
     ],
     "decision_points": [],
@@ -33,6 +34,7 @@
   },
   "resources": {
     "references": [
+      "references/discovery-method-v2.md",
       "references/discovery-method.md",
       "references/input-example.json"
     ],

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Thin deterministic entry point for the geo-discover skill."""
+"""Thin execution-mode-aware entry point for the geo-discover Skill."""
 
 import sys
 from pathlib import Path

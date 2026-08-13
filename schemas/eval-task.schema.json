@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yao.example/geo/schemas/eval-task.schema.json",
+  "title": "Evaluation Task",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "task_id", "skill_id", "case_type", "prompt", "input_files", "limits", "variants", "assertions", "rubric", "tags"],
+  "properties": {
+    "protocol_version": {"const": "1.0.0"},
+    "task_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$"},
+    "skill_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,63}$"},
+    "case_type": {"enum": ["happy", "boundary", "adversarial", "near-neighbor", "source-shortfall"]},
+    "prompt": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "input_files": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"}},
+    "limits": {"type": "object", "additionalProperties": false, "required": ["max_input_bytes", "max_output_tokens"], "properties": {"max_input_bytes": {"type": "integer", "minimum": 1, "maximum": 65536}, "max_output_tokens": {"type": "integer", "minimum": 1, "maximum": 4096}}},
+    "variants": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["baseline", "with_skill"],
+      "properties": {
+        "baseline": {"$ref": "#/$defs/variant"},
+        "with_skill": {"$ref": "#/$defs/variant"}
+      }
+    },
+    "assertions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required_json_paths", "required_terms", "forbidden_terms", "allowed_source_ids"],
+      "properties": {
+        "required_json_paths": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^[A-Za-z0-9_.-]+$"}},
+        "required_terms": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1, "pattern": "\\S"}},
+        "forbidden_terms": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1, "pattern": "\\S"}},
+        "allowed_source_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1, "pattern": "\\S"}}
+      }
+    },
+    "rubric": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "tags": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1, "pattern": "\\S"}}
+  },
+  "$defs": {
+    "variant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["output"],
+      "properties": {"output": {"type": "object"}}
+    }
+  }
+}

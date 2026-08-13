@@ -1,0 +1,14 @@
+[
+  {"id": "shadow-01", "text": "Audit this website", "production": "geo-diagnose", "neighbor": "geo-content"},
+  {"id": "shadow-02", "text": "Discover AI search questions", "production": "geo-discover", "neighbor": "geo-diagnose"},
+  {"id": "shadow-03", "text": "Write an evidence-backed explainer", "production": "geo-content", "neighbor": "geo-discover"},
+  {"id": "shadow-04", "text": "Measure this observation bundle", "production": "geo-measure", "neighbor": "geo-diagnose"},
+  {"id": "shadow-05", "text": "制定 GEO strategy roadmap", "production": "geo-strategy", "neighbor": "geo-discover"},
+  {"id": "shadow-06", "text": "Build a knowledge base", "production": "geo-knowledge", "neighbor": "geo-content"},
+  {"id": "shadow-07", "text": "Publish this article", "production": "geo-publish", "neighbor": "geo-content"},
+  {"id": "shadow-08", "text": "拓词再生成文章", "production": "geo-discover", "neighbor": "geo-content"},
+  {"id": "shadow-09", "text": "不要写文章，只诊断网站", "production": "geo-diagnose", "neighbor": "geo-content"},
+  {"id": "shadow-10", "text": "GEO help", "production": "geo", "neighbor": "geo-discover"},
+  {"id": "shadow-11", "text": "计算品牌提及率", "production": "geo-measure", "neighbor": "geo-content"},
+  {"id": "shadow-12", "text": "Create a page blueprint", "production": "geo-content", "neighbor": "geo-diagnose"}
+]

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yao.example/geo/schemas/claim-map.schema.json",
+  "title": "Claim Map",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "run_id", "claims", "summary"],
+  "properties": {
+    "protocol_version": {"const": "1.0.0"},
+    "run_id": {"type": "string", "pattern": "^run-[A-Za-z0-9._-]+$"},
+    "claims": {
+      "type": "array",
+      "maxItems": 500,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["claim_id", "text", "source_ids", "support_status", "confidence", "location", "repair_action"],
+        "properties": {
+          "claim_id": {"type": "string", "pattern": "^claim-[A-Za-z0-9._-]+$"},
+          "text": {"type": "string", "minLength": 1},
+          "source_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+          "support_status": {"enum": ["supported", "unsupported", "inferred"]},
+          "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+          "location": {"type": "string", "minLength": 1},
+          "repair_action": {"type": ["string", "null"], "minLength": 1}
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claim_count", "supported_count", "unsupported_count", "support_rate", "fabricated_citations"],
+      "properties": {
+        "claim_count": {"type": "integer", "minimum": 0},
+        "supported_count": {"type": "integer", "minimum": 0},
+        "unsupported_count": {"type": "integer", "minimum": 0},
+        "support_rate": {"type": "number", "minimum": 0, "maximum": 1},
+        "fabricated_citations": {"type": "integer", "minimum": 0}
+      }
+    }
+  }
+}

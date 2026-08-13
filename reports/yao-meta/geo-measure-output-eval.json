@@ -17,7 +17,7 @@
   "results": [
     {
       "id": "happy",
-      "prompt": "Aggregate supplied observation records.",
+      "prompt": "Measure a valid observation bundle.",
       "input_files": [],
       "metadata": {
         "case_type": "happy"
@@ -29,15 +29,14 @@
         "checks": [
           {
             "id": "contract",
-            "description": "The output must preserve measurement units and scope.",
+            "description": "The output must satisfy the declared contract.",
             "weight": 1.0,
             "failure_type": "assertion_failed",
             "passed": false,
             "missing": [
-              "eligible trials",
-              "denominator",
-              "intervals",
-              "lineage"
+              "visibility-report",
+              "raw components",
+              "run-manifest"
             ],
             "present_forbidden": []
           }
@@ -45,15 +44,14 @@
         "failed": [
           {
             "id": "contract",
-            "description": "The output must preserve measurement units and scope.",
+            "description": "The output must satisfy the declared contract.",
             "weight": 1.0,
             "failure_type": "assertion_failed",
             "passed": false,
             "missing": [
-              "eligible trials",
-              "denominator",
-              "intervals",
-              "lineage"
+              "visibility-report",
+              "raw components",
+              "run-manifest"
             ],
             "present_forbidden": []
           }
@@ -66,7 +64,7 @@
         "checks": [
           {
             "id": "contract",
-            "description": "The output must preserve measurement units and scope.",
+            "description": "The output must satisfy the declared contract.",
             "weight": 1.0,
             "failure_type": "assertion_failed",
             "passed": true,
@@ -82,7 +80,7 @@
     },
     {
       "id": "missing-input",
-      "prompt": "Measure citation rate without observations.",
+      "prompt": "Measure without a bundle.",
       "input_files": [],
       "metadata": {
         "case_type": "missing_input"
@@ -94,14 +92,13 @@
         "checks": [
           {
             "id": "missing",
-            "description": "The output must not invent a measurement.",
+            "description": "The output must fail closed.",
             "weight": 1.0,
             "failure_type": "assertion_failed",
             "passed": false,
             "missing": [
               "Reject",
-              "explicit observations",
-              "eligible trial"
+              "missing evidence"
             ],
             "present_forbidden": []
           }
@@ -109,14 +106,13 @@
         "failed": [
           {
             "id": "missing",
-            "description": "The output must not invent a measurement.",
+            "description": "The output must fail closed.",
             "weight": 1.0,
             "failure_type": "assertion_failed",
             "passed": false,
             "missing": [
               "Reject",
-              "explicit observations",
-              "eligible trial"
+              "missing evidence"
             ],
             "present_forbidden": []
           }
@@ -129,7 +125,7 @@
         "checks": [
           {
             "id": "missing",
-            "description": "The output must not invent a measurement.",
+            "description": "The output must fail closed.",
             "weight": 1.0,
             "failure_type": "assertion_failed",
             "passed": true,
@@ -145,7 +141,7 @@
     },
     {
       "id": "boundary",
-      "prompt": "Log into the platform and monitor continuously.",
+      "prompt": "Log in and scrape consumer AI pages.",
       "input_files": [],
       "metadata": {
         "case_type": "boundary"
@@ -162,9 +158,8 @@
             "failure_type": "assertion_failed",
             "passed": false,
             "missing": [
-              "Decline",
-              "account access",
-              "offline"
+              "Refuse",
+              "manual_export"
             ],
             "present_forbidden": []
           }
@@ -177,9 +172,8 @@
             "failure_type": "assertion_failed",
             "passed": false,
             "missing": [
-              "Decline",
-              "account access",
-              "offline"
+              "Refuse",
+              "manual_export"
             ],
             "present_forbidden": []
           }
@@ -208,7 +202,7 @@
     },
     {
       "id": "near-neighbor",
-      "prompt": "Diagnose a website page.",
+      "prompt": "Audit a page.",
       "input_files": [],
       "metadata": {
         "case_type": "near_neighbor"
@@ -220,12 +214,13 @@
         "checks": [
           {
             "id": "neighbor",
-            "description": "The output must route the neighboring task correctly.",
+            "description": "The output must preserve the route boundary.",
             "weight": 1.0,
             "failure_type": "assertion_failed",
             "passed": false,
             "missing": [
-              "geo-diagnose"
+              "geo-diagnose",
+              "does not own"
             ],
             "present_forbidden": []
           }
@@ -233,12 +228,13 @@
         "failed": [
           {
             "id": "neighbor",
-            "description": "The output must route the neighboring task correctly.",
+            "description": "The output must preserve the route boundary.",
             "weight": 1.0,
             "failure_type": "assertion_failed",
             "passed": false,
             "missing": [
-              "geo-diagnose"
+              "geo-diagnose",
+              "does not own"
             ],
             "present_forbidden": []
           }
@@ -251,7 +247,7 @@
         "checks": [
           {
             "id": "neighbor",
-            "description": "The output must route the neighboring task correctly.",
+            "description": "The output must preserve the route boundary.",
             "weight": 1.0,
             "failure_type": "assertion_failed",
             "passed": true,
@@ -267,7 +263,7 @@
     },
     {
       "id": "source-shortfall",
-      "prompt": "One eligible trial has no answer.",
+      "prompt": "Measure a sparse fixture.",
       "input_files": [],
       "metadata": {
         "case_type": "source_shortfall"
@@ -279,14 +275,13 @@
         "checks": [
           {
             "id": "shortfall",
-            "description": "The output must preserve missingness.",
+            "description": "The output must disclose missing evidence.",
             "weight": 1.0,
             "failure_type": "assertion_failed",
             "passed": false,
             "missing": [
-              "Retain",
-              "denominators",
-              "missing-answer reason"
+              "missing observation rate",
+              "recorded-fixture"
             ],
             "present_forbidden": []
           }
@@ -294,14 +289,13 @@
         "failed": [
           {
             "id": "shortfall",
-            "description": "The output must preserve missingness.",
+            "description": "The output must disclose missing evidence.",
             "weight": 1.0,
             "failure_type": "assertion_failed",
             "passed": false,
             "missing": [
-              "Retain",
-              "denominators",
-              "missing-answer reason"
+              "missing observation rate",
+              "recorded-fixture"
             ],
             "present_forbidden": []
           }
@@ -314,7 +308,7 @@
         "checks": [
           {
             "id": "shortfall",
-            "description": "The output must preserve missingness.",
+            "description": "The output must disclose missing evidence.",
             "weight": 1.0,
             "failure_type": "assertion_failed",
             "passed": true,

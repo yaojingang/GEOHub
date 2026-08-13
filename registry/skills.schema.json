@@ -14,7 +14,7 @@
         "additionalProperties": false,
         "required": ["id", "required_skills", "steps"],
         "properties": {
-          "id": {"enum": ["brand-baseline-lite", "content-campaign"]},
+          "id": {"type": "string", "minLength": 1, "maxLength": 64, "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"},
           "required_skills": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"type": "string"}},
           "steps": {"type": "array", "minItems": 2, "items": {"type": "object", "additionalProperties": false, "required": ["id", "skill_id", "depends_on"], "properties": {"id": {"type": "string", "pattern": "^[a-z]+$"}, "skill_id": {"type": "string"}, "depends_on": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}}}}
         }

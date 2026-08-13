@@ -7,8 +7,12 @@
   "query_ids": ["qry-example"],
   "evaluation_method": {
     "name": "质量评分",
-    "criteria": [{"name": "质量", "weight": 1}],
-    "score_scale": "0-100"
+    "criteria": [{"name": "质量", "weight": 1, "polarity": "benefit"}],
+    "score_scale": "0-100",
+    "normalization": "min-max",
+    "weighting": "normalized-explicit",
+    "missing_value": "reject",
+    "tie_policy": "no-winner"
   },
   "evidence": [
     {

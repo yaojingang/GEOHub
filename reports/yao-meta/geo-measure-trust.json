@@ -16,17 +16,16 @@
     "permission_missing_count": 0,
     "permission_invalid_count": 0,
     "permission_expired_count": 0,
-    "help_smoke_checked_count": 0,
+    "help_smoke_checked_count": 1,
     "help_smoke_failed_count": 0,
     "interactive_script_count": 0,
     "package_hash_scope": "source-contract-without-generated-reports",
     "package_hash_file_count": 9,
-    "package_sha256": "bfc174d2dbde4d932359d3ea6e019f194db30fc463b18da463d2c8b61aac7bb2"
+    "package_sha256": "3d95069463b6567034004ca4841a64b60562f47266ec2dcb1d84f1809d05355e"
   },
   "failures": [],
   "warnings": [
-    "No dependency or lock file detected",
-    "CLI scripts without argparse/help surface: scripts/run_measure.py"
+    "No dependency or lock file detected"
   ],
   "secrets": [],
   "scripts": [
@@ -35,7 +34,7 @@
       "interface": "cli",
       "interface_declared": false,
       "interface_reason": "Default CLI classification; add SCRIPT_INTERFACE for internal modules.",
-      "has_argparse": false,
+      "has_argparse": true,
       "has_main_guard": true,
       "uses_input": false,
       "uses_network": false,
@@ -63,19 +62,25 @@
   "help_smoke": {
     "enabled": true,
     "timeout_seconds": 5.0,
-    "candidate_count": 0,
-    "checked_count": 0,
-    "passed_count": 0,
+    "candidate_count": 1,
+    "checked_count": 1,
+    "passed_count": 1,
     "failed_count": 0,
-    "skipped_count": 1,
+    "skipped_count": 0,
     "failed_scripts": [],
-    "results": [],
-    "skipped": [
+    "results": [
       {
         "path": "scripts/run_measure.py",
-        "reason": "missing argparse/help surface"
+        "command": "python3 scripts/run_measure.py --help",
+        "returncode": 0,
+        "timed_out": false,
+        "passed": true,
+        "has_help_text": true,
+        "stdout_excerpt": "usage: run_measure.py [-h] --input INPUT --output OUTPUT\n\nRun GEO measurement from an approved observation bundle\n\noptions:\n  -h, --help       show this help message and exit\n  --input INPUT\n  --output OUTPUT",
+        "stderr_excerpt": ""
       }
-    ]
+    ],
+    "skipped": []
   },
   "permission_governance": {
     "present": false,

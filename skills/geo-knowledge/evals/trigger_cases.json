@@ -1,0 +1,16 @@
+{
+  "should_trigger": [
+    {"text": "Build a knowledge graph from these approved sources", "family": "knowledge"},
+    {"text": "治理品牌实体和关系", "family": "knowledge"},
+    {"text": "Query the local entity neighborhood", "family": "knowledge"}
+  ],
+  "should_not_trigger": [
+    {"text": "Publish this page", "family": "planned"},
+    {"text": "Write an explainer", "family": "content"}
+  ],
+  "near_neighbor": [
+    {"text": "Plan a GEO roadmap", "expected": "geo-strategy"},
+    {"text": "Diagnose site gaps", "expected": "geo-diagnose"},
+    {"text": "Measure AI visibility", "expected": "geo-measure"}
+  ]
+}

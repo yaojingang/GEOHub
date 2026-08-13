@@ -1,12 +1,14 @@
 # Installation
 
-GEOHub is the public project and Skill suite name. It retains `geo-seo-hub` for the Python distribution and CLI, `geo_seo_hub` for the Python module, and the existing installed data, package, generator, and URN identifiers.
+GEO SEO Hub uses `geo-seo-hub` for the Python distribution and CLI, and `geo_seo_hub` for the Python module.
 
 Supported Python range: 3.11-3.14.
 
+CI covers Linux on Python 3.11-3.14 and macOS installation simulation. Windows remains unsupported and unclaimed in 0.5.0.
+
 ```bash
-git clone https://github.com/yaojingang/GEOHub.git
-cd GEOHub
+git clone https://github.com/yaojingang/geo-seo-hub.git
+cd geo-seo-hub
 python3 -m venv .venv
 .venv/bin/python -m pip install .
 .venv/bin/geo-seo-hub --version
@@ -17,13 +19,13 @@ python3 -m venv .venv
 
 | Package | Use it for |
 |---|---|
-| Source ZIP | Full source checkout, CLI use, development, and local package builds |
-| Unified ZIP | One root Skill with all six active provider entries |
+| Source ZIP | Reproducible source snapshot, CLI use, development, tests, evals, and local package builds |
+| Unified ZIP | One root Skill with all seven active provider entries |
 | `geo` provider ZIP | Registry-driven routing and workflow orchestration |
-| Discover, Diagnose, Content, Measure, or SEO provider ZIP | Installing one active capability as the root Skill |
-| Codex or Claude ZIP | Target-specific adapter layout with all six provider entries |
+| Discover, Diagnose, Content, Measure, Strategy, or Knowledge provider ZIP | Installing one active capability as the root Skill |
+| Codex or Claude ZIP | Target-specific adapter layout with all seven provider entries |
 
-Version `0.3.1` has no GitHub Release or prebuilt release assets. Build the ten community artifacts from a source checkout with `python3 scripts/package.py --target all --channel community`. Install a provider, unified, Codex, or Claude ZIP by safely extracting it into the target's skill directory. Each adapter contains one `SKILL.md`, runtime source, schemas, research registry, capability registry, project metadata, version, and legal notices.
+Version `0.5.0` produces eleven community archives. The source ZIP includes `tests/`, `evals/`, the hash-locked CI dependency set, and the verification scripts they require. This source snapshot carries no independently verified GitHub Release assets. Build artifacts from a source checkout with `python3 scripts/package.py --target all --channel community`, or run the attested release workflow. Install a provider, unified, Codex, or Claude ZIP by safely extracting it into the target's skill directory. Each adapter contains one `SKILL.md`, runtime source, schemas, registry, project metadata, version, and legal notices.
 
 Every community ZIP has a self-contained `pyproject.toml` and runtime data layout. For direct command-line use after extraction, create an isolated environment and install that extracted directory before invoking its wrapper:
 
@@ -58,4 +60,17 @@ python3 -m pip install .
 geo-seo-hub --version
 ```
 
-Update Python imports to `geo_seo_hub`. The `geo`, `geo-discover`, `geo-diagnose`, and `geo-content` Skill IDs and protocol `1.0.0` stay unchanged; version 0.3 adds the active `geo-measure` ID.
+Update Python imports to `geo_seo_hub`. Existing Skill IDs stay unchanged. Version 0.3 added `geo-measure`; version 0.5 activates `geo-strategy` and `geo-knowledge`. Artifact protocol `1.0.0` stays unchanged and accepts additive lineage, pipeline, strategy, knowledge, and workflow-state artifacts. See [migration-0.5.md](migration-0.5.md).
+
+## Release evidence and verification
+
+After building and verifying all eleven ZIPs:
+
+```bash
+python3 scripts/generate_sbom.py
+python3 scripts/generate_provenance.py
+python3 scripts/verify_provenance.py
+python3 scripts/render_production_readiness.py
+```
+
+Local provenance declares `local-unsigned`, `trusted: false`, and no SLSA level. A GitHub Actions release build uses `actions/attest@v4`. Verify each CI artifact with `gh attestation verify <artifact> -R yaojingang/geo-seo-hub` before making a trusted-builder statement.

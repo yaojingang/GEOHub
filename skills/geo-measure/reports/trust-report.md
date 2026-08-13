@@ -1,3 +1,9 @@
 # Trust Report
 
-Measurement reads one bounded regular JSON file, performs no network access, preserves every observation source URI, and publishes atomically through the Artifact Bus. Results remain descriptive and scoped to supplied records. Live collection, account access, causal attribution, and human review are **missing evidence**.
+- Network: forbidden by the Skill contract and unused by the executor.
+- Filesystem: one bounded regular JSON input and one selected runs root.
+- Secrets: no secret is required or accepted.
+- Collection: manual export, approved API, or recorded fixture only.
+- Dependencies: core GEOHub dependencies only.
+- Package hash: generated and verified by repository package gates.
+- External effect evidence: missing evidence until approved real observations are collected.

@@ -2,7 +2,7 @@
   "status": "pass",
   "target": "all",
   "source": {
-    "package": "geo-seo-hub-source-0.3.1.zip",
+    "package": "geo-seo-hub-source-0.5.0.zip",
     "installed_from": ".",
     "cli_smokes": [
       "version",
@@ -11,20 +11,22 @@
       "diagnose",
       "content",
       "measure",
-      "seo"
+      "strategy",
+      "knowledge"
     ],
     "status": "pass"
   },
   "structural_packages": [
     {
-      "package": "geo-community-0.3.1.zip",
+      "package": "geo-community-0.5.0.zip",
       "installed_from": ".",
       "entries": [
         "references/providers/geo-discover.md",
         "references/providers/geo-diagnose.md",
         "references/providers/geo-content.md",
         "references/providers/geo-measure.md",
-        "references/providers/seo.md"
+        "references/providers/geo-strategy.md",
+        "references/providers/geo-knowledge.md"
       ],
       "resolved_entry": true,
       "installed_share_resolved": true,
@@ -33,20 +35,22 @@
         "geo-diagnose",
         "geo-content",
         "geo-measure",
-        "seo"
+        "geo-strategy",
+        "geo-knowledge"
       ],
       "runtime_data": true,
       "status": "pass"
     },
     {
-      "package": "geo-content-community-0.3.1.zip",
+      "package": "geo-content-community-0.5.0.zip",
       "installed_from": ".",
       "entries": [
         "references/providers/geo-discover.md",
         "references/providers/geo-diagnose.md",
         "SKILL.md",
         "references/providers/geo-measure.md",
-        "references/providers/seo.md"
+        "references/providers/geo-strategy.md",
+        "references/providers/geo-knowledge.md"
       ],
       "resolved_entry": true,
       "installed_share_resolved": true,
@@ -55,20 +59,22 @@
         "geo-diagnose",
         "geo-content",
         "geo-measure",
-        "seo"
+        "geo-strategy",
+        "geo-knowledge"
       ],
       "runtime_data": true,
       "status": "pass"
     },
     {
-      "package": "geo-diagnose-community-0.3.1.zip",
+      "package": "geo-diagnose-community-0.5.0.zip",
       "installed_from": ".",
       "entries": [
         "references/providers/geo-discover.md",
         "SKILL.md",
         "references/providers/geo-content.md",
         "references/providers/geo-measure.md",
-        "references/providers/seo.md"
+        "references/providers/geo-strategy.md",
+        "references/providers/geo-knowledge.md"
       ],
       "resolved_entry": true,
       "installed_share_resolved": true,
@@ -77,20 +83,22 @@
         "geo-diagnose",
         "geo-content",
         "geo-measure",
-        "seo"
+        "geo-strategy",
+        "geo-knowledge"
       ],
       "runtime_data": true,
       "status": "pass"
     },
     {
-      "package": "geo-discover-community-0.3.1.zip",
+      "package": "geo-discover-community-0.5.0.zip",
       "installed_from": ".",
       "entries": [
         "SKILL.md",
         "references/providers/geo-diagnose.md",
         "references/providers/geo-content.md",
         "references/providers/geo-measure.md",
-        "references/providers/seo.md"
+        "references/providers/geo-strategy.md",
+        "references/providers/geo-knowledge.md"
       ],
       "resolved_entry": true,
       "installed_share_resolved": true,
@@ -99,107 +107,21 @@
         "geo-diagnose",
         "geo-content",
         "geo-measure",
-        "seo"
+        "geo-strategy",
+        "geo-knowledge"
       ],
       "runtime_data": true,
       "status": "pass"
     },
     {
-      "package": "geo-measure-community-0.3.1.zip",
-      "installed_from": ".",
-      "entries": [
-        "references/providers/geo-discover.md",
-        "references/providers/geo-diagnose.md",
-        "references/providers/geo-content.md",
-        "SKILL.md",
-        "references/providers/seo.md"
-      ],
-      "resolved_entry": true,
-      "installed_share_resolved": true,
-      "provider_executions": [
-        "geo-discover",
-        "geo-diagnose",
-        "geo-content",
-        "geo-measure",
-        "seo"
-      ],
-      "runtime_data": true,
-      "status": "pass"
-    },
-    {
-      "package": "geo-seo-hub-claude-community-0.3.1.zip",
+      "package": "geo-knowledge-community-0.5.0.zip",
       "installed_from": ".",
       "entries": [
         "references/providers/geo-discover.md",
         "references/providers/geo-diagnose.md",
         "references/providers/geo-content.md",
         "references/providers/geo-measure.md",
-        "references/providers/seo.md"
-      ],
-      "resolved_entry": true,
-      "installed_share_resolved": true,
-      "provider_executions": [
-        "geo-discover",
-        "geo-diagnose",
-        "geo-content",
-        "geo-measure",
-        "seo"
-      ],
-      "runtime_data": true,
-      "status": "pass"
-    },
-    {
-      "package": "geo-seo-hub-codex-community-0.3.1.zip",
-      "installed_from": ".",
-      "entries": [
-        "references/providers/geo-discover.md",
-        "references/providers/geo-diagnose.md",
-        "references/providers/geo-content.md",
-        "references/providers/geo-measure.md",
-        "references/providers/seo.md"
-      ],
-      "resolved_entry": true,
-      "installed_share_resolved": true,
-      "provider_executions": [
-        "geo-discover",
-        "geo-diagnose",
-        "geo-content",
-        "geo-measure",
-        "seo"
-      ],
-      "runtime_data": true,
-      "status": "pass"
-    },
-    {
-      "package": "geo-seo-hub-unified-community-0.3.1.zip",
-      "installed_from": ".",
-      "entries": [
-        "references/providers/geo-discover.md",
-        "references/providers/geo-diagnose.md",
-        "references/providers/geo-content.md",
-        "references/providers/geo-measure.md",
-        "references/providers/seo.md"
-      ],
-      "resolved_entry": true,
-      "installed_share_resolved": true,
-      "provider_executions": [
-        "geo-discover",
-        "geo-diagnose",
-        "geo-content",
-        "geo-measure",
-        "seo"
-      ],
-      "runtime_data": true,
-      "status": "pass"
-    },
-    {
-      "package": "seo-community-0.3.1.zip",
-      "installed_from": ".",
-      "entries": [
-        "references/providers/geo-discover.md",
-        "references/providers/geo-diagnose.md",
-        "references/providers/geo-content.md",
-        "references/providers/geo-measure.md",
+        "references/providers/geo-strategy.md",
         "SKILL.md"
       ],
       "resolved_entry": true,
@@ -209,7 +131,128 @@
         "geo-diagnose",
         "geo-content",
         "geo-measure",
-        "seo"
+        "geo-strategy",
+        "geo-knowledge"
+      ],
+      "runtime_data": true,
+      "status": "pass"
+    },
+    {
+      "package": "geo-measure-community-0.5.0.zip",
+      "installed_from": ".",
+      "entries": [
+        "references/providers/geo-discover.md",
+        "references/providers/geo-diagnose.md",
+        "references/providers/geo-content.md",
+        "SKILL.md",
+        "references/providers/geo-strategy.md",
+        "references/providers/geo-knowledge.md"
+      ],
+      "resolved_entry": true,
+      "installed_share_resolved": true,
+      "provider_executions": [
+        "geo-discover",
+        "geo-diagnose",
+        "geo-content",
+        "geo-measure",
+        "geo-strategy",
+        "geo-knowledge"
+      ],
+      "runtime_data": true,
+      "status": "pass"
+    },
+    {
+      "package": "geo-seo-hub-claude-community-0.5.0.zip",
+      "installed_from": ".",
+      "entries": [
+        "references/providers/geo-discover.md",
+        "references/providers/geo-diagnose.md",
+        "references/providers/geo-content.md",
+        "references/providers/geo-measure.md",
+        "references/providers/geo-strategy.md",
+        "references/providers/geo-knowledge.md"
+      ],
+      "resolved_entry": true,
+      "installed_share_resolved": true,
+      "provider_executions": [
+        "geo-discover",
+        "geo-diagnose",
+        "geo-content",
+        "geo-measure",
+        "geo-strategy",
+        "geo-knowledge"
+      ],
+      "runtime_data": true,
+      "status": "pass"
+    },
+    {
+      "package": "geo-seo-hub-codex-community-0.5.0.zip",
+      "installed_from": ".",
+      "entries": [
+        "references/providers/geo-discover.md",
+        "references/providers/geo-diagnose.md",
+        "references/providers/geo-content.md",
+        "references/providers/geo-measure.md",
+        "references/providers/geo-strategy.md",
+        "references/providers/geo-knowledge.md"
+      ],
+      "resolved_entry": true,
+      "installed_share_resolved": true,
+      "provider_executions": [
+        "geo-discover",
+        "geo-diagnose",
+        "geo-content",
+        "geo-measure",
+        "geo-strategy",
+        "geo-knowledge"
+      ],
+      "runtime_data": true,
+      "status": "pass"
+    },
+    {
+      "package": "geo-seo-hub-unified-community-0.5.0.zip",
+      "installed_from": ".",
+      "entries": [
+        "references/providers/geo-discover.md",
+        "references/providers/geo-diagnose.md",
+        "references/providers/geo-content.md",
+        "references/providers/geo-measure.md",
+        "references/providers/geo-strategy.md",
+        "references/providers/geo-knowledge.md"
+      ],
+      "resolved_entry": true,
+      "installed_share_resolved": true,
+      "provider_executions": [
+        "geo-discover",
+        "geo-diagnose",
+        "geo-content",
+        "geo-measure",
+        "geo-strategy",
+        "geo-knowledge"
+      ],
+      "runtime_data": true,
+      "status": "pass"
+    },
+    {
+      "package": "geo-strategy-community-0.5.0.zip",
+      "installed_from": ".",
+      "entries": [
+        "references/providers/geo-discover.md",
+        "references/providers/geo-diagnose.md",
+        "references/providers/geo-content.md",
+        "references/providers/geo-measure.md",
+        "SKILL.md",
+        "references/providers/geo-knowledge.md"
+      ],
+      "resolved_entry": true,
+      "installed_share_resolved": true,
+      "provider_executions": [
+        "geo-discover",
+        "geo-diagnose",
+        "geo-content",
+        "geo-measure",
+        "geo-strategy",
+        "geo-knowledge"
       ],
       "runtime_data": true,
       "status": "pass"

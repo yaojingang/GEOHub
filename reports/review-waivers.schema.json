@@ -8,7 +8,7 @@
     "waivers": {
       "type": "array",
       "minItems": 15,
-      "maxItems": 15,
+      "maxItems": 17,
       "uniqueItems": true,
       "items": {
         "type": "object",
@@ -16,7 +16,7 @@
         "required": ["id", "skill_id", "gate", "owner", "reason", "expires_on", "recheck"],
         "properties": {
           "id": {"type": "string", "pattern": "^[a-z0-9-]+$"},
-          "skill_id": {"enum": ["suite", "geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure", "seo"]},
+          "skill_id": {"enum": ["suite", "geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure", "geo-strategy", "geo-knowledge"]},
           "gate": {"type": "string", "minLength": 1},
           "owner": {"type": "string", "minLength": 1},
           "reason": {"type": "string", "minLength": 1},

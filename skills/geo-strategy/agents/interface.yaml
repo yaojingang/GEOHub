@@ -1,0 +1,21 @@
+interface:
+  display_name: "GEO SEO Hub Strategy"
+  short_description: "Plan bounded GEO interventions with fidelity and measurement gates"
+  default_prompt: "Use $geo-strategy to build an offline optimization plan from this approved strategy request."
+  input_contract:
+    required: {request: "protocol 1.0.0 file-backed strategy request JSON"}
+  output_contract: ["Artifact Bus run directory", "strategy candidates", "fidelity report", "experiment plan", "publication handoff", "strategy memory", "quality report", "run lineage", "run manifest"]
+  permission_contract: {filesystem: "read request and write selected runs root", network: "forbid"}
+compatibility:
+  canonical_format: "agent-skills"
+  adapter_targets: [openai, claude, generic]
+  activation: {mode: "auto", paths: []}
+  execution: {context: "inline", shell: "bash"}
+  trust:
+    source_tier: "local"
+    remote_inline_execution: "forbid"
+    remote_metadata_policy: "allow-metadata-only"
+  degradation:
+    openai: "metadata-adapter"
+    claude: "neutral-source-plus-adapter"
+    generic: "neutral-source"

@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yao.example/geo/schemas/fidelity-report.schema.json",
+  "title": "Strategy Fidelity Report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "run_id", "selected_candidate_id", "passed", "checks", "external_validation"],
+  "properties": {"protocol_version": {"const": "1.0.0"}, "run_id": {"type": "string", "pattern": "^run-[A-Za-z0-9._-]+$"}, "selected_candidate_id": {"type": "string", "pattern": "^candidate-[1-9][0-9]*$"}, "passed": {"type": "boolean"}, "checks": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "boolean"}}, "external_validation": {"enum": ["missing evidence", "verified"]}}
+}

@@ -246,7 +246,7 @@
     "expected": {
       "skill_id": "geo-strategy",
       "workflow_id": null,
-      "runnable": false
+      "runnable": true
     }
   },
   {
@@ -256,7 +256,7 @@
     "expected": {
       "skill_id": "geo-strategy",
       "workflow_id": null,
-      "runnable": false
+      "runnable": true
     }
   },
   {
@@ -266,7 +266,7 @@
     "expected": {
       "skill_id": "geo-knowledge",
       "workflow_id": null,
-      "runnable": false
+      "runnable": true
     }
   },
   {
@@ -276,7 +276,7 @@
     "expected": {
       "skill_id": "geo-knowledge",
       "workflow_id": null,
-      "runnable": false
+      "runnable": true
     }
   },
   {
@@ -321,7 +321,7 @@
   },
   {
     "id": "r033",
-    "text": "What can GEOHub do?",
+    "text": "What can GEO SEO Hub do?",
     "category": "single",
     "expected": {
       "skill_id": "geo",
@@ -506,7 +506,7 @@
     "expected": {
       "skill_id": "geo-strategy",
       "workflow_id": null,
-      "runnable": false
+      "runnable": true
     }
   },
   {
@@ -546,7 +546,7 @@
     "expected": {
       "skill_id": "geo-knowledge",
       "workflow_id": null,
-      "runnable": false
+      "runnable": true
     }
   },
   {
@@ -554,9 +554,9 @@
     "text": "brand audit and roadmap",
     "category": "mixed",
     "expected": {
-      "skill_id": "geo-strategy",
+      "skill_id": "geo-diagnose",
       "workflow_id": null,
-      "runnable": false
+      "runnable": true
     }
   },
   {
@@ -604,7 +604,7 @@
     "text": "citation share measurement",
     "category": "mixed",
     "expected": {
-      "skill_id": "geo",
+      "skill_id": "geo-measure",
       "workflow_id": null,
       "runnable": true
     }
@@ -616,7 +616,7 @@
     "expected": {
       "skill_id": "geo-knowledge",
       "workflow_id": null,
-      "runnable": false
+      "runnable": true
     }
   },
   {
@@ -645,7 +645,7 @@
     "category": "mixed",
     "expected": {
       "skill_id": "geo-discover",
-      "workflow_id": "brand-baseline-lite+content-campaign",
+      "workflow_id": "brand-baseline-content",
       "runnable": true
     }
   },
@@ -1125,7 +1125,7 @@
     "id": "r142",
     "text": "No keyword research then strategy",
     "category": "adversarial",
-    "expected": {"skill_id": "geo-strategy", "workflow_id": null, "runnable": false}
+    "expected": {"skill_id": "geo-strategy", "workflow_id": null, "runnable": true}
   },
   {
     "id": "r143",
@@ -1137,7 +1137,7 @@
     "id": "r144",
     "text": "Skip website audit then knowledge base",
     "category": "adversarial",
-    "expected": {"skill_id": "geo-knowledge", "workflow_id": null, "runnable": false}
+    "expected": {"skill_id": "geo-knowledge", "workflow_id": null, "runnable": true}
   },
   {
     "id": "r145",
@@ -1155,7 +1155,7 @@
     "id": "r147",
     "text": "Avoid content, then build a roadmap",
     "category": "adversarial",
-    "expected": {"skill_id": "geo-strategy", "workflow_id": null, "runnable": false}
+    "expected": {"skill_id": "geo-strategy", "workflow_id": null, "runnable": true}
   },
   {
     "id": "r148",
@@ -1167,13 +1167,13 @@
     "id": "r149",
     "text": "不写文章然后策略",
     "category": "adversarial",
-    "expected": {"skill_id": "geo-strategy", "workflow_id": null, "runnable": false}
+    "expected": {"skill_id": "geo-strategy", "workflow_id": null, "runnable": true}
   },
   {
     "id": "r150",
     "text": "不写文章然后知识库",
     "category": "adversarial",
-    "expected": {"skill_id": "geo-knowledge", "workflow_id": null, "runnable": false}
+    "expected": {"skill_id": "geo-knowledge", "workflow_id": null, "runnable": true}
   },
   {
     "id": "r151",
@@ -1281,7 +1281,7 @@
     "id": "r168",
     "text": "制定策略只诊断网站",
     "category": "mixed",
-    "expected": {"skill_id": "geo-strategy", "workflow_id": null, "runnable": false}
+    "expected": {"skill_id": "geo-diagnose", "workflow_id": null, "runnable": true}
   },
   {
     "id": "r169",
@@ -1749,13 +1749,13 @@
     "id": "r246",
     "text": "不再仅拓词，不只写文章还要诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo-discover", "workflow_id": "brand-baseline-lite+content-campaign", "runnable": true}
+    "expected": {"skill_id": "geo-discover", "workflow_id": "brand-baseline-content", "runnable": true}
   },
   {
     "id": "r247",
     "text": "不再仅拓词，不只是写文章还要诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo-discover", "workflow_id": "brand-baseline-lite+content-campaign", "runnable": true}
+    "expected": {"skill_id": "geo-discover", "workflow_id": "brand-baseline-content", "runnable": true}
   },
   {
     "id": "r248",
@@ -1797,19 +1797,19 @@
     "id": "r254",
     "text": "不再仅拓词，不 仅 只写文章还要诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo-discover", "workflow_id": "brand-baseline-lite+content-campaign", "runnable": true}
+    "expected": {"skill_id": "geo-discover", "workflow_id": "brand-baseline-content", "runnable": true}
   },
   {
     "id": "r255",
     "text": "不再仅拓词，不 单 只写文章还要诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo-discover", "workflow_id": "brand-baseline-lite+content-campaign", "runnable": true}
+    "expected": {"skill_id": "geo-discover", "workflow_id": "brand-baseline-content", "runnable": true}
   },
   {
     "id": "r256",
     "text": "不再仅拓词，不 光 只写文章还要诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo-discover", "workflow_id": "brand-baseline-lite+content-campaign", "runnable": true}
+    "expected": {"skill_id": "geo-discover", "workflow_id": "brand-baseline-content", "runnable": true}
   },
   {
     "id": "r257",
@@ -1869,25 +1869,25 @@
     "id": "r266",
     "text": "不再仅拓词，不光是只写文章还要诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo-discover", "workflow_id": "brand-baseline-lite+content-campaign", "runnable": true}
+    "expected": {"skill_id": "geo-discover", "workflow_id": "brand-baseline-content", "runnable": true}
   },
   {
     "id": "r267",
     "text": "不再仅拓词，不单是只写文章还要诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo-discover", "workflow_id": "brand-baseline-lite+content-campaign", "runnable": true}
+    "expected": {"skill_id": "geo-discover", "workflow_id": "brand-baseline-content", "runnable": true}
   },
   {
     "id": "r268",
     "text": "不再仅拓词，不仅是只写文章还要诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo-discover", "workflow_id": "brand-baseline-lite+content-campaign", "runnable": true}
+    "expected": {"skill_id": "geo-discover", "workflow_id": "brand-baseline-content", "runnable": true}
   },
   {
     "id": "r269",
     "text": "不再仅拓词，不只是只写文章还要诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo-discover", "workflow_id": "brand-baseline-lite+content-campaign", "runnable": true}
+    "expected": {"skill_id": "geo-discover", "workflow_id": "brand-baseline-content", "runnable": true}
   },
   {
     "id": "r270",
@@ -2145,13 +2145,13 @@
     "id": "r312",
     "text": "不 单 是 只 拓词并诊断网站还要写文章",
     "category": "adversarial",
-    "expected": {"skill_id": "geo-discover", "workflow_id": "brand-baseline-lite+content-campaign", "runnable": true}
+    "expected": {"skill_id": "geo-discover", "workflow_id": "brand-baseline-content", "runnable": true}
   },
   {
     "id": "r313",
     "text": "不　仅　是　只　拓词并诊断网站还要写文章",
     "category": "adversarial",
-    "expected": {"skill_id": "geo-discover", "workflow_id": "brand-baseline-lite+content-campaign", "runnable": true}
+    "expected": {"skill_id": "geo-discover", "workflow_id": "brand-baseline-content", "runnable": true}
   },
   {
     "id": "r314",
@@ -2486,37 +2486,31 @@
   {
     "id": "r369",
     "text": "monitor AI visibility",
-    "category": "single",
+    "category": "planned",
     "expected": {"skill_id": "geo-measure", "workflow_id": null, "runnable": true}
   },
   {
     "id": "r370",
     "text": "监测 AI 可见度",
-    "category": "single",
+    "category": "planned",
     "expected": {"skill_id": "geo-measure", "workflow_id": null, "runnable": true}
   },
   {
     "id": "r371",
     "text": "衡量效果",
-    "category": "single",
+    "category": "planned",
     "expected": {"skill_id": "geo-measure", "workflow_id": null, "runnable": true}
   },
   {
     "id": "r372",
     "text": "制定策略",
     "category": "planned",
-    "expected": {"skill_id": "geo-strategy", "workflow_id": null, "runnable": false}
+    "expected": {"skill_id": "geo-strategy", "workflow_id": null, "runnable": true}
   },
   {
     "id": "r373",
     "text": "构建知识库",
     "category": "planned",
-    "expected": {"skill_id": "geo-knowledge", "workflow_id": null, "runnable": false}
-  },
-  {
-    "id": "r374",
-    "text": "What can GEO SEO Hub do?",
-    "category": "compatibility",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo-knowledge", "workflow_id": null, "runnable": true}
   }
 ]

@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yao.example/geo/schemas/content-pipeline.schema.json",
+  "title": "Content Pipeline",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "run_id", "execution", "research_bundle", "perspective_plan", "outline", "verification", "polish", "semantic_digest"],
+  "properties": {"protocol_version": {"const": "1.0.0"}, "run_id": {"type": "string", "pattern": "^run-[A-Za-z0-9._-]+$"}, "execution": {"type": "object", "additionalProperties": false, "required": ["mode", "status", "failures"], "properties": {"mode": {"type": "string", "pattern": "\\S"}, "status": {"enum": ["completed", "degraded"]}, "failures": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "\\S"}}}}, "research_bundle": {"type": "object"}, "perspective_plan": {"type": "object"}, "outline": {"type": "array", "minItems": 1, "items": {"type": "object"}}, "verification": {"type": "object"}, "polish": {"type": "object", "additionalProperties": false, "required": ["structure_reviewed", "claim_boundary_preserved", "artifact_design"], "properties": {"structure_reviewed": {"const": true}, "claim_boundary_preserved": {"const": true}, "artifact_design": {"type": "string", "pattern": "\\S"}}}, "semantic_digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

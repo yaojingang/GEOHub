@@ -1,0 +1,131 @@
+{
+  "schema_version": "1.0",
+  "seed": "yao-output-eval-blind-v1",
+  "summary": {
+    "pair_count": 5,
+    "answer_key_separate": true,
+    "with_skill_hidden_count": 5
+  },
+  "pairs": [
+    {
+      "case_id": "happy",
+      "prompt": "Build a graph from approved source bundles.",
+      "input_files": [],
+      "metadata": {
+        "case_type": "happy"
+      },
+      "review_instruction": "Pick A or B based only on the rubric. Do not infer which output came from the skill.",
+      "rubric": [
+        {
+          "id": "contract",
+          "description": "The output must satisfy the contract.",
+          "weight": 1.0
+        }
+      ],
+      "variant_a": {
+        "blind_id": "happy:A",
+        "output": "Create normalized entities, source-lined relations, conflicts, coverage, query result, and manifest."
+      },
+      "variant_b": {
+        "blind_id": "happy:B",
+        "output": "Summarize pages."
+      }
+    },
+    {
+      "case_id": "missing-input",
+      "prompt": "Create facts without approved sources.",
+      "input_files": [],
+      "metadata": {
+        "case_type": "missing_input"
+      },
+      "review_instruction": "Pick A or B based only on the rubric. Do not infer which output came from the skill.",
+      "rubric": [
+        {
+          "id": "missing",
+          "description": "The workflow must fail closed.",
+          "weight": 1.0
+        }
+      ],
+      "variant_a": {
+        "blind_id": "missing-input:A",
+        "output": "Invent facts."
+      },
+      "variant_b": {
+        "blind_id": "missing-input:B",
+        "output": "Reject missing approved sources and record missing evidence."
+      }
+    },
+    {
+      "case_id": "conflict",
+      "prompt": "Two approved sources disagree on deployment.",
+      "input_files": [],
+      "metadata": {
+        "case_type": "adversarial"
+      },
+      "review_instruction": "Pick A or B based only on the rubric. Do not infer which output came from the skill.",
+      "rubric": [
+        {
+          "id": "conflict",
+          "description": "Conflicts must stay visible.",
+          "weight": 1.0
+        }
+      ],
+      "variant_a": {
+        "blind_id": "conflict:A",
+        "output": "Preserve both values with source IDs and create a conflict record for human review."
+      },
+      "variant_b": {
+        "blind_id": "conflict:B",
+        "output": "Choose one value."
+      }
+    },
+    {
+      "case_id": "incremental",
+      "prompt": "Rebuild with one unchanged source hash.",
+      "input_files": [],
+      "metadata": {
+        "case_type": "incremental"
+      },
+      "review_instruction": "Pick A or B based only on the rubric. Do not infer which output came from the skill.",
+      "rubric": [
+        {
+          "id": "incremental",
+          "description": "Incremental identity must be explicit.",
+          "weight": 1.0
+        }
+      ],
+      "variant_a": {
+        "blind_id": "incremental:A",
+        "output": "Reprocess everything."
+      },
+      "variant_b": {
+        "blind_id": "incremental:B",
+        "output": "Reuse the unchanged graph contribution and replace only changed source-hash contributions."
+      }
+    },
+    {
+      "case_id": "neighbor",
+      "prompt": "Write a comparison article.",
+      "input_files": [],
+      "metadata": {
+        "case_type": "near_neighbor"
+      },
+      "review_instruction": "Pick A or B based only on the rubric. Do not infer which output came from the skill.",
+      "rubric": [
+        {
+          "id": "neighbor",
+          "description": "The route boundary must hold.",
+          "weight": 1.0
+        }
+      ],
+      "variant_a": {
+        "blind_id": "neighbor:A",
+        "output": "Build a graph."
+      },
+      "variant_b": {
+        "blind_id": "neighbor:B",
+        "output": "Route to geo-content because authored comparison output belongs there."
+      }
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 interface:
-  display_name: "GEOHub Diagnose"
+  display_name: "GEO SEO Hub Diagnose"
   short_description: "Diagnose brand, site, and page GEO gaps with evidence lineage"
   default_prompt: "Use $geo-diagnose to assess this brand, site, or page from the explicit sources and preserve all source gaps and limitations."
   input_contract:
@@ -18,13 +18,12 @@ interface:
     - "input/diagnosis-brief.json"
     - "input/sources/*.html"
     - "diagnosis.json"
-    - "diagnosis-funnel.json"
     - "report.md"
     - "evidence-ledger.json"
     - "query-map.json"
     - "opportunity-map.json"
     - "quality-report.json"
-    - "research-context.json"
+    - "run-lineage.json"
     - "run-manifest.json"
   permission_contract: {filesystem: "read inputs and write selected runs root", network: "explicit public HTTP(S) source URLs only"}
 compatibility:

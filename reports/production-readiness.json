@@ -1,0 +1,127 @@
+{
+  "claims": {
+    "external_effect": "missing evidence",
+    "slsa_level": null,
+    "trusted_builder": false
+  },
+  "experimental_release_decision": "eligible",
+  "gates": [
+    {
+      "evidence": "privacy-approved aggregate",
+      "name": "adoption-evidence",
+      "owner": "operations owner",
+      "source_fix": "Collect governed real-usage metadata.",
+      "status": "missing evidence",
+      "verification_command": "python scripts/aggregate_adoption_drift.py"
+    },
+    {
+      "evidence": "GitHub artifact attestation",
+      "name": "ci-attestation",
+      "owner": "release owner",
+      "source_fix": "Run the attested release workflow and preserve external verification evidence.",
+      "status": "missing evidence",
+      "verification_command": "gh attestation verify <artifact> -R yaojingang/geo-seo-hub"
+    },
+    {
+      "evidence": "qualified legal decision",
+      "name": "commercial-legal-review",
+      "owner": "repository owner",
+      "source_fix": "Complete legal review before enabling external contributions or commercial terms.",
+      "status": "missing evidence",
+      "verification_command": "python scripts/verify_repository.py"
+    },
+    {
+      "evidence": "reports/output-blind-pack.json",
+      "name": "human-blind-review",
+      "owner": "evaluation owner",
+      "source_fix": "Collect independent reviewer decisions.",
+      "status": "missing evidence",
+      "verification_command": "python scripts/adjudicate_output_review.py"
+    },
+    {
+      "evidence": "reports/install-simulation.json",
+      "name": "install",
+      "owner": "release owner",
+      "source_fix": "none; deterministic gate passed",
+      "status": "pass",
+      "verification_command": "python scripts/install_simulation.py --target all"
+    },
+    {
+      "evidence": "reviewed production graph task set",
+      "name": "knowledge-production-eval",
+      "owner": "knowledge owner",
+      "source_fix": "Evaluate real graph tasks with human-reviewed labels.",
+      "status": "missing evidence",
+      "verification_command": "python -m pytest tests/test_knowledge.py"
+    },
+    {
+      "evidence": "reports/eval-summary.json",
+      "name": "output-eval",
+      "owner": "evaluation owner",
+      "source_fix": "none; deterministic gate passed",
+      "status": "pass",
+      "verification_command": "python scripts/run_evals.py"
+    },
+    {
+      "evidence": "reports/package-verification.json",
+      "name": "package",
+      "owner": "release owner",
+      "source_fix": "none; deterministic gate passed",
+      "status": "pass",
+      "verification_command": "python scripts/verify_packages.py"
+    },
+    {
+      "evidence": "reports/release-provenance-verification.json",
+      "name": "provenance",
+      "owner": "release owner",
+      "source_fix": "none; deterministic gate passed",
+      "status": "pass",
+      "verification_command": "python scripts/verify_provenance.py"
+    },
+    {
+      "evidence": "approved live observation bundle",
+      "name": "real-platform-benchmark",
+      "owner": "GEO measurement owner",
+      "source_fix": "Run an approved multi-engine benchmark.",
+      "status": "missing evidence",
+      "verification_command": "python scripts/run_quality_lab.py --execution-mode provider"
+    },
+    {
+      "evidence": "reports/release-sbom.json",
+      "name": "sbom",
+      "owner": "release owner",
+      "source_fix": "none; deterministic gate passed",
+      "status": "pass",
+      "verification_command": "python scripts/generate_sbom.py"
+    },
+    {
+      "evidence": "verified publication and post-window measurement",
+      "name": "strategy-external-effect",
+      "owner": "strategy owner",
+      "source_fix": "Run a governed external intervention observation.",
+      "status": "missing evidence",
+      "verification_command": "geo-seo-hub measure --input <bundle> --output <runs>"
+    },
+    {
+      "evidence": "reports/yao-meta-gates.json",
+      "name": "trust-and-permissions",
+      "owner": "security owner",
+      "source_fix": "none; deterministic gate passed",
+      "status": "pass",
+      "verification_command": "python scripts/run_yao_meta_gates.py --verify-existing"
+    }
+  ],
+  "generated_at": "2026-08-13T01:44:53.137105Z",
+  "product": {
+    "maturity": "Experimental",
+    "name": "GEO SEO Hub",
+    "version": "0.5.0"
+  },
+  "production_decision": "blocked",
+  "schema_version": "1.0.0",
+  "summary": {
+    "blocked": 0,
+    "missing_evidence": 7,
+    "pass": 6
+  }
+}

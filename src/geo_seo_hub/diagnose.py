@@ -18,14 +18,14 @@ from typing import Any, Callable, Iterable
 from urllib.parse import urljoin, urlsplit, urlunsplit
 
 from .artifact_bus import ArtifactBus
-from .research import build_research_context
-from .validation import (
-    load_bounded_json,
-    normalize_artifact_uri,
-    read_bounded_regular_file,
-    strict_json_loads,
-    validate_artifact,
+from .quality.lineage import build_run_lineage
+from .intelligence.audit import (
+    build_audit_extension,
+    gather_brand_observations,
+    gather_page_observations,
+    run_audit_catalog,
 )
+from .validation import load_bounded_json, read_bounded_regular_file, strict_json_loads, validate_artifact
 from .version import package_version
 
 PROTOCOL_VERSION = "1.0.0"
@@ -72,10 +72,12 @@ def _require_text(value: Any, field: str) -> str:
 
 
 def _normalize_provenance_uri(value: Any, field: str) -> str:
-    uri = normalize_artifact_uri(value, field=field)
+    uri = _require_text(value, field)
     parsed = urlsplit(uri)
+    if not parsed.scheme:
+        raise ValueError(f"{field} must be an absolute URI")
     if parsed.scheme.casefold() in {"http", "https"}:
-        if parsed.query:
+        if parsed.username is not None or parsed.password is not None or parsed.query:
             raise ValueError(f"{field} must be a public canonical URL without credentials or query")
         return urlunsplit((parsed.scheme.casefold(), parsed.netloc, parsed.path, "", ""))
     return urlunsplit((parsed.scheme, parsed.netloc, parsed.path, parsed.query, ""))
@@ -665,7 +667,8 @@ def validate_diagnosis(artifact: Any, *, evidence_ids: Iterable[str] | None = No
     if not isinstance(artifact, dict):
         raise ValueError("diagnosis.json must be an object")
     required = {"protocol_version", "run_id", "subject", "scope", "status", "scores", "findings", "limitations", "source_status"}
-    if set(artifact) != required:
+    v2_fields = {"audit_catalog_version", "scoring_policy_version", "audit_results", "audit_score", "execution", "semantic_digest"}
+    if not required <= set(artifact) or set(artifact) - required not in (set(), v2_fields):
         raise ValueError("diagnosis.json fields do not match the diagnosis contract")
     if artifact["protocol_version"] != PROTOCOL_VERSION or artifact["scope"] not in {"brand", "site", "page"}:
         raise ValueError("diagnosis.json has an invalid protocol version or scope")
@@ -726,6 +729,26 @@ def validate_diagnosis(artifact: Any, *, evidence_ids: Iterable[str] | None = No
             raise ValueError("observed source_status requires observations")
         if source["observations"] is not None and not isinstance(source["observations"], dict):
             raise ValueError("source_status.observations must be an object or null")
+    if v2_fields <= set(artifact):
+        if artifact["audit_catalog_version"] != "1.0.0" or artifact["scoring_policy_version"] != "1.0.0":
+            raise ValueError("diagnosis audit catalog or scoring policy version is invalid")
+        if not isinstance(artifact["audit_results"], list) or not artifact["audit_results"]:
+            raise ValueError("diagnosis audit_results must be a non-empty array")
+        for audit in artifact["audit_results"]:
+            if audit.get("status") not in {"pass", "fail", "not-applicable", "missing-evidence"}:
+                raise ValueError("diagnosis audit status is invalid")
+            if not set(audit.get("evidence_ids", [])) <= (known_evidence_ids or set()):
+                raise ValueError("diagnosis audit evidence_ids must resolve in the evidence ledger")
+            remediation = audit.get("remediation", {})
+            if remediation.get("audit_id") != audit.get("audit_id"):
+                raise ValueError("diagnosis audit remediation must trace to its audit")
+        score = artifact["audit_score"]
+        if score.get("scoring_policy_version") != "1.0.0" or score.get("denominator", 0) < 0:
+            raise ValueError("diagnosis audit score is invalid")
+        if artifact["execution"].get("mode") not in {"deterministic", "research", "provider"}:
+            raise ValueError("diagnosis execution mode is invalid")
+        if re.fullmatch(r"[0-9a-f]{64}", artifact["semantic_digest"]) is None:
+            raise ValueError("diagnosis semantic digest is invalid")
 
 
 def _load_source_html(
@@ -877,87 +900,6 @@ def _opportunities(
     return {"protocol_version": PROTOCOL_VERSION, "run_id": run_id, "opportunities": opportunities}
 
 
-def _build_diagnosis_funnel(
-    run_id: str,
-    analyzed_sources: list[dict[str, Any]],
-    provided: list[dict[str, Any]],
-    source_status: list[dict[str, Any]],
-    ledger_records: list[dict[str, Any]],
-) -> dict[str, Any]:
-    primary_hosts = {
-        urlsplit(source["source_uri"]).hostname.casefold()
-        for source in analyzed_sources
-        if urlsplit(source["source_uri"]).hostname
-    }
-    ecosystem = []
-    for source in source_status:
-        if source["source_type"] in {"target_url", "source_html"}:
-            role = "primary-input"
-            basis = "input-source-type"
-        else:
-            hostname = urlsplit(source["source_uri"]).hostname
-            if hostname:
-                role = "primary-input" if hostname.casefold() in primary_hosts else "third-party-evidence"
-                basis = "hostname-comparison"
-            else:
-                role = "unknown"
-                basis = "insufficient-metadata"
-        ecosystem.append(
-            {
-                "source_id": source["source_id"],
-                "source_uri": source["source_uri"],
-                "role": role,
-                "classification_basis": basis,
-                "status": source["status"],
-            }
-        )
-
-    observed_ids = sorted(source["evidence_id"] for source in analyzed_sources)
-    selection_ids = sorted({record["evidence_id"] for record in ledger_records})
-    candidate_status = "observed" if observed_ids else "source-gap"
-    selection_status = "proxy" if selection_ids else "source-gap"
-    funnel = {
-        "protocol_version": PROTOCOL_VERSION,
-        "run_id": run_id,
-        "effect_guarantee": False,
-        "stages": [
-            {
-                "stage": "candidate-eligibility",
-                "status": candidate_status,
-                "causal_status": "observed" if observed_ids else "not-observed",
-                "evidence_ids": observed_ids,
-                "signals": ["discoverability", "indexability", "structural accessibility"] if observed_ids else [],
-                "limitations": [
-                    "Eligibility observations cover only supplied or explicitly requested sources and do not prove engine retrieval."
-                ],
-            },
-            {
-                "stage": "citation-selection",
-                "status": selection_status,
-                "causal_status": "proxy" if selection_ids else "not-observed",
-                "evidence_ids": selection_ids,
-                "signals": ["semantic relevance", "extractability", "evidence and authority"] if selection_ids else [],
-                "limitations": [
-                    "Selection signals are readiness proxies and do not estimate citation probability."
-                ],
-            },
-            {
-                "stage": "answer-absorption",
-                "status": "not-observed",
-                "causal_status": "not-observed",
-                "evidence_ids": [],
-                "signals": [],
-                "limitations": [
-                    "No platform answer observations were supplied, so answer absorption cannot be measured."
-                ],
-            },
-        ],
-        "source_ecosystem": ecosystem,
-    }
-    validate_artifact("diagnosis-funnel", funnel)
-    return funnel
-
-
 def _render_report(diagnosis: dict[str, Any], opportunities: dict[str, Any]) -> str:
     lines = [
         f"# GEO Diagnosis: {diagnosis['subject']}",
@@ -1017,7 +959,15 @@ def diagnose(
     clock: Clock | None = None,
     fetcher: Fetcher | None = None,
     resolver: Resolver = socket.getaddrinfo,
+    execution_mode: str = "legacy",
 ) -> dict[str, Any]:
+    if execution_mode not in {"legacy", "deterministic", "research", "provider"}:
+        raise ValueError("execution mode must be legacy, deterministic, research, or provider")
+    execution_failures = (
+        ["provider mode has no configured audit adapter; deterministic audits completed"]
+        if execution_mode == "provider"
+        else []
+    )
     brief = validate_diagnosis_brief(
         load_bounded_json(input_path, max_bytes=MAX_INPUT_BYTES, field="diagnosis brief")
     )
@@ -1218,7 +1168,11 @@ def diagnose(
             for source in analyzed_sources
         ]
     canonical = json.dumps(
-        {"brief": identity_brief, "sources": source_fingerprints},
+        {
+            "brief": identity_brief,
+            "sources": source_fingerprints,
+            **({"execution_mode": execution_mode} if execution_mode != "legacy" else {}),
+        },
         ensure_ascii=False,
         sort_keys=True,
         separators=(",", ":"),
@@ -1282,6 +1236,29 @@ def diagnose(
     evidence_ids = [record["evidence_id"] for record in ledger_records]
     if len(evidence_ids) != len(set(evidence_ids)):
         raise ValueError("diagnosis evidence ledger contains duplicate evidence_id values")
+    semantic_digest: str | None = None
+    if execution_mode != "legacy":
+        if brief["scope"] == "brand":
+            observations = [gather_brand_observations([record["evidence_id"] for record in provided])]
+        else:
+            observations = [
+                gather_page_observations(
+                    source["metrics"],
+                    source_id=source["source_id"],
+                    evidence_id=source["evidence_id"],
+                )
+                for source in analyzed_sources
+            ]
+            if not observations:
+                observations = [gather_brand_observations([])]
+        audit_results = run_audit_catalog(observations)
+        extension = build_audit_extension(
+            audit_results,
+            execution_mode=execution_mode,
+            failures=execution_failures,
+        )
+        diagnosis_artifact.update(extension)
+        semantic_digest = extension["semantic_digest"]
     validate_diagnosis(diagnosis_artifact, evidence_ids=evidence_ids)
     missing_evidence = [finding["statement"] for finding in findings if finding["source_kind"] == "input_gap"]
     evidence_ledger = {"protocol_version": PROTOCOL_VERSION, "run_id": run_id, "records": ledger_records, "missing_evidence": sorted(set(missing_evidence))}
@@ -1291,15 +1268,8 @@ def diagnose(
         audience=normalized_brief.get("audience", "general user"),
     )
     opportunity_map = _opportunities(run_id, findings, finding_queries)
-    diagnosis_funnel = _build_diagnosis_funnel(
-        run_id,
-        analyzed_sources,
-        provided,
-        source_status,
-        ledger_records,
-    )
-    research_context = build_research_context(run_id, "geo-diagnose")
     warnings = list(limitations)
+    warnings.extend(execution_failures)
     if any(finding["severity"] == "warning" for finding in findings):
         warnings.append("One or more diagnosis findings require remediation or additional evidence.")
     warnings = list(dict.fromkeys(warnings))
@@ -1310,10 +1280,8 @@ def diagnose(
             "diagnosis brief validated",
             "finding evidence lineage validated",
             "shared artifacts validated against protocol 1.0.0",
-            "diagnosis funnel separates eligibility, selection proxies, and unobserved absorption",
-            "source ecosystem roles are input-derived and explicitly bounded",
-            "research context is source-resolved and effect-bounded",
             "report rendered deterministically from structured diagnosis",
+            f"execution mode recorded: {execution_mode}",
         ],
         "warnings": warnings,
         "failed_checks": [],
@@ -1324,24 +1292,21 @@ def diagnose(
         (query_map, "query-map"),
         (opportunity_map, "opportunity-map"),
         (quality_report, "quality-report"),
-        (diagnosis_funnel, "diagnosis-funnel"),
-        (research_context, "research-context"),
     ):
         validate_artifact(schema_name, artifact)
 
     report = _render_report(diagnosis_artifact, opportunity_map)
-    manifest_paths = [
+    lineage_inputs = [
         "input/diagnosis-brief.json",
         *(f"input/sources/{source['source_id']}.html" for source in analyzed_sources),
         "diagnosis.json",
-        "diagnosis-funnel.json",
         "report.md",
         "evidence-ledger.json",
         "query-map.json",
         "opportunity-map.json",
         "quality-report.json",
-        "research-context.json",
     ]
+    manifest_paths = [*lineage_inputs, "run-lineage.json"]
     run_manifest = {
         "protocol_version": PROTOCOL_VERSION,
         "run_id": run_id,
@@ -1359,20 +1324,31 @@ def diagnose(
         for source in analyzed_sources:
             bus.write_text(f"input/sources/{source['source_id']}.html", source["html"])
         bus.write_json("diagnosis.json", diagnosis_artifact)
-        bus.write_json("diagnosis-funnel.json", diagnosis_funnel, "diagnosis-funnel")
         bus.write_text("report.md", report)
         bus.write_json("evidence-ledger.json", evidence_ledger, "evidence-ledger")
         bus.write_json("query-map.json", query_map, "query-map")
         bus.write_json("opportunity-map.json", opportunity_map, "opportunity-map")
         bus.write_json("quality-report.json", quality_report, "quality-report")
-        bus.write_json("research-context.json", research_context, "research-context")
+        lineage = build_run_lineage(
+            bus.root,
+            run_id=run_id,
+            skill_id="geo-diagnose",
+            status=run_manifest["status"],
+            artifact_paths=lineage_inputs,
+            metric_names=("finding-count", "warning-count"),
+        )
+        bus.write_json("run-lineage.json", lineage, "run-lineage")
         bus.write_json("run-manifest.json", run_manifest, "run-manifest")
         bus.publish(set(manifest_paths) | {"run-manifest.json"})
-    return {
+    result = {
         "run_id": run_id,
         "status": run_manifest["status"],
         "diagnosis_status": diagnosis_artifact["status"],
         "output": str(run_path.resolve()),
         "finding_count": len(findings),
         "warning_count": len(warnings),
+        "execution_mode": execution_mode,
     }
+    if semantic_digest is not None:
+        result["semantic_digest"] = semantic_digest
+    return result

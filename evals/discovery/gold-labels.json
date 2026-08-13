@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "review": {
+    "required_annotators": 2,
+    "completed_annotators": 0,
+    "adjudication_status": "missing evidence",
+    "disagreements": [],
+    "adjudicated_by": null
+  },
+  "labels": [
+    {"id": "learn-template", "generator": "template_baseline", "intent": "learn"},
+    {"id": "compare-template", "generator": "template_baseline", "intent": "compare"},
+    {"id": "evaluate-template", "generator": "template_baseline", "intent": "evaluate"},
+    {"id": "act-template", "generator": "template_baseline", "intent": "act"},
+    {"id": "entity-graph", "generator": "question_graph", "intent": "learn"},
+    {"id": "criteria-graph", "generator": "question_graph", "intent": "compare"},
+    {"id": "risk-graph", "generator": "question_graph", "intent": "evaluate"},
+    {"id": "implementation-graph", "generator": "question_graph", "intent": "act"}
+  ]
+}

@@ -1,1 +1,16 @@
-{"should_trigger":[{"text":"Measure citation rate from these observation records","family":"measure"},{"text":"衡量这批 AI 可见度观测","family":"measure"}],"should_not_trigger":[{"text":"Audit this website","family":"diagnose"},{"text":"Publish this article","family":"planned"}],"near_neighbor":[{"text":"Run query research for customer questions","expected":"geo-discover"},{"text":"Write an explainer","expected":"geo-content"}]}
+{
+  "should_trigger": [
+    {"text": "Measure GEO visibility from this observation export", "family": "measure"},
+    {"text": "监测 AI 可见度", "family": "measure"},
+    {"text": "计算品牌提及率和引用份额", "family": "measure"}
+  ],
+  "should_not_trigger": [
+    {"text": "Audit this landing page", "family": "diagnose"},
+    {"text": "Publish this article", "family": "planned"}
+  ],
+  "near_neighbor": [
+    {"text": "Diagnose brand evidence gaps", "expected": "geo-diagnose"},
+    {"text": "Build a GEO strategy", "expected": "geo-strategy"},
+    {"text": "Write an explainer", "expected": "geo-content"}
+  ]
+}

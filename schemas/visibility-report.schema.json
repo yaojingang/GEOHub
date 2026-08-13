@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yao.example/geo/schemas/visibility-report.schema.json",
+  "title": "Visibility Report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "run_id", "bundle_id", "panel_version", "query_panel", "generated_at", "semantic_digest", "metrics", "by_engine", "query_components", "gaps"],
+  "properties": {
+    "protocol_version": {"const": "1.0.0"},
+    "run_id": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "bundle_id": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "panel_version": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "query_panel": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1, "pattern": "\\S"}},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "semantic_digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "metrics": {"$ref": "#/$defs/metrics"},
+    "by_engine": {"type": "object", "additionalProperties": {"$ref": "#/$defs/metrics"}},
+    "query_components": {"type": "array", "items": {"type": "object"}},
+    "gaps": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+  },
+  "$defs": {
+    "metric": {"type": "object", "additionalProperties": false, "required": ["value", "numerator", "denominator", "missing_count"], "properties": {"value": {"type": "number", "minimum": 0, "maximum": 1}, "numerator": {"type": "number", "minimum": 0}, "denominator": {"type": "integer", "minimum": 0}, "missing_count": {"type": "integer", "minimum": 0}}},
+    "metrics": {"type": "object", "additionalProperties": false, "required": ["mention_rate", "source_inclusion_rate", "citation_share", "position_weighted_visibility", "answer_coverage", "observation_coverage", "missing_observation_rate"], "properties": {"mention_rate": {"$ref": "#/$defs/metric"}, "source_inclusion_rate": {"$ref": "#/$defs/metric"}, "citation_share": {"$ref": "#/$defs/metric"}, "position_weighted_visibility": {"$ref": "#/$defs/metric"}, "answer_coverage": {"$ref": "#/$defs/metric"}, "observation_coverage": {"$ref": "#/$defs/metric"}, "missing_observation_rate": {"$ref": "#/$defs/metric"}}}
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "protocol_version": "1.0.0",
+  "task_id": "discover-public-01",
+  "skill_id": "geo-discover",
+  "case_type": "happy",
+  "prompt": "Turn a GEO brief into an auditable query opportunity map.",
+  "input_files": ["tests/fixtures/brief.json"],
+  "limits": {"max_input_bytes": 32768, "max_output_tokens": 2048},
+  "variants": {
+    "baseline": {"output": {"answer": "List a few popular questions."}},
+    "with_skill": {"output": {"answer": "Generated a deterministic query map with evidence gaps.", "artifacts": ["query-map.json", "opportunity-map.json", "evidence-ledger.json"], "evidence_status": "explicit"}}
+  },
+  "assertions": {"required_json_paths": ["artifacts", "evidence_status"], "required_terms": ["query-map.json", "evidence-ledger.json"], "forbidden_terms": ["live search volume"], "allowed_source_ids": []},
+  "rubric": "Prefer explicit artifacts, deterministic scope, and honest evidence gaps.",
+  "tags": ["public", "discover", "file-backed fixture"]
+}

@@ -589,7 +589,7 @@
           "kind": "source",
           "line": 3,
           "matched_pattern": "description:",
-          "excerpt": "description: Aggregate explicit GEO or AI-search observation records into transparent rates, denominators, missing-answer counts, platform strata, and intervals. Use for citation…",
+          "excerpt": "description: Measure GEO visibility from an approved, file-backed engine observation bundle. Use for AI answer mention rate, source inclusion, citation share, query-panel coverage…",
           "exists": true,
           "link": "../../skills/geo-measure/SKILL.md"
         },
@@ -597,9 +597,9 @@
           "path": "evals/trigger_cases.json",
           "label": "trigger eval cases",
           "kind": "eval",
-          "line": 1,
+          "line": 2,
           "matched_pattern": "should_trigger",
-          "excerpt": "{\"should_trigger\":[{\"text\":\"Measure citation rate from these observation records\",\"family\":\"measure\"},{\"text\":\"衡量这批 AI 可见度观测\",\"family\":\"measure\"}],\"should_not_trigger\":[{\"text\":\"A…",
+          "excerpt": "\"should_trigger\": [",
           "exists": true,
           "link": "../../skills/geo-measure/evals/trigger_cases.json"
         },
@@ -638,7 +638,7 @@
           "kind": "eval",
           "line": 1,
           "matched_pattern": "\"id\"",
-          "excerpt": "{\"id\":\"happy\",\"prompt\":\"Aggregate supplied observation records.\",\"baseline_output\":\"Citation visibility is strong.\",\"with_skill_output\":\"Create a measurement report with eligible…",
+          "excerpt": "{\"id\":\"happy\",\"prompt\":\"Measure a valid observation bundle.\",\"baseline_output\":\"Summarize visibility.\",\"with_skill_output\":\"Create visibility-report, quality-report, and run-manif…",
           "exists": true,
           "link": "../../skills/geo-measure/evals/output/cases.jsonl"
         },
@@ -774,7 +774,7 @@
           "path": "agents/interface.yaml",
           "label": "portable interface",
           "kind": "source",
-          "line": 26,
+          "line": 11,
           "matched_pattern": "adapter_targets",
           "excerpt": "adapter_targets: [openai, claude, generic]",
           "exists": true,
@@ -1370,12 +1370,11 @@
     "upgrade_check": {},
     "manifest": {
       "name": "geo-measure",
-      "version": "0.3.1",
+      "version": "0.5.0",
       "owner": "姚金刚 / Yao",
-      "updated_at": "2026-08-11",
+      "updated_at": "2026-08-12",
       "review_cadence": "per-release",
       "status": "experimental",
-      "maturity": "experimental",
       "maturity_tier": "library",
       "lifecycle_stage": "library",
       "context_budget_tier": "production",
@@ -1398,18 +1397,16 @@
       "copyright_owner": "姚金刚 / Yao",
       "third_party_notice_required": true,
       "input_files": [
-        "file-backed fixture: strict measurement brief JSON with explicit observation source URIs"
+        "file-backed fixture: protocol 1.0.0 engine observation bundle JSON"
       ],
       "output_contract": [
-        "input/measurement-brief.json",
-        "measurement-report.json",
-        "report.md",
-        "evidence-ledger.json",
-        "research-context.json",
-        "quality-report.json",
-        "run-manifest.json"
+        "Artifact Bus run directory",
+        "visibility-report",
+        "quality-report",
+        "run-lineage",
+        "run-manifest"
       ],
-      "rollback_boundary": "Remove generated measurement runs and revert measure, CLI, Registry, packaging, and geo-measure together.",
+      "rollback_boundary": "Set geo-measure to planned, remove its CLI entry and package, and keep existing four active skills unchanged.",
       "factory_components": [
         "references",
         "scripts",
@@ -1420,36 +1417,26 @@
     },
     "frontmatter": {
       "name": "geo-measure",
-      "description": "Aggregate explicit GEO or AI-search observation records into transparent rates, denominators, missing-answer counts, platform strata, and intervals. Use for citation measurement, AI visibility tracking, repeated observation analysis, and 引用监测、AI 可见度衡量、效果测量. Requires supplied observations and excludes live platform collection, account access, causal attribution, ranking guarantees, and continuous monitoring."
+      "description": "Measure GEO visibility from an approved, file-backed engine observation bundle. Use for AI answer mention rate, source inclusion, citation share, query-panel coverage, GEO monitoring, 监测 AI 可见度, 衡量 GEO 效果, and offline baseline comparison. Exclude live scraping, platform login, automated collection, and unsupported causal claims."
     },
     "interface": {
       "interface": {
-        "display_name": "GEOHub Measure",
-        "short_description": "Aggregate supplied observations with complete denominators and intervals",
-        "default_prompt": "Use $geo-measure to aggregate these explicit observations, preserve missing answers and exclusions, and state the measurement scope and limits.",
+        "display_name": "GEO SEO Hub Measure",
+        "short_description": "Measure imported GEO engine observations with auditable metrics",
+        "default_prompt": "Use $geo-measure to measure this approved engine observation bundle under the selected runs root.",
         "input_contract": {
           "required": {
-            "measurement_id": "non-blank string",
-            "subject": "non-blank string",
-            "study_design": "observational, randomized, or quasi-experimental with explicit intervention/comparator rules",
-            "confidence_level": "number greater than 0.5 and less than 1",
-            "inclusion_criteria": "non-empty unique strings",
-            "exclusion_criteria": "non-empty unique strings",
-            "observations": "1 to 10,000 explicit trial records with platform, time, eligibility, answer, citation, and source lineage"
-          },
-          "invariants": "at least one eligible trial; unique trial IDs; unanswered eligible trials require a reason and remain in denominators"
+            "bundle": "protocol 1.0.0 file-backed engine observation bundle JSON"
+          }
         },
         "output_contract": [
-          "input/measurement-brief.json",
-          "measurement-report.json",
-          "report.md",
-          "evidence-ledger.json",
-          "research-context.json",
-          "quality-report.json",
-          "run-manifest.json"
+          "Artifact Bus run directory",
+          "visibility-report",
+          "quality-report",
+          "run-manifest"
         ],
         "permission_contract": {
-          "filesystem": "read one input and write selected runs root",
+          "filesystem": "read bundle and write selected runs root",
           "network": "forbid"
         }
       },

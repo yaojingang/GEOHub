@@ -1,0 +1,16 @@
+{
+  "protocol_version": "1.0.0",
+  "task_id": "content-public-01",
+  "skill_id": "geo-content",
+  "case_type": "happy",
+  "prompt": "Create evidence-lined content from the supplied brief.",
+  "input_files": ["skills/geo-content/references/input-example.json"],
+  "limits": {"max_input_bytes": 32768, "max_output_tokens": 2048},
+  "variants": {
+    "baseline": {"output": {"answer": "Here is a general article draft."}},
+    "with_skill": {"output": {"answer": "Created an evidence-lined content specification.", "artifacts": ["content-spec.json", "content.md", "evidence-ledger.json"], "claims": [{"text": "The supplied source supports this statement.", "factual": true, "source_ids": ["ev-example"]}]}}
+  },
+  "assertions": {"required_json_paths": ["artifacts", "claims"], "required_terms": ["content-spec.json", "evidence-ledger.json"], "forbidden_terms": ["invented citation"], "allowed_source_ids": ["ev-example"]},
+  "rubric": "Prefer sourced claims, explicit artifacts, and a replayable content contract.",
+  "tags": ["public", "content", "file-backed fixture"]
+}

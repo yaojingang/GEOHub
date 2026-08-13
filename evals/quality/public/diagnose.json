@@ -1,0 +1,16 @@
+{
+  "protocol_version": "1.0.0",
+  "task_id": "diagnose-public-01",
+  "skill_id": "geo-diagnose",
+  "case_type": "happy",
+  "prompt": "Diagnose the supplied brand evidence and preserve traceability.",
+  "input_files": ["tests/fixtures/diagnosis-brand.json"],
+  "limits": {"max_input_bytes": 32768, "max_output_tokens": 2048},
+  "variants": {
+    "baseline": {"output": {"answer": "The brand can improve authority."}},
+    "with_skill": {"output": {"answer": "Diagnosis completed from explicit evidence.", "diagnosis_status": "completed", "evidence_status": "provided", "artifacts": ["diagnosis.json", "evidence-ledger.json"]}}
+  },
+  "assertions": {"required_json_paths": ["diagnosis_status", "evidence_status", "artifacts"], "required_terms": ["evidence-ledger.json"], "forbidden_terms": ["live citation share"], "allowed_source_ids": []},
+  "rubric": "Prefer the result that separates observations, evidence, and bounded diagnosis.",
+  "tags": ["public", "diagnose", "file-backed fixture"]
+}

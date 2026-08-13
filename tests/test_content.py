@@ -821,6 +821,7 @@ def test_core_artifacts_and_manifest_exact_file_set(tmp_path):
         "quality-report.json",
         "research-context.json",
         "run-manifest.json",
+        "run-lineage.json",
     }
     actual = {path.relative_to(run).as_posix() for path in run.rglob("*") if path.is_file()}
     assert actual == expected

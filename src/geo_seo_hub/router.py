@@ -749,30 +749,32 @@ def _workflow_matches(
     connector_spans: tuple[tuple[int, int, int, int, str], ...],
     gap_prefix: tuple[int, ...],
 ) -> bool:
-    first_id, second_id = recipe["required_skills"]
-    first_ends = sorted(span[1] for span in spans_by_skill[first_id])
-    second_starts = sorted(span[0] for span in spans_by_skill[second_id])
-    second_start_set = set(second_starts)
-    if not first_ends or not second_starts:
+    def ordered_pair_matches(first_id: str, second_id: str) -> bool:
+        first_ends = sorted(span[1] for span in spans_by_skill.get(first_id, []))
+        second_starts = {span[0] for span in spans_by_skill.get(second_id, [])}
+        if not first_ends or not second_starts:
+            return False
+        for connector_start, _, action_start, _, token in connector_spans:
+            first_index = bisect_right(first_ends, connector_start) - 1
+            if (
+                first_index >= 0
+                and action_start in second_starts
+                and (
+                    token not in _GOVERNED_SINGLE_ZH_CONNECTOR_TOKENS
+                    or gap_prefix[first_ends[first_index]] == gap_prefix[connector_start]
+                )
+            ):
+                return True
         return False
-    for (
-        connector_start,
-        _,
-        action_start,
-        _,
-        token,
-    ) in connector_spans:
-        first_index = bisect_right(first_ends, connector_start) - 1
-        if (
-            first_index >= 0
-            and action_start in second_start_set
-            and (
-                token not in _GOVERNED_SINGLE_ZH_CONNECTOR_TOKENS
-                or gap_prefix[first_ends[first_index]] == gap_prefix[connector_start]
-            )
-        ):
-            return True
-    return False
+
+    steps_by_id = {step["id"]: step for step in recipe["steps"]}
+    if any(not spans_by_skill.get(skill_id) for skill_id in recipe["required_skills"]):
+        return False
+    return all(
+        ordered_pair_matches(steps_by_id[parent_id]["skill_id"], step["skill_id"])
+        for step in recipe["steps"]
+        for parent_id in step["depends_on"]
+    )
 
 
 def _workflow_connector_spans(
@@ -809,7 +811,12 @@ def _workflow_gap_prefix(text: str) -> tuple[int, ...]:
     return tuple(prefix)
 
 
-def route(text: str, registry_path: Path | None = None) -> dict[str, Any]:
+def route(
+    text: str,
+    registry_path: Path | None = None,
+    *,
+    semantic_scorer: Any | None = None,
+) -> dict[str, Any]:
     """Select the best registry route and expose its implementation status."""
     if len(text) > MAX_ROUTE_CHARACTERS or len(text.encode("utf-8")) > MAX_ROUTE_UTF8_BYTES:
         raise ValueError(
@@ -868,29 +875,19 @@ def route(text: str, registry_path: Path | None = None) -> dict[str, Any]:
         if item[0] > 0 and item[2]["status"] != "active"
     ]
     active_stage_matches = {
-        skill_id
-        for skill_id in ("geo-discover", "geo-diagnose", "geo-content")
-        if scores.get(skill_id, 0) > 0
+        skill["id"]
+        for skill in registry["skills"]
+        if skill["id"] != "geo" and skill["status"] == "active" and scores.get(skill["id"], 0) > 0
     }
     matched_recipes = [] if planned_ranked else [
         recipe
         for recipe in registry["workflows"]
-        if set(recipe["required_skills"]) <= active_stage_matches
+        if set(recipe["required_skills"]) == active_stage_matches
         and _workflow_matches(recipe, spans_by_skill, connector_spans, workflow_gap_prefix)
     ]
     workflow = None
-    if len(matched_recipes) == 1 and active_stage_matches == set(matched_recipes[0]["required_skills"]):
+    if len(matched_recipes) == 1:
         workflow = {"id": matched_recipes[0]["id"], "steps": [dict(step) for step in matched_recipes[0]["steps"]]}
-    elif len(matched_recipes) == 2 and active_stage_matches == {"geo-discover", "geo-diagnose", "geo-content"}:
-        workflow = {
-            "id": "brand-baseline-lite+content-campaign",
-            "recipes": [recipe["id"] for recipe in matched_recipes],
-            "steps": [
-                {"id": "discover", "skill_id": "geo-discover", "depends_on": []},
-                {"id": "diagnose", "skill_id": "geo-diagnose", "depends_on": ["discover"]},
-                {"id": "content", "skill_id": "geo-content", "depends_on": ["discover"]},
-            ],
-        }
     if planned_ranked:
         ranked = planned_ranked
     elif any(score > 0 and skill["id"] != "geo" for score, _, skill in ranked):
@@ -935,4 +932,24 @@ def route(text: str, registry_path: Path | None = None) -> dict[str, Any]:
     if workflow is not None and runnable:
         result["workflow"] = workflow
         result["reason"] = f"Matched exact multi-intent recipe {workflow['id']}."
+    if semantic_scorer is not None:
+        from .control.routing import build_shadow_assessment
+
+        try:
+            result["shadow"] = build_shadow_assessment(
+                normalized,
+                registry,
+                result,
+                semantic_scorer,
+            )
+        except Exception as exc:
+            result["shadow"] = {
+                "mode": "shadow",
+                "status": "unavailable",
+                "production_skill_id": result["skill_id"],
+                "shadow_skill_id": None,
+                "disagreed": False,
+                "decision_reason": f"Shadow scoring unavailable: {type(exc).__name__}.",
+                "candidates": [],
+            }
     return result

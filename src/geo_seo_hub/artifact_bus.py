@@ -29,6 +29,8 @@ class ArtifactBus:
             raise ValueError(f"Invalid run ID: {run_id}")
         resolved_runs_root = runs_root.resolve()
         resolved_runs_root.mkdir(parents=True, exist_ok=True)
+        if runs_root.is_symlink() or not stat.S_ISDIR(resolved_runs_root.lstat().st_mode):
+            raise ValueError("Runs root must be a regular directory and cannot be a symlink")
         final_root = resolved_runs_root / run_id
         if final_root.exists():
             raise ValueError(f"Run directory already exists: {final_root}")
@@ -67,7 +69,6 @@ class ArtifactBus:
             validate_artifact(schema_name, artifact)
         target = self._resolve(relative_path)
         target.parent.mkdir(parents=True, exist_ok=True)
-        temporary = target.with_suffix(target.suffix + ".tmp")
         try:
             serialized = json.dumps(
                 artifact,
@@ -78,26 +79,38 @@ class ArtifactBus:
             )
         except ValueError as exc:
             raise ValueError(f"Artifact JSON contains a non-finite number: {relative_path}") from exc
-        temporary.write_text(serialized + "\n", encoding="utf-8")
-        temporary.replace(target)
+        self._atomic_write(target, (serialized + "\n").encode("utf-8"))
         return target
 
     def write_text(self, relative_path: str, content: str) -> Path:
         target = self._resolve(relative_path)
         target.parent.mkdir(parents=True, exist_ok=True)
-        temporary = target.with_suffix(target.suffix + ".tmp")
-        temporary.write_text(content, encoding="utf-8")
-        temporary.replace(target)
+        self._atomic_write(target, content.encode("utf-8"))
         return target
 
     def write_bytes(self, relative_path: str, content: bytes) -> Path:
         """Atomically stage a binary artifact inside the bounded run directory."""
         target = self._resolve(relative_path)
         target.parent.mkdir(parents=True, exist_ok=True)
-        temporary = target.with_suffix(target.suffix + ".tmp")
-        temporary.write_bytes(content)
-        temporary.replace(target)
+        self._atomic_write(target, content)
         return target
+
+    @staticmethod
+    def _atomic_write(target: Path, content: bytes) -> None:
+        descriptor, raw_temporary = tempfile.mkstemp(prefix=f".{target.name}.tmp-", dir=target.parent)
+        temporary = Path(raw_temporary)
+        try:
+            with os.fdopen(descriptor, "wb") as stream:
+                stream.write(content)
+                stream.flush()
+                os.fsync(stream.fileno())
+            os.replace(temporary, target)
+        except BaseException:
+            try:
+                temporary.unlink()
+            except FileNotFoundError:
+                pass
+            raise
 
     def publish(self, expected_files: set[str]) -> Path:
         if self.final_root is None:
@@ -135,6 +148,11 @@ class ArtifactBus:
             if self.final_root.exists():
                 raise ValueError(f"Run directory already exists: {self.final_root}") from exc
             raise
+        directory_descriptor = os.open(self.final_root.parent, os.O_RDONLY | os.O_DIRECTORY | os.O_CLOEXEC | os.O_NOFOLLOW)
+        try:
+            os.fsync(directory_descriptor)
+        finally:
+            os.close(directory_descriptor)
         self._published = True
         self.root = self.final_root
         return self.final_root

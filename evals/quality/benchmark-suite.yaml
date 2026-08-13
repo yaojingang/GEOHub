@@ -1,0 +1,10 @@
+protocol_version: 1.0.0
+suite_id: geohub-quality-public-v1
+pair_repeats: 4
+input_root: ../..
+tasks:
+  - public/route.json
+  - public/discover.json
+  - public/diagnose.json
+  - public/content.json
+  - adversarial/evidence-boundary.json
