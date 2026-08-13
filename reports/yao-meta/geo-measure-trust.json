@@ -2,7 +2,7 @@
   "ok": true,
   "skill_dir": "skills/geo-measure",
   "summary": {
-    "scanned_files": 9,
+    "scanned_files": 10,
     "script_count": 1,
     "internal_module_count": 0,
     "secret_findings": 0,
@@ -20,8 +20,8 @@
     "help_smoke_failed_count": 0,
     "interactive_script_count": 0,
     "package_hash_scope": "source-contract-without-generated-reports",
-    "package_hash_file_count": 9,
-    "package_sha256": "3d95069463b6567034004ca4841a64b60562f47266ec2dcb1d84f1809d05355e"
+    "package_hash_file_count": 10,
+    "package_sha256": "b049e172c83c4a4f4fca29779ea129c8776173f18785c2512aad43ea695a5ccc"
   },
   "failures": [],
   "warnings": [

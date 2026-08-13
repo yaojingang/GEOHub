@@ -16,7 +16,7 @@ from .intelligence.discovery import (
     cluster_and_prune,
     generate_discovery_candidates,
 )
-from .validation import load_bounded_json, validate_artifact
+from .validation import load_bounded_json, normalize_artifact_uri, validate_artifact
 from .version import package_version
 
 PROTOCOL_VERSION = "1.0.0"
@@ -165,6 +165,16 @@ def discover(
     """Generate one validated discover run and return a compact run summary."""
     brief = load_bounded_json(input_path, max_bytes=1024 * 1024, field="GEO brief")
     validate_artifact("geo-brief", brief)
+    brief = dict(brief)
+    brief["evidence"] = [
+        {
+            **record,
+            "source_uri": normalize_artifact_uri(
+                record["source_uri"], field=f"evidence[{index}].source_uri"
+            ),
+        }
+        for index, record in enumerate(brief.get("evidence", []))
+    ]
     evidence_ids = [item["evidence_id"] for item in brief.get("evidence", [])]
     if len(evidence_ids) != len(set(evidence_ids)):
         raise ValueError("GEO brief contains duplicate evidence_id values")

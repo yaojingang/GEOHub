@@ -68,7 +68,16 @@ def verify_archive(path: Path) -> dict:
         if path.name.startswith("geo-seo-hub-source-"):
             if "SECURITY.md" not in stripped:
                 raise ValueError(f"{path.name} missing SECURITY.md")
-            expected_manifests = {f"skills/{skill_id}/manifest.json": skill_id for skill_id in skill_ids}
+            expected_manifests = {
+                name: PurePosixPath(name).parts[1]
+                for name in stripped
+                if name.startswith("skills/") and name.endswith("/manifest.json")
+            }
+            missing_active = sorted(
+                set(skill_ids) - set(expected_manifests.values())
+            )
+            if missing_active:
+                raise ValueError(f"{path.name} missing active skill manifests: {missing_active}")
         else:
             metadata = json.loads(archive.read(members["PACKAGE-METADATA.json"]))
             if metadata["kind"] == "provider":

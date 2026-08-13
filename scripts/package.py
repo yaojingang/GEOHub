@@ -62,7 +62,7 @@ def tracked_files() -> list[Path]:
 
 
 def common_runtime(files: list[Path]) -> dict[str, bytes]:
-    allowed = set(LEGAL)
+    allowed = set(LEGAL) | {"registry/research-evidence.json"}
     prefixes = ("src/", "schemas/")
     return {path.as_posix(): (ROOT / path).read_bytes() for path in files if path.as_posix() in allowed or path.as_posix().startswith(prefixes)}
 

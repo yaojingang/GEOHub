@@ -22,37 +22,48 @@ from scripts.package_repository import build_archive, trusted_files
 
 def test_all_protocol_schemas_are_valid():
     expected = {
-        "geo-brief",
-        "run-manifest",
-        "evidence-ledger",
         "brand-fact-card",
-        "query-map",
-        "opportunity-map",
+        "claim-map",
+        "content-evidence-units",
+        "content-pipeline",
         "content-spec",
-        "quality-report",
-        "eval-task",
-        "eval-result",
+        "diagnosis-funnel",
         "engine-observation-bundle",
-        "visibility-report",
+        "eval-result",
+        "eval-task",
+        "evidence-ledger",
+        "experiment-plan",
+        "fidelity-report",
+        "geo-brief",
+        "knowledge-graph",
+        "knowledge-query-result",
+        "measurement-brief",
+        "measurement-report",
+        "opportunity-map",
+        "publication-handoff",
+        "publication-receipt",
+        "quality-report",
+        "query-map",
+        "research-context",
+        "research-evidence-registry",
         "run-lineage",
+        "run-manifest",
+        "seo-brief",
+        "seo-plan",
+        "strategy-candidates",
+        "strategy-memory",
+        "visibility-report",
         "workflow-state",
-            "claim-map",
-            "strategy-memory",
-            "publication-handoff",
-            "publication-receipt",
-            "knowledge-graph",
-            "knowledge-query-result",
-            "strategy-candidates",
-            "fidelity-report",
-            "experiment-plan",
-            "content-pipeline",
     }
     actual = {path.name.removesuffix(".schema.json") for path in (repository_root() / "schemas").glob("*.schema.json")}
     assert actual == expected
     for name in expected:
         schema = load_schema(name)
         Draft202012Validator.check_schema(schema)
-        assert schema["properties"]["protocol_version"]["const"] == "1.0.0"
+        if name == "research-evidence-registry":
+            assert "registry_version" in schema["properties"]
+        else:
+            assert schema["properties"]["protocol_version"]["const"] == "1.0.0"
 
 
 def test_all_runtime_and_gate_json_writers_emit_standard_json():

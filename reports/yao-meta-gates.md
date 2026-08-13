@@ -11,7 +11,7 @@ Release-blocking items: 0.
 | Skill | Command | Exit | Structured status |
 | --- | --- | ---: | --- |
 | geo | `validate skills/geo` | 0 | pass |
-| geo | `--description Route GEO and generative engine optimization requests to an available GEO SEO Hub capability. Use for broad GEO requests, workflow selection, capability checks, or requests spanning discovery, brand/site/page diagnosis, content, strategy, knowledge, publishing, and measurement.` | 0 | pass |
+| geo | `--description Route GEO and generative engine optimization requests to an available GEOHub capability. Use for broad GEO requests, GEOHub workflow selection, capability checks, or requests spanning discovery, brand/site/page diagnosis, content, strategy, knowledge, publishing, and measurement.` | 0 | pass |
 | geo | `skill-ir skills/geo` | 0 | pass |
 | geo | `skill-ir skills/geo` | 0 | pass |
 | geo | `output-eval --cases` | 0 | pass |

@@ -11,6 +11,7 @@ from .discover import discover
 from .content import content
 from .data_retention import apply_retention_policy, purge_batch, recover_batch
 from .measure import measure
+from .seo import seo
 from .strategy import strategy
 from .knowledge import knowledge
 from .quality.evaluation import run_quality_lab
@@ -35,7 +36,7 @@ def build_parser() -> argparse.ArgumentParser:
         version=json.dumps(
             {
                 "distribution": "geo-seo-hub",
-                "name": "GEO SEO Hub",
+                "name": "GEOHub",
                 "version": package_version(),
             },
             ensure_ascii=False,
@@ -81,6 +82,10 @@ def build_parser() -> argparse.ArgumentParser:
     measure_parser = subparsers.add_parser("measure", help="Measure an imported GEO engine observation bundle")
     measure_parser.add_argument("--input", required=True, type=Path, help="Engine observation bundle JSON")
     measure_parser.add_argument("--output", required=True, type=Path, help="Runs root directory")
+
+    seo_parser = subparsers.add_parser("seo", help="Turn a one-line SEO request into an evidence-bounded plan")
+    seo_parser.add_argument("--input", required=True, type=Path, help="One-line SEO brief JSON")
+    seo_parser.add_argument("--output", required=True, type=Path, help="Runs root directory")
 
     strategy_parser = subparsers.add_parser("strategy", help="Build an offline GEO optimization plan")
     strategy_parser.add_argument("--input", required=True, type=Path, help="Strategy request JSON")
@@ -137,6 +142,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             result = content(args.input, args.output, execution_mode=args.execution_mode)
         elif args.command == "measure":
             result = measure(args.input, args.output)
+        elif args.command == "seo":
+            result = seo(args.input, args.output)
         elif args.command == "strategy":
             result = strategy(args.input, args.output)
         elif args.command == "knowledge":

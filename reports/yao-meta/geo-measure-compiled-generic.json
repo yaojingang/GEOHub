@@ -68,6 +68,7 @@
         },
         "resources": {
           "references": [
+            "references/input-example.json",
             "references/measurement-method.md",
             "references/output-contract.md"
           ],
@@ -79,7 +80,7 @@
             "reports/output_quality_scorecard.md"
           ],
           "counts": {
-            "references": 2,
+            "references": 3,
             "scripts": 1,
             "assets": 0,
             "reports": 1
@@ -220,7 +221,7 @@
           "resources": {
             "strategy": "Preserve references, scripts, assets, evals, reports, and adapter metadata as relative package resources.",
             "counts": {
-              "references": 2,
+              "references": 3,
               "scripts": 1,
               "assets": 0,
               "reports": 1
@@ -362,7 +363,7 @@
         "resources": {
           "strategy": "Preserve references, scripts, assets, evals, reports, and adapter metadata as relative package resources.",
           "counts": {
-            "references": 2,
+            "references": 3,
             "scripts": 1,
             "assets": 0,
             "reports": 1

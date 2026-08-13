@@ -5347,10 +5347,17 @@
     ]
   },
   "triggers": {
-    "case_count": 51,
-    "passed": 51,
+    "case_count": 52,
+    "passed": 52,
     "compliance": 1.0,
     "results": [
+      {
+        "skill_id": "geo",
+        "family": "should_trigger",
+        "text": "Which GEOHub capability handles this?",
+        "passed": true,
+        "actual": "geo"
+      },
       {
         "skill_id": "geo",
         "family": "should_trigger",

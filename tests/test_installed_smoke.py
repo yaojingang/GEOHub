@@ -115,7 +115,7 @@ def test_offline_wheel_install_runs_diagnose_outside_repository(tmp_path):
     )
     assert version_payload == {
         "distribution": "geo-seo-hub",
-        "name": "GEO SEO Hub",
+        "name": "GEOHub",
         "version": expected_version,
     }
 
@@ -136,14 +136,16 @@ def test_offline_wheel_install_runs_diagnose_outside_repository(tmp_path):
     run = Path(payload["output"])
     expected = {
         "input/diagnosis-brief.json",
-        "input/sources/source-html-1.html",
-        "diagnosis.json",
-        "report.md",
+            "input/sources/source-html-1.html",
+            "diagnosis.json",
+            "diagnosis-funnel.json",
+            "report.md",
         "evidence-ledger.json",
         "query-map.json",
         "opportunity-map.json",
-        "quality-report.json",
-        "run-manifest.json",
+            "quality-report.json",
+            "research-context.json",
+            "run-manifest.json",
         "run-lineage.json",
     }
     actual = {

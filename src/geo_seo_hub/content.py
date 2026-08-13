@@ -13,12 +13,11 @@ import unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
-from urllib.parse import urlsplit
-
 from .artifact_bus import ArtifactBus
+from .research import build_research_context
 from .quality.lineage import build_run_lineage
 from .intelligence.content import build_claim_map, build_content_pipeline, evaluate_mcda
-from .validation import read_bounded_regular_file, strict_json_loads, validate_artifact
+from .validation import normalize_artifact_uri, read_bounded_regular_file, strict_json_loads, validate_artifact
 from .version import package_version
 
 PROTOCOL_VERSION = "1.0.0"
@@ -85,10 +84,7 @@ def _string_list(value: Any, field: str, *, unique: bool = True) -> list[str]:
 
 
 def _source_uri(value: Any, field: str) -> str:
-    uri = _require_text(value, field)
-    if not urlsplit(uri).scheme or re.search(r"\s", uri):
-        raise ValueError(f"{field} must be an absolute URI")
-    return uri
+    return normalize_artifact_uri(value, field=field)
 
 
 def _open_flags(*, directory: bool = False) -> int:
@@ -292,7 +288,8 @@ def _read_relative_source(source: dict[str, Any], input_path: Path) -> tuple[str
     digest = hashlib.sha256(body.encode("utf-8")).hexdigest()
     if source.get("sha256") and source["sha256"] != digest:
         raise ValueError("source_content digest does not match its file snapshot")
-    return body, source.get("source_uri", "urn:geo-seo-hub:input:source-content")
+    source_uri = source.get("source_uri", "urn:geo-seo-hub:input:source-content")
+    return body, normalize_artifact_uri(source_uri, field="source_content.source_uri")
 
 
 def _normalize_brief(brief: dict[str, Any], input_path: Path) -> tuple[dict[str, Any], str | None]:
@@ -866,6 +863,99 @@ def _content_spec(brief: dict[str, Any], content: dict[str, Any]) -> dict[str, A
     }
 
 
+def _content_evidence_units(
+    content: dict[str, Any],
+    research_context: dict[str, Any],
+) -> dict[str, Any]:
+    units: list[dict[str, Any]] = []
+
+    def add(
+        lineage_type: str,
+        text: str,
+        status: str,
+        *,
+        evidence_ids: list[str] | None = None,
+        research_source_ids: list[str] | None = None,
+        causal_status: str = "not-applicable",
+        limitations: list[str],
+    ) -> None:
+        evidence = sorted(set(evidence_ids or []))
+        research_sources = sorted(set(research_source_ids or []))
+        unit_id = _stable_id(
+            "unit",
+            lineage_type,
+            text,
+            "|".join(evidence),
+            "|".join(research_sources),
+        )
+        units.append(
+            {
+                "unit_id": unit_id,
+                "lineage_type": lineage_type,
+                "text": text,
+                "status": status,
+                "evidence_ids": evidence,
+                "research_source_ids": research_sources,
+                "causal_status": causal_status,
+                "limitations": sorted(set(limitations)),
+            }
+        )
+
+    for claim in content["factual_claims"]:
+        add(
+            "input-evidence",
+            claim["text"],
+            "provided",
+            evidence_ids=claim["evidence_ids"],
+            limitations=["Claim support is limited to the supplied evidence and its stated scope."],
+        )
+    refinement = content["mode_data"].get("refinement")
+    if refinement:
+        for claim in refinement["source_claims"]:
+            add(
+                "source-preserved",
+                claim["text"],
+                "provided" if claim["evidence_ids"] else "unverified",
+                evidence_ids=claim["evidence_ids"],
+                limitations=["Preserved source text remains unverified unless it resolves to supplied evidence."],
+            )
+    for guidance in content["guidance"]:
+        add(
+            "operational-guidance",
+            guidance,
+            "guidance",
+            limitations=["Operational guidance is not a factual or effectiveness claim."],
+        )
+    for request in content["supplement_requests"]:
+        add(
+            "evidence-gap",
+            request,
+            "blocked",
+            limitations=["The requested evidence is missing from the current run."],
+        )
+    for principle in research_context["principles"]:
+        for control in principle["required_controls"]:
+            add(
+                "research-method",
+                control,
+                "guidance",
+                research_source_ids=principle["source_ids"],
+                causal_status=principle["causal_status"],
+                limitations=principle["limitations"],
+            )
+
+    unique_units = {unit["unit_id"]: unit for unit in units}
+    artifact = {
+        "protocol_version": PROTOCOL_VERSION,
+        "run_id": content["run_id"],
+        "mode": content["mode"],
+        "effect_guarantee": False,
+        "units": [unique_units[key] for key in sorted(unique_units)],
+    }
+    validate_artifact("content-evidence-units", artifact)
+    return artifact
+
+
 def _surface_title(content: dict[str, Any]) -> str:
     if content["mode"] == "title":
         title = content["mode_data"]["title_candidates"][0]["title"]
@@ -1146,6 +1236,8 @@ def content(
         execution_mode=execution_mode,
     )
     spec = _content_spec(normalized, generated_content)
+    research_context = build_research_context(run_id, f"geo-content:{normalized['mode']}")
+    evidence_units = _content_evidence_units(generated_content, research_context)
     claim_map = None
     pipeline = None
     semantic_digest: str | None = None
@@ -1222,10 +1314,12 @@ def content(
         *( ["input/source.md"] if source_text is not None else [] ),
         "content-spec.json",
         "content.json",
+        "content-evidence-units.json",
         "content.md",
         "content.html",
         "evidence-ledger.json",
         "quality-report.json",
+        "research-context.json",
         *(["claim-map.json", "content-pipeline.json"] if execution_mode != "legacy" else []),
         *sorted(binary_artifacts),
     ]
@@ -1250,10 +1344,12 @@ def content(
             bus.write_text("input/source.md", source_text)
         bus.write_json("content-spec.json", spec, "content-spec")
         bus.write_json("content.json", generated_content)
+        bus.write_json("content-evidence-units.json", evidence_units, "content-evidence-units")
         bus.write_text("content.md", markdown)
         bus.write_text("content.html", html_document)
         bus.write_json("evidence-ledger.json", ledger, "evidence-ledger")
         bus.write_json("quality-report.json", quality, "quality-report")
+        bus.write_json("research-context.json", research_context, "research-context")
         if claim_map is not None and pipeline is not None:
             bus.write_json("claim-map.json", claim_map, "claim-map")
             bus.write_json("content-pipeline.json", pipeline, "content-pipeline")

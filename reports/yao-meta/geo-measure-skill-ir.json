@@ -33,6 +33,7 @@
   },
   "resources": {
     "references": [
+      "references/input-example.json",
       "references/measurement-method.md",
       "references/output-contract.md"
     ],

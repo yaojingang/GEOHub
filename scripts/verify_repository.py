@@ -259,12 +259,54 @@ def main() -> int:
         fail("LICENSE is not the GNU AGPLv3 text")
 
     schemas = sorted((ROOT / "schemas").glob("*.schema.json"))
-    if len(schemas) != 24:
-        fail(f"expected 24 protocol schemas, found {len(schemas)}")
+    expected_schema_names = {
+        "brand-fact-card.schema.json",
+        "claim-map.schema.json",
+        "content-evidence-units.schema.json",
+        "content-pipeline.schema.json",
+        "content-spec.schema.json",
+        "diagnosis-funnel.schema.json",
+        "engine-observation-bundle.schema.json",
+        "eval-result.schema.json",
+        "eval-task.schema.json",
+        "evidence-ledger.schema.json",
+        "experiment-plan.schema.json",
+        "fidelity-report.schema.json",
+        "geo-brief.schema.json",
+        "knowledge-graph.schema.json",
+        "knowledge-query-result.schema.json",
+        "measurement-brief.schema.json",
+        "measurement-report.schema.json",
+        "opportunity-map.schema.json",
+        "publication-handoff.schema.json",
+        "publication-receipt.schema.json",
+        "quality-report.schema.json",
+        "query-map.schema.json",
+        "research-context.schema.json",
+        "research-evidence-registry.schema.json",
+        "run-lineage.schema.json",
+        "run-manifest.schema.json",
+        "seo-brief.schema.json",
+        "seo-plan.schema.json",
+        "strategy-candidates.schema.json",
+        "strategy-memory.schema.json",
+        "visibility-report.schema.json",
+        "workflow-state.schema.json",
+    }
+    actual_schema_names = {path.name for path in schemas}
+    if actual_schema_names != expected_schema_names:
+        fail(
+            "protocol schema inventory differs; "
+            f"missing={sorted(expected_schema_names - actual_schema_names)}, "
+            f"extra={sorted(actual_schema_names - expected_schema_names)}"
+        )
     for path in schemas:
         schema = json.loads(path.read_text(encoding="utf-8"))
         Draft202012Validator.check_schema(schema)
-        if schema.get("properties", {}).get("protocol_version", {}).get("const") != "1.0.0":
+        if (
+            path.name != "research-evidence-registry.schema.json"
+            and schema.get("properties", {}).get("protocol_version", {}).get("const") != "1.0.0"
+        ):
             fail(f"{path.name} does not pin protocol_version 1.0.0")
 
     registry = load_registry(ROOT / "registry" / "skills.yaml")

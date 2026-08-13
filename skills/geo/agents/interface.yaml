@@ -1,5 +1,5 @@
 interface:
-  display_name: "GEOHub"
+  display_name: "GEO SEO Hub Router"
   short_description: "Route GEO requests through an honest capability registry"
   default_prompt: "Use $geo to route this GEO request and report unavailable stages honestly."
   input_contract:

@@ -39,14 +39,17 @@ where = ["src"]
 [tool.setuptools.data-files]
 "share/geo-seo-hub/skills" = ["skills/RESOLVER.md"]
 "share/geo-seo-hub/registry" = [
+  "registry/research-evidence.json",
   "registry/skills.yaml",
   "registry/skills.schema.json",
 ]
 "share/geo-seo-hub/schemas" = [
   "schemas/brand-fact-card.schema.json",
   "schemas/claim-map.schema.json",
+  "schemas/content-evidence-units.schema.json",
   "schemas/content-pipeline.schema.json",
   "schemas/content-spec.schema.json",
+  "schemas/diagnosis-funnel.schema.json",
   "schemas/eval-result.schema.json",
   "schemas/eval-task.schema.json",
   "schemas/engine-observation-bundle.schema.json",
@@ -59,10 +62,16 @@ where = ["src"]
   "schemas/query-map.schema.json",
   "schemas/knowledge-graph.schema.json",
   "schemas/knowledge-query-result.schema.json",
+  "schemas/measurement-brief.schema.json",
+  "schemas/measurement-report.schema.json",
   "schemas/publication-handoff.schema.json",
   "schemas/publication-receipt.schema.json",
+  "schemas/research-context.schema.json",
+  "schemas/research-evidence-registry.schema.json",
   "schemas/run-manifest.schema.json",
   "schemas/run-lineage.schema.json",
+  "schemas/seo-brief.schema.json",
+  "schemas/seo-plan.schema.json",
   "schemas/strategy-memory.schema.json",
   "schemas/strategy-candidates.schema.json",
   "schemas/visibility-report.schema.json",
