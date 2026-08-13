@@ -165,7 +165,16 @@ def _verify_source_archive(root: Path, artifact_root: Path, expected_names: set[
 
 
 def source_revision(root: Path) -> str:
-    return subprocess.run(["git", "rev-parse", "HEAD"], cwd=root, check=True, capture_output=True, text=True).stdout.strip()
+    source_paths = sorted(release_source_inventory(root))
+    if not source_paths:
+        raise ValueError("release source inventory is empty")
+    return subprocess.run(
+        ["git", "log", "-1", "--format=%H", "--", *source_paths],
+        cwd=root,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
 
 
 def build_provenance(
@@ -185,7 +194,7 @@ def build_provenance(
         "schema_version": "1.0.0",
         "generated_at": _generated_at(clock),
         "subject": {"name": "geo-seo-hub", "version": package_version(), "artifacts": artifact_records},
-        "source": {"revision": source_revision(root), "source_digest": release_source_digest(root), "state": "staged source snapshot"},
+        "source": {"revision": source_revision(root), "source_digest": release_source_digest(root), "state": "committed release source snapshot"},
         "builder": {
             "identity": "local-unsigned",
             "trusted": False,

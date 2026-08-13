@@ -11,6 +11,7 @@ from geo_seo_hub.quality.release import (
     build_provenance,
     build_sbom,
     verify_release_provenance,
+    source_revision,
 )
 
 
@@ -75,6 +76,19 @@ def test_provenance_rejects_missing_declared_dependency(tmp_path):
     incomplete["components"] = incomplete["components"][:-1]
     with pytest.raises(ValueError, match="dependency inventory"):
         verify_release_provenance(ROOT, provenance, incomplete, artifact_root=tmp_path, expected_artifact_names={artifact.name})
+
+
+def test_source_revision_tracks_release_source_commit_across_evidence_only_commit():
+    import subprocess
+
+    expected = subprocess.run(
+        ["git", "log", "-1", "--format=%H", "--", "src", "schemas", "skills", "scripts", "pyproject.toml"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    assert source_revision(ROOT) == expected
 
 
 def test_provenance_rejects_forged_sbom_facts_even_when_digest_is_resynchronized(tmp_path):
