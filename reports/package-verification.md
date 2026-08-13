@@ -6,14 +6,14 @@ Packages: 11; repeated build hashes: identical.
 
 | Package | SHA-256 | Members | SKILL.md |
 | --- | --- | ---: | ---: |
-| geo-community-0.5.0.zip | `e4ebcf42e9b4c05fc851f134f574f35bf52c4b0bb30df22bc00dd4c69ef78e2c` | 133 | 1 |
-| geo-content-community-0.5.0.zip | `4df66efa3472cd7c8f4ee2b06930710aa4b14a77f7a3efd307932e3f83fe870c` | 138 | 1 |
-| geo-diagnose-community-0.5.0.zip | `767ebdda1c144542d1b4efcf839b0e22ebdac38c801380964b77e5177b218d9b` | 134 | 1 |
-| geo-discover-community-0.5.0.zip | `e6ba6e0a6e1bd2fe3f9b66cfceaca363715136f250ff6ef4b62ab0467c290d5d` | 134 | 1 |
-| geo-knowledge-community-0.5.0.zip | `0f1587eaf8ce6d4108c33ca4e01212304eebb00d9c3aeca5c91ce0e7ca59c6e6` | 133 | 1 |
-| geo-measure-community-0.5.0.zip | `24ebdc959281e3d4e5069bd093990a6d4b90f6f9fe94f24cb9cdadd860870f74` | 134 | 1 |
-| geo-seo-hub-claude-community-0.5.0.zip | `86c6b4121b69592b6cd42729b461d4b103cad7abbd2e1d8acaf95048c86b5f99` | 140 | 1 |
-| geo-seo-hub-codex-community-0.5.0.zip | `e2d488138fd355f7e6a4cd5c4dc0b06a944a27b72aa2587cfbcb75062d121655` | 140 | 1 |
-| geo-seo-hub-source-0.5.0.zip | `eab57beccd1654e7a2e93a429910fa9e03012c3d3a3674630aedbd2d066c2c7f` | 293 | 8 |
-| geo-seo-hub-unified-community-0.5.0.zip | `8f02758a2f13e4227cf9ffb128273dd56e148cf7909b3e0b986b970203a4907c` | 139 | 1 |
-| geo-strategy-community-0.5.0.zip | `c8477ec3451b8cde5b25055bda50a968ac935eb2c60e322c2dacca2962185d0f` | 133 | 1 |
+| geo-community-0.5.0.zip | `110e0ffca24ef84e2b2877ab4b78e55314a73d5006d7566cb1105c18ddc54a99` | 133 | 1 |
+| geo-content-community-0.5.0.zip | `45ab2d220f06be58ab7508d43b570f2e57386ba12e53896e826461284813da75` | 138 | 1 |
+| geo-diagnose-community-0.5.0.zip | `00a52058330db8635d1e4865f2ee2b5027ab8f4d42a6a09a029e00783a69b524` | 134 | 1 |
+| geo-discover-community-0.5.0.zip | `4aafecc031b580b3de22161f3a3cfd6e9f21dd050c99dd21932ca93e8a9f620a` | 134 | 1 |
+| geo-knowledge-community-0.5.0.zip | `23d59ff4785024728d54f2bc2aadb8ce98fc0a82b95773f76a4e4f57f4f78a74` | 133 | 1 |
+| geo-measure-community-0.5.0.zip | `a3e3979c22b6409ff5d793e2967fafbe5b7739bc95048e15f95cb300d7e5d40b` | 134 | 1 |
+| geo-seo-hub-claude-community-0.5.0.zip | `d727e66ea47dfbb8d98f1641834c2024a936eddf631169de97381812cacf177d` | 140 | 1 |
+| geo-seo-hub-codex-community-0.5.0.zip | `f6e52231e7005b0a99d72ac98996436c368819ddd3134e9089663006a4c69b99` | 140 | 1 |
+| geo-seo-hub-source-0.5.0.zip | `f882275a04a4d7b053bfa069e97068f76c11d235749ece7259d430198280d4d3` | 293 | 8 |
+| geo-seo-hub-unified-community-0.5.0.zip | `d0890ab4f8bc74953ae3699414ce0c34a095681e5c8c52420076879fe46c5674` | 139 | 1 |
+| geo-strategy-community-0.5.0.zip | `73a88ca060b0f6098ea86b1acb6fa6e2812a43a582922df7ba3acdfcdafa7df3` | 133 | 1 |

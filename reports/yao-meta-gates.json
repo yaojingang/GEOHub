@@ -1943,10 +1943,10 @@
     }
   ],
   "failed_commands": 0,
-  "source_digest": "577d66fb4cad130b6e1a2a8e74fbafe1484d7a5dd33b8d478e62a6a948bf99e8",
+  "source_digest": "331ba04d4f044ac97eee84951a6866de1f218b3cdf4971aca2ca24b89d5f107b",
   "evidence_digests": {
     "reports/eval-summary.json": "36f25405fde3e37a50117bf73a7863f17ddcc00ec12b2cf7a0b281d6e8c719b8",
-    "reports/package-verification.json": "353d9f57445c22506989d6e65c01537d974778e5091eebbf9b7b43eda5d81801",
+    "reports/package-verification.json": "e8be13c364500c5972a02d7cf3ceedb6641c38a674340932adcfa6397908d3bd",
     "reports/install-simulation.json": "ffa9317f6a138c5b0dcd08c7b49bfe7c15e22aa8f5f9489937e4368256a0c52f",
     "reports/python-compatibility.json": "5dd00183725afecab9ca97a3ddf24008d7383ce23f07e21b433543260b79c16b"
   },
