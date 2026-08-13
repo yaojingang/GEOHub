@@ -17,11 +17,11 @@
     "slsa_level_claim": null,
     "trusted": false
   },
-  "generated_at": "2026-08-13T02:13:55.641262Z",
-  "sbom_sha256": "f6b027e6ef0d2ba8be042d19c7b2acea6423f496dd83a0a52b49ac3fc9f89a4e",
+  "generated_at": "2026-08-13T02:16:22.298195Z",
+  "sbom_sha256": "faddd01d7042ef60aeb1dbd2da81a632866bed94d856c17242959a7f652dff12",
   "schema_version": "1.0.0",
   "source": {
-    "revision": "b07f976f1972544a23081ebf1a6c991e9182e23d",
+    "revision": "7b1033961557ec64e9c5a3873a51a04f9269b33a",
     "source_digest": "a27edb784863f2b2bd9e7984a1c3623809fdfd2073d7af057125a85c09a1f55e",
     "state": "staged source snapshot"
   },
