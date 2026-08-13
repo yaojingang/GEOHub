@@ -1943,7 +1943,7 @@
     }
   ],
   "failed_commands": 0,
-  "source_digest": "76b10a461d15ec91bb9d7486e6d0eb0d40c0d18cdbc322c23aab955a5e0d6c11",
+  "source_digest": "577d66fb4cad130b6e1a2a8e74fbafe1484d7a5dd33b8d478e62a6a948bf99e8",
   "evidence_digests": {
     "reports/eval-summary.json": "36f25405fde3e37a50117bf73a7863f17ddcc00ec12b2cf7a0b281d6e8c719b8",
     "reports/package-verification.json": "353d9f57445c22506989d6e65c01537d974778e5091eebbf9b7b43eda5d81801",
