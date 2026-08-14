@@ -67,6 +67,10 @@ Release evidence is generated with `scripts/generate_sbom.py`, `scripts/generate
 
 Data retention is preview-only by default. `geo-seo-hub data-retention --runs-root <root> --apply-policy` lists expired runs. Add `--confirm` to move them into a recoverable `.geohub-trash` batch. Recovery is explicit, and permanent purge requires a second confirmation after a seven-day grace period. See `docs/data-governance.md`.
 
+## Visual reports
+
+- [GEOHub 0.5.0 upgrade review](docs/visual-reports/geohub-0.5.0-upgrade/README.md) provides the standalone Chinese HTML report with 17-module before-and-after scores, repair closure, deterministic gates, and remaining Production evidence.
+
 ## License and governance
 
 The open-source repository is licensed under `AGPL-3.0-only`. Commercial licensing is currently `inquiry_only`; see `COMMERCIAL-LICENSING.md`. The contributor agreement remains under legal review, so external code merges are paused.

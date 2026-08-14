@@ -1,0 +1,1721 @@
+<!doctype html>
+<html lang="zh-CN" data-heading-flow="stacked-full-width" data-report-typography="editorial-serif">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="GEOHub 0.5.0 升级复审、修复、门禁与发布边界可视化报告">
+  <title>GEOHub 0.5.0 升级复审可视化报告</title>
+  <style>
+    :root {
+      --canvas: #ffffff;
+      --panel: #faf9f5;
+      --panel-2: #f5f4ed;
+      --panel-3: #e8e6dc;
+      --line: #e8e6dc;
+      --line-soft: #eeece4;
+      --paper: #141413;
+      --muted: #504e49;
+      --dim: #6b6a64;
+      --green: #1b365d;
+      --green-deep: #1b365d;
+      --amber: #b8b7b0;
+      --amber-deep: #504e49;
+      --red: #3d3d3a;
+      --blue: #2d5a8a;
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 10px;
+      --serif: "TsangerJinKai02", "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", "STSong", Georgia, serif;
+      --ui: "Avenir Next", "SF Pro Text", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      --sans: var(--serif);
+      --mono: "JetBrains Mono", "SFMono-Regular", "Cascadia Code", Consolas, "Songti SC", monospace;
+      --report-max-width: 1250px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: #ffffff;
+      color: #141413;
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.55;
+      text-rendering: optimizeLegibility;
+    }
+
+    a { color: inherit; }
+    button, input { font: inherit; }
+    button { color: inherit; }
+    h1, h2, h3, p { text-wrap: pretty; }
+    h1, h2, h3 { text-wrap: balance; }
+    code { font-family: var(--mono); }
+    [data-chart] { position: relative; }
+    [data-module-heading] {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      width: 100%;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--line);
+      font-family: var(--ui, var(--sans));
+    }
+    [data-module-title] { color: var(--paper); font-size: 13px; font-weight: 500; }
+    [data-module-description] { color: var(--dim); font-size: 11px; text-align: right; }
+    [data-chart]::after {
+      content: attr(data-source-status);
+      position: absolute;
+      right: 10px;
+      bottom: 8px;
+      color: var(--dim);
+      font: 8px/1 var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    ::selection { background: var(--green); color: var(--canvas); }
+
+    .skip-link {
+      position: fixed;
+      z-index: 100;
+      top: 10px;
+      left: 10px;
+      padding: 10px 14px;
+      background: var(--paper);
+      color: var(--canvas);
+      border-radius: var(--radius-sm);
+      transform: translateY(-160%);
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    :focus-visible {
+      outline: 2px solid var(--green);
+      outline-offset: 3px;
+    }
+
+    nav[data-sticky-nav] {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      width: 100%;
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      padding: 9px max(24px, calc((100vw - var(--report-max-width)) / 2));
+      background: #ffffff;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 44px;
+      text-decoration: none;
+    }
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--green);
+      border-radius: var(--radius-sm);
+      color: var(--green);
+      font: 700 12px/1 var(--mono);
+      letter-spacing: -0.04em;
+    }
+    .brand-type strong {
+      display: block;
+      font-size: 15px;
+      letter-spacing: 0.12em;
+    }
+    .brand-type span {
+      display: block;
+      color: var(--dim);
+      font: 10px/1.3 var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .rail-links { display: flex; align-items: center; gap: 2px; margin-left: auto; }
+    .rail-links a {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-height: 40px;
+      padding: 8px 11px;
+      color: var(--muted);
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      letter-spacing: 0.03em;
+    }
+    .rail-links a.active { color: var(--green-deep); background: var(--panel-2); }
+
+    .rail-meta {
+      display: none;
+      color: var(--dim);
+      font: 10px/1.7 var(--mono);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .live-line { color: var(--green); }
+
+    .page { overflow: clip; }
+    .topbar {
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: calc(100% - 48px);
+      max-width: 1250px;
+      margin: 0 auto;
+      padding: 0;
+      background: #ffffff;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .breadcrumb {
+      color: var(--muted);
+      font: 11px/1 var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .top-actions { display: flex; gap: 8px; }
+    .action {
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 7px 12px;
+      color: var(--paper);
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .action.primary { border-color: var(--green); color: var(--green-deep); background: var(--panel); }
+    .action:active, .filter-button:active { transform: scale(0.97); }
+
+    main {
+      width: 1250px;
+      max-width: 1250px;
+      margin: 0 auto;
+      padding: 0 0 88px;
+    }
+
+    .masthead {
+      position: relative;
+      min-height: 475px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(300px, 0.55fr);
+      align-items: stretch;
+      border-bottom: 1px solid var(--line);
+    }
+    .mast-section-contract { display: none; }
+    .mast-main {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 68px clamp(32px, 5vw, 72px) 54px 0;
+      border-right: 1px solid var(--line);
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--green-deep);
+      font: 11px/1.4 var(--mono);
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 22px;
+      height: 1px;
+      background: var(--green);
+    }
+    h1 {
+      max-width: none;
+      margin: 26px 0 20px;
+      font-size: 78px;
+      line-height: 1.02;
+      font-weight: 700;
+    }
+    h1 .version {
+      display: block;
+      margin-top: 14px;
+      color: var(--muted);
+      font: 500 20px/1.2 var(--mono);
+      letter-spacing: 0.04em;
+    }
+    .lede {
+      max-width: 780px;
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(16px, 1.25vw, 18px);
+      line-height: 1.55;
+    }
+    .mast-stamp {
+      position: absolute;
+      right: 28px;
+      bottom: 24px;
+      color: var(--dim);
+      font: 10px/1.4 var(--mono);
+      letter-spacing: 0.09em;
+      text-align: right;
+      text-transform: uppercase;
+    }
+
+    .mast-side {
+      display: grid;
+      grid-template-rows: 1fr auto;
+      padding: 62px 0 0 clamp(26px, 3vw, 44px);
+    }
+    .impact-label {
+      color: var(--muted);
+      font: 11px/1.4 var(--mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .impact-number {
+      margin-top: auto;
+      color: var(--green);
+      font-size: clamp(108px, 12vw, 176px);
+      line-height: 0.78;
+      letter-spacing: -0.09em;
+      font-weight: 650;
+    }
+    .impact-caption {
+      min-width: 0;
+      margin: 24px 0 44px;
+      color: var(--paper);
+      font-size: 19px;
+      overflow-wrap: anywhere;
+    }
+    .impact-caption span {
+      display: block;
+      color: var(--dim);
+      font: 11px/1.6 var(--mono);
+      letter-spacing: 0.04em;
+    }
+
+    .metric-strip {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      border-bottom: 1px solid var(--line);
+    }
+    .metric {
+      min-width: 0;
+      min-height: 132px;
+      padding: 24px 20px;
+      border-right: 1px solid var(--line);
+    }
+    .metric:last-child { border-right: 0; }
+    .metric .value {
+      display: block;
+      color: var(--paper);
+      font-size: clamp(30px, 3vw, 45px);
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+    .metric .label {
+      display: block;
+      margin-top: 14px;
+      color: var(--dim);
+      font: 10px/1.45 var(--mono);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      overflow-wrap: anywhere;
+    }
+
+    .section {
+      padding: 90px 0 28px;
+      scroll-margin-top: 80px;
+    }
+    .section-head {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      align-items: start;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--line);
+    }
+    .section-index {
+      display: block;
+      color: var(--green-deep);
+      font: 11px/1.4 var(--mono);
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+    h2 {
+      margin: 0;
+      max-width: 1120px;
+      font-size: 48px;
+      line-height: 1.12;
+      font-weight: 680;
+    }
+    .section-copy {
+      max-width: 1000px;
+      margin: 20px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .verdict-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin-top: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .verdict {
+      min-height: 232px;
+      padding: 32px;
+      background: var(--panel);
+    }
+    .verdict + .verdict { border-left: 1px solid var(--line); }
+    .verdict-kicker {
+      color: var(--dim);
+      font: 10px/1.4 var(--mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .verdict h3 {
+      margin: 24px 0 10px;
+      font-size: clamp(28px, 3.4vw, 48px);
+      line-height: 1;
+      letter-spacing: -0.045em;
+    }
+    .verdict.eligible h3 { color: var(--green-deep); }
+    .verdict.blocked h3 { color: var(--amber-deep); }
+    .verdict p { margin: 18px 0 0; color: var(--muted); max-width: 470px; }
+    .status-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 24px;
+      padding: 5px 9px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font: 10px/1.3 var(--mono);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+    .status-chip::before { content: ""; width: 6px; height: 6px; border-radius: 50%; }
+    .eligible .status-chip::before { background: var(--green); }
+    .blocked .status-chip::before { background: var(--amber); }
+
+    .gate-field {
+      margin-top: 20px;
+      padding: 24px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+    }
+    .gate-field-head { display: flex; justify-content: space-between; gap: 16px; color: var(--muted); }
+    .gate-field-head span { font: 11px/1.4 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; }
+    .gate-cells { display: grid; grid-template-columns: repeat(13, 1fr); gap: 5px; margin-top: 18px; }
+    .gate-cell { height: 18px; background: var(--green); border-radius: 2px; }
+    .gate-cell.missing { background: var(--amber); }
+    .gate-legend { display: flex; gap: 22px; margin-top: 14px; color: var(--dim); font: 10px/1.4 var(--mono); }
+    .gate-legend span { display: inline-flex; align-items: center; gap: 7px; }
+    .gate-legend i { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+    .gate-legend .missing i { background: var(--amber); }
+
+    .architecture {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-top: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .plane {
+      min-height: 340px;
+      display: flex;
+      flex-direction: column;
+      padding: 28px 24px;
+      background: var(--panel);
+      border-right: 1px solid var(--line);
+    }
+    .plane:last-child { border-right: 0; }
+    .plane-no { color: var(--green-deep); font: 11px/1 var(--mono); }
+    .plane h3 { margin: 70px 0 10px; font-size: 21px; line-height: 1.2; letter-spacing: -0.025em; }
+    .plane p { margin: 0; color: var(--muted); font-size: 13px; }
+    .plane ul { list-style: none; margin: auto 0 0; padding: 18px 0 0; border-top: 1px solid var(--line-soft); }
+    .plane li { padding: 5px 0; color: var(--dim); font: 10px/1.45 var(--mono); }
+
+    .flow-line {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 0;
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .flow-node {
+      position: relative;
+      min-height: 96px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px;
+      background: var(--panel-2);
+      border-right: 1px solid var(--line);
+    }
+    .flow-node:last-child { border-right: 0; }
+    .flow-node b { font-size: 12px; font-weight: 560; }
+    .flow-node span { color: var(--dim); font: 9px/1.3 var(--mono); text-transform: uppercase; }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin: 28px 0 18px;
+    }
+    .filter-label { margin-right: 6px; color: var(--dim); font: 10px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
+    .filter-button {
+      min-height: 38px;
+      padding: 7px 12px;
+      color: var(--muted);
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+    }
+    .filter-button.active { color: #ffffff; background: var(--green-deep); border-color: var(--green-deep); }
+    .filter-spacer { width: 12px; }
+    .filter-result { margin-left: auto; color: var(--dim); font: 10px/1 var(--mono); }
+
+    .fix-list { border-top: 1px solid var(--line); }
+    .fix {
+      border-bottom: 1px solid var(--line);
+    }
+    .fix[hidden] { display: none; }
+    .fix summary {
+      min-height: 78px;
+      display: grid;
+      grid-template-columns: 46px 82px 150px minmax(0, 1fr) 24px;
+      gap: 18px;
+      align-items: center;
+      padding: 14px 8px;
+      cursor: pointer;
+      list-style: none;
+    }
+    .fix summary::-webkit-details-marker { display: none; }
+    .fix-no { color: var(--dim); font: 11px/1 var(--mono); }
+    .severity {
+      width: fit-content;
+      padding: 4px 7px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font: 9px/1.2 var(--mono);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .severity.high { color: var(--red); border-color: var(--dim); }
+    .severity.medium { color: var(--amber); border-color: var(--line); }
+    .fix-module { color: var(--muted); font: 11px/1.4 var(--mono); }
+    .fix-title { font-size: 14px; line-height: 1.5; }
+    .chevron {
+      width: 9px;
+      height: 9px;
+      border-right: 1px solid var(--muted);
+      border-bottom: 1px solid var(--muted);
+      transform: rotate(45deg);
+    }
+    .fix[open] .chevron { transform: rotate(225deg); }
+    .fix-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      padding: 8px 50px 30px 296px;
+    }
+    .fix-body div { padding-top: 14px; border-top: 1px solid var(--line-soft); }
+    .fix-body b { display: block; margin-bottom: 8px; color: var(--green-deep); font: 10px/1.3 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
+    .fix-body p { margin: 0; color: var(--muted); font-size: 13px; }
+
+    .score-method {
+      display: grid;
+      grid-template-columns: 0.72fr 1.28fr;
+      gap: 0;
+      margin-top: 28px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .score-method > div { padding: 26px 28px; }
+    .score-method > div + div { border-left: 1px solid var(--line); }
+    .score-method strong { display: block; margin-bottom: 10px; color: var(--green-deep); font: 10px/1.4 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
+    .score-method p { margin: 0; color: var(--muted); font-size: 13px; }
+
+    .gain-summary {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .gain-total {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 30px;
+      align-items: end;
+      min-height: 288px;
+      padding: 32px;
+      background: var(--panel);
+      border-right: 1px solid var(--line);
+    }
+    .gain-total-label { color: var(--dim); font: 10px/1.5 var(--mono); letter-spacing: 0.09em; text-transform: uppercase; }
+    .gain-total strong { display: block; margin-top: 52px; color: var(--paper); font-size: clamp(70px, 8vw, 116px); font-weight: 620; line-height: 0.78; letter-spacing: -0.08em; }
+    .gain-total strong small { color: var(--dim); font: 500 16px/1 var(--mono); letter-spacing: 0; }
+    .gain-arrow { color: var(--green-deep); font: 600 clamp(30px, 4vw, 58px)/1 var(--mono); }
+    .gain-delta { color: var(--green-deep); font: 12px/1.5 var(--mono); text-align: right; }
+    .plane-gains { display: grid; grid-template-columns: 1fr 1fr; background: var(--canvas); }
+    .plane-gain { min-width: 0; padding: 24px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .plane-gain:nth-child(even) { border-right: 0; }
+    .plane-gain:nth-last-child(-n+2) { border-bottom: 0; }
+    .plane-gain span { color: var(--muted); font-size: 12px; }
+    .plane-gain b { display: block; margin: 16px 0 12px; font: 600 27px/1 var(--mono); }
+    .plane-gain b em { color: var(--green-deep); font-style: normal; }
+    .plane-track { height: 5px; background: var(--panel-3); overflow: hidden; }
+    .plane-track i { display: block; height: 100%; width: var(--plane-score); background: var(--green); }
+    .plane-gain small { display: block; margin-top: 10px; color: var(--dim); font: 9px/1.4 var(--mono); }
+
+    .capability-compare {
+      margin-top: 20px;
+      border-top: 1px solid var(--line);
+    }
+    .capability-row {
+      display: grid;
+      grid-template-columns: 62px minmax(178px, 0.75fr) minmax(260px, 1fr) minmax(230px, 1.2fr) 48px;
+      gap: 22px;
+      align-items: center;
+      min-height: 126px;
+      padding: 20px 8px;
+      border-bottom: 1px solid var(--line);
+    }
+    .capability-row[hidden] { display: none; }
+    .capability-no { color: var(--dim); font: 10px/1 var(--mono); }
+    .capability-name b { display: block; font-size: 15px; font-weight: 580; }
+    .capability-name span { display: block; margin-top: 6px; color: var(--dim); font: 9px/1.4 var(--mono); text-transform: uppercase; }
+    .slope-chart { min-width: 0; }
+    .slope-numbers { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; font: 600 18px/1 var(--mono); font-variant-numeric: tabular-nums; }
+    .slope-numbers .before { color: var(--dim); }
+    .slope-numbers .after { color: var(--green-deep); }
+    .slope-numbers i { flex: 1; height: 1px; background: var(--line); }
+    .slope-track { position: relative; height: 14px; margin-top: 14px; background: var(--panel-3); }
+    .slope-track .before-bar, .slope-track .after-bar { position: absolute; inset: 0 auto 0 0; }
+    .slope-track .before-bar { width: var(--before); background: var(--dim); opacity: 0.5; }
+    .slope-track .after-bar { top: 4px; bottom: 4px; width: var(--after); background: var(--green); }
+    .capability-copy { min-width: 0; }
+    .capability-copy p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
+    .capability-copy p + p { margin-top: 8px; }
+    .capability-copy b { color: var(--paper); font-weight: 560; }
+    .gain-pill { color: var(--green-deep); font: 600 11px/1 var(--mono); text-align: right; font-variant-numeric: tabular-nums; }
+    .comparison-note { margin: 18px 0 0; color: var(--dim); font: 10px/1.7 var(--mono); }
+
+    .scoreboard {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 56px;
+      margin-top: 28px;
+    }
+    .score {
+      display: grid;
+      grid-template-columns: minmax(130px, 1fr) minmax(180px, 1.7fr) 74px;
+      gap: 16px;
+      align-items: center;
+      min-height: 72px;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .score-name { font-size: 13px; }
+    .score-name small { display: block; color: var(--dim); font: 9px/1.4 var(--mono); }
+    .bar { height: 7px; background: var(--panel-3); border-radius: 1px; overflow: hidden; }
+    .bar span { display: block; width: var(--score); height: 100%; background: var(--green); }
+    .score-value { color: var(--green-deep); font: 11px/1 var(--mono); text-align: right; }
+
+    .evidence-queue {
+      margin-top: 28px;
+      border-top: 1px solid var(--line);
+    }
+    .evidence-item {
+      display: grid;
+      grid-template-columns: 70px 1fr minmax(280px, 0.9fr);
+      gap: 28px;
+      padding: 24px 8px;
+      border-bottom: 1px solid var(--line);
+    }
+    .queue-no { color: var(--amber); font: 11px/1.5 var(--mono); }
+    .evidence-item h3 { margin: 0; font-size: 17px; font-weight: 580; }
+    .evidence-item p { margin: 5px 0 0; color: var(--muted); font-size: 13px; }
+    .condition { color: var(--dim); font: 10px/1.6 var(--mono); }
+
+    .trust-ledger {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      margin-top: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .trust-cell { padding: 28px; background: var(--panel); border-right: 1px solid var(--line); }
+    .trust-cell:last-child { border-right: 0; }
+    .trust-cell span { color: var(--dim); font: 10px/1.4 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
+    .trust-cell strong { display: block; margin-top: 18px; color: var(--amber-deep); font-size: 22px; font-weight: 580; }
+
+    .next-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 28px;
+    }
+    .next {
+      min-height: 250px;
+      padding: 24px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+    }
+    .priority { color: var(--green-deep); font: 10px/1 var(--mono); letter-spacing: 0.08em; }
+    .next h3 { margin: 70px 0 12px; font-size: 20px; line-height: 1.25; }
+    .next p { margin: 0; color: var(--muted); font-size: 13px; }
+
+    .commands {
+      margin-top: 20px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .commands summary {
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 12px 18px;
+      cursor: pointer;
+      list-style: none;
+    }
+    .commands summary::-webkit-details-marker { display: none; }
+    .commands summary span { color: var(--dim); font: 10px/1 var(--mono); }
+    pre {
+      margin: 0;
+      padding: 24px;
+      overflow-x: auto;
+      color: #1b365d;
+      background: #faf9f5;
+      border-top: 1px solid var(--line);
+      font: 11px/1.85 var(--mono);
+    }
+
+    .source-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 24px;
+    }
+    .source-link {
+      min-height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 12px 16px;
+      color: var(--muted);
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+    }
+    .source-link code { color: var(--dim); font: 9px/1 var(--mono); }
+
+    .chart-reading {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 18px;
+      padding: 14px 0 4px;
+      border-top: 1px solid var(--line-soft);
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .chart-reading b { color: var(--paper); font-weight: 650; }
+    .score-method > .chart-reading, .gain-summary > .chart-reading { grid-column: 1 / -1; }
+    .architecture > .chart-reading, .flow-line > .chart-reading, .repair-distribution > .chart-reading,
+    .scoreboard > .chart-reading, .package-growth > .chart-reading, .evidence-queue > .chart-reading,
+    .next-grid > .chart-reading { grid-column: 1 / -1; }
+    .chart-status { color: var(--green-deep); font-family: var(--mono); text-transform: uppercase; }
+
+    .repair-distribution {
+      display: grid;
+      grid-template-columns: 0.78fr 1.22fr;
+      margin-top: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .repair-severity { padding: 28px; background: var(--panel); border-right: 1px solid var(--line); }
+    .repair-severity strong { display: block; color: var(--paper); font-size: 26px; }
+    .repair-severity .stack { display: flex; height: 22px; margin: 40px 0 16px; background: var(--panel-3); }
+    .repair-severity .stack i:first-child { width: 55%; background: var(--red); }
+    .repair-severity .stack i:last-child { width: 45%; background: var(--amber); }
+    .repair-severity p { margin: 0; color: var(--muted); font-size: 13px; }
+    .repair-layers { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .repair-layer { padding: 28px 20px; border-right: 1px solid var(--line); }
+    .repair-layer:last-child { border-right: 0; }
+    .repair-layer span { color: var(--dim); font: 10px/1.4 var(--mono); }
+    .repair-layer b { display: block; margin: 24px 0 14px; font: 650 42px/1 var(--mono); color: var(--green-deep); }
+    .repair-layer p { margin: 0; color: var(--muted); font-size: 12px; }
+
+    .package-growth {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      margin-top: 24px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .growth-item { padding: 24px 20px; border-right: 1px solid var(--line); }
+    .growth-item:last-child { border-right: 0; }
+    .growth-item span { color: var(--dim); font: 10px/1.4 var(--mono); }
+    .growth-item b { display: block; margin: 14px 0 8px; font: 650 30px/1 var(--mono); }
+    .growth-item b em { color: var(--green-deep); font-style: normal; }
+    .growth-item p { margin: 0; color: var(--muted); font-size: 11px; }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 44px 0 0;
+      margin-top: 74px;
+      color: #6b6a64;
+      border-top: 1px solid var(--line);
+      font: 10px/1.6 var(--mono);
+    }
+
+    /*
+      Kami editorial system, screen-first GEOHub variant
+      Explicit user deviation: the page canvas stays pure white instead of parchment
+    */
+    body {
+      font-family: var(--serif);
+      line-height: 1.55;
+      letter-spacing: 0.015em;
+    }
+    strong, b, h1, h2, h3 { font-weight: 500; }
+    nav[data-sticky-nav] {
+      min-height: 68px;
+      border-top: 2px solid var(--green);
+      border-bottom-color: var(--line);
+      box-shadow: 0 8px 24px rgba(20, 20, 19, 0.035);
+      font-family: var(--ui);
+    }
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      color: #ffffff;
+      background: var(--green);
+      border: 0;
+      border-radius: 4px;
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+    .brand-type strong { font-weight: 500; letter-spacing: 0.16em; }
+    .rail-links a { border-radius: 4px; }
+    .rail-links a.active { color: var(--green); background: #e4ecf5; }
+    .topbar { height: 56px; font-family: var(--ui); }
+    .action { border-color: var(--line); border-radius: 4px; }
+    .action.primary { color: #ffffff; background: var(--green); border-color: var(--green); }
+
+    .masthead { min-height: 500px; }
+    .mast-main { padding-top: 76px; padding-bottom: 64px; }
+    .eyebrow, .section-index, .impact-label, .verdict-kicker, .plane-no,
+    .filter-label, .score-method strong, .fix-body b, .priority,
+    .gate-field-head span, .gate-legend, .chart-status { font-family: var(--ui); }
+    h1 {
+      max-width: 940px;
+      font-size: 78px;
+      line-height: 1.12;
+      font-weight: 500;
+    }
+    h1 .version { margin-top: 18px; color: #6b6a64; font-family: var(--ui); }
+    .lede { max-width: 850px; color: var(--muted); font-size: clamp(17px, 1.35vw, 20px); }
+    .mast-side { padding-left: clamp(26px, 3vw, 46px); }
+    .impact-number {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-top: auto;
+      color: var(--green);
+      font-size: clamp(64px, 7vw, 102px);
+      line-height: 0.9;
+      letter-spacing: -0.06em;
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    .impact-number i { color: var(--dim); font: 500 0.36em/1 var(--mono); }
+    .impact-caption { font-size: 18px; }
+    .metric .value { color: var(--green); font-weight: 500; font-variant-numeric: tabular-nums; }
+    .metric .label { font-family: var(--ui); text-transform: none; }
+
+    .section { padding-top: 104px; }
+    .section-head { padding-bottom: 28px; border-bottom: 0; }
+    .section-head::after {
+      content: "";
+      width: 42px;
+      height: 1px;
+      margin-top: 10px;
+      background: var(--green);
+    }
+    .section-index { color: var(--green); letter-spacing: 0.14em; }
+    h2 {
+      max-width: 1160px;
+      font-size: 50px;
+      line-height: 1.2;
+      font-weight: 500;
+    }
+    .section-copy { max-width: 980px; color: var(--muted); font-size: 16px; line-height: 1.55; }
+
+    .verdict-grid, .architecture, .flow-line, .score-method, .gain-summary,
+    .repair-distribution, .trust-ledger, .commands {
+      border: 0;
+      box-shadow: 0 4px 24px rgba(20, 20, 19, 0.045);
+    }
+    .verdict, .plane, .flow-node, .score-method, .gain-total,
+    .repair-severity, .trust-cell, .commands, .next { background: var(--panel); }
+    .verdict.blocked { background: var(--panel-2); }
+    .verdict h3, .gain-total strong, .repair-layer b { font-weight: 500; letter-spacing: -0.035em; }
+    .verdict.blocked h3, .queue-no, .trust-cell strong { color: var(--muted); }
+    .status-chip { border-color: var(--line); border-radius: 3px; font-family: var(--ui); }
+    .blocked .status-chip::before { background: var(--dim); }
+    .gate-field {
+      padding: 28px;
+      border: 0;
+      border-left: 2px solid var(--green);
+      border-radius: 4px;
+      background: var(--panel);
+    }
+    .gate-cell { height: 20px; background: var(--green); }
+    .gate-cell.missing { background: var(--amber); }
+    .gate-legend .missing i { background: var(--amber); }
+    .plane h3 { font-weight: 500; letter-spacing: 0; }
+    .plane li, .flow-node span { font-family: var(--ui); }
+
+    .filter-button { border-color: var(--line); border-radius: 4px; font-family: var(--ui); }
+    .filter-button.active { color: #ffffff; background: var(--green); border-color: var(--green); }
+    .fix summary { font-family: var(--ui); }
+    .severity { color: var(--muted); border-color: var(--line); border-radius: 3px; }
+    .severity.high { color: var(--paper); border-color: var(--dim); }
+    .severity.medium { color: var(--dim); border-color: var(--line); }
+    .score-method, .gain-summary { background: var(--panel); }
+    .gain-arrow, .gain-delta, .plane-gain b em, .slope-numbers .after,
+    .gain-pill, .score-value, .growth-item b em { color: var(--green); }
+    .plane-track i, .slope-track .after-bar, .bar span { background: var(--green); }
+    .slope-track .before-bar { background: var(--dim); opacity: 1; }
+    .next {
+      border: 0;
+      border-top: 2px solid var(--green);
+      border-radius: 4px;
+      box-shadow: 0 4px 20px rgba(20, 20, 19, 0.035);
+    }
+    .source-link { border: 0; border-bottom: 1px solid var(--line); border-radius: 0; }
+    .chart-reading {
+      padding-top: 18px;
+      border-top-color: var(--line);
+      color: var(--muted);
+      font-family: var(--ui);
+      line-height: 1.55;
+    }
+    .chart-reading b { color: var(--paper); font-weight: 500; }
+    [data-chart]::after {
+      right: 12px;
+      bottom: 10px;
+      padding: 3px 6px;
+      color: var(--green);
+      background: #e4ecf5;
+      border-radius: 3px;
+      font-family: var(--ui);
+    }
+    footer { font-family: var(--ui); }
+
+    @media (hover: hover) {
+      .rail-links a:hover { color: var(--green-deep); background: var(--panel-2); }
+      .action:hover, .filter-button:hover { border-color: var(--muted); }
+      .fix summary:hover { background: var(--panel); }
+      .source-link:hover { color: var(--paper); background: var(--panel); border-color: var(--muted); }
+      .plane:hover, .verdict:hover, .next:hover { background: var(--panel-2); }
+    }
+
+    @media (max-width: 1040px) {
+      .rail {
+        width: 100%;
+        height: 64px;
+        align-items: center;
+        padding: 9px 18px;
+        border-bottom: 1px solid var(--line);
+      }
+      .brand-type, .rail-meta { display: none; }
+      .brand-mark { width: 34px; height: 34px; }
+      .rail-links {
+        display: flex;
+        gap: 3px;
+        margin: 0 0 0 16px;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+      .rail-links::-webkit-scrollbar { display: none; }
+      .rail-links a { flex: 0 0 auto; min-height: 38px; padding: 7px 11px; font-size: 11px; }
+      .rail-links a::before { display: none; }
+      .masthead { grid-template-columns: 1.3fr 0.7fr; }
+      .metric-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .metric:nth-child(3) { border-right: 0; }
+      .metric:nth-child(-n+3) { border-bottom: 1px solid var(--line); }
+      .architecture { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+      .plane:nth-child(2) { border-right: 0; }
+      .plane:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .flow-line { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .flow-node:nth-child(4) { border-right: 0; }
+      .flow-node:nth-child(-n+4) { border-bottom: 1px solid var(--line); }
+      .scoreboard { grid-template-columns: 1fr; }
+      .fix-body { padding-left: 238px; }
+      .gain-summary { grid-template-columns: 1fr; }
+      .gain-total { border-right: 0; border-bottom: 1px solid var(--line); }
+      .capability-row { grid-template-columns: 48px minmax(160px, 0.7fr) minmax(240px, 1fr) minmax(210px, 1fr) 42px; gap: 14px; }
+      .repair-distribution { grid-template-columns: 1fr; }
+      .repair-severity { border-right: 0; border-bottom: 1px solid var(--line); }
+    }
+
+    @media (max-width: 740px) {
+      nav[data-sticky-nav] { gap: 12px; }
+      .topbar { width: calc(100% - 36px); height: 54px; padding-inline: 0; }
+      .breadcrumb { font-size: 9px; }
+      .top-actions .action:first-child { display: none; }
+      main { width: auto; max-width: none; margin-inline: 18px; padding-inline: 0; }
+      .masthead { min-height: 0; grid-template-columns: 1fr; }
+      .mast-main { min-height: 500px; padding: 72px 0 48px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .mast-stamp { position: static; margin-top: 42px; text-align: left; }
+      .mast-side { min-height: 270px; padding: 46px 0 28px; grid-template-columns: 1fr; grid-template-rows: auto auto; align-items: start; gap: 24px; }
+      .impact-number { font-size: clamp(76px, 24vw, 96px); }
+      .impact-caption { margin: 0; font-size: 16px; }
+      h1 .version { font-size: 14px; overflow-wrap: anywhere; }
+      .mast-side > * { min-width: 0; }
+      .impact-caption { overflow-wrap: anywhere; word-break: break-word; }
+      .metric-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .metric { border-bottom: 1px solid var(--line); }
+      .metric:nth-child(odd) { border-right: 1px solid var(--line); }
+      .metric:nth-child(even) { border-right: 0; }
+      .metric:nth-last-child(-n+2) { border-bottom: 0; }
+      .section { padding-top: 72px; }
+      .section-head { grid-template-columns: 1fr; gap: 12px; }
+      .verdict-grid { grid-template-columns: 1fr; }
+      .verdict + .verdict { border-left: 0; border-top: 1px solid var(--line); }
+      .gate-cells { grid-template-columns: repeat(7, 1fr); }
+      .architecture { grid-template-columns: 1fr; }
+      .plane { min-height: 260px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .plane:last-child { border-bottom: 0; }
+      .plane h3 { margin-top: 44px; }
+      .flow-line { grid-template-columns: 1fr 1fr; }
+      .flow-node { border-bottom: 1px solid var(--line); }
+      .flow-node:nth-child(even) { border-right: 0; }
+      .flow-node:nth-child(4) { border-right: 0; }
+      .flow-node:last-child { border-bottom: 0; }
+      .filter-spacer { flex-basis: 100%; height: 0; }
+      .filter-result { flex-basis: 100%; margin: 8px 0 0; }
+      .fix summary { grid-template-columns: 34px 66px minmax(0, 1fr) 20px; gap: 10px; }
+      .fix-module { grid-column: 3; grid-row: 2; }
+      .fix-title { grid-column: 3; }
+      .chevron { grid-column: 4; grid-row: 1 / span 2; }
+      .fix-body { grid-template-columns: 1fr; padding: 0 20px 26px 110px; }
+      .score-method { grid-template-columns: 1fr; }
+      .score-method > div + div { border-left: 0; border-top: 1px solid var(--line); }
+      .gain-total { min-height: 230px; padding: 24px; }
+      .gain-total strong { margin-top: 38px; }
+      .plane-gains { grid-template-columns: 1fr; }
+      .plane-gain { border-right: 0; }
+      .plane-gain:nth-last-child(2) { border-bottom: 1px solid var(--line); }
+      .capability-row { grid-template-columns: 36px minmax(0, 1fr) 46px; gap: 12px; padding: 22px 2px; }
+      .capability-name { grid-column: 2; }
+      .slope-chart { grid-column: 2 / -1; }
+      .capability-copy { grid-column: 2 / -1; }
+      .gain-pill { grid-column: 3; grid-row: 1; }
+      .score { grid-template-columns: 1fr 72px; padding: 12px 0; }
+      .bar { grid-column: 1 / -1; grid-row: 2; }
+      .evidence-item { grid-template-columns: 42px 1fr; gap: 14px; }
+      .condition { grid-column: 2; }
+      .trust-ledger, .next-grid, .source-list { grid-template-columns: 1fr; }
+      .chart-reading { grid-template-columns: 1fr; gap: 8px; }
+      .repair-layers { grid-template-columns: 1fr; }
+      .repair-layer { border-right: 0; border-bottom: 1px solid var(--line); }
+      .repair-layer:last-child { border-bottom: 0; }
+      .package-growth { grid-template-columns: 1fr 1fr; }
+      .growth-item:nth-child(2) { border-right: 0; }
+      .growth-item:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .trust-cell { border-right: 0; border-bottom: 1px solid var(--line); }
+      .trust-cell:last-child { border-bottom: 0; }
+      .next { min-height: 210px; }
+      .next h3 { margin-top: 48px; }
+      footer { flex-direction: column; }
+    }
+
+    @media (max-width: 390px) {
+      .rail-links a { padding-inline: 9px; }
+      h1 { font-size: 50px; }
+      .mast-side { grid-template-columns: 1fr; }
+      .impact-number { font-size: clamp(72px, 23vw, 88px); }
+      .impact-caption { font-size: 15px; }
+      .metric { padding-inline: 14px; }
+      .fix summary { grid-template-columns: 28px 60px minmax(0, 1fr) 18px; }
+      .fix-body { padding-left: 98px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+    }
+
+    @media print {
+      body { background: #fff; font-size: 11px; }
+      .rail, .topbar, .filters { display: none !important; }
+      .page { margin: 0; padding: 0; }
+      main { width: 100%; padding: 0; }
+      .masthead { min-height: 400px; }
+      .section { padding-top: 44px; break-before: page; }
+      .fix[hidden] { display: block; }
+      .fix-body { display: grid; }
+      .architecture, .verdict-grid, .next { break-inside: avoid; }
+      footer { margin-top: 30px; }
+    }
+
+    /* Visible content and evidence appendix for the Kami content IR */
+    .content-proof {
+      margin-top: 72px;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+    }
+    .content-proof-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px 24px;
+      margin-top: 20px;
+      color: #6b6a64;
+      font-family: var(--ui);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+    .content-proof h2 { margin: 6px 0 8px; color: #141413; font-size: 22px; }
+    .content-proof p { margin: 0; padding: 8px 0; border-bottom: 1px solid #eeece4; }
+    @media (max-width: 740px) { .content-proof-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳到报告正文</a>
+
+  <nav class="rail" data-sticky-nav aria-label="报告目录">
+    <a class="brand" href="#overview" aria-label="返回概览">
+      <span class="brand-mark">G/H</span>
+      <span class="brand-type"><strong>GEOHUB</strong><span>升级复审</span></span>
+    </a>
+    <div class="rail-links">
+      <a href="#overview" class="active">结论</a>
+      <a href="#architecture">能力面</a>
+      <a href="#comparison">前后对比</a>
+      <a href="#repairs">修复清单</a>
+      <a href="#quality">质量门禁</a>
+      <a href="#evidence">证据缺口</a>
+      <a href="#next">下一步</a>
+    </div>
+    <div class="rail-meta">
+      <div class="live-line">● 复审完成</div>
+      <div>version 0.5.0</div>
+      <div>protocol 1.0.0</div>
+      <div>本地离线报告</div>
+    </div>
+  </nav>
+
+  <div class="page">
+    <header class="topbar">
+      <div class="breadcrumb">GEO SEO HUB / 质量控制 / 2026.08.13</div>
+      <div class="top-actions">
+        <a class="action" href="../../../reports/geohub-upgrade-review-fix-list-2026-08-13.md">原始清单</a>
+        <button class="action primary" type="button" id="printReport">打印 / PDF</button>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section class="masthead" id="overview" aria-labelledby="report-title">
+        <div class="mast-section-contract" data-section-heading>
+          <span data-section-number>00 / Overview</span>
+          <span data-section-title>升级复审概览</span>
+          <span data-section-description>首屏汇总核心判断、成熟度增益与六项确定性指标</span>
+        </div>
+        <div class="mast-main">
+          <div data-report-heading>
+            <div class="eyebrow">深度复审 / 修复完成</div>
+            <h1 id="report-title" data-report-title>升级复审<span class="version">GEOHub 0.5.0 / 可视化控制报告</span></h1>
+            <p class="lede" data-report-description>核心判断：17 个模块平均成熟度从 58 提升至 85，20 类代码问题完成闭环，Experimental / Library 已具备发布条件，Production 继续由 7 项外部证据约束</p>
+          </div>
+          <div class="mast-stamp">生成日期 2026-08-13<br>范围：7 个 Active Skill + Meta 治理</div>
+        </div>
+        <div class="mast-side" aria-label="核心能力成熟度从 58 分提升到 85 分">
+          <div>
+            <div class="impact-label">核心能力成熟度</div>
+            <div class="impact-number"><span>58</span><i>→</i><span>85</span></div>
+          </div>
+          <div class="impact-caption">17 个模块同口径复评<span>整体 +27 分 / 最大单项 +48 分</span></div>
+        </div>
+      </section>
+
+      <div class="metric-strip" aria-label="核心指标">
+        <div class="metric"><span class="value">557</span><span class="label">测试用例已收集<br>1 项条件跳过</span></div>
+        <div class="metric"><span class="value">92/92</span><span class="label">Meta 确定性<br>门禁通过</span></div>
+        <div class="metric"><span class="value">24</span><span class="label">公开 JSON<br>Schema</span></div>
+        <div class="metric"><span class="value">7</span><span class="label">Active Skill<br>可直接运行</span></div>
+        <div class="metric"><span class="value">7</span><span class="label">Production<br>外部证据缺口</span></div>
+      </div>
+
+      <section class="section" id="verdict" aria-labelledby="verdict-title">
+        <div class="section-head" data-section-heading>
+          <div class="section-index" data-section-number>01 / Release verdict</div>
+          <div>
+            <h2 id="verdict-title" data-section-title>双层发布结论</h2>
+            <p class="section-copy" data-section-description>确定性门禁足以支持 Experimental / Library 使用，Production 晋级仍等待正式 CI、真实平台、人类评审、业务采用与法律复核证据</p>
+          </div>
+        </div>
+        <div class="verdict-grid">
+          <article class="verdict eligible">
+            <div class="verdict-kicker">Experimental / Library</div>
+            <h3>Eligible</h3>
+            <p>本地可复现能力、协议契约、制品安装、供应链校验和 Meta Skill 确定性门禁均已通过</p>
+            <span class="status-chip">release candidate</span>
+          </article>
+          <article class="verdict blocked">
+            <div class="verdict-kicker">Production promotion</div>
+            <h3>Blocked</h3>
+            <p>七项外部证据仍未产生，本轮没有 tag、GitHub Release、远端推送或可信构建声明</p>
+            <span class="status-chip">evidence required</span>
+          </article>
+        </div>
+        <div class="gate-field" data-chart="production-readiness-gates" data-question="当前发布门禁通过与缺证的分布是什么" data-explanation="墨蓝为本地确定性通过，暖灰为需要外部主体生成的证据" data-conclusion="6 项确定性门禁通过，7 项外部证据缺失，代码阻塞为 0" data-source-status="derived" role="img" aria-label="生产就绪门禁分布，6 项通过，7 项缺少外部证据">
+          <div data-module-heading><strong data-module-title>生产就绪门禁分布</strong><span data-module-description>6 项本地门禁通过，7 项外部证据缺失</span></div>
+          <div class="gate-field-head"><span>Readiness gate field</span><span>13 gates / 0 blocked by code</span></div>
+          <div class="gate-cells" aria-hidden="true">
+            <i class="gate-cell"></i><i class="gate-cell"></i><i class="gate-cell"></i><i class="gate-cell"></i><i class="gate-cell"></i><i class="gate-cell"></i>
+            <i class="gate-cell missing"></i><i class="gate-cell missing"></i><i class="gate-cell missing"></i><i class="gate-cell missing"></i><i class="gate-cell missing"></i><i class="gate-cell missing"></i><i class="gate-cell missing"></i>
+          </div>
+          <div class="gate-legend"><span><i></i>6 deterministic pass</span><span class="missing"><i></i>7 missing evidence</span></div>
+          <figcaption class="chart-reading"><span><b>问题：</b>当前发布门禁通过与缺证的分布是什么</span><span><b>解释：</b>墨蓝为本地确定性通过，暖灰为外部证据</span><span><b>结论：</b>代码级阻塞已清零，Production 仍保持 blocked</span><span><b>证据：</b><em class="chart-status">derived</em></span></figcaption>
+        </div>
+      </section>
+
+      <section class="section" id="architecture" aria-labelledby="architecture-title">
+        <div class="section-head" data-section-heading>
+          <div class="section-index" data-section-number>02 / Capability planes</div>
+          <div>
+            <h2 id="architecture-title" data-section-title>四个能力面同步加固</h2>
+            <p class="section-copy" data-section-description>升级覆盖控制、领域智能、协议数据、质量信任四个平面，每个平面都有明确输入、状态边界和可验证输出</p>
+          </div>
+        </div>
+        <div class="architecture" data-chart="four-capability-planes" data-question="本轮升级覆盖哪些核心能力面" data-explanation="四个平面按系统责任边界划分，每个平面给出代表性模块" data-conclusion="控制、领域智能、协议数据、质量信任四个平面均得到加固" data-source-status="qualitative" role="img" aria-label="GEOHub 四个能力面架构图">
+          <div data-module-heading><strong data-module-title>四个能力面</strong><span data-module-description>控制、领域智能、协议数据与质量信任同步加固</span></div>
+          <article class="plane">
+            <span class="plane-no">PLANE 01</span>
+            <h3>控制面</h3>
+            <p>从意图路由进入稳定工作流 DAG，外部边界必须带证据恢复</p>
+            <ul><li>Registry DAG router</li><li>Workflow checkpoint</li><li>Durable retention journal</li><li>Shadow fault isolation</li></ul>
+          </article>
+          <article class="plane">
+            <span class="plane-no">PLANE 02</span>
+            <h3>领域智能面</h3>
+            <p>测量、策略和知识链路采用保守分母、完整快照与正向晋级证据</p>
+            <ul><li>Expected-slot metrics</li><li>Strategy promotion chain</li><li>Knowledge payload digest</li><li>Method isolation</li></ul>
+          </article>
+          <article class="plane">
+            <span class="plane-no">PLANE 03</span>
+            <h3>协议与数据面</h3>
+            <p>公开输出进入 Schema 约束，runner 输入绑定可移植快照与语义摘要</p>
+            <ul><li>24 JSON Schemas</li><li>Artifact Bus 1.0.0</li><li>Input snapshots</li><li>Blind review contract</li></ul>
+          </article>
+          <article class="plane">
+            <span class="plane-no">PLANE 04</span>
+            <h3>质量与信任面</h3>
+            <p>制品集合、SBOM、来源清单和 CI 权限形成可审计发布边界</p>
+            <ul><li>Canonical release manifest</li><li>Exact provenance inventory</li><li>Split build / attest jobs</li><li>Atomic durable writes</li></ul>
+          </article>
+          <div class="chart-reading"><span><b>问题：</b>升级覆盖哪些底层责任</span><span><b>解释：</b>按控制、智能、协议和质量责任划分</span><span><b>结论：</b>四个平面均完成加固</span><span><b>证据：</b><em class="chart-status">qualitative</em></span></div>
+        </div>
+        <div class="flow-line" data-chart="active-skill-flow" data-question="0.5.0 提供哪些可直接调用的 Active Skill" data-explanation="从统一路由进入发现、诊断、内容、策略、测量和知识治理入口" data-conclusion="Active Skill 从 4 个扩展为 7 个，覆盖 GEO 核心执行链" data-source-status="verified" role="img" aria-label="七个 Active Skill 能力流">
+          <div data-module-heading><strong data-module-title>Active Skill 能力流</strong><span data-module-description>统一路由连接 7 个可直接运行入口</span></div>
+          <div class="flow-node"><b>geo</b><span>intent router</span></div>
+          <div class="flow-node"><b>discover</b><span>query evidence</span></div>
+          <div class="flow-node"><b>diagnose</b><span>gap audit</span></div>
+          <div class="flow-node"><b>content</b><span>bounded output</span></div>
+          <div class="flow-node"><b>strategy</b><span>intervention</span></div>
+          <div class="flow-node"><b>measure</b><span>visibility</span></div>
+          <div class="flow-node"><b>knowledge</b><span>entity governance</span></div>
+          <div class="chart-reading"><span><b>问题：</b>0.5.0 提供哪些调用入口</span><span><b>解释：</b>从统一路由进入六类领域执行</span><span><b>结论：</b>Active Skill 从 4 个增至 7 个</span><span><b>证据：</b><em class="chart-status">verified</em></span></div>
+        </div>
+      </section>
+
+      <section class="section" id="comparison" aria-labelledby="comparison-title">
+        <div class="section-head" data-section-heading>
+          <div class="section-index" data-section-number>03 / Before and after</div>
+          <div>
+            <h2 id="comparison-title" data-section-title>17 个核心模块的能力增益</h2>
+            <p class="section-copy" data-section-description>同一套 100 分专家成熟度量表回看 0.2.0 基线与 0.5.0 当前实现，17 个模块平均分从 58 升至 85，增益集中在工作流、测量、策略、知识与评测</p>
+          </div>
+        </div>
+
+        <figure class="score-method" data-chart="capability-scoring-method" data-question="优化前后的评分如何保证同口径" data-explanation="五项维度等权，基线与当前实现使用同一评分规则" data-conclusion="17 个模块均按功能完整性、契约可靠性、证据可追溯性、验证覆盖和生产边界五项维度复评" data-source-status="inferred" role="img" aria-label="能力成熟度评分口径，100 分制，由五项维度等权组成">
+          <div data-module-heading><strong data-module-title>能力成熟度评分口径</strong><span data-module-description>五项维度等权，基线与当前实现使用同一规则</span></div>
+          <div>
+            <strong>评分口径</strong>
+            <p>功能完整性、契约可靠性、证据可追溯性、验证覆盖、生产边界各占 20%</p>
+          </div>
+          <div>
+            <strong>证据等级 / Inferred</strong>
+            <p>优化前以基线提交 <code>9c21f09</code>、0.2.0 Registry 和原对标报告为依据；优化后以 0.5.0 代码、测试、Schema、制品与门禁报告复评；评分用于内部优先级和能力变化判断，不等同于真实平台效果或公开性能基准</p>
+          </div>
+          <figcaption class="chart-reading"><span><b>解释：</b>五项维度等权，基线与当前实现使用同一规则</span><span><b>结论：</b>分数适合衡量工程成熟度变化，不用于替代真实平台效果</span></figcaption>
+        </figure>
+
+        <figure class="gain-summary" data-chart="overall-capability-gain" data-question="整体与四个能力面的成熟度发生了什么变化" data-explanation="17 个模块按所属能力面聚合，展示同口径专家成熟度的算术平均值" data-conclusion="整体提升 27 分，领域智能提升 40 分，是本轮最大的结构性增益" data-source-status="inferred" role="img" aria-label="整体能力成熟度从 58 分提升至 85 分，四个能力面均提升">
+          <div data-module-heading><strong data-module-title>总体与能力面增益</strong><span data-module-description>整体从 58 升至 85，领域智能增益最大</span></div>
+          <div class="gain-total">
+            <div>
+              <span class="gain-total-label">17-module maturity index</span>
+              <strong>58 <small>/100</small></strong>
+            </div>
+            <div>
+              <div class="gain-arrow">→ 85</div>
+              <div class="gain-delta">+27 PTS<br>+46% RELATIVE</div>
+            </div>
+          </div>
+          <div class="plane-gains">
+            <div class="plane-gain"><span>控制面</span><b>63 → <em>88</em></b><div class="plane-track"><i style="--plane-score:88%"></i></div><small>+25 / durable workflow</small></div>
+            <div class="plane-gain"><span>可信与协议</span><b>85 → <em>94</em></b><div class="plane-track"><i style="--plane-score:94%"></i></div><small>+9 / exact contracts</small></div>
+            <div class="plane-gain"><span>领域智能</span><b>37 → <em>77</em></b><div class="plane-track"><i style="--plane-score:77%"></i></div><small>+40 / 3 planned → active</small></div>
+            <div class="plane-gain"><span>质量与运营</span><b>52 → <em>81</em></b><div class="plane-track"><i style="--plane-score:81%"></i></div><small>+29 / eval + provenance</small></div>
+          </div>
+          <figcaption class="chart-reading"><span><b>解释：</b>领域智能增益主要来自 measure、strategy、knowledge 三项 planned 能力转为 Active</span><span><b>结论：</b>本轮完成了从工程骨架向可执行领域闭环的关键跨越</span></figcaption>
+        </figure>
+
+        <div class="filters" aria-label="能力对比筛选">
+          <span class="filter-label">能力面</span>
+          <button class="filter-button comparison-filter active" type="button" data-comparison-filter="all">全部 17 项</button>
+          <button class="filter-button comparison-filter" type="button" data-comparison-filter="control">控制面</button>
+          <button class="filter-button comparison-filter" type="button" data-comparison-filter="trust">可信与协议</button>
+          <button class="filter-button comparison-filter" type="button" data-comparison-filter="intelligence">领域智能</button>
+          <button class="filter-button comparison-filter" type="button" data-comparison-filter="quality">质量与运营</button>
+          <span class="filter-result" id="comparisonResult" aria-live="polite">显示 17 / 17</span>
+        </div>
+
+        <figure class="capability-compare" data-chart="module-before-after-comparison" data-question="每一个核心能力和模块优化前后分别是多少分，效果与亮点是什么" data-explanation="暖灰宽条表示 0.2.0 基线，墨蓝细条表示 0.5.0 当前成熟度，右侧给出效果与亮点" data-conclusion="17 个模块全部提升，最大增益来自测量、策略、知识和可恢复工作流" data-source-status="inferred" role="img" aria-label="17 个核心模块优化前后评分、效果与亮点对比">
+          <div data-module-heading><strong data-module-title>17 个模块前后对比</strong><span data-module-description>逐项呈现评分、效果和亮点</span></div>
+          <article class="capability-row" data-capability-layer="trust">
+            <span class="capability-no">01</span><div class="capability-name"><b>Skill 包与渐进加载</b><span>Skill format</span></div>
+            <div class="slope-chart" style="--before:86%;--after:96%"><div class="slope-numbers"><span class="before">86</span><i></i><span class="after">96</span></div><div class="slope-track"><span class="before-bar"></span><span class="after-bar"></span></div></div>
+            <div class="capability-copy"><p><b>效果：</b>从 4 个 Active Skill 扩展到 7 个，并保持 SKILL、references、scripts、reports 的轻量分层</p><p><b>亮点：</b>新增复杂能力后，入口仍然短小，Meta conformance 覆盖同步扩展</p></div><span class="gain-pill">+10</span>
+          </article>
+          <article class="capability-row" data-capability-layer="control">
+            <span class="capability-no">02</span><div class="capability-name"><b>能力注册表与治理</b><span>Registry</span></div>
+            <div class="slope-chart" style="--before:70%;--after:86%"><div class="slope-numbers"><span class="before">70</span><i></i><span class="after">86</span></div><div class="slope-track"><span class="before-bar"></span><span class="after-bar"></span></div></div>
+            <div class="capability-copy"><p><b>效果：</b>Registry 从 4 active、4 planned 演进为 7 active、1 planned，并新增 4 条可执行 workflow</p><p><b>亮点：</b>能力状态、DAG 依赖和输出契约继续由单一事实源驱动</p></div><span class="gain-pill">+16</span>
+          </article>
+          <article class="capability-row" data-capability-layer="control">
+            <span class="capability-no">03</span><div class="capability-name"><b>意图路由与拒答边界</b><span>Router</span></div>
+            <div class="slope-chart" style="--before:80%;--after:90%"><div class="slope-numbers"><span class="before">80</span><i></i><span class="after">90</span></div><div class="slope-track"><span class="before-bar"></span><span class="after-bar"></span></div></div>
+            <div class="capability-copy"><p><b>效果：</b>词法生产路由保持 373 例 precision 与 recall 1.0，同时加入语义 shadow 和泛化 DAG 匹配</p><p><b>亮点：</b>Shadow scorer 故障被隔离，实验能力无法阻断生产决策</p></div><span class="gain-pill">+10</span>
+          </article>
+          <article class="capability-row" data-capability-layer="control">
+            <span class="capability-no">04</span><div class="capability-name"><b>工作流 DAG 与长程执行</b><span>Workflow</span></div>
+            <div class="slope-chart" style="--before:40%;--after:88%"><div class="slope-numbers"><span class="before">40</span><i></i><span class="after">88</span></div><div class="slope-track"><span class="before-bar"></span><span class="after-bar"></span></div></div>
+            <div class="capability-copy"><p><b>效果：</b>从静态 DAG 描述升级为 checkpoint、retry、abort、approval、external wait 与 evidence-bound resume</p><p><b>亮点：</b>发布和观察边界只能携带真实 artifact evidence 恢复</p></div><span class="gain-pill">+48</span>
+          </article>
+          <article class="capability-row" data-capability-layer="trust">
+            <span class="capability-no">05</span><div class="capability-name"><b>类型契约与 Schema</b><span>Contracts</span></div>
+            <div class="slope-chart" style="--before:82%;--after:94%"><div class="slope-numbers"><span class="before">82</span><i></i><span class="after">94</span></div><div class="slope-track"><span class="before-bar"></span><span class="after-bar"></span></div></div>
+            <div class="capability-copy"><p><b>效果：</b>公开 JSON Schema 从 8 个扩展到 24 个，策略、测量、知识、评测和工作流产物全部有规范 validator</p><p><b>亮点：</b>关键产物在写盘前校验，协议漂移更早暴露</p></div><span class="gain-pill">+12</span>
+          </article>
+          <article class="capability-row" data-capability-layer="trust">
+            <span class="capability-no">06</span><div class="capability-name"><b>运行与 Artifact Bus</b><span>Artifacts</span></div>
+            <div class="slope-chart" style="--before:90%;--after:94%"><div class="slope-numbers"><span class="before">90</span><i></i><span class="after">94</span></div><div class="slope-track"><span class="before-bar"></span><span class="after-bar"></span></div></div>
+            <div class="capability-copy"><p><b>效果：</b>保留原子发布优势，并补齐随机临时文件、fsync、恢复 journal 和关键目录 durability</p><p><b>亮点：</b>进程崩溃或掉电后的隐藏 staging 具备恢复入口</p></div><span class="gain-pill">+4</span>
+          </article>
+          <article class="capability-row" data-capability-layer="trust">
+            <span class="capability-no">07</span><div class="capability-name"><b>证据谱系与可追溯性</b><span>Lineage</span></div>
+            <div class="slope-chart" style="--before:72%;--after:90%"><div class="slope-numbers"><span class="before">72</span><i></i><span class="after">90</span></div><div class="slope-track"><span class="before-bar"></span><span class="after-bar"></span></div></div>
+            <div class="capability-copy"><p><b>效果：</b>七个执行器统一输出 run-lineage，并把 artifact digest、输入、参数与父级关系写入侧车产物</p><p><b>亮点：</b>外部恢复与策略晋级均绑定语义摘要和文件摘要</p></div><span class="gain-pill">+18</span>
+          </article>
+          <article class="capability-row" data-capability-layer="trust">
+            <span class="capability-no">08</span><div class="capability-name"><b>安全 URL 与文件输入</b><span>Security</span></div>
+            <div class="slope-chart" style="--before:94%;--after:96%"><div class="slope-numbers"><span class="before">94</span><i></i><span class="after">96</span></div><div class="slope-track"><span class="before-bar"></span><span class="after-bar"></span></div></div>
+            <div class="capability-copy"><p><b>效果：</b>原有 SSRF 和 no-follow 文件读取保持稳定，eval 再增加 secret allowlist、隐私授权、成本与输出边界</p><p><b>亮点：</b>Private holdout 默认无法被 provider mode 外发</p></div><span class="gain-pill">+2</span>
+          </article>
+          <article class="capability-row" data-capability-layer="intelligence">
+            <span class="capability-no">09</span><div class="capability-name"><b>查询发现与扩展算法</b><span>Discovery</span></div>
+            <div class="slope-chart" style="--before:42%;--after:72%"><div class="slope-numbers"><span class="before">42</span><i></i><span class="after">72</span></div><div class="slope-track"><span class="before-bar"></span><span class="after-bar"></span></div></div>
+            <div class="capability-copy"><p><b>效果：</b>固定四模板基线扩展为模板、图谱、provider hypothesis、多策略聚类、去重和分量评分</p><p><b>亮点：</b>保留离线确定性 baseline，同时为研究型扩展预留可降级 adapter</p></div><span class="gain-pill">+30</span>
+          </article>
+          <article class="capability-row" data-capability-layer="intelligence">
+            <span class="capability-no">10</span><div class="capability-name"><b>网页采集与 GEO 诊断</b><span>Diagnosis</span></div>
+            <div class="slope-chart" style="--before:68%;--after:84%"><div class="slope-numbers"><span class="before">68</span><i></i><span class="after">84</span></div><div class="slope-track"><span class="before-bar"></span><span class="after-bar"></span></div></div>
+            <div class="capability-copy"><p><b>效果：</b>集中式规则诊断拆分为 gatherer、audit catalog、scoring 与 reporting 四层</p><p><b>亮点：</b>每项审计都有独立适用范围、分量和报告扩展边界</p></div><span class="gain-pill">+16</span>
+          </article>
+          <article class="capability-row" data-capability-layer="intelligence">
+            <span class="capability-no">11</span><div class="capability-name"><b>证据型内容研究与生成</b><span>Content</span></div>
+            <div class="slope-chart" style="--before:46%;--after:78%"><div class="slope-numbers"><span class="before">46</span><i></i><span class="after">78</span></div><div class="slope-track"><span class="before-bar"></span><span class="after-bar"></span></div></div>
+            <div class="capability-copy"><p><b>效果：</b>七种固定模式增加 research bundle、perspective plan、outline、draft 和 claim map 流水线</p><p><b>亮点：</b>比较与排名接入 MCDA 分量，证据不足继续停止结论生成</p></div><span class="gain-pill">+32</span>
+          </article>
+          <article class="capability-row" data-capability-layer="intelligence">
+            <span class="capability-no">12</span><div class="capability-name"><b>真实效果测量</b><span>Measurement</span></div>
+            <div class="slope-chart" style="--before:24%;--after:78%"><div class="slope-numbers"><span class="before">24</span><i></i><span class="after">78</span></div><div class="slope-track"><span class="before-bar"></span><span class="after-bar"></span></div></div>
+            <div class="capability-copy"><p><b>效果：</b>geo-measure 从 planned 变为 Active，支持固定 panel、observation slots、mention、citation、position 与 missing count</p><p><b>亮点：</b>缺失观察永远不会提高分数，fixture 与 live 数据禁止混算</p></div><span class="gain-pill">+54</span>
+          </article>
+          <article class="capability-row" data-capability-layer="intelligence">
+            <span class="capability-no">13</span><div class="capability-name"><b>优化反馈与策略记忆</b><span>Strategy</span></div>
+            <div class="slope-chart" style="--before:20%;--after:76%"><div class="slope-numbers"><span class="before">20</span><i></i><span class="after">76</span></div><div class="slope-track"><span class="before-bar"></span><span class="after-bar"></span></div></div>
+            <div class="capability-copy"><p><b>效果：</b>geo-strategy 从 planned 变为 Active，形成候选、保真、实验、handoff、receipt、visibility 与 memory 链路</p><p><b>亮点：</b>只有同 panel、完整窗口的正向效果才能晋级策略记忆</p></div><span class="gain-pill">+56</span>
+          </article>
+          <article class="capability-row" data-capability-layer="intelligence">
+            <span class="capability-no">14</span><div class="capability-name"><b>知识图谱与品牌事实</b><span>Knowledge</span></div>
+            <div class="slope-chart" style="--before:20%;--after:76%"><div class="slope-numbers"><span class="before">20</span><i></i><span class="after">76</span></div><div class="slope-track"><span class="before-bar"></span><span class="after-bar"></span></div></div>
+            <div class="capability-copy"><p><b>效果：</b>geo-knowledge 从 planned 变为 Active，支持实体、关系、冲突保留、证据状态、增量 source index 与局部查询</p><p><b>亮点：</b>相同 source hash 的 payload 漂移和不完整 delta 会 fail closed</p></div><span class="gain-pill">+56</span>
+          </article>
+          <article class="capability-row" data-capability-layer="quality">
+            <span class="capability-no">15</span><div class="capability-name"><b>Agent 评测与盲审</b><span>Evaluation</span></div>
+            <div class="slope-chart" style="--before:56%;--after:88%"><div class="slope-numbers"><span class="before">56</span><i></i><span class="after">88</span></div><div class="slope-track"><span class="before-bar"></span><span class="after-bar"></span></div></div>
+            <div class="capability-copy"><p><b>效果：</b>评测面增加 task、runner、private holdout、provider budget、wheel baseline / candidate、统一 blind pair 与 adjudication</p><p><b>亮点：</b>单 reviewer 无法产生 completed，人审一致性成为显式门槛</p></div><span class="gain-pill">+32</span>
+          </article>
+          <article class="capability-row" data-capability-layer="quality">
+            <span class="capability-no">16</span><div class="capability-name"><b>可观测性、采用率与漂移</b><span>Observability</span></div>
+            <div class="slope-chart" style="--before:20%;--after:62%"><div class="slope-numbers"><span class="before">20</span><i></i><span class="after">62</span></div><div class="slope-track"><span class="before-bar"></span><span class="after-bar"></span></div></div>
+            <div class="capability-copy"><p><b>效果：</b>运行协议增加 lineage 和 adoption / drift 聚合器，七个 Active Skill 均进入 Atlas 治理范围</p><p><b>亮点：</b>运行元数据与 digest 可本地汇总，真实 adoption 样本仍诚实标记缺失</p></div><span class="gain-pill">+42</span>
+          </article>
+          <article class="capability-row" data-capability-layer="quality">
+            <span class="capability-no">17</span><div class="capability-name"><b>制品与供应链证明</b><span>Release</span></div>
+            <div class="slope-chart" style="--before:80%;--after:92%"><div class="slope-numbers"><span class="before">80</span><i></i><span class="after">92</span></div><div class="slope-track"><span class="before-bar"></span><span class="after-bar"></span></div></div>
+            <div class="capability-copy"><p><b>效果：</b>8 个制品扩展到 11 个，加入 canonical manifest、SBOM、exact provenance、source parity 与 build / attest 分权</p><p><b>亮点：</b>任何缺包、额外包、伪造 SBOM facts 或 source inventory 漂移都会被拒绝</p></div><span class="gain-pill">+12</span>
+          </article>
+          <figcaption class="chart-reading"><span><b>解释：</b>暖灰宽条表示 0.2.0 基线，墨蓝细条表示 0.5.0 当前成熟度</span><span><b>结论：</b>最大增益来自测量、策略、知识和可恢复工作流</span></figcaption>
+        </figure>
+        <p class="comparison-note">结论：所有分数均为专家复评形成的 inferred 成熟度指数；0.5.0 的本地确定性能力明显增强；真实 GEO 效果、团队采用和可信构建身份仍由后文七项 missing evidence 约束</p>
+      </section>
+
+      <section class="section" id="repairs" aria-labelledby="repairs-title">
+        <div class="section-head" data-section-heading>
+          <div class="section-index" data-section-number>04 / Repair ledger</div>
+          <div>
+            <h2 id="repairs-title" data-section-title>20 项修复逐项可查</h2>
+            <p class="section-copy" data-section-description>使用风险等级和能力面筛选，展开单项可查看修复机制与验证证据</p>
+          </div>
+        </div>
+
+        <figure class="repair-distribution" data-chart="repair-distribution" data-question="20 类修复集中在哪些风险等级和能力面" data-explanation="左侧按风险等级拆分，右侧按运行安全、质量评测和治理发布归类" data-conclusion="11 项 High 与 9 项 Medium 全部闭环，质量评测涉及 9 项，是修复最密集的能力面" data-source-status="derived" role="img" aria-label="20 类修复按风险等级和能力面分布">
+          <div data-module-heading><strong data-module-title>20 类修复分布</strong><span data-module-description>按风险等级与能力面拆分</span></div>
+          <div class="repair-severity"><strong>20 类问题完成闭环</strong><div class="stack" aria-hidden="true"><i></i><i></i></div><p>11 High / 9 Medium，High 占 55%</p></div>
+          <div class="repair-layers">
+            <div class="repair-layer"><span>运行安全</span><b>7</b><p>Retention、Workflow、Router、Knowledge、Wheel</p></div>
+            <div class="repair-layer"><span>质量评测</span><b>9</b><p>Measurement、Review、Eval、Schemas、Blind Review</p></div>
+            <div class="repair-layer"><span>治理发布</span><b>4</b><p>Provenance、Release CI、Packaging、Atomic IO</p></div>
+          </div>
+          <figcaption class="chart-reading"><span><b>问题：</b>修复集中在哪些风险等级和能力面</span><span><b>解释：</b>左侧按风险等级，右侧按修复归属归类</span><span><b>结论：</b>质量评测涉及 9 项，是最密集能力面</span><span><b>证据：</b><em class="chart-status">derived</em></span></figcaption>
+        </figure>
+
+        <div class="filters" aria-label="修复清单筛选">
+          <span class="filter-label">等级</span>
+          <button class="filter-button active" type="button" data-group="severity" data-filter="all">全部</button>
+          <button class="filter-button" type="button" data-group="severity" data-filter="high">High</button>
+          <button class="filter-button" type="button" data-group="severity" data-filter="medium">Medium</button>
+          <span class="filter-spacer"></span>
+          <span class="filter-label">能力面</span>
+          <button class="filter-button active" type="button" data-group="layer" data-filter="all">全部</button>
+          <button class="filter-button" type="button" data-group="layer" data-filter="runtime">运行安全</button>
+          <button class="filter-button" type="button" data-group="layer" data-filter="quality">质量评测</button>
+          <button class="filter-button" type="button" data-group="layer" data-filter="release">治理发布</button>
+          <span class="filter-result" id="filterResult" aria-live="polite">显示 20 / 20</span>
+        </div>
+
+        <div class="fix-list">
+          <details class="fix" data-severity="high" data-layer="runtime">
+            <summary><span class="fix-no">01</span><span class="severity high">High</span><span class="fix-module">Retention</span><span class="fix-title">崩溃后隐藏 staging 可能失联</span><i class="chevron"></i></summary>
+            <div class="fix-body"><div><b>修复机制</b><p>增加 durable intent journal、目录 fsync、启动恢复、全局 no-follow retention lock 和可重入恢复进度</p></div><div><b>验证证据</b><p>崩溃 staging 与 split recovery 回归测试通过</p></div></div>
+          </details>
+          <details class="fix" data-severity="high" data-layer="quality">
+            <summary><span class="fix-no">02</span><span class="severity high">High</span><span class="fix-module">Measurement</span><span class="fix-title">缺失观察放大 headline rate</span><i class="chevron"></i></summary>
+            <div class="fix-body"><div><b>修复机制</b><p>mention、source、position 统一使用 expected slots，citation share 也将缺失槽位纳入保守分母</p></div><div><b>验证证据</b><p>1 / 20 正样本稳定得到 0.05</p></div></div>
+          </details>
+          <details class="fix" data-severity="high" data-layer="quality">
+            <summary><span class="fix-no">03</span><span class="severity high">High</span><span class="fix-module">Measurement</span><span class="fix-title">Live 样本可能掩盖 recorded fixture</span><i class="chevron"></i></summary>
+            <div class="fix-body"><div><b>修复机制</b><p>同一 observation bundle 禁止混合 collection method</p></div><div><b>验证证据</b><p>mixed-method 输入被 fail closed 拒绝</p></div></div>
+          </details>
+          <details class="fix" data-severity="high" data-layer="quality">
+            <summary><span class="fix-no">04</span><span class="severity high">High</span><span class="fix-module">Review</span><span class="fix-title">单 reviewer 可能得到 completed</span><i class="chevron"></i></summary>
+            <div class="fix-body"><div><b>修复机制</b><p>completed 要求全量主审、至少 20% 独立复审，并且 Cohen's kappa 不低于 0.60</p></div><div><b>验证证据</b><p>单 reviewer 场景返回 warn</p></div></div>
+          </details>
+          <details class="fix" data-severity="high" data-layer="runtime">
+            <summary><span class="fix-no">05</span><span class="severity high">High</span><span class="fix-module">Strategy</span><span class="fix-title">Memory promotion 缺乏完整效果证据</span><i class="chevron"></i></summary>
+            <div class="fix-body"><div><b>修复机制</b><p>绑定 Fidelity、Experiment、Handoff、Publication Receipt、Visibility Report，校验 panel、window、digests 并原子刷新 memory</p></div><div><b>验证证据</b><p>正向 promotion 完整链路测试通过</p></div></div>
+          </details>
+          <details class="fix" data-severity="high" data-layer="runtime">
+            <summary><span class="fix-no">06</span><span class="severity high">High</span><span class="fix-module">Workflow</span><span class="fix-title">外部边界可能凭 checkpoint 越过</span><i class="chevron"></i></summary>
+            <div class="fix-body"><div><b>修复机制</b><p>新增 resume_external，强制 Schema、semantic digest、文件 digest 与 artifact reference</p></div><div><b>验证证据</b><p>generic resume 在外部边界被拒绝</p></div></div>
+          </details>
+          <details class="fix" data-severity="high" data-layer="runtime">
+            <summary><span class="fix-no">07</span><span class="severity high">High</span><span class="fix-module">Router</span><span class="fix-title">Workflow 匹配硬编码两节点与固定 Skill</span><i class="chevron"></i></summary>
+            <div class="fix-body"><div><b>修复机制</b><p>按 Registry DAG 泛化匹配，增加三节点工作流和 Strategy → Measure recipe</p></div><div><b>验证证据</b><p>3-step 与新增 Skill workflow 路由测试通过</p></div></div>
+          </details>
+          <details class="fix" data-severity="high" data-layer="runtime">
+            <summary><span class="fix-no">08</span><span class="severity high">High</span><span class="fix-module">Router Shadow</span><span class="fix-title">Shadow scorer 异常可中断生产路由</span><i class="chevron"></i></summary>
+            <div class="fix-body"><div><b>修复机制</b><p>隔离 shadow 故障，并记录大小受限的 unavailable metadata</p></div><div><b>验证证据</b><p>broken scorer 不影响 lexical production route</p></div></div>
+          </details>
+          <details class="fix" data-severity="high" data-layer="runtime">
+            <summary><span class="fix-no">09</span><span class="severity high">High</span><span class="fix-module">Knowledge</span><span class="fix-title">同 hash payload 漂移与 partial delta 丢数据</span><i class="chevron"></i></summary>
+            <div class="fix-body"><div><b>修复机制</b><p>source index 增加 payload digest；same-hash drift 与 partial snapshot 全部 fail closed</p></div><div><b>验证证据</b><p>两类数据完整性回归测试通过</p></div></div>
+          </details>
+          <details class="fix" data-severity="high" data-layer="release">
+            <summary><span class="fix-no">10</span><span class="severity high">High</span><span class="fix-module">Provenance</span><span class="fix-title">Artifact 子集和伪造 SBOM facts 可能通过</span><i class="chevron"></i></summary>
+            <div class="fix-body"><div><b>修复机制</b><p>校验 exact archive set、disk inventory、重建 SBOM facts、staged index digest 和 source ZIP 逐文件 parity</p></div><div><b>验证证据</b><p>subset、subject、forged facts 对抗测试通过</p></div></div>
+          </details>
+          <details class="fix" data-severity="high" data-layer="release">
+            <summary><span class="fix-no">11</span><span class="severity high">High</span><span class="fix-module">Release CI</span><span class="fix-title">OIDC 权限与可变构建输入共处一项工作</span><i class="chevron"></i></summary>
+            <div class="fix-body"><div><b>修复机制</b><p>build 与 attest 分 job，build 无 OIDC；Actions 固定 commit SHA；凭据不持久化；hash-lock 安装</p></div><div><b>验证证据</b><p>workflow 静态审查与 release gate 通过</p></div></div>
+          </details>
+          <details class="fix" data-severity="medium" data-layer="quality">
+            <summary><span class="fix-no">12</span><span class="severity medium">Medium</span><span class="fix-module">Eval Privacy</span><span class="fix-title">Private holdout 可能在 provider mode 外发</span><i class="chevron"></i></summary>
+            <div class="fix-body"><div><b>修复机制</b><p>默认阻止外发，要求 consent、classification、approved provider，并仅记录 consent digest</p></div><div><b>验证证据</b><p>缺少 consent 时 fail closed</p></div></div>
+          </details>
+          <details class="fix" data-severity="medium" data-layer="quality">
+            <summary><span class="fix-no">13</span><span class="severity medium">Medium</span><span class="fix-module">Eval Cost</span><span class="fix-title">Provider 调用缺乏总量与成本边界</span><i class="chevron"></i></summary>
+            <div class="fix-body"><div><b>修复机制</b><p>限制 suite、task、token 与总预算；显式模型价格；调用前进行 worst-case preflight</p></div><div><b>验证证据</b><p>pricing 与 budget fail-closed 测试通过</p></div></div>
+          </details>
+          <details class="fix" data-severity="medium" data-layer="quality">
+            <summary><span class="fix-no">14</span><span class="severity medium">Medium</span><span class="fix-module">Eval Inputs</span><span class="fix-title">Custom suite 输入校验后未进入 runner</span><i class="chevron"></i></summary>
+            <div class="fix-body"><div><b>修复机制</b><p>suite 声明 input_root，将 UTF-8 snapshot、hash 与 content 送入 runner request</p></div><div><b>验证证据</b><p>deterministic 与 command suite 回归通过</p></div></div>
+          </details>
+          <details class="fix" data-severity="medium" data-layer="quality">
+            <summary><span class="fix-no">15</span><span class="severity medium">Medium</span><span class="fix-module">Eval Runner</span><span class="fix-title">stdout / stderr 可能无界占用内存</span><i class="chevron"></i></summary>
+            <div class="fix-body"><div><b>修复机制</b><p>输出改写临时文件，解析前实施 4 MiB 上限</p></div><div><b>验证证据</b><p>runner contract 回归通过</p></div></div>
+          </details>
+          <details class="fix" data-severity="medium" data-layer="runtime">
+            <summary><span class="fix-no">16</span><span class="severity medium">Medium</span><span class="fix-module">Wheel Eval</span><span class="fix-title">依赖摘要来自宿主且 runner 继承 secrets</span><i class="chevron"></i></summary>
+            <div class="fix-body"><div><b>修复机制</b><p>摘要改用 isolated target file set；环境变量使用 allowlist；安装增加 --no-index</p></div><div><b>验证证据</b><p>distinct-wheel command 测试通过</p></div></div>
+          </details>
+          <details class="fix" data-severity="medium" data-layer="quality">
+            <summary><span class="fix-no">17</span><span class="severity medium">Medium</span><span class="fix-module">Schemas</span><span class="fix-title">六类公开 JSON output 缺规范 validator</span><i class="chevron"></i></summary>
+            <div class="fix-body"><div><b>修复机制</b><p>新增 Strategy Candidates、Fidelity、Experiment、Publication Receipt、Knowledge Query Result、Content Pipeline Schema</p></div><div><b>验证证据</b><p>24 项 Schema 全量 meta-test 通过</p></div></div>
+          </details>
+          <details class="fix" data-severity="medium" data-layer="release">
+            <summary><span class="fix-no">18</span><span class="severity medium">Medium</span><span class="fix-module">Packaging</span><span class="fix-title">Release topology 分散且 source ZIP 缺测试资产</span><i class="chevron"></i></summary>
+            <div class="fix-body"><div><b>修复机制</b><p>增加 canonical release manifest；source ZIP 纳入 tests、evals 和 lockfile；runtime adapters 保持精简</p></div><div><b>验证证据</b><p>package、install、source inventory gates 通过</p></div></div>
+          </details>
+          <details class="fix" data-severity="medium" data-layer="quality">
+            <summary><span class="fix-no">19</span><span class="severity medium">Medium</span><span class="fix-module">Blind Review</span><span class="fix-title">Blind pack 与 adjudicator contract 不兼容</span><i class="chevron"></i></summary>
+            <div class="fix-body"><div><b>修复机制</b><p>blind pack 与 answer key 统一采用 {suite_id, pairs} contract</p></div><div><b>验证证据</b><p>eval generation 与 adjudicator 兼容性检查通过</p></div></div>
+          </details>
+          <details class="fix" data-severity="medium" data-layer="release">
+            <summary><span class="fix-no">20</span><span class="severity medium">Medium</span><span class="fix-module">Atomic IO</span><span class="fix-title">临时路径可预测且 durability 不一致</span><i class="chevron"></i></summary>
+            <div class="fix-body"><div><b>修复机制</b><p>统一使用随机 mkstemp、fsync 与 atomic replace，关键目录同步落盘</p></div><div><b>验证证据</b><p>workflow concurrency 与持久化回归通过</p></div></div>
+          </details>
+        </div>
+      </section>
+
+      <section class="section" id="quality" aria-labelledby="quality-title">
+        <div class="section-head" data-section-heading>
+          <div class="section-index" data-section-number>05 / Quality gates</div>
+          <div>
+            <h2 id="quality-title" data-section-title>确定性验证全部守住阈值</h2>
+            <p class="section-copy" data-section-description>路由、触发、输出契约、制品、安装与 Meta Skill 门禁均为可重复运行的本地证据，人类评审和真实平台结果没有计入这些通过率</p>
+          </div>
+        </div>
+        <div class="scoreboard" data-chart="deterministic-quality-gates" data-question="0.5.0 的确定性质量门禁表现如何" data-explanation="每一行展示真实用例数或制品数，墨蓝条表示达到既定本地阈值" data-conclusion="路由、触发、输出、测试、制品与 Meta Skill 门禁全部守住本地阈值" data-source-status="verified" role="img" aria-label="GEOHub 0.5.0 确定性质量门禁得分">
+          <div data-module-heading><strong data-module-title>确定性质量门禁</strong><span data-module-description>真实样本量与结果逐项对照</span></div>
+          <div class="score"><span class="score-name">Router exact match<small>373 cases</small></span><span class="bar"><span style="--score:100%"></span></span><span class="score-value">1.000</span></div>
+          <div class="score"><span class="score-name">Shadow scorer<small>12 cases</small></span><span class="bar"><span style="--score:100%"></span></span><span class="score-value">1.000</span></div>
+          <div class="score"><span class="score-name">Trigger compliance<small>51 / 51</small></span><span class="bar"><span style="--score:100%"></span></span><span class="score-value">1.000</span></div>
+          <div class="score"><span class="score-name">Output contract<small>35 / 35</small></span><span class="bar"><span style="--score:100%"></span></span><span class="score-value">1.000</span></div>
+          <div class="score"><span class="score-name">Test execution<small>557 collected / 1 skip</small></span><span class="bar"><span style="--score:99.82%"></span></span><span class="score-value">556 + 1S</span></div>
+          <div class="score"><span class="score-name">Package verification<small>double-build hashes</small></span><span class="bar"><span style="--score:100%"></span></span><span class="score-value">11 / 11</span></div>
+          <div class="score"><span class="score-name">Meta deterministic<small>17 evidence waivers</small></span><span class="bar"><span style="--score:100%"></span></span><span class="score-value">92 / 92</span></div>
+          <div class="score"><span class="score-name">Fabricated citations<small>deterministic output eval</small></span><span class="bar"><span style="--score:100%"></span></span><span class="score-value">0</span></div>
+          <div class="chart-reading"><span><b>问题：</b>确定性质量门禁表现如何</span><span><b>解释：</b>每行展示真实样本量与结果</span><span><b>结论：</b>全部守住本地阈值</span><span><b>证据：</b><em class="chart-status">verified</em></span></div>
+        </div>
+
+        <figure class="package-growth" data-chart="verified-coverage-growth" data-question="0.2.0 到 0.5.0 的可验证覆盖增长了多少" data-explanation="比较 Registry、Schema、制品和 Meta deterministic commands 四类可核验数量" data-conclusion="Active Skill、Schema、制品和 Meta gates 全部扩容，验证面随能力增长同步增加" data-source-status="derived" role="img" aria-label="Active Skill、Schema、制品和 Meta Gate 从 0.2.0 到 0.5.0 的增长">
+          <div data-module-heading><strong data-module-title>可验证覆盖增长</strong><span data-module-description>四类可核验数量同步扩容</span></div>
+          <div class="growth-item"><span>Active Skill</span><b>4 → <em>7</em></b><p>+75%</p></div>
+          <div class="growth-item"><span>JSON Schema</span><b>8 → <em>24</em></b><p>+200%</p></div>
+          <div class="growth-item"><span>Release artifacts</span><b>8 → <em>11</em></b><p>+37.5%</p></div>
+          <div class="growth-item"><span>Meta commands</span><b>53 → <em>92</em></b><p>+73.6%</p></div>
+          <figcaption class="chart-reading"><span><b>问题：</b>可验证覆盖增长了多少</span><span><b>解释：</b>比较两版真实 Registry 与报告计数</span><span><b>结论：</b>能力扩容伴随验证面同步增长</span><span><b>证据：</b><em class="chart-status">derived</em></span></figcaption>
+        </figure>
+        <div class="trust-ledger">
+          <div class="trust-cell"><span>Build identity</span><strong>local-unsigned</strong></div>
+          <div class="trust-cell"><span>Trusted claim</span><strong>false</strong></div>
+          <div class="trust-cell"><span>SLSA level</span><strong>none claimed</strong></div>
+        </div>
+      </section>
+
+      <section class="section" id="evidence" aria-labelledby="evidence-title">
+        <div class="section-head" data-section-heading>
+          <div class="section-index" data-section-number>06 / External evidence</div>
+          <div>
+            <h2 id="evidence-title" data-section-title>七项证据继续排队</h2>
+            <p class="section-copy" data-section-description>这些工作需要正式 CI、真实平台、独立评审者、业务团队或法律责任人参与，当前状态统一为 missing evidence</p>
+          </div>
+        </div>
+        <div class="evidence-queue" data-chart="external-evidence-queue" data-question="Production 晋级仍缺少哪些外部证据" data-explanation="逐项列出证据名称、价值与完成条件，所有项目当前都未满足" data-conclusion="可信构建、人审、真实平台效果、知识评测、采用和法律七类证据仍待完成" data-source-status="missing" role="img" aria-label="Production 晋级七项外部证据缺口">
+          <div data-module-heading><strong data-module-title>Production 外部证据队列</strong><span data-module-description>七类证据均处于待完成状态</span></div>
+          <article class="evidence-item"><span class="queue-no">E-01</span><div><h3>CI artifact attestation</h3><p>让正式构建和声明发生在最小权限、可追溯的 CI 环境</p></div><div class="condition">完成条件：正式 workflow 运行，并独立执行 gh attestation verify</div></article>
+          <article class="evidence-item"><span class="queue-no">E-02</span><div><h3>人类 blind review</h3><p>用真实独立评审覆盖输出质量与一致性</p></div><div class="condition">完成条件：全量主审、至少 20% 独立复审、Cohen's kappa gate</div></article>
+          <article class="evidence-item"><span class="queue-no">E-03</span><div><h3>真实平台 benchmark</h3><p>在相同 panel 与 collection policy 下测量外部平台表现</p></div><div class="condition">完成条件：固定 query panel、真实 engine observations、完整观察窗口</div></article>
+          <article class="evidence-item"><span class="queue-no">E-04</span><div><h3>Strategy external effect</h3><p>连接发布事实与后续可见度变化，验证策略提升</p></div><div class="condition">完成条件：publication receipt、完整 observation window、同 panel visibility report</div></article>
+          <article class="evidence-item"><span class="queue-no">E-05</span><div><h3>Knowledge production eval</h3><p>使用生产知识库与人工 gold set 检验实体、关系和增量一致性</p></div><div class="condition">完成条件：真实 snapshot、人工 gold set、incremental consistency benchmark</div></article>
+          <article class="evidence-item"><span class="queue-no">E-06</span><div><h3>Adoption evidence</h3><p>确认真实团队能够安装、执行、恢复失败并持续使用</p></div><div class="condition">完成条件：安装、执行、失败恢复、留存数据形成可审计记录</div></article>
+          <article class="evidence-item"><span class="queue-no">E-07</span><div><h3>Commercial legal review</h3><p>覆盖分发、许可、数据与责任边界</p></div><div class="condition">完成条件：法律责任人签署复核记录</div></article>
+          <div class="chart-reading"><span><b>问题：</b>Production 晋级仍缺少哪些外部证据</span><span><b>解释：</b>逐项列出价值与完成条件</span><span><b>结论：</b>七类证据全部待完成</span><span><b>证据：</b><em class="chart-status">missing</em></span></div>
+        </div>
+      </section>
+
+      <section class="section" id="next" aria-labelledby="next-title">
+        <div class="section-head" data-section-heading>
+          <div class="section-index" data-section-number>07 / Promotion path</div>
+          <div>
+            <h2 id="next-title" data-section-title>下一阶段按证据价值推进</h2>
+            <p class="section-copy" data-section-description>优先完成能改变发布结论的证据，再扩展产品能力，每一项都绑定清晰的责任边界和验收条件</p>
+          </div>
+        </div>
+        <div class="next-grid" data-chart="production-promotion-roadmap" data-question="下一阶段应按什么优先级补齐 Production 证据" data-explanation="按能否改变发布结论和依赖顺序分为 P0、P1、P2" data-conclusion="先完成可信构建和双人盲审，再推进真实效果、知识、采用与法律证据" data-source-status="qualitative" role="img" aria-label="Production 晋级六项优先行动路线">
+          <div data-module-heading><strong data-module-title>Production 晋级路线</strong><span data-module-description>P0、P1、P2 按证据价值与依赖排序</span></div>
+          <article class="next"><span class="priority">P0 / TRUST</span><h3>运行正式 CI 与独立 attestation 验证</h3><p>先获得可信构建身份，再评估 Experimental Release 的远端发布动作</p></article>
+          <article class="next"><span class="priority">P0 / QUALITY</span><h3>完成双人 blind review 与 kappa gate</h3><p>将人类判断接入现有统一 pair contract，输出可追溯 adjudication 结果</p></article>
+          <article class="next"><span class="priority">P1 / EFFECT</span><h3>启动固定 panel 的真实平台 benchmark</h3><p>使用一致采集策略，并连接 Strategy publication receipt 与效果观察窗口</p></article>
+          <article class="next"><span class="priority">P1 / KNOWLEDGE</span><h3>建立生产知识库 gold set</h3><p>覆盖实体、关系、冲突保留、增量更新与同 hash 漂移检测</p></article>
+          <article class="next"><span class="priority">P2 / ADOPTION</span><h3>开展团队试点与恢复演练</h3><p>记录安装成功率、任务完成率、失败恢复时间和持续使用情况</p></article>
+          <article class="next"><span class="priority">P2 / LEGAL</span><h3>签署商业与法律复核</h3><p>让责任人确认许可、来源、数据处理、分发和责任声明</p></article>
+          <div class="chart-reading"><span><b>问题：</b>下一阶段应按什么优先级推进</span><span><b>解释：</b>优先处理能直接改变发布结论的证据</span><span><b>结论：</b>可信构建和双人盲审为 P0</span><span><b>证据：</b><em class="chart-status">qualitative</em></span></div>
+        </div>
+
+        <details class="commands">
+          <summary><strong>最终验收命令</strong><span>10 COMMANDS / CLICK TO EXPAND</span></summary>
+          <pre id="commandBlock">python -m pytest -q
+python scripts/run_evals.py
+python scripts/verify_packages.py
+python scripts/install_simulation.py --target all
+python scripts/generate_sbom.py
+python scripts/generate_provenance.py
+python scripts/verify_provenance.py
+python scripts/render_production_readiness.py
+python scripts/run_yao_meta_gates.py --verify-existing
+python scripts/verify_repository.py</pre>
+        </details>
+
+        <div class="source-list" aria-label="报告证据源">
+          <a class="source-link" href="../../../reports/geohub-upgrade-review-fix-list-2026-08-13.md"><span>升级复审与修复清单</span><code>MARKDOWN</code></a>
+          <a class="source-link" href="../../../reports/production-readiness.json"><span>生产就绪判定</span><code>JSON</code></a>
+          <a class="source-link" href="../../../reports/eval-summary.json"><span>路由与输出评测</span><code>JSON</code></a>
+          <a class="source-link" href="../../../reports/package-verification.json"><span>制品确定性验证</span><code>JSON</code></a>
+          <a class="source-link" href="../../../reports/install-simulation.json"><span>安装模拟结果</span><code>JSON</code></a>
+          <a class="source-link" href="../../../reports/yao-meta-gates.json"><span>Meta Skill 门禁</span><code>JSON</code></a>
+          <a class="source-link" href="../../../reports/geohub-world-class-benchmark-2026-08-12.html"><span>0.2.0 世界级对标基线</span><code>HTML</code></a>
+          <a class="source-link" href="../../../reports/geohub-upgrade-implementation-plan-final-2026-08-12.md"><span>0.5.0 最终实施方案</span><code>MARKDOWN</code></a>
+        </div>
+      </section>
+
+      <footer>
+        <span>GEOHub 0.5.0 / 深度复审 / 2026-08-13</span>
+        <span>单文件离线报告 / 无外部依赖</span>
+      </footer>
+      <section class="content-proof" id="content-proof" aria-label="Kami 内容覆盖校验">
+        <div data-section-heading>
+          <span data-section-number>08 / Content evidence</span>
+          <h2 data-section-title>内容与证据覆盖附录</h2>
+          <p data-section-description>汇总内容 IR 的核心事实、章节结论与来源名称，用于验证报告没有在排版阶段丢失关键判断</p>
+        </div>
+        <p>升级复审，核心能力成熟度，升级复审，2026-08-13</p>
+        <div class="content-proof-grid">
+          <p>核心模块同口径复评完成，17 个模块使用同一套五维成熟度量表复盘</p>
+          <p>本地确定性门禁已覆盖测试、Schema、制品与 Meta 治理</p>
+          <p>20 类代码问题完成闭环，每项均绑定修复机制与验证证据</p>
+          <p>Production 晋级仍等待正式 CI、真实平台、独立评审、业务采用与法律复核</p>
+          <p>评分用于内部优先级判断，所有成熟度分数的证据状态为 inferred</p>
+          <p>来源包括升级复审清单、生产就绪判定、评测报告、制品验证、安装模拟、Meta 门禁、0.2.0 对标基线与 0.5.0 实施方案</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const filterState = { severity: "all", layer: "all" };
+    const fixes = [...document.querySelectorAll(".fix")];
+    const filterButtons = [...document.querySelectorAll(".filter-button")];
+    const result = document.getElementById("filterResult");
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const group = button.dataset.group;
+        filterState[group] = button.dataset.filter;
+        filterButtons
+          .filter((item) => item.dataset.group === group)
+          .forEach((item) => item.classList.toggle("active", item === button));
+
+        let visible = 0;
+        fixes.forEach((fix) => {
+          const severityMatch = filterState.severity === "all" || fix.dataset.severity === filterState.severity;
+          const layerMatch = filterState.layer === "all" || fix.dataset.layer === filterState.layer;
+          fix.hidden = !(severityMatch && layerMatch);
+          if (!fix.hidden) visible += 1;
+        });
+        result.textContent = `显示 ${visible} / ${fixes.length}`;
+      });
+    });
+
+    const comparisonRows = [...document.querySelectorAll(".capability-row")];
+    const comparisonButtons = [...document.querySelectorAll(".comparison-filter")];
+    const comparisonResult = document.getElementById("comparisonResult");
+    comparisonButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const selected = button.dataset.comparisonFilter;
+        comparisonButtons.forEach((item) => item.classList.toggle("active", item === button));
+        let visible = 0;
+        comparisonRows.forEach((row) => {
+          row.hidden = selected !== "all" && row.dataset.capabilityLayer !== selected;
+          if (!row.hidden) visible += 1;
+        });
+        comparisonResult.textContent = `显示 ${visible} / ${comparisonRows.length}`;
+      });
+    });
+
+    const navLinks = [...document.querySelectorAll(".rail-links a")];
+    const sections = navLinks.map((link) => document.querySelector(link.getAttribute("href"))).filter(Boolean);
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach((link) => link.classList.toggle("active", link.getAttribute("href") === `#${entry.target.id}`));
+      });
+    }, { rootMargin: "-22% 0px -68% 0px", threshold: 0 });
+    sections.forEach((section) => observer.observe(section));
+
+    const printButton = document.getElementById("printReport");
+    let previouslyClosed = [];
+    printButton.addEventListener("click", () => window.print());
+    window.addEventListener("beforeprint", () => {
+      previouslyClosed = [...document.querySelectorAll("details:not([open])")];
+      document.querySelectorAll("details").forEach((detail) => detail.open = true);
+    });
+    window.addEventListener("afterprint", () => previouslyClosed.forEach((detail) => detail.open = false));
+  </script>
+</body>
+</html>
