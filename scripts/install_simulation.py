@@ -94,9 +94,20 @@ def source_smoke(source_zip: Path, temp_root: Path, wheelhouse: Path) -> dict:
     knowledge_request = fixtures / "knowledge.json"
     knowledge_request.write_text(json.dumps({"protocol_version":"1.0.0","subject":"Synthetic","query":{"mode":"local","value":"Synthetic"},"sources":[{"source_id":"synthetic-source","source_uri":"https://example.invalid/synthetic","source_hash":"b"*64,"reviewed_at":"2026-08-12T00:00:00Z","entities":[{"entity_id":"synthetic","type":"product","canonical_name":"Synthetic","aliases":[],"valid_from":"2026-01-01"}],"facts":[],"relations":[]}]}, allow_nan=False), encoding="utf-8")
     runs = temp_root / "runs"
+    workflow_root = temp_root / "workflow"
+    workflow_root.mkdir()
+    plan_path = workflow_root / "task-plan.json"
+    workflow_inputs = workflow_root / "inputs.json"
+    workflow_inputs.write_text(
+        json.dumps({"geo-brief": str(brief)}, allow_nan=False),
+        encoding="utf-8",
+    )
+    state_path = workflow_root / "workflow-state.json"
     commands = [
         [str(python), "-m", "geo_seo_hub", "--version"],
         [str(python), "-m", "geo_seo_hub", "route", "--text", "Discover AI search questions"],
+        [str(python), "-m", "geo_seo_hub", "route", "--text", "Discover AI search questions", "--lexical-only", "--plan-output", str(plan_path)],
+        [str(python), "-m", "geo_seo_hub", "workflow", "start", "--plan", str(plan_path), "--state", str(state_path), "--inputs", str(workflow_inputs), "--output", str(workflow_root / "runs")],
         [str(python), "-m", "geo_seo_hub", "discover", "--input", str(brief), "--output", str(runs)],
         [str(python), "-m", "geo_seo_hub", "diagnose", "--input", str(diagnosis), "--output", str(runs)],
         [str(python), "-m", "geo_seo_hub", "content", "--input", str(content), "--output", str(runs)],
@@ -112,10 +123,14 @@ def source_smoke(source_zip: Path, temp_root: Path, wheelhouse: Path) -> dict:
         "version": VERSION,
     }:
         raise ValueError(f"installed CLI version mismatch: {version_payload}")
+    plan_payload = json.loads(plan_path.read_text(encoding="utf-8"))
+    state_payload = json.loads(state_path.read_text(encoding="utf-8"))
+    if plan_payload.get("status") != "ready" or state_payload.get("status") != "completed":
+        raise ValueError("installed TaskPlan workflow smoke did not complete")
     return {
         "package": source_zip.name,
         "installed_from": ".",
-        "cli_smokes": ["version", "route", "discover", "diagnose", "content", "measure", "strategy", "knowledge"],
+        "cli_smokes": ["version", "route", "route-plan", "workflow-start", "discover", "diagnose", "content", "measure", "strategy", "knowledge"],
         "status": "pass",
     }
 

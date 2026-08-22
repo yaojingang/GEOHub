@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-13",
+  "generated_at": "2026-08-22",
   "skill_dir": "skills/geo-measure",
   "summary": {
     "target_count": 1,
@@ -35,7 +35,7 @@
       "compiled_contract": {
         "name": "geo-measure",
         "title": "GEO SEO Hub Measure",
-        "version": "0.5.0",
+        "version": "0.6.0",
         "description": "Measure GEO visibility from an approved, file-backed engine observation bundle. Use for AI answer mention rate, source inclusion, citation share, query-panel coverage, GEO monitoring, 监测 AI 可见度, 衡量 GEO 效果, and offline baseline comparison. Exclude live scraping, platform login, automated collection, and unsupported causal claims.",
         "job_to_be_done": "Measure GEO visibility from an approved, file-backed engine observation bundle. Use for AI answer mention rate, source inclusion, citation share, query-panel coverage, GEO monitoring, 监测 AI 可见度, 衡量 GEO 效果, and offline baseline comparison. Exclude live scraping, platform login, automated collection, and unsupported causal claims.",
         "trigger": {

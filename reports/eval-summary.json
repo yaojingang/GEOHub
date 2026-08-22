@@ -484,12 +484,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -498,12 +498,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -512,12 +512,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -526,12 +526,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -540,12 +540,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -568,12 +568,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -792,12 +792,12 @@
         "expected": {
           "skill_id": "geo-diagnose",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo-diagnose",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -1086,12 +1086,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -1100,12 +1100,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -1142,12 +1142,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -1156,12 +1156,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -1170,12 +1170,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -1184,12 +1184,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -1198,12 +1198,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -1212,12 +1212,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -1226,12 +1226,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -1240,12 +1240,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -1254,12 +1254,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -1268,12 +1268,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -1282,12 +1282,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -1366,12 +1366,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -1380,12 +1380,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -1394,12 +1394,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -1436,12 +1436,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -1450,12 +1450,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -1464,12 +1464,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -1478,12 +1478,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -1492,12 +1492,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -1506,12 +1506,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -2948,12 +2948,12 @@
         "expected": {
           "skill_id": "geo-diagnose",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo-diagnose",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -3200,12 +3200,12 @@
         "expected": {
           "skill_id": "geo-diagnose",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo-diagnose",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -3858,12 +3858,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -3872,12 +3872,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4096,12 +4096,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4110,12 +4110,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4124,12 +4124,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4138,12 +4138,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4152,12 +4152,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4166,12 +4166,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4180,12 +4180,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4194,12 +4194,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4334,12 +4334,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4348,12 +4348,12 @@
         "expected": {
           "skill_id": "geo-content",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo-content",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4362,12 +4362,12 @@
         "expected": {
           "skill_id": "geo-content",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo-content",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4502,12 +4502,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4516,12 +4516,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4530,12 +4530,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4544,12 +4544,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4558,12 +4558,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4614,12 +4614,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4628,12 +4628,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4642,12 +4642,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4656,12 +4656,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4670,12 +4670,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4684,12 +4684,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4698,12 +4698,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4712,12 +4712,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4726,12 +4726,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4740,12 +4740,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4754,12 +4754,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4866,12 +4866,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4880,12 +4880,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -4894,12 +4894,12 @@
         "expected": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         },
         "actual": {
           "skill_id": "geo",
           "workflow_id": null,
-          "runnable": true
+          "runnable": false
         }
       },
       {
@@ -5241,110 +5241,17 @@
     ]
   },
   "router_shadow": {
+    "status": "missing-evidence",
     "case_count": 12,
-    "precision": 1.0,
-    "recall": 1.0,
+    "evaluated_count": 0,
+    "precision": null,
+    "recall": null,
     "planned_activations": 0,
     "production_changed": false,
+    "model_id": null,
     "threshold_version": "semantic-shadow-1.0.0",
-    "results": [
-      {
-        "id": "shadow-01",
-        "passed": true,
-        "production_skill_id": "geo-diagnose",
-        "shadow_skill_id": "geo-diagnose",
-        "disagreed": false,
-        "decision_reason": "Shadow candidate agrees with lexical production route geo-diagnose."
-      },
-      {
-        "id": "shadow-02",
-        "passed": true,
-        "production_skill_id": "geo-discover",
-        "shadow_skill_id": "geo-discover",
-        "disagreed": false,
-        "decision_reason": "Shadow candidate agrees with lexical production route geo-discover."
-      },
-      {
-        "id": "shadow-03",
-        "passed": true,
-        "production_skill_id": "geo-content",
-        "shadow_skill_id": "geo-content",
-        "disagreed": false,
-        "decision_reason": "Shadow candidate agrees with lexical production route geo-content."
-      },
-      {
-        "id": "shadow-04",
-        "passed": true,
-        "production_skill_id": "geo-measure",
-        "shadow_skill_id": "geo-measure",
-        "disagreed": false,
-        "decision_reason": "Shadow candidate agrees with lexical production route geo-measure."
-      },
-      {
-        "id": "shadow-05",
-        "passed": true,
-        "production_skill_id": "geo-strategy",
-        "shadow_skill_id": "geo-strategy",
-        "disagreed": false,
-        "decision_reason": "Shadow candidate agrees with lexical production route geo-strategy."
-      },
-      {
-        "id": "shadow-06",
-        "passed": true,
-        "production_skill_id": "geo-knowledge",
-        "shadow_skill_id": "geo-knowledge",
-        "disagreed": false,
-        "decision_reason": "Shadow candidate agrees with lexical production route geo-knowledge."
-      },
-      {
-        "id": "shadow-07",
-        "passed": true,
-        "production_skill_id": "geo-publish",
-        "shadow_skill_id": "geo-content",
-        "disagreed": true,
-        "decision_reason": "Shadow candidate geo-content differs from lexical production route geo-publish; production remains unchanged."
-      },
-      {
-        "id": "shadow-08",
-        "passed": true,
-        "production_skill_id": "geo-discover",
-        "shadow_skill_id": "geo-discover",
-        "disagreed": false,
-        "decision_reason": "Shadow candidate agrees with lexical production route geo-discover."
-      },
-      {
-        "id": "shadow-09",
-        "passed": true,
-        "production_skill_id": "geo-diagnose",
-        "shadow_skill_id": "geo-diagnose",
-        "disagreed": false,
-        "decision_reason": "Shadow candidate agrees with lexical production route geo-diagnose."
-      },
-      {
-        "id": "shadow-10",
-        "passed": true,
-        "production_skill_id": "geo",
-        "shadow_skill_id": "geo",
-        "disagreed": false,
-        "decision_reason": "Shadow candidate agrees with lexical production route geo."
-      },
-      {
-        "id": "shadow-11",
-        "passed": true,
-        "production_skill_id": "geo-measure",
-        "shadow_skill_id": "geo-measure",
-        "disagreed": false,
-        "decision_reason": "Shadow candidate agrees with lexical production route geo-measure."
-      },
-      {
-        "id": "shadow-12",
-        "passed": true,
-        "production_skill_id": "geo-content",
-        "shadow_skill_id": "geo-content",
-        "disagreed": false,
-        "decision_reason": "Shadow candidate agrees with lexical production route geo-content."
-      }
-    ]
+    "reason": "Real semantic scorer unavailable: RuntimeError.",
+    "results": []
   },
   "triggers": {
     "case_count": 52,

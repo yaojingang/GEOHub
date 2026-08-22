@@ -290,6 +290,7 @@ def main() -> int:
         "seo-plan.schema.json",
         "strategy-candidates.schema.json",
         "strategy-memory.schema.json",
+        "task-plan.schema.json",
         "visibility-report.schema.json",
         "workflow-state.schema.json",
     }
@@ -510,11 +511,12 @@ def main() -> int:
         fail("geo-content manifest output contract is incomplete")
 
     changelog = ROOT / "CHANGELOG.md"
-    migration = ROOT / "docs" / "migration-0.5.md"
+    migration = ROOT / "docs" / "migration-0.6.md"
     if not changelog.is_file() or f"## {verify_version_consistency()}" not in changelog.read_text(encoding="utf-8"):
         fail("CHANGELOG does not describe the current version")
-    if not migration.is_file() or "strategy" not in migration.read_text(encoding="utf-8") or "knowledge" not in migration.read_text(encoding="utf-8"):
-        fail("0.5 migration guide is incomplete")
+    migration_text = migration.read_text(encoding="utf-8") if migration.is_file() else ""
+    if not migration.is_file() or "TaskPlan" not in migration_text or "workflow-state.json.v1.backup" not in migration_text:
+        fail("0.6 migration guide is incomplete")
 
     release_reports = {
         name: ROOT / "reports" / name

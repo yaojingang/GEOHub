@@ -1,8 +1,8 @@
 # GEO SEO Hub
 
-**Version 0.5.0 · Experimental · GEO-first · SEO-ready**
+**Version 0.6.0 · Experimental · GEO-first · SEO-ready**
 
-GEO SEO Hub is an open, protocol-first agent skill hub with active GEO workflows and an SEO-ready shared foundation. Version 0.5.0 turns generative engine optimization work into auditable, reusable runs through a registry-driven control plane, Artifact Bus, evaluation lab, discovery, diagnosis, content, measurement, strategy optimization, knowledge governance, JSON Schema contracts, and seven active Skills.
+GEO SEO Hub is an open, protocol-first agent skill hub with active GEO workflows and an SEO-ready shared foundation. Version 0.6.0 adds hybrid intent decisions, Capability Cards, deterministic TaskPlans, and a recoverable workflow runtime to the existing Artifact Bus, evaluation lab, discovery, diagnosis, content, measurement, strategy optimization, knowledge governance, and seven active Skills.
 
 The skills are Library-engineered packages while product behavior remains **Experimental**. `maturity_tier=library` describes packaging rigor and does not claim production outcome quality.
 
@@ -17,7 +17,7 @@ The skills are Library-engineered packages while product behavior remains **Expe
 - `geo-knowledge`: builds source-lined entity graphs, preserves conflicting facts, supports local/global queries, and replaces changed source-hash contributions.
 - `geo-publish`: remains a visible roadmap route with `planned` status and no execution authority.
 
-The resolver keeps single-intent routing minimal and exposes two exact multi-stage DAGs: `brand-baseline-lite` (discover → diagnose) and `content-campaign` (discover → content). Lexical routing keeps production authority; semantic scoring runs in shadow mode and records disagreements. Durable workflow state supports checkpoints, retry, abort, approval, and explicit external publication/observation waits. The planned publish route returns its closest active suggestion and required inputs. Route requests are bounded to 8,000 characters and 16,384 UTF-8 bytes. See `skills/RESOLVER.md` and `docs/architecture.md`.
+The resolver emits `single_skill`, `workflow`, `clarify`, `abstain`, or `unavailable` decisions. Lexical routing is always available; an explicitly prepared local FastEmbed cache can add clause-level semantic matches without network access. Exact workflows include `brand-baseline-lite`, `content-campaign`, `brand-baseline-content`, and the gated `strategy-observation-loop`. `route --plan-output` compiles a validated TaskPlan. `workflow start` runs it to completion or the next approval/external-evidence gate. The planned publish route keeps external write authority disabled. Route requests are bounded to 8,000 characters and 16,384 UTF-8 bytes. See `skills/RESOLVER.md` and `docs/architecture.md`.
 
 No connector, live platform sampling, search volume, ranking, or conversion data is inferred. Missing evidence remains explicit in generated artifacts. Every executable run includes `run-lineage.json` with artifact hashes and allowlisted operational metadata. Run payloads stay out of adoption and drift aggregation.
 
@@ -25,9 +25,9 @@ No connector, live platform sampling, search volume, ranking, or conversion data
 
 GEO SEO Hub treats GEO and SEO as related capability domains with a shared search foundation. Query intent, source evidence, brand facts, entity structure, content specifications, site parsing, quality reports, and Artifact Bus contracts can serve both domains.
 
-Version 0.5.0 ships executable GEO discovery, diagnosis, content, observation-bundle measurement, strategy planning, knowledge governance, and routing. Strategy execution ends at an external publication handoff and cannot claim effect without verified post-window measurement. Dedicated SEO workflows and outcome claims for technical SEO, SERP and keyword data, indexation, Core Web Vitals, internal linking, Search Console, and traffic measurement remain future Registry additions.
+Version 0.6.0 ships executable GEO discovery, diagnosis, content, observation-bundle measurement, strategy planning, knowledge governance, routing, TaskPlan compilation, and gated workflow execution. Strategy execution pauses for human publication approval, then requires a verified publication receipt and approved observation bundle before measurement. Dedicated SEO workflows and outcome claims for technical SEO, SERP and keyword data, indexation, Core Web Vitals, internal linking, Search Console, and traffic measurement remain future Registry additions.
 
-Version 0.5 retains `geo-seo-hub` as the distribution and CLI namespace, `geo_seo_hub` as the Python module, and `share/geo-seo-hub` as the installed data root. Existing `geo-*` Skill IDs, public imports, CLI contracts, legacy execution defaults, and Artifact Bus protocol `1.0.0` remain stable. See `docs/migration-0.5.md` and `CHANGELOG.md`.
+Version 0.6 retains `geo-seo-hub` as the distribution and CLI namespace, `geo_seo_hub` as the Python module, and `share/geo-seo-hub` as the installed data root. Existing `geo-*` Skill IDs, public imports, provider CLI contracts, legacy execution defaults, and Artifact Bus protocol `1.0.0` remain stable. Workflow state moves to `2.0.0` through an explicit backup migration. See `docs/migration-0.6.md` and `CHANGELOG.md`.
 
 ## Quick start
 
@@ -40,6 +40,7 @@ python3 -m venv .venv
 .venv/bin/python -m pip install .
 .venv/bin/geo-seo-hub --version
 .venv/bin/geo-seo-hub route --text "帮我挖掘 AI 搜索问题"
+.venv/bin/geo-seo-hub route --text "先拓词，再诊断网站" --plan-output task-plan.json
 ```
 
 For development and the full release gate:
@@ -57,7 +58,7 @@ python3 scripts/verify_packages.py
 python3 scripts/install_simulation.py --target all
 ```
 
-The eleven artifacts are a source ZIP, one unified single-Skill ZIP, seven provider Skill ZIPs, and Codex/Claude adapter ZIPs. Each ZIP supports `pip install .` from its extraction root. Unified and target adapters contain seven parseable provider entries and wrappers. Every community artifact is `AGPL-3.0-only`; commercial metadata remains `inquiry_only`. Version `0.5.0` has no verified GitHub Release assets in this source snapshot; build packages locally or run the attested release workflow. See `docs/installation.md`.
+The eleven artifacts are a source ZIP, one unified single-Skill ZIP, seven provider Skill ZIPs, and Codex/Claude adapter ZIPs. Each ZIP supports `pip install .` from its extraction root. Unified and target adapters contain seven parseable provider entries and wrappers. Every community artifact is `AGPL-3.0-only`; commercial metadata remains `inquiry_only`. Version `0.6.0` has no verified GitHub Release assets in this source snapshot; build packages locally or run the attested release workflow. See `docs/installation.md`.
 
 Version 0.2 removes the pre-release 0.1 runtime aliases. Recreate the environment before installing 0.2; the exact historical mapping remains in the migration ledger and third-party notice.
 
@@ -69,6 +70,7 @@ Data retention is preview-only by default. `geo-seo-hub data-retention --runs-ro
 
 ## Visual reports
 
+- [GEOHub 0.6.0 intent and orchestration upgrade](docs/intent-orchestration-upgrade-0.6.md) records the Capability Card, hybrid routing, TaskPlan, recoverable workflow, security review, acceptance evidence, and remaining promotion gates.
 - [GEOHub 0.5.0 upgrade review](docs/visual-reports/geohub-0.5.0-upgrade/README.md) provides the standalone Chinese HTML report with 17-module before-and-after scores, repair closure, deterministic gates, and remaining Production evidence.
 
 ## License and governance

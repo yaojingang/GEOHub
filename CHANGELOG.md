@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.6.0 — 2026-08-22
+
+- Added registry Capability Cards with positive and negative examples, typed artifact contracts, permission boundaries, side effects, preconditions, execution policy, and versioned semantic thresholds.
+- Added cached local FastEmbed routing support with zero-network runtime behavior, OOD abstention, ambiguity clarification, planned-capability refusal, clause-level hybrid matching, and a reviewed legacy behavior migration ledger.
+- Added a grouped 600-case Chinese/English router dataset with calibration, public-test, and private-holdout splits. Proposed labels remain locked behind pending human adjudication.
+- Added protocol `1.0.0` TaskPlan compilation with deterministic digests, explicit dependencies, input bindings, expected outputs, permission profiles, retry policy, and atomic CLI export.
+- Upgraded durable workflow state to `2.0.0`, added one-time v1 backup migration, execution serialization, bounded artifact references, retry budgets, idempotency metadata, and executable CLI lifecycle commands.
+- Activated `strategy-observation-loop` with strategy execution, human publication approval, validated publication receipt, validated engine observation bundle, and measurement gates.
+- Added TaskPlan cross-field dependency validation, workflow-state semantic validation, immutable input digests, hard process lifetime enforcement, bounded output capture, executor artifact limits, output-root revalidation, and durable external-evidence digest checks.
+- Preserved `geo-publish` as planned with no executor or external write authority.
+
+Product maturity remains Experimental. Cached semantic-model benchmark evidence, human router-label adjudication, human blind output review, live platform benchmarks, governed adoption, external strategy effect, legal review, and executed CI attestation remain missing evidence.
+
 ## 0.5.0 — 2026-08-13
 
 - Added governed Output Eval Lab tasks, blind-review packs, explicit missing-evidence states, measurement metrics, lineage, observability aggregation, and recoverable retention.

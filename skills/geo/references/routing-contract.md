@@ -7,13 +7,14 @@ The registry at 'registry/skills.yaml' is the source of truth.
 - 'planned': roadmap intent with no runnable entry.
 - 'active_placeholder' must remain false for every unavailable route.
 
-Routing uses normalized phrase matching. A broad or unmatched GEO request falls back to 'geo'. Equal top scores are resolved by registry order and disclosed through the result's 'alternatives' field.
+Routing uses normalized phrase matching plus an optional cache-only semantic scorer. Unmatched and fully negated requests abstain. Broad requests with explicit GEO language may select `geo`. Equal lexical scores and close semantic scores are disclosed through `alternatives` and may require clarification.
 
 The router may suggest 'geo-discover' when a downstream route is unavailable. A suggestion is not an assertion that discovery fulfills the unavailable stage.
 
-`geo-discover`, `geo-diagnose`, `geo-content`, `geo-measure`, and `seo` are active alongside the `geo` umbrella router. Discovery covers intent and query research; diagnosis covers evidence-lined brand, site, and page audits; content covers title, explainer, comparison, ranking, page-blueprint, refine, and article-friendly requests; measurement aggregates explicit offline observation records with complete denominators and intervals; SEO converts one request into a bounded, evidence-aware work plan.
+`geo-discover`, `geo-diagnose`, `geo-content`, `geo-measure`, `geo-strategy`, and `geo-knowledge` are active alongside the `geo` umbrella router. `geo-publish` remains a planned route with no runnable entry. `seo` is a compatibility package and is not a Registry route in 0.6.0.
 
-`geo-strategy`, `geo-knowledge`, and `geo-publish` remain planned roadmap routes with no runnable entry.
-# Routing contract
+Workflow recipes carry their own status. The router exposes `workflow` for an exact recipe match, including its status and runnable state. A pending workflow keeps every step disabled as a group, even when its individual skills are active. The top-level `skill_id` identifies the first actual Skill node.
 
-`registry/skills.yaml` and `skills/RESOLVER.md` define route ownership. Existing response keys remain stable. `workflow` is optional and appears only for an exact supported multi-intent recipe. Planned entries have no entrypoint, stay non-runnable, and expose a domain-nearest active suggestion, `required_inputs`, and `closest_v0_artifact`.
+`strategy-observation-loop` is active because its TaskPlan and workflow-state runtime enforce publication approval, a validated publication receipt, a validated engine observation bundle, and measurement in that order. GEOHub does not publish content or collect platform observations inside this workflow.
+
+Every route includes `decision.type`, `matched_intents`, `uncovered_intents`, `score`, `threshold_version`, and `alternatives`. Only `single_skill` and active `workflow` decisions are runnable. `clarify`, `abstain`, and `unavailable` close execution authority.

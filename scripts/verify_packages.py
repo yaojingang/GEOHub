@@ -68,6 +68,18 @@ def verify_archive(path: Path) -> dict:
         if path.name.startswith("geo-seo-hub-source-"):
             if "SECURITY.md" not in stripped:
                 raise ValueError(f"{path.name} missing SECURITY.md")
+            readme_text = archive.read(members["README.md"]).decode("utf-8")
+            local_targets = {
+                target.partition("#")[0]
+                for target in re.findall(r"!?\[[^\]]*\]\(([^)]+)\)", readme_text)
+                if target
+                and not target.startswith(("#", "http://", "https://", "mailto:"))
+            }
+            missing_targets = sorted(target for target in local_targets if target not in members)
+            if missing_targets:
+                raise ValueError(
+                    f"{path.name} README references missing packaged files: {missing_targets}"
+                )
             expected_manifests = {
                 name: PurePosixPath(name).parts[1]
                 for name in stripped

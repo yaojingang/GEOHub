@@ -177,6 +177,17 @@ def source_revision(root: Path) -> str:
     ).stdout.strip()
 
 
+def source_snapshot_state(root: Path) -> str:
+    staged = subprocess.run(
+        ["git", "diff", "--cached", "--quiet"],
+        cwd=root,
+        check=False,
+    )
+    if staged.returncode not in {0, 1}:
+        raise ValueError("unable to determine staged source state")
+    return "committed release source snapshot" if staged.returncode == 0 else "staged release candidate snapshot"
+
+
 def build_provenance(
     root: Path,
     artifacts: Iterable[Path],
@@ -194,7 +205,11 @@ def build_provenance(
         "schema_version": "1.0.0",
         "generated_at": _generated_at(clock),
         "subject": {"name": "geo-seo-hub", "version": package_version(), "artifacts": artifact_records},
-        "source": {"revision": source_revision(root), "source_digest": release_source_digest(root), "state": "committed release source snapshot"},
+        "source": {
+            "revision": source_revision(root),
+            "source_digest": release_source_digest(root),
+            "state": source_snapshot_state(root),
+        },
         "builder": {
             "identity": "local-unsigned",
             "trusted": False,

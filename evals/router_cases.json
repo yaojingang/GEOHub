@@ -336,7 +336,7 @@
     "expected": {
       "skill_id": "geo",
       "workflow_id": null,
-      "runnable": true
+      "runnable": false
     }
   },
   {
@@ -346,7 +346,7 @@
     "expected": {
       "skill_id": "geo",
       "workflow_id": null,
-      "runnable": true
+      "runnable": false
     }
   },
   {
@@ -356,7 +356,7 @@
     "expected": {
       "skill_id": "geo",
       "workflow_id": null,
-      "runnable": true
+      "runnable": false
     }
   },
   {
@@ -366,7 +366,7 @@
     "expected": {
       "skill_id": "geo",
       "workflow_id": null,
-      "runnable": true
+      "runnable": false
     }
   },
   {
@@ -376,7 +376,7 @@
     "expected": {
       "skill_id": "geo",
       "workflow_id": null,
-      "runnable": true
+      "runnable": false
     }
   },
   {
@@ -396,7 +396,7 @@
     "expected": {
       "skill_id": "geo",
       "workflow_id": null,
-      "runnable": true
+      "runnable": false
     }
   },
   {
@@ -556,7 +556,7 @@
     "expected": {
       "skill_id": "geo-diagnose",
       "workflow_id": null,
-      "runnable": true
+      "runnable": false
     }
   },
   {
@@ -735,13 +735,13 @@
     "id": "r077",
     "text": "Please do not, however, audit the website",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r078",
     "text": "Please do not, however, discover questions and audit the website",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r079",
@@ -759,67 +759,67 @@
     "id": "r081",
     "text": "Please do not, instead, audit the website",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r082",
     "text": "Please do not instead discover questions and audit the website",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r083",
     "text": "请不要改为诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r084",
     "text": "请不要改为拓词并诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r085",
     "text": "不要转而写文章",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r086",
     "text": "You must not audit the website",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r087",
     "text": "You should not create content",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r088",
     "text": "You cannot run keyword research",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r089",
     "text": "You can't discover questions and audit the website",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r090",
     "text": "请勿诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r091",
     "text": "勿生成文章",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r092",
@@ -855,19 +855,19 @@
     "id": "r097",
     "text": "不诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r098",
     "text": "不拓词",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r099",
     "text": "不写文章",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r100",
@@ -885,37 +885,37 @@
     "id": "r102",
     "text": "No keyword research",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r103",
     "text": "Not audit the website",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r104",
     "text": "Skip content creation",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r105",
     "text": "Avoid keyword research and audit the website",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r106",
     "text": "跳过拓词并诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r107",
     "text": "避免写文章",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r108",
@@ -1533,7 +1533,7 @@
     "id": "r210",
     "text": "不只监测还要诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo-diagnose", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo-diagnose", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r211",
@@ -1641,7 +1641,7 @@
     "id": "r228",
     "text": "不仅仅监测还要诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo-diagnose", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo-diagnose", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r229",
@@ -1923,13 +1923,13 @@
     "id": "r275",
     "text": "no longer only keyword research, also wanted audit the website",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r276",
     "text": "no longer only keyword research, also need tool audit the website",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r277",
@@ -2025,49 +2025,49 @@
     "id": "r292",
     "text": "不再仅拓词调和诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r293",
     "text": "不再仅拓词涉及诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r294",
     "text": "不再仅拓词增加诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r295",
     "text": "不再仅拓词合并诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r296",
     "text": "不再仅发布调和写文章",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r297",
     "text": "不再仅发布涉及写文章",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r298",
     "text": "不再仅发布增加写文章",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r299",
     "text": "不再仅发布合并写文章",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r300",
@@ -2127,19 +2127,19 @@
     "id": "r309",
     "text": "No longer only keyword research followed by prepare notes quoting website audit",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r310",
     "text": "不 只 写文章还要诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo-content", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo-content", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r311",
     "text": "不 光 是 只 写文章还要诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo-content", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo-content", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r312",
@@ -2199,31 +2199,31 @@
     "id": "r321",
     "text": "No longer only keyword research followed by produce notes quoting website audit",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r322",
     "text": "No longer only keyword research then build a dictionary quoting website audit",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r323",
     "text": "不再仅拓词然后写一段说明，其中引用诊断一词",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r324",
     "text": "No keyword research followed by produce notes quoting website audit",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r325",
     "text": "不要拓词然后写一段说明，其中引用诊断一词",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r326",
@@ -2247,67 +2247,67 @@
     "id": "r329",
     "text": "不要拓词和一再诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r330",
     "text": "不要拓词一再诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r331",
     "text": "不要拓词再三诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r332",
     "text": "不要拓词反复诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r333",
     "text": "不再仅拓词一再诊断网站",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r334",
     "text": "No keyword research but produce notes quoting website audit",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r335",
     "text": "No keyword research instead produce notes quoting website audit",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r336",
     "text": "No keyword research however produce notes quoting website audit",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r337",
     "text": "不要拓词但写一段说明，其中引用诊断一词",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r338",
     "text": "不要拓词改为写一段说明，其中引用诊断一词",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r339",
     "text": "不要拓词转而写一段说明，其中引用诊断一词",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r340",
@@ -2355,19 +2355,19 @@
     "id": "r347",
     "text": "跳过拓词然后个性化页面蓝图",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r348",
     "text": "No keyword research then a note quoting website audit",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r349",
     "text": "不要拓词然后一个说明引用诊断一词",
     "category": "adversarial",
-    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": true}
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   },
   {
     "id": "r350",

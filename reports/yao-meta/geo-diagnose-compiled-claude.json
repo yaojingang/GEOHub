@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-13",
+  "generated_at": "2026-08-22",
   "skill_dir": "skills/geo-diagnose",
   "summary": {
     "target_count": 1,
@@ -35,7 +35,7 @@
       "compiled_contract": {
         "name": "geo-diagnose",
         "title": "GEO SEO Hub Diagnose",
-        "version": "0.5.0",
+        "version": "0.6.0",
         "description": "Diagnose a brand, website, or page for evidence-backed GEO gaps and opportunities from user-supplied URLs, HTML, or evidence. Use for brand diagnosis, website or page audits, GEO gap analysis, and 品牌诊断、网站诊断、页面诊断. Excludes live AI-platform recall, ranking, and citation-share measurement.",
         "job_to_be_done": "Diagnose a brand, website, or page for evidence-backed GEO gaps and opportunities from user-supplied URLs, HTML, or evidence. Use for brand diagnosis, website or page audits, GEO gap analysis, and 品牌诊断、网站诊断、页面诊断. Excludes live AI-platform recall, ranking, and citation-share measurement.",
         "trigger": {

@@ -8,6 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 STEPS = (
     (sys.executable, "scripts/verify_repository.py"),
+    (sys.executable, "scripts/verify_capability_contracts.py"),
     (sys.executable, "scripts/run_yao_meta_gates.py", "--verify-existing"),
     (sys.executable, "-m", "pytest"),
     (sys.executable, "scripts/run_evals.py"),

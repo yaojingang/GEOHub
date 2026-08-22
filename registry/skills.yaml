@@ -1,27 +1,38 @@
 protocol_version: 1.0.0
-registry_version: 0.5.0
+registry_version: 0.6.0
 workflows:
   - id: brand-baseline-lite
+    status: active
     required_skills: [geo-discover, geo-diagnose]
     steps:
       - {id: discover, skill_id: geo-discover, depends_on: []}
       - {id: diagnose, skill_id: geo-diagnose, depends_on: [discover]}
   - id: content-campaign
+    status: active
     required_skills: [geo-discover, geo-content]
     steps:
       - {id: discover, skill_id: geo-discover, depends_on: []}
       - {id: content, skill_id: geo-content, depends_on: [discover]}
   - id: brand-baseline-content
+    status: active
     required_skills: [geo-discover, geo-diagnose, geo-content]
     steps:
       - {id: discover, skill_id: geo-discover, depends_on: []}
       - {id: diagnose, skill_id: geo-diagnose, depends_on: [discover]}
       - {id: content, skill_id: geo-content, depends_on: [discover]}
   - id: strategy-observation-loop
+    status: active
     required_skills: [geo-strategy, geo-measure]
     steps:
       - {id: strategy, skill_id: geo-strategy, depends_on: []}
       - {id: measure, skill_id: geo-measure, depends_on: [strategy]}
+    orchestration:
+      nodes:
+        - {id: strategy, kind: skill, skill_id: geo-strategy, depends_on: []}
+        - {id: approve-publication, kind: approval, depends_on: [strategy], request: Approve the exact publication handoff and rollback boundary.}
+        - {id: publication, kind: external-publication, depends_on: [approve-publication], evidence_schema: publication-receipt}
+        - {id: observation, kind: external-observation, depends_on: [publication], evidence_schema: engine-observation-bundle}
+        - {id: measure, kind: skill, skill_id: geo-measure, depends_on: [observation]}
 skills:
   - id: geo
     status: active
@@ -30,6 +41,15 @@ skills:
     summary: Unified GEO intent router and capability status surface.
     intents: [geo, generative engine optimization, 生成式引擎优化, AI搜索优化]
     outputs: [route-decision]
+    positive_examples: ["GEO 能帮我做什么", "帮我看看 AI 搜索优化该从哪一步开始", "What can GEOHub do for this brand", "I need a generative engine optimization capability check"]
+    negative_examples: ["What is the weather today", "Translate this poem into Chinese"]
+    input_artifacts: [{name: route-request, schema: null, required: true}]
+    output_artifacts: [{name: route-decision, schema: null, required: true}]
+    permissions: {filesystem: read-only, network: forbid, shell: bash, approval_required: false}
+    side_effects: []
+    preconditions: ["The request is non-blank and within the bounded route input size."]
+    execution: {executor: route, timeout_seconds: 5, max_attempts: 1, idempotent: true}
+    routing: {semantic_threshold: 0.68, ambiguity_margin: 0.05, threshold_version: semantic-provisional-v1}
   - id: geo-discover
     status: active
     active_placeholder: false
@@ -37,6 +57,15 @@ skills:
     summary: Deterministic query and opportunity discovery from evidence-aware briefs.
     intents: [discover, discovery, intent mining, query research, query expansion, keyword expansion, keyword research, 意图挖掘, 问题挖掘, AI搜索问题, AI 搜索问题, 查询拓展, 关键词拓展, 关键词扩展, 拓词, 选题发现]
     outputs: [query-map, opportunity-map, evidence-ledger, run-lineage, run-manifest, quality-report]
+    positive_examples: ["围绕这个品类挖掘用户会问的问题", "帮我扩展一批 AI 搜索查询", "Research the questions buyers ask before choosing this product", "Build an opportunity map from these seed queries"]
+    negative_examples: ["诊断现有页面为什么没有被引用", "把这份内容发布到官网"]
+    input_artifacts: [{name: geo-brief, schema: geo-brief, required: true}]
+    output_artifacts: [{name: query-map, schema: query-map, required: true}, {name: opportunity-map, schema: opportunity-map, required: true}]
+    permissions: {filesystem: read-write-output, network: forbid, shell: bash, approval_required: false}
+    side_effects: [writes-artifacts]
+    preconditions: ["A protocol 1.0.0 GEO brief is available as a bounded regular JSON file."]
+    execution: {executor: discover, timeout_seconds: 300, max_attempts: 2, idempotent: true}
+    routing: {semantic_threshold: 0.62, ambiguity_margin: 0.05, threshold_version: semantic-provisional-v1}
   - id: geo-diagnose
     status: active
     active_placeholder: false
@@ -44,6 +73,15 @@ skills:
     summary: Evidence-lined brand, site, and page GEO diagnosis from explicit sources.
     intents: [diagnose, audit, brand diagnosis, brand audit, site diagnosis, site audit, website diagnosis, website audit, page diagnosis, page audit, 诊断, 审计, 差距分析, 品牌诊断, 网站诊断, 页面诊断]
     outputs: [report, diagnosis, evidence-ledger, query-map, opportunity-map, quality-report, run-lineage, run-manifest]
+    positive_examples: ["检查这个网站在 AI 搜索中的引用障碍", "给品牌做一次 GEO 差距诊断", "Audit this page for answer-engine visibility gaps", "Explain why this site is difficult for AI answers to cite"]
+    negative_examples: ["为这个品类扩展搜索问题", "根据观察数据计算品牌提及率"]
+    input_artifacts: [{name: diagnosis-brief, schema: null, required: true}]
+    output_artifacts: [{name: diagnosis, schema: null, required: true}, {name: report, schema: null, required: true}]
+    permissions: {filesystem: read-write-output, network: explicit-public-http-only, shell: bash, approval_required: false}
+    side_effects: [writes-artifacts, reads-approved-public-http]
+    preconditions: ["The request supplies approved source snapshots, evidence, or explicit public URLs."]
+    execution: {executor: diagnose, timeout_seconds: 600, max_attempts: 2, idempotent: true}
+    routing: {semantic_threshold: 0.62, ambiguity_margin: 0.05, threshold_version: semantic-provisional-v1}
   - id: geo-content
     status: active
     active_placeholder: false
@@ -51,6 +89,15 @@ skills:
     summary: Offline evidence-lined content generation across seven bounded modes.
     intents: [content, draft, write article, title, headline, explainer, explanation, comparison, ranking, page blueprint, content refine, article-friendly, 内容生产, 内容优化, 写文章, 生成文章, 文章生成, 标题, 科普, 解释, 对比, 榜单, 排名, 页面蓝图, 文章友好]
     outputs: [content-spec, content, markdown, json, html, docx, pdf, evidence-ledger, claim-map, content-pipeline, quality-report, run-lineage, run-manifest]
+    positive_examples: ["根据这些证据写一篇可引用的科普文章", "把现有页面改成适合 AI 回答引用的版本", "Create a neutral comparison article from the supplied sources", "Draft a page blueprint for this buyer question"]
+    negative_examples: ["找出用户还会搜索哪些问题", "统计品牌在 AI 回答中的引用份额"]
+    input_artifacts: [{name: content-brief, schema: null, required: true}]
+    output_artifacts: [{name: content-spec, schema: content-spec, required: true}, {name: content, schema: null, required: true}, {name: claim-map, schema: claim-map, required: false}]
+    permissions: {filesystem: read-write-output, network: forbid, shell: bash, approval_required: false}
+    side_effects: [writes-artifacts]
+    preconditions: ["A bounded content brief and every claimed source are available locally."]
+    execution: {executor: content, timeout_seconds: 600, max_attempts: 2, idempotent: true}
+    routing: {semantic_threshold: 0.62, ambiguity_margin: 0.05, threshold_version: semantic-provisional-v1}
   - id: geo-strategy
     status: active
     active_placeholder: false
@@ -58,6 +105,15 @@ skills:
     summary: Offline optimization planning with bounded interventions, fidelity gates, publication handoff, and positive-only strategy memory.
     intents: [strategy, roadmap, intervention planning, intervention experiments, experiment planning, optimization plan, 策略, 路线图, 优化方案, 优化实验]
     outputs: [strategy-candidates, fidelity-report, experiment-plan, publication-handoff, strategy-memory, quality-report, run-lineage, run-manifest]
+    positive_examples: ["根据诊断结果制定三个月 GEO 优化路线", "把这些问题整理成可验证的优化实验", "Create a bounded intervention roadmap from this diagnosis", "Plan GEO experiments with measurement criteria"]
+    negative_examples: ["直接把文章发布到网站", "统计本轮实验后的 AI 可见度"]
+    input_artifacts: [{name: strategy-request, schema: null, required: true}]
+    output_artifacts: [{name: strategy-candidates, schema: strategy-candidates, required: true}, {name: experiment-plan, schema: experiment-plan, required: true}, {name: publication-handoff, schema: publication-handoff, required: true}]
+    permissions: {filesystem: read-write-output, network: forbid, shell: bash, approval_required: false}
+    side_effects: [writes-artifacts]
+    preconditions: ["The strategy request contains approved evidence and bounded intervention targets."]
+    execution: {executor: strategy, timeout_seconds: 300, max_attempts: 2, idempotent: true}
+    routing: {semantic_threshold: 0.62, ambiguity_margin: 0.05, threshold_version: semantic-provisional-v1}
   - id: geo-knowledge
     status: active
     active_placeholder: false
@@ -65,6 +121,15 @@ skills:
     summary: Evidence-lined entity and relation governance with conflict preservation and incremental source-hash updates.
     intents: [knowledge, knowledge graph, knowledge base, entity graph, entity neighborhood, relation governance, 知识图谱, 知识库, 知识治理, 实体关系, 实体和关系]
     outputs: [knowledge-graph, knowledge-query-result, evidence-ledger, quality-report, run-lineage, run-manifest]
+    positive_examples: ["把这些品牌事实整理成带来源的实体关系", "查询这个实体在知识图谱中的邻接关系", "Build a governed knowledge graph from these source bundles", "Preserve conflicting claims while updating the entity graph"]
+    negative_examples: ["生成一篇产品对比文章", "监测品牌在 AI 回答里的提及变化"]
+    input_artifacts: [{name: knowledge-request, schema: null, required: true}]
+    output_artifacts: [{name: knowledge-graph, schema: knowledge-graph, required: true}, {name: knowledge-query-result, schema: knowledge-query-result, required: true}]
+    permissions: {filesystem: read-write-output, network: forbid, shell: bash, approval_required: false}
+    side_effects: [writes-artifacts]
+    preconditions: ["The request references approved source bundles with stable source identifiers."]
+    execution: {executor: knowledge, timeout_seconds: 300, max_attempts: 2, idempotent: true}
+    routing: {semantic_threshold: 0.62, ambiguity_margin: 0.05, threshold_version: semantic-provisional-v1}
   - id: geo-publish
     status: planned
     active_placeholder: false
@@ -75,6 +140,15 @@ skills:
     summary: Roadmap route for publishing workflows.
     intents: [publish, distribute, 发布, 分发]
     outputs: [run-manifest]
+    positive_examples: ["把审核后的内容发布到官网", "将这批文章分发到目标渠道", "Publish the approved content to the CMS", "Distribute these assets to the selected channel"]
+    negative_examples: ["只生成文章草稿", "输出发布前的内容交接清单"]
+    input_artifacts: [{name: content-artifact, schema: null, required: true}, {name: target-channel, schema: null, required: true}]
+    output_artifacts: [{name: publication-receipt, schema: publication-receipt, required: true}]
+    permissions: {filesystem: external-write, network: external-service, shell: forbid, approval_required: true}
+    side_effects: [publishes-external-content]
+    preconditions: ["A human has approved the exact content, target, and rollback boundary."]
+    execution: {executor: null, timeout_seconds: null, max_attempts: 0, idempotent: false}
+    routing: {semantic_threshold: 0.66, ambiguity_margin: 0.05, threshold_version: semantic-provisional-v1}
   - id: geo-measure
     status: active
     active_placeholder: false
@@ -82,3 +156,12 @@ skills:
     summary: Offline GEO visibility measurement from approved engine observation bundles.
     intents: [measure, monitor, tracking, visibility measurement, citation share, mention rate, 监测, 衡量, 效果, 可见度监测, 引用份额, 提及率]
     outputs: [visibility-report, quality-report, run-lineage, run-manifest]
+    positive_examples: ["计算品牌在这批 AI 回答中的提及率", "比较发布前后的引用份额", "Measure visibility from this approved observation bundle", "Calculate citation share across the recorded engine panel"]
+    negative_examples: ["登录平台自动采集回答", "给下一阶段制定内容优化路线"]
+    input_artifacts: [{name: engine-observation-bundle, schema: engine-observation-bundle, required: true}]
+    output_artifacts: [{name: visibility-report, schema: visibility-report, required: true}]
+    permissions: {filesystem: read-write-output, network: forbid, shell: bash, approval_required: false}
+    side_effects: [writes-artifacts]
+    preconditions: ["An approved protocol 1.0.0 engine observation bundle is available locally."]
+    execution: {executor: measure, timeout_seconds: 300, max_attempts: 2, idempotent: true}
+    routing: {semantic_threshold: 0.62, ambiguity_margin: 0.05, threshold_version: semantic-provisional-v1}

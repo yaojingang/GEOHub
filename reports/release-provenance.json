@@ -17,74 +17,74 @@
     "slsa_level_claim": null,
     "trusted": false
   },
-  "generated_at": "2026-08-13T02:26:27.089162Z",
-  "sbom_sha256": "96256e982a080c0abfb63cc9edf6d8210ba0875b7ee2f5f5739210d83d63f695",
+  "generated_at": "2026-08-22T15:45:20.657837Z",
+  "sbom_sha256": "3d68cf3a37607767af4b559eaa47ff03ad4f046ec3f675a9214ecaa850d32270",
   "schema_version": "1.0.0",
   "source": {
-    "revision": "e2c0da8e2de96817f3ad286ee8c1d12a9978d137",
-    "source_digest": "36bdbab22e6919537622a1e984a6ec9c4fb5edd015711b3bc607daabf9877fed",
-    "state": "committed release source snapshot"
+    "revision": "1f63a1ab195c8b5f210eeb8590ba81a1515f8136",
+    "source_digest": "1621d0801c882ddc748fcaf550a9842ca35c52f8b20de9f28adbd2ed51693937",
+    "state": "staged release candidate snapshot"
   },
   "subject": {
     "artifacts": [
       {
-        "name": "geo-community-0.5.0.zip",
-        "sha256": "110e0ffca24ef84e2b2877ab4b78e55314a73d5006d7566cb1105c18ddc54a99",
-        "size_bytes": 203950
+        "name": "geo-community-0.6.0.zip",
+        "sha256": "2c85998477664e026b866ee74d91b7f7f0875f8b4b0eeb64df862e1bd91e28f9",
+        "size_bytes": 228923
       },
       {
-        "name": "geo-content-community-0.5.0.zip",
-        "sha256": "45ab2d220f06be58ab7508d43b570f2e57386ba12e53896e826461284813da75",
-        "size_bytes": 205949
+        "name": "geo-content-community-0.6.0.zip",
+        "sha256": "4cce56c820e99272f6d418cd738dd8797ef760e992628392f56f0c108254839d",
+        "size_bytes": 230339
       },
       {
-        "name": "geo-diagnose-community-0.5.0.zip",
-        "sha256": "00a52058330db8635d1e4865f2ee2b5027ab8f4d42a6a09a029e00783a69b524",
-        "size_bytes": 204432
+        "name": "geo-diagnose-community-0.6.0.zip",
+        "sha256": "a2bbfdfd81056a2f3481158b8a7cdb25720a9bb9a1f12563a631c368701b322b",
+        "size_bytes": 228820
       },
       {
-        "name": "geo-discover-community-0.5.0.zip",
-        "sha256": "4aafecc031b580b3de22161f3a3cfd6e9f21dd050c99dd21932ca93e8a9f620a",
-        "size_bytes": 202875
+        "name": "geo-discover-community-0.6.0.zip",
+        "sha256": "e470b33585920d335939f0cc34eb80e285dabe3132efdb56ee47af2788bcf00f",
+        "size_bytes": 227261
       },
       {
-        "name": "geo-knowledge-community-0.5.0.zip",
-        "sha256": "23d59ff4785024728d54f2bc2aadb8ce98fc0a82b95773f76a4e4f57f4f78a74",
-        "size_bytes": 201472
+        "name": "geo-knowledge-community-0.6.0.zip",
+        "sha256": "e2de0b4533eeea0a24cfe558b084985ce299bd2cc15c5eff99f22a8a536bea6d",
+        "size_bytes": 225860
       },
       {
-        "name": "geo-measure-community-0.5.0.zip",
-        "sha256": "a3e3979c22b6409ff5d793e2967fafbe5b7739bc95048e15f95cb300d7e5d40b",
-        "size_bytes": 202133
+        "name": "geo-measure-community-0.6.0.zip",
+        "sha256": "db0a1a70834a880f862238501e6ae2e8ca6b2bf0e2d945ff403aa877d9d45e4f",
+        "size_bytes": 226521
       },
       {
-        "name": "geo-seo-hub-claude-community-0.5.0.zip",
-        "sha256": "d727e66ea47dfbb8d98f1641834c2024a936eddf631169de97381812cacf177d",
-        "size_bytes": 208859
+        "name": "geo-seo-hub-claude-community-0.6.0.zip",
+        "sha256": "c24de60958cc22b72aa3873c2f5eec175415572abeb4eab79ba3cc4b1659b612",
+        "size_bytes": 233829
       },
       {
-        "name": "geo-seo-hub-codex-community-0.5.0.zip",
-        "sha256": "f6e52231e7005b0a99d72ac98996436c368819ddd3134e9089663006a4c69b99",
-        "size_bytes": 208857
+        "name": "geo-seo-hub-codex-community-0.6.0.zip",
+        "sha256": "b9bd0035c51acac3ead1e71b73f6a65346206530049b5eb4103a46a92637f9f9",
+        "size_bytes": 233827
       },
       {
-        "name": "geo-seo-hub-source-0.5.0.zip",
-        "sha256": "f882275a04a4d7b053bfa069e97068f76c11d235749ece7259d430198280d4d3",
-        "size_bytes": 1259751
+        "name": "geo-seo-hub-source-0.6.0.zip",
+        "sha256": "3c30462cdabd26dc131208ed23a8b91dd748511f43c8478b109d5b89d961e9d6",
+        "size_bytes": 1351256
       },
       {
-        "name": "geo-seo-hub-unified-community-0.5.0.zip",
-        "sha256": "d0890ab4f8bc74953ae3699414ce0c34a095681e5c8c52420076879fe46c5674",
-        "size_bytes": 208651
+        "name": "geo-seo-hub-unified-community-0.6.0.zip",
+        "sha256": "e4d34e59a3b0afaf0b71bff62fd6149e56a37429bd275e0d43cd0dc116ee9da8",
+        "size_bytes": 233621
       },
       {
-        "name": "geo-strategy-community-0.5.0.zip",
-        "sha256": "73a88ca060b0f6098ea86b1acb6fa6e2812a43a582922df7ba3acdfcdafa7df3",
-        "size_bytes": 201512
+        "name": "geo-strategy-community-0.6.0.zip",
+        "sha256": "759859f5032867644bd4ae6f0ded72ea26edfd383df722d5c734af11a397c0a9",
+        "size_bytes": 225901
       }
     ],
     "name": "geo-seo-hub",
-    "version": "0.5.0"
+    "version": "0.6.0"
   },
   "verification": {
     "command": [

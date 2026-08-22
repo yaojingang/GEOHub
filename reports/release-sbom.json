@@ -68,12 +68,12 @@
         "pkg:pypi/jsonschema@4.26.0",
         "pkg:pypi/pyyaml@6.0.3"
       ],
-      "ref": "pkg:pypi/geo-seo-hub@0.5.0"
+      "ref": "pkg:pypi/geo-seo-hub@0.6.0"
     }
   ],
   "metadata": {
     "component": {
-      "bom-ref": "pkg:pypi/geo-seo-hub@0.5.0",
+      "bom-ref": "pkg:pypi/geo-seo-hub@0.6.0",
       "licenses": [
         {
           "license": {
@@ -83,15 +83,15 @@
       ],
       "name": "geo-seo-hub",
       "type": "application",
-      "version": "0.5.0"
+      "version": "0.6.0"
     },
-    "timestamp": "2026-08-13T02:26:27.008385Z",
+    "timestamp": "2026-08-22T15:45:20.579062Z",
     "tools": {
       "components": [
         {
           "name": "geo-seo-hub release tooling",
           "type": "application",
-          "version": "0.5.0"
+          "version": "0.6.0"
         }
       ]
     }

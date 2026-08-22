@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import hashlib
+import shutil
 from concurrent.futures import ThreadPoolExecutor
 
 import pytest
@@ -78,6 +79,52 @@ def test_external_wait_and_approval_are_recoverable(tmp_path):
     assert approved["approval"]["decision"] == "approved"
 
 
+def test_external_observation_resume_validates_engine_observation_bundle(tmp_path):
+    state_path = tmp_path / "workflow-state.json"
+    runner = WorkflowRunner.create(
+        state_path,
+        create_workflow_state(_workflow(), run_id="run-workflow-observation", inputs={}),
+    )
+    waiting = runner.wait_for_external("observation")
+    evidence_path = tmp_path / "engine-observation-bundle.json"
+    shutil.copyfile(
+        repository_root() / "tests" / "fixtures" / "engine-observation-bundle.json",
+        evidence_path,
+    )
+
+    resumed = WorkflowRunner(state_path).resume_external(
+        waiting["checkpoints"][-1]["checkpoint_id"],
+        evidence_path.name,
+    )
+
+    assert resumed["status"] == "running"
+    assert resumed["checkpoints"][-1]["artifact_digests"][evidence_path.name]
+
+
+def test_strategy_observation_workflow_creates_explicit_gate_nodes(tmp_path):
+    workflow = next(
+        item
+        for item in load_registry()["workflows"]
+        if item["id"] == "strategy-observation-loop"
+    )
+    state = create_workflow_state(workflow, run_id="run-strategy-workflow", inputs={})
+    assert state["current_step"] == "strategy"
+    assert [step["kind"] for step in state["steps"]] == [
+        "skill",
+        "approval",
+        "external-publication",
+        "external-observation",
+        "skill",
+    ]
+
+
+def test_nonactive_workflow_cannot_create_runnable_state():
+    workflow = dict(_workflow())
+    workflow["status"] = "pending-implementation"
+    with pytest.raises(ValueError, match="workflow is not active"):
+        create_workflow_state(workflow, run_id="run-pending-workflow", inputs={})
+
+
 def test_retry_abort_rejection_and_duplicate_resume_have_deterministic_states(tmp_path):
     state_path = tmp_path / "workflow-state.json"
     runner = WorkflowRunner.create(
@@ -118,6 +165,8 @@ def test_corrupted_checkpoint_and_incompatible_version_fail_closed(tmp_path):
     state_path.write_text(json.dumps(payload), encoding="utf-8")
     with pytest.raises(ValueError, match="checkpoint checksum"):
         WorkflowRunner(state_path).resume(checkpoint_id)
+    with pytest.raises(ValueError, match="checkpoint checksum"):
+        WorkflowRunner(state_path).migrate()
 
     payload["checkpoints"][-1]["checksum"] = waiting["checkpoints"][-1]["checksum"]
     payload["workflow_version"] = "9.0.0"
@@ -147,6 +196,30 @@ def test_registry_workflow_ids_accept_bounded_slug_and_reject_unsafe_id(tmp_path
     source["workflows"][0]["id"] = "../unsafe"
     (root / "registry" / "skills.yaml").write_text(yaml.safe_dump(source, allow_unicode=True), encoding="utf-8")
     with pytest.raises(ValueError, match="Invalid registry"):
+        load_registry(root / "registry" / "skills.yaml")
+
+
+def test_registry_rejects_external_gate_schema_confusion(tmp_path):
+    import yaml
+
+    root = tmp_path / "repo"
+    (root / "registry").mkdir(parents=True)
+    (root / "skills").mkdir()
+    source = load_registry()
+    workflow = next(item for item in source["workflows"] if item["id"] == "strategy-observation-loop")
+    publication = next(item for item in workflow["orchestration"]["nodes"] if item["id"] == "publication")
+    publication["evidence_schema"] = "engine-observation-bundle"
+    for skill in source["skills"]:
+        if skill["entry"]:
+            target = root / skill["entry"]
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(f"---\nname: {skill['id']}\ndescription: fixture\n---\n", encoding="utf-8")
+    (root / "registry" / "skills.yaml").write_text(yaml.safe_dump(source, allow_unicode=True), encoding="utf-8")
+    (root / "registry" / "skills.schema.json").write_text(
+        (repository_root() / "registry" / "skills.schema.json").read_text(encoding="utf-8"),
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="external gate schema"):
         load_registry(root / "registry" / "skills.yaml")
 
 
@@ -189,3 +262,35 @@ def test_concurrent_workflow_create_allows_one_writer(tmp_path):
     with ThreadPoolExecutor(max_workers=2) as pool:
         results = list(pool.map(create_once, (1, 2)))
     assert sorted(results) == ["created", "rejected"]
+
+
+def test_v1_state_migration_writes_one_backup_and_is_idempotent(tmp_path):
+    state_path = tmp_path / "workflow-state.json"
+    legacy = {
+        "protocol_version": "1.0.0",
+        "workflow_id": "brand-baseline-lite",
+        "workflow_version": "1.0.0",
+        "run_id": "run-legacy-migration",
+        "status": "running",
+        "current_step": "discover",
+        "steps": [
+            {"id": "discover", "skill_id": "geo-discover", "depends_on": [], "status": "running", "attempt": 1},
+            {"id": "diagnose", "skill_id": "geo-diagnose", "depends_on": ["discover"], "status": "pending", "attempt": 1},
+        ],
+        "inputs": {"brief": "input/geo-brief.json"},
+        "artifact_refs": [],
+        "checkpoints": [],
+        "approval": {"required": False, "request": None, "decision": None, "reviewer": None},
+        "failure_boundary": {"step_id": "discover", "error_class": None, "message": None, "attempt": 1},
+    }
+    state_path.write_text(json.dumps(legacy), encoding="utf-8")
+    with pytest.raises(ValueError, match="migrate first"):
+        WorkflowRunner(state_path).load()
+
+    migrated = WorkflowRunner(state_path).migrate()
+    backup = state_path.with_suffix(".json.v1.backup")
+    assert migrated["workflow_version"] == "2.0.0"
+    assert migrated["plan_digest"]
+    assert migrated["input_digests"] == {}
+    assert json.loads(backup.read_text(encoding="utf-8")) == legacy
+    assert WorkflowRunner(state_path).migrate() == migrated

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-13",
+  "generated_at": "2026-08-22",
   "skill_dir": "skills/geo",
   "summary": {
     "target_count": 1,
@@ -35,7 +35,7 @@
       "compiled_contract": {
         "name": "geo",
         "title": "GEO SEO Hub Router",
-        "version": "0.5.0",
+        "version": "0.6.0",
         "description": "Route GEO and generative engine optimization requests to an available GEOHub capability. Use for broad GEO requests, GEOHub workflow selection, capability checks, or requests spanning discovery, brand/site/page diagnosis, content, strategy, knowledge, publishing, and measurement.",
         "job_to_be_done": "Route GEO and generative engine optimization requests to an available GEOHub capability. Use for broad GEO requests, GEOHub workflow selection, capability checks, or requests spanning discovery, brand/site/page diagnosis, content, strategy, knowledge, publishing, and measurement.",
         "trigger": {
@@ -57,9 +57,9 @@
         "workflow": {
           "steps": [
             "Read `references/routing-contract.md` and the suite resolver contract at `../RESOLVER.md`.",
-            "Run the deterministic `python3 scripts/run_route.py --text \"<request>\"` wrapper or `python -m geo_seo_hub route --text \"<request>\"`.",
-            "Dispatch only when the JSON result has 'runnable: true' and a non-null 'entry'.",
-            "For 'pending-implementation' or 'planned', return the registry status and suggested available route exactly as reported."
+            "Run `python3 scripts/run_route.py --text \"<request>\"` or `python -m geo_seo_hub route --text \"<request>\"`. Add `--lexical-only` for the deterministic baseline or `--plan-output <path>` to compile a TaskPlan.",
+            "Dispatch only when `decision.type` is `single_skill` or `workflow`, `runnable` is true, and the selected Skill has a non-null entry.",
+            "For `clarify`, `abstain`, `pending-implementation`, or `planned`, preserve the reported reason, alternatives, required inputs, and execution boundary."
           ],
           "decision_points": [],
           "failure_modes": []

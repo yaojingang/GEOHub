@@ -1,0 +1,1016 @@
+{
+  "change_count": 63,
+  "changes": [
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r034",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "帮我选择下一步"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r035",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "Hello world"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r036",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "Summarize this invoice"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r037",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "Translate a poem"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r038",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "What is the weather?"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r040",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "choose the next step"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo-diagnose",
+        "workflow_id": null
+      },
+      "decision_type": "clarify",
+      "id": "r056",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo-diagnose",
+        "workflow_id": null
+      },
+      "reason": "Multiple supported intents lack an exact active workflow recipe.",
+      "text": "brand audit and roadmap"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r077",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "Please do not, however, audit the website"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r078",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "Please do not, however, discover questions and audit the website"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r081",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "Please do not, instead, audit the website"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r082",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "Please do not instead discover questions and audit the website"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r083",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "请不要改为诊断网站"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r084",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "请不要改为拓词并诊断网站"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r085",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "不要转而写文章"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r086",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "You must not audit the website"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r087",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "You should not create content"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r088",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "You cannot run keyword research"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r089",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "You can't discover questions and audit the website"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r090",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "请勿诊断网站"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r091",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "勿生成文章"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r097",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "不诊断网站"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r098",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "不拓词"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r099",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "不写文章"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r102",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "No keyword research"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r103",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "Not audit the website"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r104",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "Skip content creation"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r105",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "Avoid keyword research and audit the website"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r106",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "跳过拓词并诊断网站"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r107",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "避免写文章"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo-diagnose",
+        "workflow_id": null
+      },
+      "decision_type": "clarify",
+      "id": "r210",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo-diagnose",
+        "workflow_id": null
+      },
+      "reason": "Multiple supported intents lack an exact active workflow recipe.",
+      "text": "不只监测还要诊断网站"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo-diagnose",
+        "workflow_id": null
+      },
+      "decision_type": "clarify",
+      "id": "r228",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo-diagnose",
+        "workflow_id": null
+      },
+      "reason": "Multiple supported intents lack an exact active workflow recipe.",
+      "text": "不仅仅监测还要诊断网站"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r275",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "no longer only keyword research, also wanted audit the website"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r276",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "no longer only keyword research, also need tool audit the website"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r292",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "不再仅拓词调和诊断网站"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r293",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "不再仅拓词涉及诊断网站"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r294",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "不再仅拓词增加诊断网站"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r295",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "不再仅拓词合并诊断网站"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r296",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "不再仅发布调和写文章"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r297",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "不再仅发布涉及写文章"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r298",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "不再仅发布增加写文章"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r299",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "不再仅发布合并写文章"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r309",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "No longer only keyword research followed by prepare notes quoting website audit"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo-content",
+        "workflow_id": null
+      },
+      "decision_type": "clarify",
+      "id": "r310",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo-content",
+        "workflow_id": null
+      },
+      "reason": "Multiple supported intents lack an exact active workflow recipe.",
+      "text": "不 只 写文章还要诊断网站"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo-content",
+        "workflow_id": null
+      },
+      "decision_type": "clarify",
+      "id": "r311",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo-content",
+        "workflow_id": null
+      },
+      "reason": "Multiple supported intents lack an exact active workflow recipe.",
+      "text": "不 光 是 只 写文章还要诊断网站"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r321",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "No longer only keyword research followed by produce notes quoting website audit"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r322",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "No longer only keyword research then build a dictionary quoting website audit"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r323",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "不再仅拓词然后写一段说明，其中引用诊断一词"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r324",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "No keyword research followed by produce notes quoting website audit"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r325",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "不要拓词然后写一段说明，其中引用诊断一词"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r329",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "不要拓词和一再诊断网站"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r330",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "不要拓词一再诊断网站"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r331",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "不要拓词再三诊断网站"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r332",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "不要拓词反复诊断网站"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r333",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "不再仅拓词一再诊断网站"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r334",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "No keyword research but produce notes quoting website audit"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r335",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "No keyword research instead produce notes quoting website audit"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r336",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "No keyword research however produce notes quoting website audit"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r337",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "不要拓词但写一段说明，其中引用诊断一词"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r338",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "不要拓词改为写一段说明，其中引用诊断一词"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r339",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "不要拓词转而写一段说明，其中引用诊断一词"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r347",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "跳过拓词然后个性化页面蓝图"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r348",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "No keyword research then a note quoting website audit"
+    },
+    {
+      "current": {
+        "runnable": false,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "decision_type": "abstain",
+      "id": "r349",
+      "previous": {
+        "runnable": true,
+        "skill_id": "geo",
+        "workflow_id": null
+      },
+      "reason": "No positive GEO intent remains after negation and OOD checks.",
+      "text": "不要拓词然后一个说明引用诊断一词"
+    }
+  ],
+  "policy": "Every legacy expectation change must preserve the selected Skill and workflow and may only close execution authority.",
+  "release": "0.6.0",
+  "schema_version": "1.0.0"
+}

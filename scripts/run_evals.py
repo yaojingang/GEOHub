@@ -18,7 +18,8 @@ from geo_seo_hub.router import route  # noqa: E402
 from geo_seo_hub.measure import measure  # noqa: E402
 from geo_seo_hub.strategy import strategy  # noqa: E402
 from geo_seo_hub.knowledge import knowledge  # noqa: E402
-from geo_seo_hub.control.routing import StaticSemanticScorer  # noqa: E402
+from geo_seo_hub.control.routing import FastEmbedSemanticScorer  # noqa: E402
+from geo_seo_hub.registry import load_registry  # noqa: E402
 
 
 ARTIFACTS = {
@@ -81,17 +82,40 @@ def evaluate_skill_triggers() -> dict:
     return {"case_count": len(results), "passed": passed, "compliance": passed / len(results), "results": results}
 
 
-def evaluate_router_shadow() -> dict:
+def evaluate_router_shadow(scorer=None) -> dict:
     cases = read_json(ROOT / "evals" / "router_shadow_cases.json")
+    if scorer is None:
+        try:
+            scorer = FastEmbedSemanticScorer(load_registry())
+        except (RuntimeError, OSError, ValueError) as exc:
+            return {
+                "status": "missing-evidence",
+                "case_count": len(cases),
+                "evaluated_count": 0,
+                "precision": None,
+                "recall": None,
+                "planned_activations": 0,
+                "production_changed": False,
+                "model_id": None,
+                "threshold_version": "semantic-shadow-1.0.0",
+                "reason": f"Real semantic scorer unavailable: {type(exc).__name__}.",
+                "results": [],
+            }
     results = []
     exact = 0
+    evaluated = 0
     planned_activations = 0
     for case in cases:
-        scores = {case["production"]: 0.90, case["neighbor"]: 0.70}
-        observed = route(case["text"], semantic_scorer=StaticSemanticScorer(scores))
+        observed = route(case["text"], semantic_scorer=scorer)
         shadow = observed["shadow"]
         production_match = observed["skill_id"] == case["production"]
-        exact += int(production_match)
+        production_skill = next(
+            item for item in load_registry()["skills"] if item["id"] == case["production"]
+        )
+        semantic_match = shadow["shadow_skill_id"] == case["production"]
+        if production_skill["status"] == "active":
+            evaluated += 1
+            exact += int(semantic_match)
         planned_activations += sum(
             int(candidate["status"] != "active" and candidate["eligible"])
             for candidate in shadow["candidates"]
@@ -99,20 +123,25 @@ def evaluate_router_shadow() -> dict:
         results.append(
             {
                 "id": case["id"],
-                "passed": production_match and bool(shadow["decision_reason"]),
+                "passed": production_match
+                and (semantic_match if production_skill["status"] == "active" else True)
+                and bool(shadow["decision_reason"]),
                 "production_skill_id": observed["skill_id"],
                 "shadow_skill_id": shadow["shadow_skill_id"],
                 "disagreed": shadow["disagreed"],
                 "decision_reason": shadow["decision_reason"],
             }
         )
-    precision = exact / len(cases) if cases else 0.0
+    precision = exact / evaluated if evaluated else 0.0
     return {
+        "status": "evaluated",
         "case_count": len(cases),
+        "evaluated_count": evaluated,
         "precision": precision,
         "recall": precision,
         "planned_activations": planned_activations,
         "production_changed": False,
+        "model_id": scorer.model_id,
         "threshold_version": "semantic-shadow-1.0.0",
         "results": results,
     }
@@ -253,7 +282,15 @@ def main() -> int:
     triggers = evaluate_skill_triggers()
     outputs = evaluate_outputs()
     thresholds = {"precision": 0.97, "recall": 0.93, "trigger_compliance": 1.0, "contract_compliance": 1.0, "fabricated_citations": 0}
-    passed = router["precision"] >= thresholds["precision"] and router["recall"] >= thresholds["recall"] and router_shadow["precision"] >= thresholds["precision"] and router_shadow["recall"] >= thresholds["recall"] and router_shadow["planned_activations"] == 0 and triggers["compliance"] == 1.0 and outputs["contract_compliance"] == 1.0 and outputs["fabricated_citations"] == 0
+    semantic_gate = (
+        router_shadow["status"] == "missing-evidence"
+        or (
+            router_shadow["precision"] >= thresholds["precision"]
+            and router_shadow["recall"] >= thresholds["recall"]
+            and router_shadow["planned_activations"] == 0
+        )
+    )
+    passed = router["precision"] >= thresholds["precision"] and router["recall"] >= thresholds["recall"] and semantic_gate and triggers["compliance"] == 1.0 and outputs["contract_compliance"] == 1.0 and outputs["fabricated_citations"] == 0
     summary = {"status": "pass" if passed else "fail", "thresholds": thresholds, "router": router, "router_shadow": router_shadow, "triggers": triggers, "outputs": outputs}
     reports = ROOT / "reports"
     reports.mkdir(exist_ok=True)
@@ -266,18 +303,18 @@ Status: **{summary['status']}**
 
 - Router cases: {router['case_count']}; precision `{router['precision']:.4f}`; recall `{router['recall']:.4f}`
 - Metric: {router['metric_definition']}
-- Semantic shadow cases: {router_shadow['case_count']}; production precision `{router_shadow['precision']:.4f}`; planned activations `{router_shadow['planned_activations']}`
+- Semantic shadow cases: {router_shadow['case_count']}; status `{router_shadow['status']}`; evaluated `{router_shadow['evaluated_count']}`; precision `{router_shadow['precision'] if router_shadow['precision'] is not None else 'missing evidence'}`; planned activations `{router_shadow['planned_activations']}`
 - Skill trigger cases: {triggers['case_count']}; compliance `{triggers['compliance']:.4f}`
 - Output cases: {outputs['case_count']}; contract compliance `{outputs['contract_compliance']:.4f}`
 - Fabricated citations: `{outputs['fabricated_citations']}`
 - Failed routes: {failed_routes or 'none'}
 - Failed outputs: {failed_outputs or 'none'}
-- Provider/model evidence: missing evidence
+- Provider/model evidence: {router_shadow.get('model_id') or 'missing evidence'}
 - Human blind review: pending; missing evidence; excluded from agreement
 """
     (reports / "eval-summary.md").write_text(md, encoding="utf-8")
     write_blind_pack()
-    print(json.dumps({"status": summary["status"], "precision": router["precision"], "recall": router["recall"], "shadow_precision": router_shadow["precision"], "shadow_recall": router_shadow["recall"], "planned_shadow_activations": router_shadow["planned_activations"], "trigger_compliance": triggers["compliance"], "contract_compliance": outputs["contract_compliance"], "fabricated_citations": outputs["fabricated_citations"]}, indent=2, allow_nan=False))
+    print(json.dumps({"status": summary["status"], "precision": router["precision"], "recall": router["recall"], "shadow_status": router_shadow["status"], "shadow_precision": router_shadow["precision"], "shadow_recall": router_shadow["recall"], "planned_shadow_activations": router_shadow["planned_activations"], "trigger_compliance": triggers["compliance"], "contract_compliance": outputs["contract_compliance"], "fabricated_citations": outputs["fabricated_citations"]}, indent=2, allow_nan=False))
     return 0 if passed else 2
 
 

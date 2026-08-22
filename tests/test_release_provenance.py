@@ -11,7 +11,9 @@ from geo_seo_hub.quality.release import (
     build_provenance,
     build_sbom,
     verify_release_provenance,
+    release_source_inventory,
     source_revision,
+    source_snapshot_state,
 )
 
 
@@ -81,14 +83,41 @@ def test_provenance_rejects_missing_declared_dependency(tmp_path):
 def test_source_revision_tracks_release_source_commit_across_evidence_only_commit():
     import subprocess
 
+    source_paths = sorted(release_source_inventory(ROOT))
     expected = subprocess.run(
-        ["git", "log", "-1", "--format=%H", "--", "src", "schemas", "skills", "scripts", "pyproject.toml"],
+        ["git", "log", "-1", "--format=%H", "--", *source_paths],
         cwd=ROOT,
         check=True,
         capture_output=True,
         text=True,
     ).stdout.strip()
     assert source_revision(ROOT) == expected
+
+
+def test_source_snapshot_state_distinguishes_committed_and_staged_indexes(tmp_path, monkeypatch):
+    import os
+    import subprocess
+
+    index = tmp_path / "index"
+    environment = os.environ.copy()
+    environment["GIT_INDEX_FILE"] = str(index)
+    subprocess.run(["git", "read-tree", "HEAD"], cwd=ROOT, env=environment, check=True)
+    monkeypatch.setenv("GIT_INDEX_FILE", str(index))
+    assert source_snapshot_state(ROOT) == "committed release source snapshot"
+    candidate_blob = subprocess.run(
+        ["git", "hash-object", "-w", "--stdin"],
+        cwd=ROOT,
+        input=b"9.9.9\n",
+        capture_output=True,
+        check=True,
+    ).stdout.decode().strip()
+    subprocess.run(
+        ["git", "update-index", "--add", "--cacheinfo", "100644", candidate_blob, "VERSION"],
+        cwd=ROOT,
+        env=environment,
+        check=True,
+    )
+    assert source_snapshot_state(ROOT) == "staged release candidate snapshot"
 
 
 def test_provenance_rejects_forged_sbom_facts_even_when_digest_is_resynchronized(tmp_path):

@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://geo-seo-hub.local/schemas/task-plan.schema.json",
+  "title": "GEOHub Task Plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol_version",
+    "plan_version",
+    "plan_id",
+    "registry_version",
+    "request",
+    "status",
+    "decision",
+    "workflow_id",
+    "nodes",
+    "required_inputs",
+    "uncovered_intents",
+    "plan_digest"
+  ],
+  "properties": {
+    "protocol_version": {"const": "1.0.0"},
+    "plan_version": {"const": "1.0.0"},
+    "plan_id": {"type": "string", "pattern": "^plan-[0-9a-f]{16}$"},
+    "registry_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "request": {"type": "string", "minLength": 1, "maxLength": 8000},
+    "status": {"enum": ["ready", "needs-clarification", "unavailable"]},
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "score", "threshold_version", "matched_intents", "alternatives"],
+      "properties": {
+        "type": {"enum": ["single_skill", "workflow", "clarify", "abstain", "unavailable"]},
+        "score": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "threshold_version": {"type": "string", "minLength": 1, "maxLength": 100},
+        "matched_intents": {
+          "type": "array",
+          "uniqueItems": true,
+          "maxItems": 50,
+          "items": {"type": "string", "pattern": "^geo(?:-[a-z0-9]+)*$"}
+        },
+        "alternatives": {
+          "type": "array",
+          "uniqueItems": true,
+          "maxItems": 10,
+          "items": {"type": "string", "pattern": "^geo(?:-[a-z0-9]+)*$"}
+        }
+      }
+    },
+    "workflow_id": {
+      "type": ["string", "null"],
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+    },
+    "nodes": {
+      "type": "array",
+      "maxItems": 50,
+      "items": {"$ref": "#/$defs/node"}
+    },
+    "required_inputs": {
+      "type": "array",
+      "uniqueItems": true,
+      "maxItems": 100,
+      "items": {"type": "string", "pattern": "^[a-z][a-z0-9_-]{0,63}$"}
+    },
+    "uncovered_intents": {
+      "type": "array",
+      "uniqueItems": true,
+      "maxItems": 50,
+      "items": {"type": "string", "pattern": "^geo(?:-[a-z0-9]+)*$"}
+    },
+    "plan_digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  },
+  "$defs": {
+    "binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifact", "schema", "source"],
+      "properties": {
+        "artifact": {"type": "string", "pattern": "^[a-z][a-z0-9_-]{0,63}$"},
+        "schema": {"type": ["string", "null"], "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"},
+        "source": {
+          "type": "string",
+          "pattern": "^(?:request|external):[a-z][a-z0-9_-]{0,63}$|^node:[a-z][a-z0-9-]*:[a-z][a-z0-9_-]{0,63}$"
+        }
+      }
+    },
+    "output": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifact", "schema", "required"],
+      "properties": {
+        "artifact": {"type": "string", "pattern": "^[a-z][a-z0-9_-]{0,63}$"},
+        "schema": {"type": ["string", "null"], "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"},
+        "required": {"type": "boolean"}
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["executor", "timeout_seconds", "max_attempts", "idempotent"],
+      "properties": {
+        "executor": {"type": ["string", "null"], "pattern": "^[a-z][a-z0-9-]*$"},
+        "timeout_seconds": {"type": ["integer", "null"], "minimum": 1, "maximum": 3600},
+        "max_attempts": {"type": "integer", "minimum": 0, "maximum": 10},
+        "idempotent": {"type": "boolean"}
+      }
+    },
+    "node": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "skill_id",
+        "depends_on",
+        "input_bindings",
+        "expected_outputs",
+        "permission_profile",
+        "execution",
+        "requires_approval",
+        "gate_request",
+        "evidence_schema"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z][a-z0-9-]{0,63}$"},
+        "kind": {"enum": ["skill", "approval", "external-publication", "external-observation"]},
+        "skill_id": {"type": ["string", "null"], "pattern": "^geo(?:-[a-z0-9]+)*$"},
+        "depends_on": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[a-z][a-z0-9-]{0,63}$"}
+        },
+        "input_bindings": {"type": "array", "maxItems": 100, "items": {"$ref": "#/$defs/binding"}},
+        "expected_outputs": {"type": "array", "maxItems": 100, "items": {"$ref": "#/$defs/output"}},
+        "permission_profile": {"type": "string", "minLength": 1, "maxLength": 100},
+        "execution": {"$ref": "#/$defs/execution"},
+        "requires_approval": {"type": "boolean"},
+        "gate_request": {"type": ["string", "null"], "minLength": 1, "maxLength": 500},
+        "evidence_schema": {"enum": [null, "publication-receipt", "engine-observation-bundle"]}
+      }
+    }
+  }
+}

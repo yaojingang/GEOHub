@@ -4,6 +4,10 @@ The local gate uses at least 60 Chinese/English router cases and 35 deterministi
 
 An exact skill/workflow/runnable match counts as a true positive. Every mismatch contributes one false positive and one false negative. Output cases use synthetic, file-backed fixtures without network services or real customer data.
 
+Version 0.6 adds a grouped 600-case natural-language router dataset: 240 single-intent, 120 near-neighbor, 80 multi-intent, 80 ambiguous, and 80 out-of-domain cases. Families stay inside one calibration, public-test, or private-holdout split. Generated labels are proposals. The promotion gate requires human adjudication of at least 20% of cases and Cohen's kappa of at least `0.80`; pending labels and cached-model absence remain missing evidence.
+
+`scripts/run_router_benchmark.py` reports macro Skill F1, per-Skill F1, decision recall, OOD false-runnable rate, exact workflow match, accepted-route error, and coverage. Lexical-only results are diagnostic. Semantic promotion requires the prepared local model, human-reviewed labels, and a separate holdout result.
+
 Recorded fixtures and deterministic command runs are reproducibility evidence. Provider-backed model evidence, real-platform benchmarks, and human blind review remain `missing evidence` until independently collected. Pending blind pairs do not enter agreement metrics.
 
 ## Output Eval Lab

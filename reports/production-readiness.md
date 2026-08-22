@@ -1,6 +1,6 @@
 # GEO SEO Hub Production Readiness Review
 
-Version: `0.5.0` · Maturity: **Experimental**
+Version: `0.6.0` · Maturity: **Experimental**
 
 Production decision: **blocked**
 Experimental release decision: **eligible**

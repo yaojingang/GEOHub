@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-13",
+  "generated_at": "2026-08-22",
   "skill_dir": "skills/geo-content",
   "summary": {
     "target_count": 1,
@@ -35,7 +35,7 @@
       "compiled_contract": {
         "name": "geo-content",
         "title": "GEO SEO Hub Content",
-        "version": "0.5.0",
+        "version": "0.6.0",
         "description": "Create evidence-lined GEO titles, explainers, neutral comparisons, method-backed rankings, page blueprints, refinements, and article-friendly Markdown. Use for title generation, 科普/解释、对比、榜单、页面蓝图、内容优化, and article-friendly rewriting. Excludes unsupported factual claims, winner declarations without like-for-like evidence, network research, publishing, and live ranking measurement.",
         "job_to_be_done": "Create evidence-lined GEO titles, explainers, neutral comparisons, method-backed rankings, page blueprints, refinements, and article-friendly Markdown. Use for title generation, 科普/解释、对比、榜单、页面蓝图、内容优化, and article-friendly rewriting. Excludes unsupported factual claims, winner declarations without like-for-like evidence, network research, publishing, and live ranking measurement.",
         "trigger": {

@@ -17,6 +17,82 @@ def test_route_cli_prints_json(capsys):
     assert payload["skill_id"] == "geo-discover"
 
 
+def test_route_cli_writes_valid_task_plan(tmp_path, capsys):
+    target = tmp_path / "task-plan.json"
+    assert main(
+        [
+            "route",
+            "--text",
+            "先拓词，再诊断网站",
+            "--lexical-only",
+            "--plan-output",
+            str(target),
+        ]
+    ) == 0
+    payload = json.loads(capsys.readouterr().out)
+    plan = json.loads(target.read_text(encoding="utf-8"))
+    assert payload["decision"]["semantic_status"] == "disabled"
+    assert payload["task_plan"]["plan_id"] == plan["plan_id"]
+    assert plan["workflow_id"] == "brand-baseline-lite"
+    assert plan["status"] == "ready"
+
+
+def test_route_cli_refuses_to_overwrite_task_plan(tmp_path, capsys):
+    target = tmp_path / "task-plan.json"
+    target.write_text("{}\n", encoding="utf-8")
+    assert main(
+        [
+            "route",
+            "--text",
+            "query research",
+            "--plan-output",
+            str(target),
+        ]
+    ) == 2
+    payload = json.loads(capsys.readouterr().err)
+    assert "already exists" in payload["message"]
+
+
+def test_workflow_cli_starts_single_skill_plan_to_completion(tmp_path, capsys):
+    plan_path = tmp_path / "task-plan.json"
+    assert main(
+        [
+            "route",
+            "--text",
+            "query research",
+            "--lexical-only",
+            "--plan-output",
+            str(plan_path),
+        ]
+    ) == 0
+    capsys.readouterr()
+    inputs_path = tmp_path / "inputs.json"
+    fixture = Path(__file__).parent / "fixtures" / "brief.json"
+    inputs_path.write_text(json.dumps({"geo-brief": str(fixture)}), encoding="utf-8")
+    state_path = tmp_path / "workflow-state.json"
+    assert main(
+        [
+            "workflow",
+            "start",
+            "--plan",
+            str(plan_path),
+            "--state",
+            str(state_path),
+            "--inputs",
+            str(inputs_path),
+            "--output",
+            str(tmp_path / "runs"),
+        ]
+    ) == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["status"] == "completed"
+    assert payload["steps"][0]["outputs"]["query-map"]
+
+    assert main(["workflow", "status", "--state", str(state_path)]) == 0
+    status = json.loads(capsys.readouterr().out)
+    assert status["plan_digest"] == payload["plan_digest"]
+
+
 def test_discover_cli_prints_summary(tmp_path, capsys):
     fixture = Path(__file__).parent / "fixtures" / "brief.json"
     runs_root = tmp_path / "runs"

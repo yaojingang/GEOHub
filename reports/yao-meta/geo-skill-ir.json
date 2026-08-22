@@ -22,9 +22,9 @@
   "workflow": {
     "steps": [
       "Read `references/routing-contract.md` and the suite resolver contract at `../RESOLVER.md`.",
-      "Run the deterministic `python3 scripts/run_route.py --text \"<request>\"` wrapper or `python -m geo_seo_hub route --text \"<request>\"`.",
-      "Dispatch only when the JSON result has 'runnable: true' and a non-null 'entry'.",
-      "For 'pending-implementation' or 'planned', return the registry status and suggested available route exactly as reported."
+      "Run `python3 scripts/run_route.py --text \"<request>\"` or `python -m geo_seo_hub route --text \"<request>\"`. Add `--lexical-only` for the deterministic baseline or `--plan-output <path>` to compile a TaskPlan.",
+      "Dispatch only when `decision.type` is `single_skill` or `workflow`, `runnable` is true, and the selected Skill has a non-null entry.",
+      "For `clarify`, `abstain`, `pending-implementation`, or `planned`, preserve the reported reason, alternatives, required inputs, and execution boundary."
     ],
     "decision_points": [],
     "failure_modes": []

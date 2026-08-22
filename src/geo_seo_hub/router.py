@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 import re
 from bisect import bisect_right
 from dataclasses import dataclass, field
@@ -92,6 +93,9 @@ _WORKFLOW_CONNECTOR_RE = re.compile(
 )
 _WORKFLOW_CONNECTOR_GAP_CHARACTERS = frozenset(",，、&+;；")
 _ADDITIVE_CONNECTOR_RE = re.compile(_GOVERNED_ADDITIVE_PATTERN)
+_SEMANTIC_WORKFLOW_CONNECTOR_RE = re.compile(
+    rf"(?:{_GOVERNED_SEQUENCE_PATTERN}|{_GOVERNED_ADDITIVE_PATTERN}|[&+;；、])"
+)
 _SEQUENCE_CONNECTOR_RE = re.compile(_GOVERNED_SEQUENCE_PATTERN)
 _REPLACEMENT_CONNECTOR_RE = re.compile(
     r"(?:改为|转而|只|\binstead(?:\s+of)?\b|"
@@ -811,11 +815,157 @@ def _workflow_gap_prefix(text: str) -> tuple[int, ...]:
     return tuple(prefix)
 
 
+def _semantic_scope_assessments(
+    text: str,
+    scopes: tuple[ClauseScope, ...],
+    spans_by_skill: dict[str, list[tuple[int, int]]],
+    registry: dict[str, Any],
+    scorer: Any,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]], str | None]:
+    skills = [skill for skill in registry["skills"] if skill["id"] != "geo"]
+    skill_ids = [skill["id"] for skill in skills]
+    accepted: list[dict[str, Any]] = []
+    ambiguous: list[dict[str, Any]] = []
+    try:
+        for scope in scopes:
+            if scope.negation_starts:
+                continue
+            has_lexical_match = any(
+                scope.start <= start < scope.end
+                for skill_id, spans in spans_by_skill.items()
+                if skill_id != "geo"
+                for start, _ in spans
+            )
+            if has_lexical_match:
+                continue
+            clause = text[scope.start:scope.end].strip(" ,，;；。")
+            if not clause:
+                continue
+            raw_scores = scorer.score(clause, skill_ids)
+            unknown = sorted(set(raw_scores) - set(skill_ids))
+            if unknown:
+                raise ValueError(f"semantic scorer returned unknown Skill IDs: {unknown}")
+            ranked: list[tuple[float, int, dict[str, Any]]] = []
+            for index, skill in enumerate(skills):
+                value = raw_scores.get(skill["id"], 0.0)
+                if (
+                    isinstance(value, bool)
+                    or not isinstance(value, (int, float))
+                    or not math.isfinite(value)
+                    or not 0.0 <= float(value) <= 1.0
+                ):
+                    raise ValueError(f"semantic score is invalid for {skill['id']}")
+                ranked.append((float(value), index, skill))
+            ranked.sort(key=lambda item: (-item[0], item[1]))
+            top_score, _, top_skill = ranked[0]
+            threshold = float(top_skill["routing"]["semantic_threshold"])
+            if top_score < threshold:
+                continue
+            second_score, _, second_skill = ranked[1]
+            second_threshold = float(second_skill["routing"]["semantic_threshold"])
+            margin = float(top_skill["routing"]["ambiguity_margin"])
+            assessment = {
+                "scope_start": scope.start,
+                "scope_end": scope.end,
+                "skill_id": top_skill["id"],
+                "score": top_score,
+                "threshold_version": top_skill["routing"]["threshold_version"],
+                "alternatives": [],
+            }
+            if second_score >= second_threshold and top_score - second_score < margin:
+                assessment["alternatives"] = [second_skill["id"]]
+                ambiguous.append(assessment)
+            else:
+                accepted.append(assessment)
+    except Exception as exc:
+        return [], [], f"{type(exc).__name__}: semantic scorer unavailable"
+    return accepted, ambiguous, None
+
+
+def _semantic_clause_scopes(text: str) -> tuple[ClauseScope, ...]:
+    boundaries = list(_CLAUSE_BOUNDARY_RE.finditer(text))
+    spans: list[tuple[int, int]] = []
+    start = 0
+    for boundary in boundaries:
+        if boundary.start() > start:
+            spans.append((start, boundary.start()))
+        start = boundary.end()
+    if start < len(text):
+        spans.append((start, len(text)))
+    if not spans:
+        spans.append((0, len(text)))
+    scopes = []
+    for scope_start, scope_end in spans:
+        negations = tuple(
+            scope_start + match.start()
+            for match in _NEGATION_RE.finditer(text[scope_start:scope_end])
+        )
+        scopes.append(
+            ClauseScope(
+                start=scope_start,
+                end=scope_end,
+                negation_starts=negations,
+            )
+        )
+    return tuple(scopes)
+
+
+def _ordered_intent_ids(
+    spans_by_skill: dict[str, list[tuple[int, int]]],
+    semantic_matches: list[dict[str, Any]],
+) -> list[str]:
+    events = [
+        (start, skill_id)
+        for skill_id, spans in spans_by_skill.items()
+        if skill_id != "geo"
+        for start, _ in spans
+    ]
+    events.extend(
+        (item["scope_start"], item["skill_id"])
+        for item in semantic_matches
+    )
+    ordered: list[str] = []
+    for _, skill_id in sorted(events, key=lambda item: (item[0], item[1])):
+        if skill_id not in ordered:
+            ordered.append(skill_id)
+    return ordered
+
+
+def _connected_lexical_intent_ids(
+    spans_by_skill: dict[str, list[tuple[int, int]]],
+    connector_spans: tuple[tuple[int, int, int, int, str], ...],
+    gap_prefix: tuple[int, ...],
+) -> set[str]:
+    connected: set[str] = set()
+    for connector_start, _, action_start, _, token in connector_spans:
+        targets = {
+            skill_id
+            for skill_id, spans in spans_by_skill.items()
+            if skill_id != "geo" and any(start == action_start for start, _ in spans)
+        }
+        for source_id, spans in spans_by_skill.items():
+            if source_id == "geo" or source_id in targets:
+                continue
+            source_ends = [end for _, end in spans if end <= connector_start]
+            if not source_ends:
+                continue
+            nearest_end = max(source_ends)
+            if (
+                token in _GOVERNED_SINGLE_ZH_CONNECTOR_TOKENS
+                and gap_prefix[nearest_end] != gap_prefix[connector_start]
+            ):
+                continue
+            connected.add(source_id)
+            connected.update(targets)
+    return connected
+
+
 def route(
     text: str,
     registry_path: Path | None = None,
     *,
     semantic_scorer: Any | None = None,
+    hybrid_scorer: Any | None = None,
 ) -> dict[str, Any]:
     """Select the best registry route and expose its implementation status."""
     if len(text) > MAX_ROUTE_CHARACTERS or len(text.encode("utf-8")) > MAX_ROUTE_UTF8_BYTES:
@@ -868,7 +1018,33 @@ def route(
     ]
     scores = {skill["id"]: score for score, _, skill in ranked}
     spans_by_skill = {skill_id: analysis[1] for skill_id, analysis in analyses.items()}
+    semantic_matches: list[dict[str, Any]] = []
+    semantic_ambiguities: list[dict[str, Any]] = []
+    semantic_error = None
+    if hybrid_scorer is not None:
+        semantic_matches, semantic_ambiguities, semantic_error = _semantic_scope_assessments(
+            normalized,
+            _semantic_clause_scopes(normalized),
+            spans_by_skill,
+            registry,
+            hybrid_scorer,
+        )
+    semantic_by_skill = {
+        item["skill_id"]: item
+        for item in semantic_matches
+    }
+    semantic_unavailable = [
+        item
+        for item in semantic_matches
+        if next(skill for skill in registry["skills"] if skill["id"] == item["skill_id"])["status"] != "active"
+    ]
+    ordered_intents = _ordered_intent_ids(spans_by_skill, semantic_matches)
     connector_spans = _workflow_connector_spans(normalized, action_index)
+    connected_lexical_intents = _connected_lexical_intent_ids(
+        spans_by_skill,
+        connector_spans,
+        workflow_gap_prefix,
+    )
     planned_ranked = [
         item
         for item in ranked
@@ -879,25 +1055,59 @@ def route(
         for skill in registry["skills"]
         if skill["id"] != "geo" and skill["status"] == "active" and scores.get(skill["id"], 0) > 0
     }
-    matched_recipes = [] if planned_ranked else [
+    active_stage_matches.update(
+        item["skill_id"]
+        for item in semantic_matches
+        if next(skill for skill in registry["skills"] if skill["id"] == item["skill_id"])["status"] == "active"
+    )
+    matched_recipes = [] if planned_ranked or semantic_unavailable or semantic_ambiguities else [
         recipe
         for recipe in registry["workflows"]
         if set(recipe["required_skills"]) == active_stage_matches
-        and _workflow_matches(recipe, spans_by_skill, connector_spans, workflow_gap_prefix)
+        and (
+            _workflow_matches(recipe, spans_by_skill, connector_spans, workflow_gap_prefix)
+            or (
+                bool(semantic_matches)
+                and _SEMANTIC_WORKFLOW_CONNECTOR_RE.search(normalized) is not None
+                and ordered_intents == recipe["required_skills"]
+            )
+        )
     ]
     workflow = None
     if len(matched_recipes) == 1:
-        workflow = {"id": matched_recipes[0]["id"], "steps": [dict(step) for step in matched_recipes[0]["steps"]]}
+        matched = matched_recipes[0]
+        workflow = {
+            "id": matched["id"],
+            "status": matched["status"],
+            "runnable": matched["status"] == "active",
+            "steps": [dict(step) for step in matched["steps"]],
+        }
+    semantic_selected = None
+    if semantic_ambiguities:
+        semantic_selected = semantic_ambiguities[0]
+    elif semantic_unavailable:
+        semantic_selected = semantic_unavailable[0]
+    elif len({item["skill_id"] for item in semantic_matches}) == 1:
+        semantic_selected = semantic_matches[0]
+
     if planned_ranked:
         ranked = planned_ranked
     elif any(score > 0 and skill["id"] != "geo" for score, _, skill in ranked):
         ranked = [item for item in ranked if item[2]["id"] != "geo"]
     ranked.sort(key=lambda item: (-item[0], item[1]))
     top_score = ranked[0][0]
-    if top_score == 0:
+    if semantic_selected is not None and (top_score == 0 or semantic_selected in semantic_unavailable or semantic_ambiguities):
+        selected = next(
+            skill
+            for skill in registry["skills"]
+            if skill["id"] == semantic_selected["skill_id"]
+        )
+        alternatives = list(semantic_selected["alternatives"])
+        reason = f"Matched semantic intent for {selected['id']}."
+    elif top_score == 0:
         selected = next(skill for skill in registry["skills"] if skill["id"] == "geo")
         alternatives: list[str] = []
-        reason = "No specific stage matched; using the active GEO umbrella route."
+        reason = "No in-domain intent met the routing threshold."
     else:
         selected = ranked[0][2]
         alternatives = [
@@ -906,12 +1116,45 @@ def route(
         reason = f"Matched registered intent terms for {selected['id']}."
 
     if workflow is not None:
-        selected = next(skill for skill in registry["skills"] if skill["id"] == "geo-discover")
+        first_skill_id = workflow["steps"][0]["skill_id"]
+        selected = next(skill for skill in registry["skills"] if skill["id"] == first_skill_id)
         alternatives = []
 
-    runnable = selected["status"] == "active" and bool(selected["entry"])
+    distinct_intents = list(dict.fromkeys(ordered_intents))
+    if workflow is not None:
+        decision_type = "workflow" if workflow["status"] == "active" else "unavailable"
+    elif selected["status"] != "active":
+        decision_type = "unavailable"
+    elif semantic_ambiguities or (
+        len(distinct_intents) > 1
+        and (bool(semantic_matches) or len(connected_lexical_intents) > 1)
+    ):
+        decision_type = "clarify"
+    elif top_score == 0 and semantic_selected is None:
+        decision_type = "abstain"
+    else:
+        decision_type = "single_skill"
+
+    runnable = (
+        selected["status"] == "active"
+        and bool(selected["entry"])
+        and (workflow is None or workflow["runnable"])
+        and decision_type in {"single_skill", "workflow"}
+    )
     if runnable:
         suggestion = None
+    elif workflow is not None and workflow["status"] != "active":
+        suggestion = None
+        reason = (
+            f"Matched workflow {workflow['id']}, but its status is "
+            f"{workflow['status']}; execution is disabled."
+        )
+    elif decision_type == "clarify":
+        suggestion = None
+        reason = "Multiple plausible intents require clarification before execution."
+    elif decision_type == "abstain":
+        suggestion = None
+        reason = "No in-domain intent met the routing threshold; execution is disabled."
     else:
         suggestion = selected.get("nearest_active", "geo-discover")
         reason += f" Stage status is {selected['status']}; no runnable entry is registered."
@@ -926,12 +1169,53 @@ def route(
         "suggestion": suggestion,
         "alternatives": alternatives,
     }
-    if not runnable:
+    decision_alternatives = list(alternatives)
+    if decision_type == "clarify" and len(distinct_intents) > 1:
+        decision_alternatives = [
+            skill_id for skill_id in distinct_intents if skill_id != selected["id"]
+        ]
+    semantic_evidence = semantic_by_skill.get(selected["id"])
+    if semantic_evidence is None and semantic_ambiguities:
+        semantic_evidence = semantic_ambiguities[0]
+    if decision_type == "abstain":
+        matched_intents: list[str] = []
+    elif workflow is not None:
+        matched_intents = list(workflow_step["skill_id"] for workflow_step in workflow["steps"])
+    elif distinct_intents:
+        matched_intents = distinct_intents
+    else:
+        matched_intents = [selected["id"]]
+    if workflow is not None and not workflow["runnable"]:
+        uncovered_intents = matched_intents[1:]
+    elif decision_type == "clarify":
+        uncovered_intents = decision_alternatives
+    else:
+        uncovered_intents = []
+    result["decision"] = {
+        "type": decision_type,
+        "matched_intents": matched_intents,
+        "uncovered_intents": uncovered_intents,
+        "score": semantic_evidence["score"] if semantic_evidence is not None else None,
+        "threshold_version": (
+            semantic_evidence["threshold_version"]
+            if semantic_evidence is not None
+            else f"lexical-registry-{registry['registry_version']}"
+        ),
+        "alternatives": decision_alternatives,
+    }
+    if semantic_error is not None:
+        result["decision"]["semantic_status"] = "unavailable"
+    if workflow is not None and not workflow["runnable"]:
+        matched = next(item for item in matched_recipes if item["id"] == workflow["id"])
+        result["required_inputs"] = list(matched["required_inputs"])
+        result["closest_v0_artifact"] = matched["closest_v0_artifact"]
+    elif not runnable and selected["status"] != "active":
         result["required_inputs"] = list(selected["required_inputs"])
         result["closest_v0_artifact"] = selected["closest_v0_artifact"]
-    if workflow is not None and runnable:
+    if workflow is not None:
         result["workflow"] = workflow
-        result["reason"] = f"Matched exact multi-intent recipe {workflow['id']}."
+        if runnable:
+            result["reason"] = f"Matched exact multi-intent recipe {workflow['id']}."
     if semantic_scorer is not None:
         from .control.routing import build_shadow_assessment
 

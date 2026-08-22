@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "geo-seo-hub"
-version = "0.5.0"
+version = "0.6.0"
 description = "Experimental, GEO-first agent skill hub with an SEO-ready architecture"
 readme = "README.md"
 requires-python = ">=3.11,<3.15"
@@ -28,6 +28,9 @@ render = [
   "python-docx>=1.1,<2",
   "weasyprint>=62,<70",
   "reportlab>=4,<5",
+]
+semantic = [
+  "fastembed>=0.8,<0.9",
 ]
 
 [project.scripts]
@@ -73,6 +76,7 @@ where = ["src"]
   "schemas/seo-brief.schema.json",
   "schemas/seo-plan.schema.json",
   "schemas/strategy-memory.schema.json",
+  "schemas/task-plan.schema.json",
   "schemas/strategy-candidates.schema.json",
   "schemas/visibility-report.schema.json",
   "schemas/workflow-state.schema.json",

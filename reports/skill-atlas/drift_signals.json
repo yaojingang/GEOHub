@@ -1,0 +1,130 @@
+[
+  {
+    "name": "geo",
+    "path": "geo",
+    "source": "geo/reports/adoption_drift_report.json",
+    "risk_band": "no-data",
+    "signal_types": [
+      "no telemetry"
+    ],
+    "recommendation": "Render adoption drift evidence or record a small metadata-only sample before release review.",
+    "actionable": true,
+    "scope": "release",
+    "summary": {
+      "event_count": 0,
+      "adoption_sample_count": 0
+    }
+  },
+  {
+    "name": "geo-content",
+    "path": "geo-content",
+    "source": "geo-content/reports/adoption_drift_report.json",
+    "risk_band": "no-data",
+    "signal_types": [
+      "no telemetry"
+    ],
+    "recommendation": "Render adoption drift evidence or record a small metadata-only sample before release review.",
+    "actionable": true,
+    "scope": "release",
+    "summary": {
+      "event_count": 0,
+      "adoption_sample_count": 0
+    }
+  },
+  {
+    "name": "geo-diagnose",
+    "path": "geo-diagnose",
+    "source": "geo-diagnose/reports/adoption_drift_report.json",
+    "risk_band": "no-data",
+    "signal_types": [
+      "no telemetry"
+    ],
+    "recommendation": "Render adoption drift evidence or record a small metadata-only sample before release review.",
+    "actionable": true,
+    "scope": "release",
+    "summary": {
+      "event_count": 0,
+      "adoption_sample_count": 0
+    }
+  },
+  {
+    "name": "geo-discover",
+    "path": "geo-discover",
+    "source": "geo-discover/reports/adoption_drift_report.json",
+    "risk_band": "no-data",
+    "signal_types": [
+      "no telemetry"
+    ],
+    "recommendation": "Render adoption drift evidence or record a small metadata-only sample before release review.",
+    "actionable": true,
+    "scope": "release",
+    "summary": {
+      "event_count": 0,
+      "adoption_sample_count": 0
+    }
+  },
+  {
+    "name": "geo-knowledge",
+    "path": "geo-knowledge",
+    "source": "geo-knowledge/reports/adoption_drift_report.json",
+    "risk_band": "no-data",
+    "signal_types": [
+      "no telemetry"
+    ],
+    "recommendation": "Render adoption drift evidence or record a small metadata-only sample before release review.",
+    "actionable": true,
+    "scope": "release",
+    "summary": {
+      "event_count": 0,
+      "adoption_sample_count": 0
+    }
+  },
+  {
+    "name": "geo-measure",
+    "path": "geo-measure",
+    "source": "geo-measure/reports/adoption_drift_report.json",
+    "risk_band": "no-data",
+    "signal_types": [
+      "no telemetry"
+    ],
+    "recommendation": "Render adoption drift evidence or record a small metadata-only sample before release review.",
+    "actionable": true,
+    "scope": "release",
+    "summary": {
+      "event_count": 0,
+      "adoption_sample_count": 0
+    }
+  },
+  {
+    "name": "geo-strategy",
+    "path": "geo-strategy",
+    "source": "geo-strategy/reports/adoption_drift_report.json",
+    "risk_band": "no-data",
+    "signal_types": [
+      "no telemetry"
+    ],
+    "recommendation": "Render adoption drift evidence or record a small metadata-only sample before release review.",
+    "actionable": true,
+    "scope": "release",
+    "summary": {
+      "event_count": 0,
+      "adoption_sample_count": 0
+    }
+  },
+  {
+    "name": "seo",
+    "path": "seo",
+    "source": "seo/reports/adoption_drift_report.json",
+    "risk_band": "no-data",
+    "signal_types": [
+      "no telemetry"
+    ],
+    "recommendation": "Render adoption drift evidence or record a small metadata-only sample before release review.",
+    "actionable": true,
+    "scope": "release",
+    "summary": {
+      "event_count": 0,
+      "adoption_sample_count": 0
+    }
+  }
+]

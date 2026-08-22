@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-13",
+  "generated_at": "2026-08-22",
   "skill_dir": "skills/geo-knowledge",
   "summary": {
     "target_count": 1,
@@ -35,7 +35,7 @@
       "compiled_contract": {
         "name": "geo-knowledge",
         "title": "GEO SEO Hub Knowledge",
-        "version": "0.5.0",
+        "version": "0.6.0",
         "description": "Build and query an evidence-lined GEO knowledge graph from approved source bundles. Use for entity normalization, relation lineage, conflicting fact preservation, incremental source-hash updates, local/global knowledge queries, 知识图谱, 知识库, and 知识治理. Exclude unsourced facts, hidden conflict resolution, autonomous crawling, and external database mutation.",
         "job_to_be_done": "Build and query an evidence-lined GEO knowledge graph from approved source bundles. Use for entity normalization, relation lineage, conflicting fact preservation, incremental source-hash updates, local/global knowledge queries, 知识图谱, 知识库, and 知识治理. Exclude unsourced facts, hidden conflict resolution, autonomous crawling, and external database mutation.",
         "trigger": {

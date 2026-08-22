@@ -14,6 +14,21 @@ VERSION = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
 OUTPUT = ROOT / "dist" / f"geo-seo-hub-source-{VERSION}.zip"
 
 
+def isolated_git_environment(root: Path) -> dict[str, str]:
+    environment = os.environ.copy()
+    for name in (
+        "GIT_ALTERNATE_OBJECT_DIRECTORIES",
+        "GIT_COMMON_DIR",
+        "GIT_DIR",
+        "GIT_OBJECT_DIRECTORY",
+        "GIT_WORK_TREE",
+    ):
+        environment.pop(name, None)
+    if root.resolve() != ROOT.resolve():
+        environment.pop("GIT_INDEX_FILE", None)
+    return environment
+
+
 def load_current_packager():
     spec = importlib.util.spec_from_file_location("geo_seo_hub_current_packager", ROOT / "scripts" / "package.py")
     module = importlib.util.module_from_spec(spec)
@@ -27,7 +42,13 @@ def trusted_files(root: Path) -> list[Path]:
     if root.is_symlink() or not stat.S_ISDIR(root_mode):
         raise ValueError(f"package root must be a regular directory: {root}")
     root_resolved = root.resolve()
-    result = subprocess.run(["git", "ls-files", "-z", "--cached"], cwd=root, check=True, capture_output=True)
+    result = subprocess.run(
+        ["git", "ls-files", "-z", "--cached"],
+        cwd=root,
+        env=isolated_git_environment(root),
+        check=True,
+        capture_output=True,
+    )
     files: list[Path] = []
     for raw_path in result.stdout.split(b"\0"):
         if not raw_path:

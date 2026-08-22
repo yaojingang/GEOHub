@@ -4,7 +4,7 @@ interface:
   default_prompt: "Use $geo to route this GEO request and report unavailable stages honestly."
   input_contract:
     required: {text: "non-blank Chinese or English request"}
-  output_contract: ["route decision with optional workflow DAG"]
+  output_contract: ["typed route decision with optional workflow DAG", "optional validated TaskPlan"]
   permission_contract: {filesystem: "read-only registry", network: "forbid"}
 compatibility:
   canonical_format: "agent-skills"

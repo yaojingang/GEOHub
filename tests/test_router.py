@@ -51,10 +51,105 @@ def test_routes_english_brand_and_page_audits():
         assert result["runnable"] is True
 
 
-def test_unknown_request_falls_back_to_geo():
+def test_unknown_request_abstains_without_executing_geo_umbrella():
     result = route("help me choose the next step")
     assert result["skill_id"] == "geo"
+    assert result["runnable"] is False
+    assert result["decision"]["type"] == "abstain"
+
+
+def test_explicit_general_geo_request_uses_geo_umbrella():
+    result = route("Help me choose the next GEO optimization step")
+    assert result["skill_id"] == "geo"
     assert result["runnable"] is True
+    assert result["decision"]["type"] == "single_skill"
+
+
+def test_hybrid_semantic_route_accepts_clear_unmatched_intent():
+    from geo_seo_hub.control.routing import StaticSemanticScorer
+
+    result = route(
+        "Find the questions buyers ask before shortlisting us",
+        hybrid_scorer=StaticSemanticScorer(
+            {"geo-discover": 0.84, "geo-diagnose": 0.41}
+        ),
+    )
+    assert result["skill_id"] == "geo-discover"
+    assert result["runnable"] is True
+    assert result["decision"]["type"] == "single_skill"
+    assert result["decision"]["score"] == 0.84
+
+
+def test_hybrid_semantic_route_clarifies_close_candidates():
+    from geo_seo_hub.control.routing import StaticSemanticScorer
+
+    result = route(
+        "Improve this brand's AI answer presence",
+        hybrid_scorer=StaticSemanticScorer(
+            {"geo-diagnose": 0.81, "geo-strategy": 0.78}
+        ),
+    )
+    assert result["runnable"] is False
+    assert result["decision"]["type"] == "clarify"
+    assert result["decision"]["alternatives"] == ["geo-strategy"]
+
+
+def test_hybrid_semantic_route_reports_planned_skill_without_activation():
+    from geo_seo_hub.control.routing import StaticSemanticScorer
+
+    result = route(
+        "Send the approved asset to its destination",
+        hybrid_scorer=StaticSemanticScorer(
+            {"geo-publish": 0.91, "geo-content": 0.32}
+        ),
+    )
+    assert result["skill_id"] == "geo-publish"
+    assert result["runnable"] is False
+    assert result["decision"]["type"] == "unavailable"
+
+
+def test_hybrid_semantic_clauses_can_match_registered_workflow():
+    class ClauseScorer:
+        model_id = "clause-fixture-v1"
+
+        def score(self, text, candidate_skill_ids):
+            if "questions buyers ask" in text:
+                selected = "geo-discover"
+            elif "answer page" in text:
+                selected = "geo-content"
+            else:
+                selected = "geo"
+            return {
+                skill_id: 0.88 if skill_id == selected else 0.20
+                for skill_id in candidate_skill_ids
+            }
+
+    result = route(
+        "Find the questions buyers ask, then turn the evidence into an answer page",
+        hybrid_scorer=ClauseScorer(),
+    )
+    assert result["decision"]["type"] == "workflow"
+    assert result["workflow"]["id"] == "content-campaign"
+
+
+def test_hybrid_semantic_intents_without_composition_connector_require_clarification():
+    class ClauseScorer:
+        model_id = "clause-fixture-v1"
+
+        def score(self, text, candidate_skill_ids):
+            selected = "geo-discover" if "buyers ask" in text else "geo-content"
+            return {
+                skill_id: 0.88 if skill_id == selected else 0.20
+                for skill_id in candidate_skill_ids
+            }
+
+    result = route(
+        "Find the questions buyers ask. Turn the evidence into an answer page.",
+        hybrid_scorer=ClauseScorer(),
+    )
+    assert result["decision"]["type"] == "clarify"
+    assert result["runnable"] is False
+    assert "workflow" not in result
 
 
 def test_routes_chinese_and_english_content_modes():
@@ -81,6 +176,8 @@ def test_brand_baseline_workflow_is_stable_dag():
     assert result["skill_id"] == "geo-discover"
     assert result["workflow"] == {
         "id": "brand-baseline-lite",
+        "status": "active",
+        "runnable": True,
         "steps": [
             {"id": "discover", "skill_id": "geo-discover", "depends_on": []},
             {"id": "diagnose", "skill_id": "geo-diagnose", "depends_on": ["discover"]},
@@ -125,7 +222,11 @@ def test_workflows_require_positive_ordered_exact_two_stage_intent():
 def test_registry_driven_workflow_supports_new_active_skills_without_router_edits():
     result = route("Build a GEO strategy, then monitor AI visibility")
     assert result["workflow"]["id"] == "strategy-observation-loop"
+    assert result["workflow"]["status"] == "active"
+    assert result["workflow"]["runnable"] is True
     assert [step["skill_id"] for step in result["workflow"]["steps"]] == ["geo-strategy", "geo-measure"]
+    assert result["skill_id"] == "geo-strategy"
+    assert result["runnable"] is True
 
 
 def test_negated_planned_intent_does_not_override_active_intent():
@@ -439,7 +540,7 @@ def test_buzhi_keeps_both_active_intents_positive():
     "text,skill_id,workflow_id,runnable",
     (
         ("不 只拓词还要写文章", "geo-discover", "content-campaign", True),
-        ("不只监测还要诊断网站", "geo-diagnose", None, True),
+        ("不只监测还要诊断网站", "geo-diagnose", None, False),
         ("不只是拓词还要诊断网站", "geo-discover", "brand-baseline-lite", True),
         ("不单拓词还要写文章", "geo-discover", "content-campaign", True),
         ("不光发布还要写文章", "geo-publish", None, False),
@@ -457,8 +558,11 @@ def test_buzhi_and_not_only_compounds_remain_positive(
     assert result.get("workflow", {}).get("id") == workflow_id
     assert result["runnable"] is runnable
     if not runnable:
-        assert result["required_inputs"]
-        assert result["closest_v0_artifact"]
+        if result["decision"]["type"] == "unavailable":
+            assert result["required_inputs"]
+            assert result["closest_v0_artifact"]
+        else:
+            assert result["decision"]["type"] == "clarify"
 
 
 @pytest.mark.parametrize(
@@ -520,7 +624,7 @@ def test_dandu_is_a_negative_lead_in_for_active_and_planned_actions(text, skill_
         ("不单是拓词还要诊断网站", "geo-discover", "brand-baseline-lite", True),
         ("不 单 是拓词还要诊断网站", "geo-discover", "brand-baseline-lite", True),
         ("不仅发布还要写文章", "geo-publish", None, False),
-        ("不仅仅监测还要诊断网站", "geo-diagnose", None, True),
+        ("不仅仅监测还要诊断网站", "geo-diagnose", None, False),
         ("不光发布还要写文章", "geo-publish", None, False),
     ),
 )
@@ -535,8 +639,11 @@ def test_not_only_lexemes_keep_registered_actions_positive(
     assert result.get("workflow", {}).get("id") == workflow_id
     assert result["runnable"] is runnable
     if not runnable:
-        assert result["required_inputs"]
-        assert result["closest_v0_artifact"]
+        if result["decision"]["type"] == "unavailable":
+            assert result["required_inputs"]
+            assert result["closest_v0_artifact"]
+        else:
+            assert result["decision"]["type"] == "clarify"
 
 
 @pytest.mark.parametrize(
@@ -723,7 +830,7 @@ def test_sequence_connector_inside_yizai_does_not_open_scope(text):
         ("不再仅拓词，还需诊断网站", "geo-discover", "brand-baseline-lite", True),
         ("不再只拓词，同时写文章", "geo-discover", "content-campaign", True),
         ("不再光发布，同时写文章", "geo-publish", None, False),
-        ("不再仅监测，也要诊断网站", "geo-diagnose", None, True),
+        ("不再仅监测，也要诊断网站", "geo-diagnose", None, False),
     ),
 )
 def test_buzai_exclusivity_additive_variants_keep_both_stages_positive(
@@ -737,8 +844,11 @@ def test_buzai_exclusivity_additive_variants_keep_both_stages_positive(
     assert result.get("workflow", {}).get("id") == workflow_id
     assert result["runnable"] is runnable
     if not runnable:
-        assert result["required_inputs"]
-        assert result["closest_v0_artifact"]
+        if result["decision"]["type"] == "unavailable":
+            assert result["required_inputs"]
+            assert result["closest_v0_artifact"]
+        else:
+            assert result["decision"]["type"] == "clarify"
 
 
 @pytest.mark.parametrize(

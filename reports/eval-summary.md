@@ -4,7 +4,7 @@ Status: **pass**
 
 - Router cases: 373; precision `1.0000`; recall `1.0000`
 - Metric: Exact skill/workflow/runnable match is TP; every mismatch contributes one FP and one FN.
-- Semantic shadow cases: 12; production precision `1.0000`; planned activations `0`
+- Semantic shadow cases: 12; status `missing-evidence`; evaluated `0`; precision `missing evidence`; planned activations `0`
 - Skill trigger cases: 52; compliance `1.0000`
 - Output cases: 35; contract compliance `1.0000`
 - Fabricated citations: `0`

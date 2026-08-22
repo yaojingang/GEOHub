@@ -455,7 +455,7 @@ def test_install_simulation_uses_each_extracted_package_and_real_provider_execut
     assert 'wrappers["run_route.py"]' in source
     assert all(f'"run_{provider}.py"' in source for provider in ("discover", "diagnose", "content", "measure", "strategy", "knowledge"))
     report = json.loads((ROOT / "reports" / "install-simulation.json").read_text())
-    assert report["source"]["cli_smokes"] == ["version", "route", "discover", "diagnose", "content", "measure", "strategy", "knowledge"]
+    assert report["source"]["cli_smokes"] == ["version", "route", "route-plan", "workflow-start", "discover", "diagnose", "content", "measure", "strategy", "knowledge"]
     assert len(report["structural_packages"]) == 10
     assert all(item["installed_from"] == "." and item["installed_share_resolved"] and item["resolved_entry"] and item["provider_executions"] == ["geo-discover", "geo-diagnose", "geo-content", "geo-measure", "geo-strategy", "geo-knowledge"] for item in report["structural_packages"])
 

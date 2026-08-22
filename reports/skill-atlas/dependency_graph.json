@@ -1,0 +1,57 @@
+{
+  "nodes": [
+    {
+      "name": "geo",
+      "path": "geo"
+    },
+    {
+      "name": "geo-content",
+      "path": "geo-content"
+    },
+    {
+      "name": "geo-diagnose",
+      "path": "geo-diagnose"
+    },
+    {
+      "name": "geo-discover",
+      "path": "geo-discover"
+    },
+    {
+      "name": "geo-knowledge",
+      "path": "geo-knowledge"
+    },
+    {
+      "name": "geo-measure",
+      "path": "geo-measure"
+    },
+    {
+      "name": "geo-strategy",
+      "path": "geo-strategy"
+    },
+    {
+      "name": "seo",
+      "path": "seo"
+    }
+  ],
+  "shared_resources": [
+    {
+      "resource": "references/input-example.json",
+      "skills": [
+        "geo-content",
+        "geo-diagnose",
+        "geo-discover",
+        "geo-measure",
+        "seo"
+      ]
+    },
+    {
+      "resource": "references/output-contract.md",
+      "skills": [
+        "geo-content",
+        "geo-knowledge",
+        "geo-measure",
+        "geo-strategy"
+      ]
+    }
+  ]
+}

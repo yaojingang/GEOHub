@@ -6,7 +6,7 @@
 基线提交：`9c21f09ee30998172267eebefcd114b7e6438134`  
 计划周期：13 周，约 90 个自然日  
 建议执行方式：10 个可独立合并、可独立回滚的实施包  
-依据：[GEOHub 世界级对标审计](./geohub-world-class-benchmark-2026-08-12.html) 与 [一手来源证据账本](./geohub-world-class-benchmark-sources-2026-08-12.md)
+依据：[GEOHub 世界级对标审计](./geohub-world-class-benchmark-2026-08-12.html) 与 [一手来源证据账本](../docs/research/world-class-benchmark-sources-2026-08-12.md)
 
 ## 1. 最终建议
 

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from geo_seo_hub.control.routing import StaticSemanticScorer
+from geo_seo_hub.control.routing import FastEmbedSemanticScorer, StaticSemanticScorer
+from geo_seo_hub.registry import load_registry
 from geo_seo_hub.router import route
 
 
@@ -51,3 +52,28 @@ def test_shadow_failure_never_blocks_lexical_production_route():
     assert result["skill_id"] == "geo-diagnose"
     assert result["shadow"]["status"] == "unavailable"
     assert result["shadow"]["production_skill_id"] == "geo-diagnose"
+
+
+def test_fastembed_semantic_scorer_uses_registry_examples_without_network():
+    class FixtureEmbeddingModel:
+        @staticmethod
+        def embed(documents):
+            for document in documents:
+                normalized = document.casefold()
+                if any(token in normalized for token in ("audit", "诊断", "检查", "障碍")):
+                    yield [1.0, 0.0, 0.0]
+                elif any(token in normalized for token in ("write", "draft", "文章", "页面")):
+                    yield [0.0, 1.0, 0.0]
+                else:
+                    yield [0.0, 0.0, 1.0]
+
+    scorer = FastEmbedSemanticScorer(
+        load_registry(),
+        embedding_model=FixtureEmbeddingModel(),
+        model_name="fixture-multilingual",
+    )
+
+    scores = scorer.score("Audit this website for citation barriers", ["geo-diagnose", "geo-content"])
+
+    assert scores["geo-diagnose"] > scores["geo-content"]
+    assert all(0.0 <= value <= 1.0 for value in scores.values())

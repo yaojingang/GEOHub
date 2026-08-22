@@ -81,10 +81,58 @@ def load_registry(path: Path | None = None) -> dict[str, Any]:
         for step in workflow["steps"]:
             if step["id"] in step_ids or any(dep not in step_ids for dep in step["depends_on"]):
                 raise RegistryError(f"Invalid registry: workflow {workflow['id']} is not a stable DAG")
-            if step["skill_id"] not in by_id or by_id[step["skill_id"]]["status"] != "active":
-                raise RegistryError(f"Invalid registry: workflow {workflow['id']} references an inactive skill")
+            if step["skill_id"] not in by_id:
+                raise RegistryError(f"Invalid registry: workflow {workflow['id']} references an unknown skill")
+            if workflow["status"] == "active" and (
+                by_id[step["skill_id"]]["status"] != "active"
+                or not by_id[step["skill_id"]]["entry"]
+            ):
+                raise RegistryError(f"Invalid registry: active workflow {workflow['id']} references an inactive skill")
             step_ids.add(step["id"])
             step_skills.append(step["skill_id"])
         if step_skills != workflow["required_skills"]:
             raise RegistryError(f"Invalid registry: workflow {workflow['id']} required_skills must match step order")
+        orchestration = workflow.get("orchestration")
+        if orchestration is not None:
+            node_ids: set[str] = set()
+            orchestration_skills: list[str] = []
+            for node in orchestration["nodes"]:
+                if node["id"] in node_ids or any(dep not in node_ids for dep in node["depends_on"]):
+                    raise RegistryError(
+                        f"Invalid registry: workflow {workflow['id']} orchestration is not a stable DAG"
+                    )
+                kind = node["kind"]
+                if kind == "skill":
+                    allowed_node_fields = {"id", "kind", "skill_id", "depends_on"}
+                    skill_id = node["skill_id"]
+                    if skill_id not in by_id:
+                        raise RegistryError(
+                            f"Invalid registry: workflow {workflow['id']} orchestration references an unknown skill"
+                        )
+                    if by_id[skill_id]["status"] != "active" or not by_id[skill_id]["entry"]:
+                        raise RegistryError(
+                            f"Invalid registry: active workflow {workflow['id']} orchestration references an inactive skill"
+                        )
+                    orchestration_skills.append(skill_id)
+                elif kind == "approval":
+                    allowed_node_fields = {"id", "kind", "depends_on", "request"}
+                else:
+                    allowed_node_fields = {"id", "kind", "depends_on", "evidence_schema"}
+                if set(node) != allowed_node_fields:
+                    raise RegistryError(
+                        f"Invalid registry: workflow {workflow['id']} orchestration node fields are invalid"
+                    )
+                expected_schema = {
+                    "external-publication": "publication-receipt",
+                    "external-observation": "engine-observation-bundle",
+                }.get(kind)
+                if expected_schema is not None and node["evidence_schema"] != expected_schema:
+                    raise RegistryError(
+                        f"Invalid registry: workflow {workflow['id']} external gate schema does not match its boundary"
+                    )
+                node_ids.add(node["id"])
+            if orchestration_skills != workflow["required_skills"]:
+                raise RegistryError(
+                    f"Invalid registry: workflow {workflow['id']} orchestration skills must match required_skills"
+                )
     return data

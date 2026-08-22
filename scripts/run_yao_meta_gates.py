@@ -274,7 +274,7 @@ def source_digest_paths() -> list[Path]:
         "reports/yao-meta-gates.schema.json",
         *DETERMINISTIC_EVIDENCE_PATHS,
     }
-    prefixes = ("registry/", "schemas/", "src/geo_seo_hub/", "evals/")
+    prefixes = ("registry/", "schemas/", "src/geo_seo_hub/", "evals/", "scripts/")
     paths = []
     for raw in tracked:
         if not raw:
@@ -334,7 +334,7 @@ def expected_command_records() -> set[tuple[str, tuple[str, ...], str | None]]:
             (["<python>", trigger_eval, "--description", frontmatter["description"], "--cases", f"{skill}/evals/trigger_cases.json", "--semantic-config", f"{skill}/evals/semantic_config.json", "--threshold", "0.2"], None),
             (["<python>", yao, "skill-ir", skill, "--output-json", f"{skill}/reports/skill-ir.json"], f"{skill}/reports/skill-ir.json"),
             (["<python>", yao, "skill-ir", skill, "--output-json", f"{prefix}-skill-ir.json"], f"{prefix}-skill-ir.json"),
-            (["<python>", yao, "output-eval", "--cases", f"{skill}/evals/output/cases.jsonl", "--output-json", f"{prefix}-output-eval.json", "--output-md", f"{prefix}-output-eval.md", "--blind-pack-json", f"{prefix}-blind-pack.json", "--blind-pack-md", f"{prefix}-blind-pack.md", "--blind-answer-key-json", f"{prefix}-blind-answer-key.json"], f"{prefix}-output-eval.json"),
+            (["<python>", yao, "output-eval", "--self", "--cases", f"{skill}/evals/output/cases.jsonl", "--output-json", f"{prefix}-output-eval.json", "--output-md", f"{prefix}-output-eval.md", "--blind-pack-json", f"{prefix}-blind-pack.json", "--blind-pack-md", f"{prefix}-blind-pack.md", "--blind-answer-key-json", f"{prefix}-blind-answer-key.json"], f"{prefix}-output-eval.json"),
             (["<python>", yao, "trust", skill, "--output-json", f"{prefix}-trust.json", "--output-md", f"{prefix}-trust.md"], f"{prefix}-trust.json"),
             (["<python>", yao, "review-studio", skill, "--output-json", f"{prefix}-review-studio.json", "--output-html", f"{prefix}-review-studio.html"], f"{prefix}-review-studio.json"),
         ]
@@ -346,7 +346,7 @@ def expected_command_records() -> set[tuple[str, tuple[str, ...], str | None]]:
                 ]
             )
         records.update((skill_id, tuple(command), report_path) for command, report_path in commands)
-    atlas = ["<python>", yao, "skill-atlas", "--workspace-root", "skills", "--report-json", "reports/skill-atlas.json", "--report-html", "reports/skill-atlas.html"]
+    atlas = ["<python>", yao, "skill-atlas", "--workspace-root", "skills", "--output-dir", "reports/skill-atlas", "--report-json", "reports/skill-atlas.json", "--report-html", "reports/skill-atlas.html"]
     records.add(("suite", tuple(atlas), "reports/skill-atlas.json"))
     return records
 
@@ -612,7 +612,7 @@ def main() -> int:
             [sys.executable, str(args.meta_root.resolve() / "scripts" / "trigger_eval.py"), "--description", frontmatter["description"], "--cases", str(skill / "evals" / "trigger_cases.json"), "--semantic-config", str(skill / "evals" / "semantic_config.json"), "--threshold", "0.2"],
             [sys.executable, str(yao), "skill-ir", str(skill), "--output-json", str(skill / "reports" / "skill-ir.json")],
             [sys.executable, str(yao), "skill-ir", str(skill), "--output-json", str(prefix) + "-skill-ir.json"],
-            [sys.executable, str(yao), "output-eval", "--cases", str(skill / "evals" / "output" / "cases.jsonl"), "--output-json", str(prefix) + "-output-eval.json", "--output-md", str(prefix) + "-output-eval.md", "--blind-pack-json", str(prefix) + "-blind-pack.json", "--blind-pack-md", str(prefix) + "-blind-pack.md", "--blind-answer-key-json", str(prefix) + "-blind-answer-key.json"],
+            [sys.executable, str(yao), "output-eval", "--self", "--cases", str(skill / "evals" / "output" / "cases.jsonl"), "--output-json", str(prefix) + "-output-eval.json", "--output-md", str(prefix) + "-output-eval.md", "--blind-pack-json", str(prefix) + "-blind-pack.json", "--blind-pack-md", str(prefix) + "-blind-pack.md", "--blind-answer-key-json", str(prefix) + "-blind-answer-key.json"],
             [sys.executable, str(yao), "trust", str(skill), "--output-json", str(prefix) + "-trust.json", "--output-md", str(prefix) + "-trust.md"],
             [sys.executable, str(yao), "review-studio", str(skill), "--output-json", str(prefix) + "-review-studio.json", "--output-html", str(prefix) + "-review-studio.html"],
         ]
@@ -620,9 +620,10 @@ def main() -> int:
             commands.append([sys.executable, str(yao), "compile-skill", str(skill), "--target", target, "--output-json", str(prefix) + f"-compiled-{target}.json", "--output-md", str(prefix) + f"-compiled-{target}.md"])
             commands.append([sys.executable, str(yao), "conformance", str(skill), "--target", target, "--output-json", str(prefix) + f"-conformance-{target}.json", "--output-md", str(prefix) + f"-conformance-{target}.md"])
         results.extend({"skill_id": skill_id, **execute(command, args.meta_root)} for command in commands)
-    atlas_command = [sys.executable, str(yao), "skill-atlas", "--workspace-root", str(ROOT / "skills"), "--report-json", str(ROOT / "reports" / "skill-atlas.json"), "--report-html", str(ROOT / "reports" / "skill-atlas.html")]
+    atlas_output = ROOT / "reports" / "skill-atlas"
+    atlas_command = [sys.executable, str(yao), "skill-atlas", "--workspace-root", str(ROOT / "skills"), "--output-dir", str(atlas_output), "--report-json", str(ROOT / "reports" / "skill-atlas.json"), "--report-html", str(ROOT / "reports" / "skill-atlas.html")]
     results.append({"skill_id": "suite", **execute(atlas_command, args.meta_root)})
-    generated = list(out.rglob("*")) + [ROOT / "reports" / "skill-atlas.json", ROOT / "reports" / "skill-atlas.html"]
+    generated = list(out.rglob("*")) + list(atlas_output.rglob("*")) + [ROOT / "reports" / "skill-atlas.json", ROOT / "reports" / "skill-atlas.html"]
     sanitize_generated_reports(generated, args.meta_root)
     for item in results:
         if item["report_path"]:

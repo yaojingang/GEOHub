@@ -1,5 +1,6 @@
 import json
 import ast
+import os
 import subprocess
 import zipfile
 from copy import deepcopy
@@ -52,6 +53,7 @@ def test_all_protocol_schemas_are_valid():
         "seo-plan",
         "strategy-candidates",
         "strategy-memory",
+        "task-plan",
         "visibility-report",
         "workflow-state",
     }
@@ -168,6 +170,26 @@ def test_registry_validates_and_unavailable_routes_have_no_entry():
     registry = load_registry()
     assert registry["protocol_version"] == "1.0.0"
     for skill in registry["skills"]:
+        assert len(skill["positive_examples"]) >= 4
+        assert len(skill["negative_examples"]) >= 2
+        assert skill["output_artifacts"]
+        assert set(skill["permissions"]) == {
+            "filesystem",
+            "network",
+            "shell",
+            "approval_required",
+        }
+        assert set(skill["execution"]) == {
+            "executor",
+            "timeout_seconds",
+            "max_attempts",
+            "idempotent",
+        }
+        assert set(skill["routing"]) == {
+            "semantic_threshold",
+            "ambiguity_margin",
+            "threshold_version",
+        }
         if skill["status"] != "active":
             assert skill["entry"] is None
             assert skill["active_placeholder"] is False
@@ -318,16 +340,27 @@ def test_query_map_rejects_blank_question():
 
 
 def _git(repo, *arguments):
+    environment = os.environ.copy()
+    for name in (
+        "GIT_ALTERNATE_OBJECT_DIRECTORIES",
+        "GIT_COMMON_DIR",
+        "GIT_DIR",
+        "GIT_INDEX_FILE",
+        "GIT_OBJECT_DIRECTORY",
+        "GIT_WORK_TREE",
+    ):
+        environment.pop(name, None)
     return subprocess.run(
         ["git", *arguments],
         cwd=repo,
+        env=environment,
         check=True,
         capture_output=True,
         text=True,
     )
 
 
-def test_package_uses_exact_tracked_regular_file_allowlist(tmp_path):
+def test_package_uses_exact_tracked_regular_file_allowlist(tmp_path, monkeypatch):
     repo = tmp_path / "repo"
     repo.mkdir()
     _git(repo, "init", "-b", "main")
@@ -340,6 +373,7 @@ def test_package_uses_exact_tracked_regular_file_allowlist(tmp_path):
     outside.write_text("outside\n", encoding="utf-8")
     (repo / "external-link").symlink_to(outside)
     _git(repo, "add", "VERSION", ".gitignore", "tracked.txt")
+    monkeypatch.setenv("GIT_INDEX_FILE", str(repository_root() / ".git" / "index"))
 
     archive = tmp_path / "package.zip"
     allowlist = build_archive(repo, archive)

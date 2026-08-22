@@ -8,14 +8,14 @@ description: Route GEO and generative engine optimization requests to an availab
 ## Workflow
 
 1. Read `references/routing-contract.md` and the suite resolver contract at `../RESOLVER.md`.
-2. Run the deterministic `python3 scripts/run_route.py --text "<request>"` wrapper or `python -m geo_seo_hub route --text "<request>"`.
-3. Dispatch only when the JSON result has 'runnable: true' and a non-null 'entry'.
-4. For 'pending-implementation' or 'planned', return the registry status and suggested available route exactly as reported.
+2. Run `python3 scripts/run_route.py --text "<request>"` or `python -m geo_seo_hub route --text "<request>"`. Add `--lexical-only` for the deterministic baseline or `--plan-output <path>` to compile a TaskPlan.
+3. Dispatch only when `decision.type` is `single_skill` or `workflow`, `runnable` is true, and the selected Skill has a non-null entry.
+4. For `clarify`, `abstain`, `pending-implementation`, or `planned`, preserve the reported reason, alternatives, required inputs, and execution boundary.
 
 ## Output contract
 
-Return the selected skill ID, lifecycle status, runnable flag, reason, entry path, suggestion, and optional stable workflow DAG. Preserve uncertainty when two routes have the same score.
+Return the selected skill ID, lifecycle status, runnable flag, reason, entry path, suggestion, typed decision object, and optional stable workflow DAG. When requested, write a validated TaskPlan with its digest and status.
 
 ## Boundaries
 
-This skill selects capabilities. It does not generate discovery artifacts or simulate unavailable stages.
+This skill selects and plans capabilities. Workflow execution requires an explicit TaskPlan, file-backed input map, bounded output root, and every declared approval or external-evidence gate. It does not simulate unavailable stages.

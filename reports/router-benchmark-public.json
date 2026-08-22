@@ -1,0 +1,32 @@
+{
+  "dataset_id": "geohub-router-natural-v1",
+  "human_label_status": "pending-human-review",
+  "metrics": {
+    "accepted_route_error_rate": 0.24242424242424243,
+    "case_count": 120,
+    "coverage": 0.55,
+    "decision_recall": {
+      "abstain": 1.0,
+      "clarify": 0.0,
+      "single_skill": 0.7,
+      "workflow": 0.5
+    },
+    "macro_skill_f1": 0.6391941391941393,
+    "ood_false_runnable_rate": 0.0,
+    "per_skill_f1": {
+      "geo": 0.0,
+      "geo-content": 0.8333333333333333,
+      "geo-diagnose": 0.4444444444444445,
+      "geo-discover": 0.3076923076923077,
+      "geo-knowledge": 1.0,
+      "geo-measure": 0.888888888888889,
+      "geo-strategy": 1.0
+    },
+    "workflow_exact_match": 0.5
+  },
+  "model_id": null,
+  "model_status": "lexical-only",
+  "promotion_gate": "locked-until-human-adjudication",
+  "split": "public-test",
+  "status": "pending-human-review"
+}

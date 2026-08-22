@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-13",
+  "generated_at": "2026-08-22",
   "skill_dir": "skills/geo-strategy",
   "summary": {
     "target_count": 1,
@@ -35,7 +35,7 @@
       "compiled_contract": {
         "name": "geo-strategy",
         "title": "GEO SEO Hub Strategy",
-        "version": "0.5.0",
+        "version": "0.6.0",
         "description": "Build an offline GEO optimization plan from explicit goals, diagnosis actions, approved evidence IDs, and a measured baseline. Use for GEO strategy, roadmap, experiment planning, intervention candidates, 策略, 路线图, and 优化实验. Exclude autonomous publication, fabricated outcome evidence, and memory promotion without positive external measurement.",
         "job_to_be_done": "Build an offline GEO optimization plan from explicit goals, diagnosis actions, approved evidence IDs, and a measured baseline. Use for GEO strategy, roadmap, experiment planning, intervention candidates, 策略, 路线图, and 优化实验. Exclude autonomous publication, fabricated outcome evidence, and memory promotion without positive external measurement.",
         "trigger": {

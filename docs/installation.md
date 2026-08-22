@@ -4,7 +4,7 @@ GEO SEO Hub uses `geo-seo-hub` for the Python distribution and CLI, and `geo_seo
 
 Supported Python range: 3.11-3.14.
 
-CI covers Linux on Python 3.11-3.14 and macOS installation simulation. Windows remains unsupported and unclaimed in 0.5.0.
+CI covers Linux on Python 3.11-3.14 and macOS installation simulation. Windows remains unsupported and unclaimed in 0.6.0.
 
 ```bash
 git clone https://github.com/yaojingang/geo-seo-hub.git
@@ -25,7 +25,7 @@ python3 -m venv .venv
 | Discover, Diagnose, Content, Measure, Strategy, or Knowledge provider ZIP | Installing one active capability as the root Skill |
 | Codex or Claude ZIP | Target-specific adapter layout with all seven provider entries |
 
-Version `0.5.0` produces eleven community archives. The source ZIP includes `tests/`, `evals/`, the hash-locked CI dependency set, and the verification scripts they require. This source snapshot carries no independently verified GitHub Release assets. Build artifacts from a source checkout with `python3 scripts/package.py --target all --channel community`, or run the attested release workflow. Install a provider, unified, Codex, or Claude ZIP by safely extracting it into the target's skill directory. Each adapter contains one `SKILL.md`, runtime source, schemas, registry, project metadata, version, and legal notices.
+Version `0.6.0` produces eleven community archives. The source ZIP includes `tests/`, `evals/`, the hash-locked CI dependency set, and the verification scripts they require. This source snapshot carries no independently verified GitHub Release assets. Build artifacts from a source checkout with `python3 scripts/package.py --target all --channel community`, or run the attested release workflow. Install a provider, unified, Codex, or Claude ZIP by safely extracting it into the target's skill directory. Each adapter contains one `SKILL.md`, runtime source, schemas, registry, project metadata, version, and legal notices.
 
 Every community ZIP has a self-contained `pyproject.toml` and runtime data layout. For direct command-line use after extraction, create an isolated environment and install that extracted directory before invoking its wrapper:
 
@@ -60,7 +60,7 @@ python3 -m pip install .
 geo-seo-hub --version
 ```
 
-Update Python imports to `geo_seo_hub`. Existing Skill IDs stay unchanged. Version 0.3 added `geo-measure`; version 0.5 activates `geo-strategy` and `geo-knowledge`. Artifact protocol `1.0.0` stays unchanged and accepts additive lineage, pipeline, strategy, knowledge, and workflow-state artifacts. See [migration-0.5.md](migration-0.5.md).
+Update Python imports to `geo_seo_hub`. Existing Skill IDs stay unchanged. Version 0.3 added `geo-measure`; version 0.5 activated `geo-strategy` and `geo-knowledge`; version 0.6 adds TaskPlan and gated workflow execution. Artifact protocol `1.0.0` stays unchanged. Workflow state uses version `2.0.0`; see [migration-0.6.md](migration-0.6.md).
 
 ## Release evidence and verification
 
