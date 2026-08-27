@@ -1,0 +1,497 @@
+{
+  "schema_version": "1.0",
+  "ok": true,
+  "generated_at": "2026-08-27",
+  "skill_dir": "skills/geo-site-diagnose",
+  "summary": {
+    "target_count": 1,
+    "pass_count": 1,
+    "warn_count": 0,
+    "block_count": 0,
+    "failure_count": 0,
+    "warning_count": 0
+  },
+  "targets": [
+    {
+      "schema_version": "1.0",
+      "target": "generic",
+      "status": "pass",
+      "compiler": {
+        "name": "yao-skill-ir-compiler",
+        "schema_version": "1.0",
+        "source": "skill-ir",
+        "ir_source": "reports/skill-ir.json",
+        "ir_schema_version": "2.0.0"
+      },
+      "source": {
+        "skill_dir": "skills/geo-site-diagnose",
+        "canonical_metadata": "agents/interface.yaml",
+        "declared_targets": [
+          "openai",
+          "claude",
+          "generic"
+        ]
+      },
+      "compiled_contract": {
+        "name": "geo-site-diagnose",
+        "title": "GEOHub 网站 GEO 诊断",
+        "version": "0.7.0",
+        "description": "Crawl one public website from a supplied URL, select up to ten representative page types, score evidence-lined GEO readiness, and generate a standalone visual HTML report. Use for 网站 GEO 诊断、全站 GEO 体检、网站 GEO 审计, or requests such as “帮我诊断网站GEO并附上网址”. Excludes single-page or brand-only diagnosis, live AI ranking or citation measurement, authenticated sites, and website modification.",
+        "job_to_be_done": "Crawl one public website from a supplied URL, select up to ten representative page types, score evidence-lined GEO readiness, and generate a standalone visual HTML report. Use for 网站 GEO 诊断、全站 GEO 体检、网站 GEO 审计, or requests such as “帮我诊断网站GEO并附上网址”. Excludes single-page or brand-only diagnosis, live AI ranking or citation measurement, authenticated sites, and website modification.",
+        "trigger": {
+          "description": "Crawl one public website from a supplied URL, select up to ten representative page types, score evidence-lined GEO readiness, and generate a standalone visual HTML report. Use for 网站 GEO 诊断、全站 GEO 体检、网站 GEO 审计, or requests such as “帮我诊断网站GEO并附上网址”. Excludes single-page or brand-only diagnosis, live AI ranking or citation measurement, authenticated sites, and website modification.",
+          "should_trigger": [
+            "帮我诊断网站GEO：https://example.com",
+            "Audit this public website and create a visual GEO report: https://example.com"
+          ],
+          "should_not_trigger": [
+            "只诊断这个产品页面",
+            "统计 ChatGPT 真实引用次数"
+          ],
+          "edge_cases": [
+            "给品牌做一次证据诊断",
+            "规划技术 SEO 迁移排查"
+          ]
+        },
+        "workflow": {
+          "steps": [
+            "Read `references/site-diagnosis-method.md`, `references/crawler-policy.md`, and `references/scoring-policy.md`.",
+            "Extract the single public URL. Ask only for the URL when it is missing.",
+            "Run `python3 scripts/run_site_diagnose.py --url <URL> --output <runs-root> --locale <locale> --max-pages 10 --render auto`.",
+            "Inspect `quality-report.json`, diagnostic confidence, source gaps, and limitations before presenting scores.",
+            "Validate the report against `references/report-module-contract.md` and `references/report-design-system.md`.",
+            "Deliver the complete Artifact Bus run directory and open `report.html` for the user."
+          ],
+          "decision_points": [],
+          "failure_modes": []
+        },
+        "resources": {
+          "references": [
+            "references/crawler-policy.md",
+            "references/input-example.json",
+            "references/report-contract.md",
+            "references/report-design-system.md",
+            "references/report-module-contract.md",
+            "references/scoring-policy.md",
+            "references/site-diagnosis-method.md"
+          ],
+          "scripts": [
+            "scripts/run_site_diagnose.py"
+          ],
+          "assets": [
+            "assets/ECHARTS-LICENSE.txt",
+            "assets/ECHARTS-NOTICE.txt",
+            "assets/echarts.min.js",
+            "assets/report-shell.html",
+            "assets/report.css",
+            "assets/report.js"
+          ],
+          "reports": [
+            "reports/output-risk-profile.md",
+            "reports/artifact-design-profile.md",
+            "reports/output_quality_scorecard.md",
+            "reports/security_trust_report.json",
+            "reports/security_trust_report.md",
+            "reports/runtime_permission_probes.json",
+            "reports/runtime_permission_probes.md"
+          ],
+          "counts": {
+            "references": 7,
+            "scripts": 1,
+            "assets": 6,
+            "reports": 7
+          }
+        },
+        "eval_plan": {
+          "trigger": [
+            "evals/output/cases.jsonl",
+            "evals/semantic_config.json",
+            "evals/trigger_cases.json"
+          ],
+          "output": [
+            "evals/output/cases.jsonl"
+          ],
+          "adversarial": [],
+          "baseline": "without_skill",
+          "counts": {
+            "trigger": 3,
+            "output": 1,
+            "adversarial": 0,
+            "baseline": 1
+          }
+        },
+        "risk": {
+          "output_risk": "low",
+          "execution_risk": "medium",
+          "trust_boundary": "external"
+        },
+        "governance": {
+          "owner": "姚金刚 / Yao",
+          "maturity": "governed",
+          "review_cadence": "per-release",
+          "review_due": ""
+        },
+        "runtime": {
+          "activation": {
+            "mode": "auto",
+            "paths": []
+          },
+          "execution": {
+            "context": "inline",
+            "shell": "bash"
+          },
+          "trust": {
+            "source_tier": "local",
+            "remote_inline_execution": "forbid",
+            "remote_metadata_policy": "allow-metadata-only"
+          },
+          "adapter_targets": [
+            "openai",
+            "claude",
+            "generic"
+          ],
+          "canonical_format": "agent-skills"
+        },
+        "permissions": {
+          "schema_version": "1.0",
+          "source": "reports/security_trust_report.json",
+          "source_available": true,
+          "declared_capabilities": [
+            "network",
+            "file_write",
+            "subprocess"
+          ],
+          "review_required": true,
+          "capabilities": {
+            "network": {
+              "required": true,
+              "script_count": 1,
+              "scripts": [
+                "scripts/run_site_diagnose.py"
+              ],
+              "review_reason": "Outbound hosts must match security/network_policy.json."
+            },
+            "file_write": {
+              "required": true,
+              "script_count": 1,
+              "scripts": [
+                "scripts/run_site_diagnose.py"
+              ],
+              "review_reason": "Scripts write local files or generated artifacts."
+            },
+            "subprocess": {
+              "required": true,
+              "script_count": 1,
+              "scripts": [
+                "scripts/run_site_diagnose.py"
+              ],
+              "review_reason": "Scripts spawn local commands and need operator review."
+            },
+            "interactive": {
+              "required": false,
+              "script_count": 0,
+              "scripts": [],
+              "review_reason": ""
+            }
+          },
+          "network_policy": {
+            "source": "security/network_policy.json",
+            "covered_scripts": [
+              "scripts/run_site_diagnose.py"
+            ],
+            "missing_scripts": [],
+            "mismatches": []
+          },
+          "help_smoke": {
+            "enabled": true,
+            "checked_count": 1,
+            "failed_count": 0,
+            "failed_scripts": []
+          },
+          "trust_summary": {
+            "secret_findings": 0,
+            "network_script_count": 1,
+            "file_write_script_count": 1,
+            "subprocess_script_count": 1,
+            "interactive_script_count": 0,
+            "help_smoke_failed_count": 0
+          }
+        },
+        "source_files_count": 3,
+        "target": "generic",
+        "target_permission_contract": {
+          "schema_version": "1.0",
+          "target": "generic",
+          "permission_model": "agent-skills-compatible-metadata",
+          "native_enforcement": false,
+          "representation": "targets/generic/adapter.json::target_permission_contract",
+          "review_required": true,
+          "declared_capabilities": [
+            "network",
+            "file_write",
+            "subprocess"
+          ],
+          "capability_counts": {
+            "network": 1,
+            "file_write": 1,
+            "subprocess": 1,
+            "interactive": 0
+          },
+          "evidence": "reports/security_trust_report.json",
+          "operator_note": "Generic target exposes permission metadata for downstream clients to enforce or review."
+        },
+        "target_native_contract": {
+          "schema_version": "1.0",
+          "target": "generic",
+          "native_surface": "Agent Skills compatible neutral package",
+          "activation": {
+            "policy": "Use SKILL.md name and description; consumers decide automatic or manual activation.",
+            "trigger_description": "Crawl one public website from a supplied URL, select up to ten representative page types, score evidence-lined GEO readiness, and generate a standalone visual HTML report. Use for 网站 GEO 诊断、全站 GEO 体检、网站 GEO 审计, or requests such as “帮我诊断网站GEO并附上网址”. Excludes single-page or brand-only diagnosis, live AI ranking or citation measurement, authenticated sites, and website modification.",
+            "manual_activation_supported": true,
+            "automatic_activation_note": "Depends on the target client route/catalog implementation."
+          },
+          "resources": {
+            "strategy": "Preserve references, scripts, assets, evals, reports, and adapter metadata as relative package resources.",
+            "counts": {
+              "references": 7,
+              "scripts": 1,
+              "assets": 6,
+              "reports": 7
+            },
+            "generated_files": [
+              "targets/generic/adapter.json"
+            ]
+          },
+          "scripts": {
+            "strategy": "Expose script and permission metadata for downstream clients or installers to enforce.",
+            "script_count": 1,
+            "help_smoke_failed_count": 0
+          },
+          "permissions": {
+            "enforcement": "consumer-enforced-or-metadata-only",
+            "native_enforcement": false,
+            "declared_capabilities": [
+              "network",
+              "file_write",
+              "subprocess"
+            ],
+            "review_required": true
+          },
+          "review": {
+            "artifacts": [
+              "targets/generic/adapter.json",
+              "reports/review-studio.html"
+            ],
+            "fallback_behavior": "Neutral source is the runtime fallback.",
+            "unsupported_native_features": []
+          },
+          "install_scope": "generic Agent Skills compatible root"
+        },
+        "degradation_strategy": "neutral-source",
+        "target_runtime": {
+          "adapter_mode": "agent-skills-compatible",
+          "generated_files": [
+            "targets/generic/adapter.json"
+          ],
+          "metadata_mapping": {
+            "display_name": "targets/generic/adapter.json::display_name",
+            "default_prompt": "targets/generic/adapter.json::default_prompt",
+            "activation": "targets/generic/adapter.json::activation_mode",
+            "execution": "targets/generic/adapter.json::execution_context",
+            "trust": "targets/generic/adapter.json::trust_level",
+            "permissions": "targets/generic/adapter.json::target_permission_contract",
+            "degradation": "targets/generic/adapter.json::degradation_strategy"
+          },
+          "preserved_semantics": [
+            "trigger",
+            "workflow-counts",
+            "resources",
+            "eval-plan",
+            "risk",
+            "governance",
+            "runtime",
+            "trust",
+            "permissions"
+          ],
+          "native_surface": "Agent Skills compatible neutral package"
+        }
+      },
+      "permission_contract": {
+        "schema_version": "1.0",
+        "source": "reports/security_trust_report.json",
+        "source_available": true,
+        "declared_capabilities": [
+          "network",
+          "file_write",
+          "subprocess"
+        ],
+        "review_required": true,
+        "capabilities": {
+          "network": {
+            "required": true,
+            "script_count": 1,
+            "scripts": [
+              "scripts/run_site_diagnose.py"
+            ],
+            "review_reason": "Outbound hosts must match security/network_policy.json."
+          },
+          "file_write": {
+            "required": true,
+            "script_count": 1,
+            "scripts": [
+              "scripts/run_site_diagnose.py"
+            ],
+            "review_reason": "Scripts write local files or generated artifacts."
+          },
+          "subprocess": {
+            "required": true,
+            "script_count": 1,
+            "scripts": [
+              "scripts/run_site_diagnose.py"
+            ],
+            "review_reason": "Scripts spawn local commands and need operator review."
+          },
+          "interactive": {
+            "required": false,
+            "script_count": 0,
+            "scripts": [],
+            "review_reason": ""
+          }
+        },
+        "network_policy": {
+          "source": "security/network_policy.json",
+          "covered_scripts": [
+            "scripts/run_site_diagnose.py"
+          ],
+          "missing_scripts": [],
+          "mismatches": []
+        },
+        "help_smoke": {
+          "enabled": true,
+          "checked_count": 1,
+          "failed_count": 0,
+          "failed_scripts": []
+        },
+        "trust_summary": {
+          "secret_findings": 0,
+          "network_script_count": 1,
+          "file_write_script_count": 1,
+          "subprocess_script_count": 1,
+          "interactive_script_count": 0,
+          "help_smoke_failed_count": 0
+        }
+      },
+      "target_permission_contract": {
+        "schema_version": "1.0",
+        "target": "generic",
+        "permission_model": "agent-skills-compatible-metadata",
+        "native_enforcement": false,
+        "representation": "targets/generic/adapter.json::target_permission_contract",
+        "review_required": true,
+        "declared_capabilities": [
+          "network",
+          "file_write",
+          "subprocess"
+        ],
+        "capability_counts": {
+          "network": 1,
+          "file_write": 1,
+          "subprocess": 1,
+          "interactive": 0
+        },
+        "evidence": "reports/security_trust_report.json",
+        "operator_note": "Generic target exposes permission metadata for downstream clients to enforce or review."
+      },
+      "target_native_contract": {
+        "schema_version": "1.0",
+        "target": "generic",
+        "native_surface": "Agent Skills compatible neutral package",
+        "activation": {
+          "policy": "Use SKILL.md name and description; consumers decide automatic or manual activation.",
+          "trigger_description": "Crawl one public website from a supplied URL, select up to ten representative page types, score evidence-lined GEO readiness, and generate a standalone visual HTML report. Use for 网站 GEO 诊断、全站 GEO 体检、网站 GEO 审计, or requests such as “帮我诊断网站GEO并附上网址”. Excludes single-page or brand-only diagnosis, live AI ranking or citation measurement, authenticated sites, and website modification.",
+          "manual_activation_supported": true,
+          "automatic_activation_note": "Depends on the target client route/catalog implementation."
+        },
+        "resources": {
+          "strategy": "Preserve references, scripts, assets, evals, reports, and adapter metadata as relative package resources.",
+          "counts": {
+            "references": 7,
+            "scripts": 1,
+            "assets": 6,
+            "reports": 7
+          },
+          "generated_files": [
+            "targets/generic/adapter.json"
+          ]
+        },
+        "scripts": {
+          "strategy": "Expose script and permission metadata for downstream clients or installers to enforce.",
+          "script_count": 1,
+          "help_smoke_failed_count": 0
+        },
+        "permissions": {
+          "enforcement": "consumer-enforced-or-metadata-only",
+          "native_enforcement": false,
+          "declared_capabilities": [
+            "network",
+            "file_write",
+            "subprocess"
+          ],
+          "review_required": true
+        },
+        "review": {
+          "artifacts": [
+            "targets/generic/adapter.json",
+            "reports/review-studio.html"
+          ],
+          "fallback_behavior": "Neutral source is the runtime fallback.",
+          "unsupported_native_features": []
+        },
+        "install_scope": "generic Agent Skills compatible root"
+      },
+      "target_transform": {
+        "target": "generic",
+        "adapter_mode": "agent-skills-compatible",
+        "generated_files": [
+          "targets/generic/adapter.json"
+        ],
+        "metadata_mapping": {
+          "display_name": "targets/generic/adapter.json::display_name",
+          "default_prompt": "targets/generic/adapter.json::default_prompt",
+          "activation": "targets/generic/adapter.json::activation_mode",
+          "execution": "targets/generic/adapter.json::execution_context",
+          "trust": "targets/generic/adapter.json::trust_level",
+          "permissions": "targets/generic/adapter.json::target_permission_contract",
+          "degradation": "targets/generic/adapter.json::degradation_strategy"
+        },
+        "preserved_semantics": [
+          "trigger",
+          "workflow-counts",
+          "resources",
+          "eval-plan",
+          "risk",
+          "governance",
+          "runtime",
+          "trust",
+          "permissions"
+        ],
+        "degradation_strategy": "neutral-source",
+        "permission_representation": "targets/generic/adapter.json::target_permission_contract",
+        "native_surface": "Agent Skills compatible neutral package",
+        "activation_policy": "Use SKILL.md name and description; consumers decide automatic or manual activation.",
+        "resource_strategy": "Preserve references, scripts, assets, evals, reports, and adapter metadata as relative package resources.",
+        "script_strategy": "Expose script and permission metadata for downstream clients or installers to enforce.",
+        "permission_enforcement": "consumer-enforced-or-metadata-only"
+      },
+      "unsupported_features": [],
+      "warnings": [],
+      "failures": []
+    }
+  ],
+  "failures": [],
+  "warnings": [],
+  "artifacts": {
+    "json": "reports/yao-meta/geo-site-diagnose-compiled-generic.json",
+    "markdown": "reports/yao-meta/geo-site-diagnose-compiled-generic.md"
+  }
+}

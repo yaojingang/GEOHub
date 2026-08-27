@@ -2,16 +2,16 @@
 
 Status: **pass-with-waivers**
 
-Commands: 92; deterministic failures: 0.
+Commands: 105; deterministic failures: 0.
 
-Deterministic Review Studio dispositions: 91.
-Waived or missing external evidence: 17.
+Deterministic Review Studio dispositions: 103.
+Waived or missing external evidence: 19.
 Release-blocking items: 0.
 
 | Skill | Command | Exit | Structured status |
 | --- | --- | ---: | --- |
 | geo | `validate skills/geo` | 0 | pass |
-| geo | `--description Route GEO and generative engine optimization requests to an available GEOHub capability. Use for broad GEO requests, GEOHub workflow selection, capability checks, or requests spanning discovery, brand/site/page diagnosis, content, strategy, knowledge, publishing, and measurement.` | 0 | pass |
+| geo | `--description Route GEO and generative engine optimization requests to an available GEOHub capability. Use for broad GEO requests, GEOHub workflow selection, capability checks, or requests spanning discovery, brand/site/page diagnosis, multi-page website diagnosis, content, strategy, knowledge, publishing, and measurement.` | 0 | pass |
 | geo | `skill-ir skills/geo` | 0 | pass |
 | geo | `skill-ir skills/geo` | 0 | pass |
 | geo | `output-eval --self` | 0 | pass |
@@ -49,6 +49,19 @@ Release-blocking items: 0.
 | geo-diagnose | `conformance skills/geo-diagnose` | 0 | pass |
 | geo-diagnose | `compile-skill skills/geo-diagnose` | 0 | pass |
 | geo-diagnose | `conformance skills/geo-diagnose` | 0 | pass |
+| geo-site-diagnose | `validate skills/geo-site-diagnose` | 0 | pass |
+| geo-site-diagnose | `--description Crawl one public website from a supplied URL, select up to ten representative page types, score evidence-lined GEO readiness, and generate a standalone visual HTML report. Use for 网站 GEO 诊断、全站 GEO 体检、网站 GEO 审计, or requests such as “帮我诊断网站GEO并附上网址”. Excludes single-page or brand-only diagnosis, live AI ranking or citation measurement, authenticated sites, and website modification.` | 0 | pass |
+| geo-site-diagnose | `skill-ir skills/geo-site-diagnose` | 0 | pass |
+| geo-site-diagnose | `skill-ir skills/geo-site-diagnose` | 0 | pass |
+| geo-site-diagnose | `output-eval --self` | 0 | pass |
+| geo-site-diagnose | `trust skills/geo-site-diagnose` | 0 | pass |
+| geo-site-diagnose | `review-studio skills/geo-site-diagnose` | 0 | review |
+| geo-site-diagnose | `compile-skill skills/geo-site-diagnose` | 0 | pass |
+| geo-site-diagnose | `conformance skills/geo-site-diagnose` | 0 | pass |
+| geo-site-diagnose | `compile-skill skills/geo-site-diagnose` | 0 | pass |
+| geo-site-diagnose | `conformance skills/geo-site-diagnose` | 0 | pass |
+| geo-site-diagnose | `compile-skill skills/geo-site-diagnose` | 0 | pass |
+| geo-site-diagnose | `conformance skills/geo-site-diagnose` | 0 | pass |
 | geo-content | `validate skills/geo-content` | 0 | pass |
 | geo-content | `--description Create evidence-lined GEO titles, explainers, neutral comparisons, method-backed rankings, page blueprints, refinements, and article-friendly Markdown. Use for title generation, 科普/解释、对比、榜单、页面蓝图、内容优化, and article-friendly rewriting. Excludes unsupported factual claims, winner declarations without like-for-like evidence, network research, publishing, and live ranking measurement.` | 0 | pass |
 | geo-content | `skill-ir skills/geo-content` | 0 | pass |

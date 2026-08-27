@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Sequence
 
 from .diagnose import diagnose
+from .site_diagnose import site_diagnose
 from .discover import discover
 from .content import content
 from .data_retention import apply_retention_policy, purge_batch, recover_batch
@@ -99,6 +100,21 @@ def build_parser() -> argparse.ArgumentParser:
         choices=("legacy", "deterministic", "research", "provider"),
         default="legacy",
         help="Diagnosis execution mode; provider degrades to deterministic audits when unconfigured",
+    )
+
+    site_diagnose_parser = subparsers.add_parser(
+        "site-diagnose",
+        help="Crawl representative page types and generate a visual website GEO diagnosis",
+    )
+    site_diagnose_parser.add_argument("--url", required=True, help="Public HTTP(S) website URL")
+    site_diagnose_parser.add_argument("--output", required=True, type=Path, help="Runs root directory")
+    site_diagnose_parser.add_argument("--locale", default="zh-CN", help="Report locale")
+    site_diagnose_parser.add_argument("--max-pages", type=int, default=10, help="Representative page limit, at most 10")
+    site_diagnose_parser.add_argument(
+        "--render",
+        choices=("auto", "http", "browser"),
+        default="auto",
+        help="HTTP-first rendering policy with an optional browser fallback",
     )
 
     content_parser = subparsers.add_parser("content", help="Generate evidence-lined content artifacts")
@@ -228,6 +244,14 @@ def main(argv: Sequence[str] | None = None) -> int:
             result = discover(args.input, args.output, execution_mode=args.execution_mode)
         elif args.command == "diagnose":
             result = diagnose(args.input, args.output, execution_mode=args.execution_mode)
+        elif args.command == "site-diagnose":
+            result = site_diagnose(
+                args.url,
+                args.output,
+                locale=args.locale,
+                max_pages=args.max_pages,
+                render_mode=args.render,
+            )
         elif args.command == "content":
             result = content(args.input, args.output, execution_mode=args.execution_mode)
         elif args.command == "measure":

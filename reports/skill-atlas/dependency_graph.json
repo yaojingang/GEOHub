@@ -25,6 +25,10 @@
       "path": "geo-measure"
     },
     {
+      "name": "geo-site-diagnose",
+      "path": "geo-site-diagnose"
+    },
+    {
       "name": "geo-strategy",
       "path": "geo-strategy"
     },
@@ -41,6 +45,7 @@
         "geo-diagnose",
         "geo-discover",
         "geo-measure",
+        "geo-site-diagnose",
         "seo"
       ]
     },

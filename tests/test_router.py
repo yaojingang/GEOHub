@@ -219,6 +219,20 @@ def test_workflows_require_positive_ordered_exact_two_stage_intent():
     assert "workflow" not in noun_phrase
 
 
+def test_site_diagnosis_specialization_preserves_explicit_source_diagnosis():
+    site = route("帮我诊断网站GEO：https://example.com")
+    assert site["skill_id"] == "geo-site-diagnose"
+    assert site["runnable"] is True
+    assert site["decision"]["matched_intents"] == ["geo-site-diagnose"]
+
+    visual = route("Audit this public website and create a visual GEO report: https://example.com")
+    assert visual["skill_id"] == "geo-site-diagnose"
+    assert visual["runnable"] is True
+
+    page = route("只诊断我提供的这个产品页")
+    assert page["skill_id"] == "geo-diagnose"
+
+
 def test_registry_driven_workflow_supports_new_active_skills_without_router_edits():
     result = route("Build a GEO strategy, then monitor AI visibility")
     assert result["workflow"]["id"] == "strategy-observation-loop"

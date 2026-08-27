@@ -11,6 +11,7 @@ OUTPUT = ROOT / "evals" / "router_natural_cases.json"
 SKILLS = (
     ("geo-discover", "围绕{subject}挖掘用户在 AI 搜索里会问的问题", "Research buyer questions about {subject} for AI search"),
     ("geo-diagnose", "检查{subject}的网站为什么难被 AI 回答引用", "Audit the {subject} website for answer-engine citation gaps"),
+    ("geo-site-diagnose", "从一个公开网址抓取{subject}典型页面并生成网站 GEO 可视化报告", "Crawl representative pages for {subject} and create a full-site visual GEO report"),
     ("geo-content", "根据现有证据为{subject}写一篇可引用的解释文章", "Draft an evidence-backed explainer about {subject}"),
     ("geo-strategy", "为{subject}制定一轮有测量标准的 GEO 优化实验", "Plan a bounded GEO experiment roadmap for {subject}"),
     ("geo-knowledge", "把{subject}的品牌事实整理成保留冲突的知识图谱", "Build a governed entity graph for {subject}"),

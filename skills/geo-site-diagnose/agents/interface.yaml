@@ -1,0 +1,40 @@
+interface:
+  display_name: "GEOHub 网站 GEO 诊断"
+  short_description: "从一个网址生成最多十类页面的 GEO 可视化诊断报告"
+  default_prompt: "Use $geo-site-diagnose to crawl this public website within the governed limits and return the standalone visual GEO diagnosis report."
+  input_contract:
+    required:
+      url: "one public HTTP(S) website URL"
+    optional:
+      locale: "Chinese or English locale; defaults to zh-CN for Chinese requests and normalizes English requests to en-US"
+      max_pages: "integer from 1 to 10; defaults to 10"
+      render: "auto | http | browser; defaults to auto"
+  output_contract:
+    - "input/site-diagnosis-brief.json"
+    - "input/sources/*"
+    - "crawl-manifest.json"
+    - "sampling-plan.json"
+    - "site-diagnosis.json"
+    - "pages/*.json"
+    - "evidence-ledger.json"
+    - "remediation-backlog.json"
+    - "report.html"
+    - "quality-report.json"
+    - "run-lineage.json"
+    - "run-manifest.json"
+  permission_contract:
+    filesystem: "read packaged assets and write the selected runs root"
+    network: "one explicit public website and same-host bounded discovery only"
+compatibility:
+  canonical_format: "agent-skills"
+  adapter_targets: [openai, claude, generic]
+  activation: {mode: "auto", paths: []}
+  execution: {context: "inline", shell: "bash"}
+  trust:
+    source_tier: "local"
+    remote_inline_execution: "forbid"
+    remote_metadata_policy: "allow-metadata-only"
+  degradation:
+    openai: "metadata-adapter"
+    claude: "neutral-source-plus-adapter"
+    generic: "neutral-source"

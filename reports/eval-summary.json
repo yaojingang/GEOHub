@@ -8,8 +8,8 @@
     "fabricated_citations": 0
   },
   "router": {
-    "case_count": 373,
-    "tp": 373,
+    "case_count": 381,
+    "tp": 381,
     "fp": 0,
     "fn": 0,
     "precision": 1.0,
@@ -5237,6 +5237,118 @@
           "workflow_id": null,
           "runnable": true
         }
+      },
+      {
+        "id": "r374",
+        "passed": true,
+        "expected": {
+          "skill_id": "geo-site-diagnose",
+          "workflow_id": null,
+          "runnable": true
+        },
+        "actual": {
+          "skill_id": "geo-site-diagnose",
+          "workflow_id": null,
+          "runnable": true
+        }
+      },
+      {
+        "id": "r375",
+        "passed": true,
+        "expected": {
+          "skill_id": "geo-site-diagnose",
+          "workflow_id": null,
+          "runnable": true
+        },
+        "actual": {
+          "skill_id": "geo-site-diagnose",
+          "workflow_id": null,
+          "runnable": true
+        }
+      },
+      {
+        "id": "r376",
+        "passed": true,
+        "expected": {
+          "skill_id": "geo-site-diagnose",
+          "workflow_id": null,
+          "runnable": true
+        },
+        "actual": {
+          "skill_id": "geo-site-diagnose",
+          "workflow_id": null,
+          "runnable": true
+        }
+      },
+      {
+        "id": "r377",
+        "passed": true,
+        "expected": {
+          "skill_id": "geo-site-diagnose",
+          "workflow_id": null,
+          "runnable": true
+        },
+        "actual": {
+          "skill_id": "geo-site-diagnose",
+          "workflow_id": null,
+          "runnable": true
+        }
+      },
+      {
+        "id": "r378",
+        "passed": true,
+        "expected": {
+          "skill_id": "geo-diagnose",
+          "workflow_id": null,
+          "runnable": true
+        },
+        "actual": {
+          "skill_id": "geo-diagnose",
+          "workflow_id": null,
+          "runnable": true
+        }
+      },
+      {
+        "id": "r379",
+        "passed": true,
+        "expected": {
+          "skill_id": "geo-diagnose",
+          "workflow_id": null,
+          "runnable": true
+        },
+        "actual": {
+          "skill_id": "geo-diagnose",
+          "workflow_id": null,
+          "runnable": true
+        }
+      },
+      {
+        "id": "r380",
+        "passed": true,
+        "expected": {
+          "skill_id": "geo",
+          "workflow_id": null,
+          "runnable": false
+        },
+        "actual": {
+          "skill_id": "geo",
+          "workflow_id": null,
+          "runnable": false
+        }
+      },
+      {
+        "id": "r381",
+        "passed": true,
+        "expected": {
+          "skill_id": "geo",
+          "workflow_id": null,
+          "runnable": false
+        },
+        "actual": {
+          "skill_id": "geo",
+          "workflow_id": null,
+          "runnable": false
+        }
       }
     ]
   },
@@ -5254,8 +5366,8 @@
     "results": []
   },
   "triggers": {
-    "case_count": 52,
-    "passed": 52,
+    "case_count": 58,
+    "passed": 58,
     "compliance": 1.0,
     "results": [
       {
@@ -5411,6 +5523,48 @@
         "text": "Measure live citation share",
         "passed": true,
         "actual": "geo-measure"
+      },
+      {
+        "skill_id": "geo-site-diagnose",
+        "family": "should_trigger",
+        "text": "帮我诊断网站GEO：https://example.com",
+        "passed": true,
+        "actual": "geo-site-diagnose"
+      },
+      {
+        "skill_id": "geo-site-diagnose",
+        "family": "should_trigger",
+        "text": "Audit this public website and create a visual GEO report: https://example.com",
+        "passed": true,
+        "actual": "geo-site-diagnose"
+      },
+      {
+        "skill_id": "geo-site-diagnose",
+        "family": "should_not_trigger",
+        "text": "只诊断这个产品页面",
+        "passed": true,
+        "actual": "geo-diagnose"
+      },
+      {
+        "skill_id": "geo-site-diagnose",
+        "family": "should_not_trigger",
+        "text": "统计 ChatGPT 真实引用次数",
+        "passed": true,
+        "actual": "geo"
+      },
+      {
+        "skill_id": "geo-site-diagnose",
+        "family": "near_neighbor",
+        "text": "给品牌做一次证据诊断",
+        "passed": true,
+        "actual": "geo-diagnose"
+      },
+      {
+        "skill_id": "geo-site-diagnose",
+        "family": "near_neighbor",
+        "text": "规划技术 SEO 迁移排查",
+        "passed": true,
+        "actual": "geo"
       },
       {
         "skill_id": "geo-content",

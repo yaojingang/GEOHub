@@ -4,7 +4,7 @@ GEO SEO Hub uses `geo-seo-hub` for the Python distribution and CLI, and `geo_seo
 
 Supported Python range: 3.11-3.14.
 
-CI covers Linux on Python 3.11-3.14 and macOS installation simulation. Windows remains unsupported and unclaimed in 0.6.0.
+CI covers Linux on Python 3.11-3.14 and macOS installation simulation. Windows remains unsupported and unclaimed in 0.7.0.
 
 ```bash
 git clone https://github.com/yaojingang/geo-seo-hub.git
@@ -20,12 +20,22 @@ python3 -m venv .venv
 | Package | Use it for |
 |---|---|
 | Source ZIP | Reproducible source snapshot, CLI use, development, tests, evals, and local package builds |
-| Unified ZIP | One root Skill with all seven active provider entries |
+| Unified ZIP | One root Skill with all eight active provider entries |
 | `geo` provider ZIP | Registry-driven routing and workflow orchestration |
-| Discover, Diagnose, Content, Measure, Strategy, or Knowledge provider ZIP | Installing one active capability as the root Skill |
-| Codex or Claude ZIP | Target-specific adapter layout with all seven provider entries |
+| Discover, explicit-source Diagnose, Site Diagnose, Content, Measure, Strategy, or Knowledge provider ZIP | Installing one active capability as the root Skill |
+| Codex or Claude ZIP | Target-specific adapter layout with all eight provider entries |
 
-Version `0.6.0` produces eleven community archives. The source ZIP includes `tests/`, `evals/`, the hash-locked CI dependency set, and the verification scripts they require. This source snapshot carries no independently verified GitHub Release assets. Build artifacts from a source checkout with `python3 scripts/package.py --target all --channel community`, or run the attested release workflow. Install a provider, unified, Codex, or Claude ZIP by safely extracting it into the target's skill directory. Each adapter contains one `SKILL.md`, runtime source, schemas, registry, project metadata, version, and legal notices.
+Version `0.7.0` produces twelve community archives. The source ZIP includes `tests/`, `evals/`, the hash-locked CI dependency set, and the verification scripts they require. This source snapshot carries no independently verified GitHub Release assets. Build artifacts from a source checkout with `python3 scripts/package.py --target all --channel community`, or run the attested release workflow. Install a provider, unified, Codex, or Claude ZIP by safely extracting it into the target's skill directory. Each adapter contains one `SKILL.md`, runtime source, schemas, registry, project metadata, version, legal notices, and the ECharts asset required by Site Diagnose reports.
+
+The Site Diagnose command uses HTTP collection by default. Install the rendering extra when `auto` or `browser` should render JavaScript shells, then provision a Playwright Chromium browser in the environment:
+
+```bash
+python3 -m pip install '.[render]'
+python3 -m playwright install chromium
+geo-seo-hub site-diagnose --url https://example.com --output runs --render auto
+```
+
+HTTP analysis still completes when the browser is unavailable. JavaScript-shell pages retain an explicit `render_gap` and lower evidence coverage.
 
 Every community ZIP has a self-contained `pyproject.toml` and runtime data layout. For direct command-line use after extraction, create an isolated environment and install that extracted directory before invoking its wrapper:
 
@@ -60,11 +70,11 @@ python3 -m pip install .
 geo-seo-hub --version
 ```
 
-Update Python imports to `geo_seo_hub`. Existing Skill IDs stay unchanged. Version 0.3 added `geo-measure`; version 0.5 activated `geo-strategy` and `geo-knowledge`; version 0.6 adds TaskPlan and gated workflow execution. Artifact protocol `1.0.0` stays unchanged. Workflow state uses version `2.0.0`; see [migration-0.6.md](migration-0.6.md).
+Update Python imports to `geo_seo_hub`. Existing Skill IDs stay unchanged. Version 0.3 added `geo-measure`; version 0.5 activated `geo-strategy` and `geo-knowledge`; version 0.6 added TaskPlan and gated workflow execution; version 0.7 adds `geo-site-diagnose`. Artifact protocol `1.0.0` stays unchanged. Workflow state uses version `2.0.0`; see [migration-0.6.md](migration-0.6.md).
 
 ## Release evidence and verification
 
-After building and verifying all eleven ZIPs:
+After building and verifying all twelve ZIPs:
 
 ```bash
 python3 scripts/generate_sbom.py

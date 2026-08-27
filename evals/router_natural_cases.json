@@ -56,937 +56,937 @@
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-003",
       "id": "natural-0005",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "根据现有证据为在线教育平台写一篇可引用的解释文章，面向采购负责人"
+      "text": "从一个公开网址抓取在线教育平台典型页面并生成网站 GEO 可视化报告，面向采购负责人"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-003",
       "id": "natural-0006",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Draft an evidence-backed explainer about 在线教育平台 for procurement leaders"
+      "text": "Crawl representative pages for 在线教育平台 and create a full-site visual GEO report for procurement leaders"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-004",
       "id": "natural-0007",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "为跨境支付产品制定一轮有测量标准的 GEO 优化实验，面向采购负责人"
+      "text": "根据现有证据为跨境支付产品写一篇可引用的解释文章，面向采购负责人"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-004",
       "id": "natural-0008",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Plan a bounded GEO experiment roadmap for 跨境支付产品 for procurement leaders"
+      "text": "Draft an evidence-backed explainer about 跨境支付产品 for procurement leaders"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-005",
       "id": "natural-0009",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "把工业机器人方案的品牌事实整理成保留冲突的知识图谱，面向采购负责人"
+      "text": "为工业机器人方案制定一轮有测量标准的 GEO 优化实验，面向采购负责人"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-005",
       "id": "natural-0010",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Build a governed entity graph for 工业机器人方案 for procurement leaders"
+      "text": "Plan a bounded GEO experiment roadmap for 工业机器人方案 for procurement leaders"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-006",
       "id": "natural-0011",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "计算健康管理应用在这批 AI 回答中的提及率和引用份额，面向采购负责人"
+      "text": "把健康管理应用的品牌事实整理成保留冲突的知识图谱，面向采购负责人"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-006",
       "id": "natural-0012",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Measure mention rate and citation share for 健康管理应用 for procurement leaders"
+      "text": "Build a governed entity graph for 健康管理应用 for procurement leaders"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-007",
       "id": "natural-0013",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "围绕developer tools挖掘用户在 AI 搜索里会问的问题，面向采购负责人"
+      "text": "计算developer tools在这批 AI 回答中的提及率和引用份额，面向采购负责人"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-007",
       "id": "natural-0014",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Research buyer questions about developer tools for AI search for procurement leaders"
+      "text": "Measure mention rate and citation share for developer tools for procurement leaders"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-008",
       "id": "natural-0015",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "检查customer support software的网站为什么难被 AI 回答引用，面向采购负责人"
+      "text": "围绕customer support software挖掘用户在 AI 搜索里会问的问题，面向采购负责人"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-008",
       "id": "natural-0016",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Audit the customer support software website for answer-engine citation gaps for procurement leaders"
+      "text": "Research buyer questions about customer support software for AI search for procurement leaders"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-009",
       "id": "natural-0017",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "根据现有证据为sustainable packaging写一篇可引用的解释文章，面向采购负责人"
+      "text": "检查sustainable packaging的网站为什么难被 AI 回答引用，面向采购负责人"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-009",
       "id": "natural-0018",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Draft an evidence-backed explainer about sustainable packaging for procurement leaders"
+      "text": "Audit the sustainable packaging website for answer-engine citation gaps for procurement leaders"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-010",
       "id": "natural-0019",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "为travel planning services制定一轮有测量标准的 GEO 优化实验，面向采购负责人"
+      "text": "从一个公开网址抓取travel planning services典型页面并生成网站 GEO 可视化报告，面向采购负责人"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-010",
       "id": "natural-0020",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Plan a bounded GEO experiment roadmap for travel planning services for procurement leaders"
+      "text": "Crawl representative pages for travel planning services and create a full-site visual GEO report for procurement leaders"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-011",
       "id": "natural-0021",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "把cybersecurity platforms的品牌事实整理成保留冲突的知识图谱，面向采购负责人"
+      "text": "根据现有证据为cybersecurity platforms写一篇可引用的解释文章，面向采购负责人"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-011",
       "id": "natural-0022",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Build a governed entity graph for cybersecurity platforms for procurement leaders"
+      "text": "Draft an evidence-backed explainer about cybersecurity platforms for procurement leaders"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-012",
       "id": "natural-0023",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "计算cloud data products在这批 AI 回答中的提及率和引用份额，面向采购负责人"
+      "text": "为cloud data products制定一轮有测量标准的 GEO 优化实验，面向采购负责人"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-012",
       "id": "natural-0024",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Measure mention rate and citation share for cloud data products for procurement leaders"
+      "text": "Plan a bounded GEO experiment roadmap for cloud data products for procurement leaders"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-013",
       "id": "natural-0025",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "围绕workflow automation挖掘用户在 AI 搜索里会问的问题，面向采购负责人"
+      "text": "把workflow automation的品牌事实整理成保留冲突的知识图谱，面向采购负责人"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-013",
       "id": "natural-0026",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Research buyer questions about workflow automation for AI search for procurement leaders"
+      "text": "Build a governed entity graph for workflow automation for procurement leaders"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-014",
       "id": "natural-0027",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "检查research assistants的网站为什么难被 AI 回答引用，面向采购负责人"
+      "text": "计算research assistants在这批 AI 回答中的提及率和引用份额，面向采购负责人"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-014",
       "id": "natural-0028",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Audit the research assistants website for answer-engine citation gaps for procurement leaders"
+      "text": "Measure mention rate and citation share for research assistants for procurement leaders"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-015",
       "id": "natural-0029",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "根据现有证据为marketing analytics写一篇可引用的解释文章，面向采购负责人"
+      "text": "围绕marketing analytics挖掘用户在 AI 搜索里会问的问题，面向采购负责人"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-015",
       "id": "natural-0030",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Draft an evidence-backed explainer about marketing analytics for procurement leaders"
+      "text": "Research buyer questions about marketing analytics for AI search for procurement leaders"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-016",
       "id": "natural-0031",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "为HR technology制定一轮有测量标准的 GEO 优化实验，面向采购负责人"
+      "text": "检查HR technology的网站为什么难被 AI 回答引用，面向采购负责人"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-016",
       "id": "natural-0032",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Plan a bounded GEO experiment roadmap for HR technology for procurement leaders"
+      "text": "Audit the HR technology website for answer-engine citation gaps for procurement leaders"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-017",
       "id": "natural-0033",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "把video collaboration的品牌事实整理成保留冲突的知识图谱，面向采购负责人"
+      "text": "从一个公开网址抓取video collaboration典型页面并生成网站 GEO 可视化报告，面向采购负责人"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-017",
       "id": "natural-0034",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Build a governed entity graph for video collaboration for procurement leaders"
+      "text": "Crawl representative pages for video collaboration and create a full-site visual GEO report for procurement leaders"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-018",
       "id": "natural-0035",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "计算electric mobility在这批 AI 回答中的提及率和引用份额，面向采购负责人"
+      "text": "根据现有证据为electric mobility写一篇可引用的解释文章，面向采购负责人"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-018",
       "id": "natural-0036",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Measure mention rate and citation share for electric mobility for procurement leaders"
+      "text": "Draft an evidence-backed explainer about electric mobility for procurement leaders"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-019",
       "id": "natural-0037",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "围绕financial education挖掘用户在 AI 搜索里会问的问题，面向采购负责人"
+      "text": "为financial education制定一轮有测量标准的 GEO 优化实验，面向采购负责人"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-019",
       "id": "natural-0038",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Research buyer questions about financial education for AI search for procurement leaders"
+      "text": "Plan a bounded GEO experiment roadmap for financial education for procurement leaders"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-020",
       "id": "natural-0039",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "检查product design tools的网站为什么难被 AI 回答引用，面向采购负责人"
+      "text": "把product design tools的品牌事实整理成保留冲突的知识图谱，面向采购负责人"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-020",
       "id": "natural-0040",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Audit the product design tools website for answer-engine citation gaps for procurement leaders"
+      "text": "Build a governed entity graph for product design tools for procurement leaders"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-021",
       "id": "natural-0041",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "根据现有证据为企业协作软件写一篇可引用的解释文章，面向产品团队"
+      "text": "计算企业协作软件在这批 AI 回答中的提及率和引用份额，面向产品团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-021",
       "id": "natural-0042",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Draft an evidence-backed explainer about 企业协作软件 for the product team"
+      "text": "Measure mention rate and citation share for 企业协作软件 for the product team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-022",
       "id": "natural-0043",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "为智能家居品牌制定一轮有测量标准的 GEO 优化实验，面向产品团队"
+      "text": "围绕智能家居品牌挖掘用户在 AI 搜索里会问的问题，面向产品团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-022",
       "id": "natural-0044",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Plan a bounded GEO experiment roadmap for 智能家居品牌 for the product team"
+      "text": "Research buyer questions about 智能家居品牌 for AI search for the product team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-023",
       "id": "natural-0045",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "把在线教育平台的品牌事实整理成保留冲突的知识图谱，面向产品团队"
+      "text": "检查在线教育平台的网站为什么难被 AI 回答引用，面向产品团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-023",
       "id": "natural-0046",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Build a governed entity graph for 在线教育平台 for the product team"
+      "text": "Audit the 在线教育平台 website for answer-engine citation gaps for the product team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-024",
       "id": "natural-0047",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "计算跨境支付产品在这批 AI 回答中的提及率和引用份额，面向产品团队"
+      "text": "从一个公开网址抓取跨境支付产品典型页面并生成网站 GEO 可视化报告，面向产品团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-024",
       "id": "natural-0048",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Measure mention rate and citation share for 跨境支付产品 for the product team"
+      "text": "Crawl representative pages for 跨境支付产品 and create a full-site visual GEO report for the product team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-025",
       "id": "natural-0049",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "围绕工业机器人方案挖掘用户在 AI 搜索里会问的问题，面向产品团队"
+      "text": "根据现有证据为工业机器人方案写一篇可引用的解释文章，面向产品团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-025",
       "id": "natural-0050",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Research buyer questions about 工业机器人方案 for AI search for the product team"
+      "text": "Draft an evidence-backed explainer about 工业机器人方案 for the product team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-026",
       "id": "natural-0051",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "检查健康管理应用的网站为什么难被 AI 回答引用，面向产品团队"
+      "text": "为健康管理应用制定一轮有测量标准的 GEO 优化实验，面向产品团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-026",
       "id": "natural-0052",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Audit the 健康管理应用 website for answer-engine citation gaps for the product team"
+      "text": "Plan a bounded GEO experiment roadmap for 健康管理应用 for the product team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-027",
       "id": "natural-0053",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "根据现有证据为developer tools写一篇可引用的解释文章，面向产品团队"
+      "text": "把developer tools的品牌事实整理成保留冲突的知识图谱，面向产品团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-027",
       "id": "natural-0054",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Draft an evidence-backed explainer about developer tools for the product team"
+      "text": "Build a governed entity graph for developer tools for the product team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-028",
       "id": "natural-0055",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "为customer support software制定一轮有测量标准的 GEO 优化实验，面向产品团队"
+      "text": "计算customer support software在这批 AI 回答中的提及率和引用份额，面向产品团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-028",
       "id": "natural-0056",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Plan a bounded GEO experiment roadmap for customer support software for the product team"
+      "text": "Measure mention rate and citation share for customer support software for the product team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-029",
       "id": "natural-0057",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "把sustainable packaging的品牌事实整理成保留冲突的知识图谱，面向产品团队"
+      "text": "围绕sustainable packaging挖掘用户在 AI 搜索里会问的问题，面向产品团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-029",
       "id": "natural-0058",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Build a governed entity graph for sustainable packaging for the product team"
+      "text": "Research buyer questions about sustainable packaging for AI search for the product team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-030",
       "id": "natural-0059",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "计算travel planning services在这批 AI 回答中的提及率和引用份额，面向产品团队"
+      "text": "检查travel planning services的网站为什么难被 AI 回答引用，面向产品团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-030",
       "id": "natural-0060",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Measure mention rate and citation share for travel planning services for the product team"
+      "text": "Audit the travel planning services website for answer-engine citation gaps for the product team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-031",
       "id": "natural-0061",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "围绕cybersecurity platforms挖掘用户在 AI 搜索里会问的问题，面向产品团队"
+      "text": "从一个公开网址抓取cybersecurity platforms典型页面并生成网站 GEO 可视化报告，面向产品团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-031",
       "id": "natural-0062",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Research buyer questions about cybersecurity platforms for AI search for the product team"
+      "text": "Crawl representative pages for cybersecurity platforms and create a full-site visual GEO report for the product team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-032",
       "id": "natural-0063",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "检查cloud data products的网站为什么难被 AI 回答引用，面向产品团队"
+      "text": "根据现有证据为cloud data products写一篇可引用的解释文章，面向产品团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-032",
       "id": "natural-0064",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Audit the cloud data products website for answer-engine citation gaps for the product team"
+      "text": "Draft an evidence-backed explainer about cloud data products for the product team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-033",
       "id": "natural-0065",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "根据现有证据为workflow automation写一篇可引用的解释文章，面向产品团队"
+      "text": "为workflow automation制定一轮有测量标准的 GEO 优化实验，面向产品团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-033",
       "id": "natural-0066",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Draft an evidence-backed explainer about workflow automation for the product team"
+      "text": "Plan a bounded GEO experiment roadmap for workflow automation for the product team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-034",
       "id": "natural-0067",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "为research assistants制定一轮有测量标准的 GEO 优化实验，面向产品团队"
+      "text": "把research assistants的品牌事实整理成保留冲突的知识图谱，面向产品团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-034",
       "id": "natural-0068",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Plan a bounded GEO experiment roadmap for research assistants for the product team"
+      "text": "Build a governed entity graph for research assistants for the product team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-035",
       "id": "natural-0069",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "把marketing analytics的品牌事实整理成保留冲突的知识图谱，面向产品团队"
+      "text": "计算marketing analytics在这批 AI 回答中的提及率和引用份额，面向产品团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-035",
       "id": "natural-0070",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Build a governed entity graph for marketing analytics for the product team"
+      "text": "Measure mention rate and citation share for marketing analytics for the product team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-036",
       "id": "natural-0071",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "计算HR technology在这批 AI 回答中的提及率和引用份额，面向产品团队"
+      "text": "围绕HR technology挖掘用户在 AI 搜索里会问的问题，面向产品团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-036",
       "id": "natural-0072",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Measure mention rate and citation share for HR technology for the product team"
+      "text": "Research buyer questions about HR technology for AI search for the product team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-037",
       "id": "natural-0073",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "围绕video collaboration挖掘用户在 AI 搜索里会问的问题，面向产品团队"
+      "text": "检查video collaboration的网站为什么难被 AI 回答引用，面向产品团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-037",
       "id": "natural-0074",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Research buyer questions about video collaboration for AI search for the product team"
+      "text": "Audit the video collaboration website for answer-engine citation gaps for the product team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-038",
       "id": "natural-0075",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "检查electric mobility的网站为什么难被 AI 回答引用，面向产品团队"
+      "text": "从一个公开网址抓取electric mobility典型页面并生成网站 GEO 可视化报告，面向产品团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-038",
       "id": "natural-0076",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Audit the electric mobility website for answer-engine citation gaps for the product team"
+      "text": "Crawl representative pages for electric mobility and create a full-site visual GEO report for the product team"
     },
     {
       "category": "single-intent",
@@ -1148,937 +1148,937 @@
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-045",
       "id": "natural-0089",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "根据现有证据为工业机器人方案写一篇可引用的解释文章，面向市场团队"
+      "text": "从一个公开网址抓取工业机器人方案典型页面并生成网站 GEO 可视化报告，面向市场团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-045",
       "id": "natural-0090",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Draft an evidence-backed explainer about 工业机器人方案 for the marketing team"
+      "text": "Crawl representative pages for 工业机器人方案 and create a full-site visual GEO report for the marketing team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-046",
       "id": "natural-0091",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "为健康管理应用制定一轮有测量标准的 GEO 优化实验，面向市场团队"
+      "text": "根据现有证据为健康管理应用写一篇可引用的解释文章，面向市场团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-046",
       "id": "natural-0092",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Plan a bounded GEO experiment roadmap for 健康管理应用 for the marketing team"
+      "text": "Draft an evidence-backed explainer about 健康管理应用 for the marketing team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-047",
       "id": "natural-0093",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "把developer tools的品牌事实整理成保留冲突的知识图谱，面向市场团队"
+      "text": "为developer tools制定一轮有测量标准的 GEO 优化实验，面向市场团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-047",
       "id": "natural-0094",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Build a governed entity graph for developer tools for the marketing team"
+      "text": "Plan a bounded GEO experiment roadmap for developer tools for the marketing team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-048",
       "id": "natural-0095",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "计算customer support software在这批 AI 回答中的提及率和引用份额，面向市场团队"
+      "text": "把customer support software的品牌事实整理成保留冲突的知识图谱，面向市场团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-048",
       "id": "natural-0096",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Measure mention rate and citation share for customer support software for the marketing team"
+      "text": "Build a governed entity graph for customer support software for the marketing team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-049",
       "id": "natural-0097",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "围绕sustainable packaging挖掘用户在 AI 搜索里会问的问题，面向市场团队"
+      "text": "计算sustainable packaging在这批 AI 回答中的提及率和引用份额，面向市场团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-049",
       "id": "natural-0098",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Research buyer questions about sustainable packaging for AI search for the marketing team"
+      "text": "Measure mention rate and citation share for sustainable packaging for the marketing team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-050",
       "id": "natural-0099",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "检查travel planning services的网站为什么难被 AI 回答引用，面向市场团队"
+      "text": "围绕travel planning services挖掘用户在 AI 搜索里会问的问题，面向市场团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-050",
       "id": "natural-0100",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Audit the travel planning services website for answer-engine citation gaps for the marketing team"
+      "text": "Research buyer questions about travel planning services for AI search for the marketing team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-051",
       "id": "natural-0101",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "根据现有证据为cybersecurity platforms写一篇可引用的解释文章，面向市场团队"
+      "text": "检查cybersecurity platforms的网站为什么难被 AI 回答引用，面向市场团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-051",
       "id": "natural-0102",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Draft an evidence-backed explainer about cybersecurity platforms for the marketing team"
+      "text": "Audit the cybersecurity platforms website for answer-engine citation gaps for the marketing team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-052",
       "id": "natural-0103",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "为cloud data products制定一轮有测量标准的 GEO 优化实验，面向市场团队"
+      "text": "从一个公开网址抓取cloud data products典型页面并生成网站 GEO 可视化报告，面向市场团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-052",
       "id": "natural-0104",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Plan a bounded GEO experiment roadmap for cloud data products for the marketing team"
+      "text": "Crawl representative pages for cloud data products and create a full-site visual GEO report for the marketing team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-053",
       "id": "natural-0105",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "把workflow automation的品牌事实整理成保留冲突的知识图谱，面向市场团队"
+      "text": "根据现有证据为workflow automation写一篇可引用的解释文章，面向市场团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-053",
       "id": "natural-0106",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Build a governed entity graph for workflow automation for the marketing team"
+      "text": "Draft an evidence-backed explainer about workflow automation for the marketing team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-054",
       "id": "natural-0107",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "计算research assistants在这批 AI 回答中的提及率和引用份额，面向市场团队"
+      "text": "为research assistants制定一轮有测量标准的 GEO 优化实验，面向市场团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-054",
       "id": "natural-0108",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Measure mention rate and citation share for research assistants for the marketing team"
+      "text": "Plan a bounded GEO experiment roadmap for research assistants for the marketing team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-055",
       "id": "natural-0109",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "围绕marketing analytics挖掘用户在 AI 搜索里会问的问题，面向市场团队"
+      "text": "把marketing analytics的品牌事实整理成保留冲突的知识图谱，面向市场团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-055",
       "id": "natural-0110",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Research buyer questions about marketing analytics for AI search for the marketing team"
+      "text": "Build a governed entity graph for marketing analytics for the marketing team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-056",
       "id": "natural-0111",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "检查HR technology的网站为什么难被 AI 回答引用，面向市场团队"
+      "text": "计算HR technology在这批 AI 回答中的提及率和引用份额，面向市场团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-056",
       "id": "natural-0112",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Audit the HR technology website for answer-engine citation gaps for the marketing team"
+      "text": "Measure mention rate and citation share for HR technology for the marketing team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-057",
       "id": "natural-0113",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "根据现有证据为video collaboration写一篇可引用的解释文章，面向市场团队"
+      "text": "围绕video collaboration挖掘用户在 AI 搜索里会问的问题，面向市场团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-057",
       "id": "natural-0114",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Draft an evidence-backed explainer about video collaboration for the marketing team"
+      "text": "Research buyer questions about video collaboration for AI search for the marketing team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-058",
       "id": "natural-0115",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "为electric mobility制定一轮有测量标准的 GEO 优化实验，面向市场团队"
+      "text": "检查electric mobility的网站为什么难被 AI 回答引用，面向市场团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-058",
       "id": "natural-0116",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Plan a bounded GEO experiment roadmap for electric mobility for the marketing team"
+      "text": "Audit the electric mobility website for answer-engine citation gaps for the marketing team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-059",
       "id": "natural-0117",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "把financial education的品牌事实整理成保留冲突的知识图谱，面向市场团队"
+      "text": "从一个公开网址抓取financial education典型页面并生成网站 GEO 可视化报告，面向市场团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-059",
       "id": "natural-0118",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Build a governed entity graph for financial education for the marketing team"
+      "text": "Crawl representative pages for financial education and create a full-site visual GEO report for the marketing team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-060",
       "id": "natural-0119",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "计算product design tools在这批 AI 回答中的提及率和引用份额，面向市场团队"
+      "text": "根据现有证据为product design tools写一篇可引用的解释文章，面向市场团队"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-060",
       "id": "natural-0120",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Measure mention rate and citation share for product design tools for the marketing team"
+      "text": "Draft an evidence-backed explainer about product design tools for the marketing team"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-061",
       "id": "natural-0121",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "围绕企业协作软件挖掘用户在 AI 搜索里会问的问题，用于季度复盘"
+      "text": "为企业协作软件制定一轮有测量标准的 GEO 优化实验，用于季度复盘"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-061",
       "id": "natural-0122",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Research buyer questions about 企业协作软件 for AI search for a quarterly review"
+      "text": "Plan a bounded GEO experiment roadmap for 企业协作软件 for a quarterly review"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-062",
       "id": "natural-0123",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "检查智能家居品牌的网站为什么难被 AI 回答引用，用于季度复盘"
+      "text": "把智能家居品牌的品牌事实整理成保留冲突的知识图谱，用于季度复盘"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-062",
       "id": "natural-0124",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Audit the 智能家居品牌 website for answer-engine citation gaps for a quarterly review"
+      "text": "Build a governed entity graph for 智能家居品牌 for a quarterly review"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-063",
       "id": "natural-0125",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "根据现有证据为在线教育平台写一篇可引用的解释文章，用于季度复盘"
+      "text": "计算在线教育平台在这批 AI 回答中的提及率和引用份额，用于季度复盘"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-063",
       "id": "natural-0126",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Draft an evidence-backed explainer about 在线教育平台 for a quarterly review"
+      "text": "Measure mention rate and citation share for 在线教育平台 for a quarterly review"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-064",
       "id": "natural-0127",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "为跨境支付产品制定一轮有测量标准的 GEO 优化实验，用于季度复盘"
+      "text": "围绕跨境支付产品挖掘用户在 AI 搜索里会问的问题，用于季度复盘"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-064",
       "id": "natural-0128",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Plan a bounded GEO experiment roadmap for 跨境支付产品 for a quarterly review"
+      "text": "Research buyer questions about 跨境支付产品 for AI search for a quarterly review"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-065",
       "id": "natural-0129",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "把工业机器人方案的品牌事实整理成保留冲突的知识图谱，用于季度复盘"
+      "text": "检查工业机器人方案的网站为什么难被 AI 回答引用，用于季度复盘"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-065",
       "id": "natural-0130",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Build a governed entity graph for 工业机器人方案 for a quarterly review"
+      "text": "Audit the 工业机器人方案 website for answer-engine citation gaps for a quarterly review"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-066",
       "id": "natural-0131",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "计算健康管理应用在这批 AI 回答中的提及率和引用份额，用于季度复盘"
+      "text": "从一个公开网址抓取健康管理应用典型页面并生成网站 GEO 可视化报告，用于季度复盘"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-066",
       "id": "natural-0132",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Measure mention rate and citation share for 健康管理应用 for a quarterly review"
+      "text": "Crawl representative pages for 健康管理应用 and create a full-site visual GEO report for a quarterly review"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-067",
       "id": "natural-0133",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "围绕developer tools挖掘用户在 AI 搜索里会问的问题，用于季度复盘"
+      "text": "根据现有证据为developer tools写一篇可引用的解释文章，用于季度复盘"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-067",
       "id": "natural-0134",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Research buyer questions about developer tools for AI search for a quarterly review"
+      "text": "Draft an evidence-backed explainer about developer tools for a quarterly review"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-068",
       "id": "natural-0135",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "检查customer support software的网站为什么难被 AI 回答引用，用于季度复盘"
+      "text": "为customer support software制定一轮有测量标准的 GEO 优化实验，用于季度复盘"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-068",
       "id": "natural-0136",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Audit the customer support software website for answer-engine citation gaps for a quarterly review"
+      "text": "Plan a bounded GEO experiment roadmap for customer support software for a quarterly review"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-069",
       "id": "natural-0137",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "根据现有证据为sustainable packaging写一篇可引用的解释文章，用于季度复盘"
+      "text": "把sustainable packaging的品牌事实整理成保留冲突的知识图谱，用于季度复盘"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-069",
       "id": "natural-0138",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Draft an evidence-backed explainer about sustainable packaging for a quarterly review"
+      "text": "Build a governed entity graph for sustainable packaging for a quarterly review"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-070",
       "id": "natural-0139",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "为travel planning services制定一轮有测量标准的 GEO 优化实验，用于季度复盘"
+      "text": "计算travel planning services在这批 AI 回答中的提及率和引用份额，用于季度复盘"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-070",
       "id": "natural-0140",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Plan a bounded GEO experiment roadmap for travel planning services for a quarterly review"
+      "text": "Measure mention rate and citation share for travel planning services for a quarterly review"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-071",
       "id": "natural-0141",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "把cybersecurity platforms的品牌事实整理成保留冲突的知识图谱，用于季度复盘"
+      "text": "围绕cybersecurity platforms挖掘用户在 AI 搜索里会问的问题，用于季度复盘"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-071",
       "id": "natural-0142",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Build a governed entity graph for cybersecurity platforms for a quarterly review"
+      "text": "Research buyer questions about cybersecurity platforms for AI search for a quarterly review"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-072",
       "id": "natural-0143",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "计算cloud data products在这批 AI 回答中的提及率和引用份额，用于季度复盘"
+      "text": "检查cloud data products的网站为什么难被 AI 回答引用，用于季度复盘"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-072",
       "id": "natural-0144",
       "label_status": "proposed",
       "split": "calibration",
-      "text": "Measure mention rate and citation share for cloud data products for a quarterly review"
+      "text": "Audit the cloud data products website for answer-engine citation gaps for a quarterly review"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-073",
       "id": "natural-0145",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "围绕workflow automation挖掘用户在 AI 搜索里会问的问题，用于季度复盘"
+      "text": "从一个公开网址抓取workflow automation典型页面并生成网站 GEO 可视化报告，用于季度复盘"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-073",
       "id": "natural-0146",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "Research buyer questions about workflow automation for AI search for a quarterly review"
+      "text": "Crawl representative pages for workflow automation and create a full-site visual GEO report for a quarterly review"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-074",
       "id": "natural-0147",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "检查research assistants的网站为什么难被 AI 回答引用，用于季度复盘"
+      "text": "根据现有证据为research assistants写一篇可引用的解释文章，用于季度复盘"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-074",
       "id": "natural-0148",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "Audit the research assistants website for answer-engine citation gaps for a quarterly review"
+      "text": "Draft an evidence-backed explainer about research assistants for a quarterly review"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-075",
       "id": "natural-0149",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "根据现有证据为marketing analytics写一篇可引用的解释文章，用于季度复盘"
+      "text": "为marketing analytics制定一轮有测量标准的 GEO 优化实验，用于季度复盘"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-075",
       "id": "natural-0150",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "Draft an evidence-backed explainer about marketing analytics for a quarterly review"
+      "text": "Plan a bounded GEO experiment roadmap for marketing analytics for a quarterly review"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-076",
       "id": "natural-0151",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "为HR technology制定一轮有测量标准的 GEO 优化实验，用于季度复盘"
+      "text": "把HR technology的品牌事实整理成保留冲突的知识图谱，用于季度复盘"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-076",
       "id": "natural-0152",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "Plan a bounded GEO experiment roadmap for HR technology for a quarterly review"
+      "text": "Build a governed entity graph for HR technology for a quarterly review"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-077",
       "id": "natural-0153",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "把video collaboration的品牌事实整理成保留冲突的知识图谱，用于季度复盘"
+      "text": "计算video collaboration在这批 AI 回答中的提及率和引用份额，用于季度复盘"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-077",
       "id": "natural-0154",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "Build a governed entity graph for video collaboration for a quarterly review"
+      "text": "Measure mention rate and citation share for video collaboration for a quarterly review"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-078",
       "id": "natural-0155",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "计算electric mobility在这批 AI 回答中的提及率和引用份额，用于季度复盘"
+      "text": "围绕electric mobility挖掘用户在 AI 搜索里会问的问题，用于季度复盘"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-078",
       "id": "natural-0156",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "Measure mention rate and citation share for electric mobility for a quarterly review"
+      "text": "Research buyer questions about electric mobility for AI search for a quarterly review"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-079",
       "id": "natural-0157",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "围绕financial education挖掘用户在 AI 搜索里会问的问题，用于季度复盘"
+      "text": "检查financial education的网站为什么难被 AI 回答引用，用于季度复盘"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-079",
       "id": "natural-0158",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "Research buyer questions about financial education for AI search for a quarterly review"
+      "text": "Audit the financial education website for answer-engine citation gaps for a quarterly review"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-080",
       "id": "natural-0159",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "检查product design tools的网站为什么难被 AI 回答引用，用于季度复盘"
+      "text": "从一个公开网址抓取product design tools典型页面并生成网站 GEO 可视化报告，用于季度复盘"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-080",
       "id": "natural-0160",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "Audit the product design tools website for answer-engine citation gaps for a quarterly review"
+      "text": "Crawl representative pages for product design tools and create a full-site visual GEO report for a quarterly review"
     },
     {
       "category": "single-intent",
@@ -2240,742 +2240,859 @@
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-087",
       "id": "natural-0173",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "根据现有证据为developer tools写一篇可引用的解释文章，用于新品研究"
+      "text": "从一个公开网址抓取developer tools典型页面并生成网站 GEO 可视化报告，用于新品研究"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-087",
       "id": "natural-0174",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "Draft an evidence-backed explainer about developer tools for launch research"
+      "text": "Crawl representative pages for developer tools and create a full-site visual GEO report for launch research"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-088",
       "id": "natural-0175",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "为customer support software制定一轮有测量标准的 GEO 优化实验，用于新品研究"
+      "text": "根据现有证据为customer support software写一篇可引用的解释文章，用于新品研究"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-088",
       "id": "natural-0176",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "Plan a bounded GEO experiment roadmap for customer support software for launch research"
+      "text": "Draft an evidence-backed explainer about customer support software for launch research"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-089",
       "id": "natural-0177",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "把sustainable packaging的品牌事实整理成保留冲突的知识图谱，用于新品研究"
+      "text": "为sustainable packaging制定一轮有测量标准的 GEO 优化实验，用于新品研究"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-089",
       "id": "natural-0178",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "Build a governed entity graph for sustainable packaging for launch research"
+      "text": "Plan a bounded GEO experiment roadmap for sustainable packaging for launch research"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-090",
       "id": "natural-0179",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "计算travel planning services在这批 AI 回答中的提及率和引用份额，用于新品研究"
+      "text": "把travel planning services的品牌事实整理成保留冲突的知识图谱，用于新品研究"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-090",
       "id": "natural-0180",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "Measure mention rate and citation share for travel planning services for launch research"
+      "text": "Build a governed entity graph for travel planning services for launch research"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-091",
       "id": "natural-0181",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "围绕cybersecurity platforms挖掘用户在 AI 搜索里会问的问题，用于新品研究"
+      "text": "计算cybersecurity platforms在这批 AI 回答中的提及率和引用份额，用于新品研究"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-091",
       "id": "natural-0182",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "Research buyer questions about cybersecurity platforms for AI search for launch research"
+      "text": "Measure mention rate and citation share for cybersecurity platforms for launch research"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-092",
       "id": "natural-0183",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "检查cloud data products的网站为什么难被 AI 回答引用，用于新品研究"
+      "text": "围绕cloud data products挖掘用户在 AI 搜索里会问的问题，用于新品研究"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-092",
       "id": "natural-0184",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "Audit the cloud data products website for answer-engine citation gaps for launch research"
+      "text": "Research buyer questions about cloud data products for AI search for launch research"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-093",
       "id": "natural-0185",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "根据现有证据为workflow automation写一篇可引用的解释文章，用于新品研究"
+      "text": "检查workflow automation的网站为什么难被 AI 回答引用，用于新品研究"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-093",
       "id": "natural-0186",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "Draft an evidence-backed explainer about workflow automation for launch research"
+      "text": "Audit the workflow automation website for answer-engine citation gaps for launch research"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-094",
       "id": "natural-0187",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "为research assistants制定一轮有测量标准的 GEO 优化实验，用于新品研究"
+      "text": "从一个公开网址抓取research assistants典型页面并生成网站 GEO 可视化报告，用于新品研究"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-094",
       "id": "natural-0188",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "Plan a bounded GEO experiment roadmap for research assistants for launch research"
+      "text": "Crawl representative pages for research assistants and create a full-site visual GEO report for launch research"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-095",
       "id": "natural-0189",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "把marketing analytics的品牌事实整理成保留冲突的知识图谱，用于新品研究"
+      "text": "根据现有证据为marketing analytics写一篇可引用的解释文章，用于新品研究"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-095",
       "id": "natural-0190",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "Build a governed entity graph for marketing analytics for launch research"
+      "text": "Draft an evidence-backed explainer about marketing analytics for launch research"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-096",
       "id": "natural-0191",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "计算HR technology在这批 AI 回答中的提及率和引用份额，用于新品研究"
+      "text": "为HR technology制定一轮有测量标准的 GEO 优化实验，用于新品研究"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-096",
       "id": "natural-0192",
       "label_status": "proposed",
       "split": "public-test",
-      "text": "Measure mention rate and citation share for HR technology for launch research"
+      "text": "Plan a bounded GEO experiment roadmap for HR technology for launch research"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-097",
       "id": "natural-0193",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "围绕video collaboration挖掘用户在 AI 搜索里会问的问题，用于新品研究"
+      "text": "把video collaboration的品牌事实整理成保留冲突的知识图谱，用于新品研究"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-097",
       "id": "natural-0194",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "Research buyer questions about video collaboration for AI search for launch research"
+      "text": "Build a governed entity graph for video collaboration for launch research"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-098",
       "id": "natural-0195",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "检查electric mobility的网站为什么难被 AI 回答引用，用于新品研究"
+      "text": "计算electric mobility在这批 AI 回答中的提及率和引用份额，用于新品研究"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-098",
       "id": "natural-0196",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "Audit the electric mobility website for answer-engine citation gaps for launch research"
+      "text": "Measure mention rate and citation share for electric mobility for launch research"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-099",
       "id": "natural-0197",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "根据现有证据为financial education写一篇可引用的解释文章，用于新品研究"
+      "text": "围绕financial education挖掘用户在 AI 搜索里会问的问题，用于新品研究"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-099",
       "id": "natural-0198",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "Draft an evidence-backed explainer about financial education for launch research"
+      "text": "Research buyer questions about financial education for AI search for launch research"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-100",
       "id": "natural-0199",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "为product design tools制定一轮有测量标准的 GEO 优化实验，用于新品研究"
+      "text": "检查product design tools的网站为什么难被 AI 回答引用，用于新品研究"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-100",
       "id": "natural-0200",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "Plan a bounded GEO experiment roadmap for product design tools for launch research"
+      "text": "Audit the product design tools website for answer-engine citation gaps for launch research"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-101",
       "id": "natural-0201",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "把企业协作软件的品牌事实整理成保留冲突的知识图谱，用于竞争分析"
+      "text": "从一个公开网址抓取企业协作软件典型页面并生成网站 GEO 可视化报告，用于竞争分析"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-101",
       "id": "natural-0202",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "Build a governed entity graph for 企业协作软件 for competitive analysis"
+      "text": "Crawl representative pages for 企业协作软件 and create a full-site visual GEO report for competitive analysis"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-102",
       "id": "natural-0203",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "计算智能家居品牌在这批 AI 回答中的提及率和引用份额，用于竞争分析"
+      "text": "根据现有证据为智能家居品牌写一篇可引用的解释文章，用于竞争分析"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-102",
       "id": "natural-0204",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "Measure mention rate and citation share for 智能家居品牌 for competitive analysis"
+      "text": "Draft an evidence-backed explainer about 智能家居品牌 for competitive analysis"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-103",
       "id": "natural-0205",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "围绕在线教育平台挖掘用户在 AI 搜索里会问的问题，用于竞争分析"
+      "text": "为在线教育平台制定一轮有测量标准的 GEO 优化实验，用于竞争分析"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-103",
       "id": "natural-0206",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "Research buyer questions about 在线教育平台 for AI search for competitive analysis"
+      "text": "Plan a bounded GEO experiment roadmap for 在线教育平台 for competitive analysis"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-104",
       "id": "natural-0207",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "检查跨境支付产品的网站为什么难被 AI 回答引用，用于竞争分析"
+      "text": "把跨境支付产品的品牌事实整理成保留冲突的知识图谱，用于竞争分析"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-104",
       "id": "natural-0208",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "Audit the 跨境支付产品 website for answer-engine citation gaps for competitive analysis"
+      "text": "Build a governed entity graph for 跨境支付产品 for competitive analysis"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-105",
       "id": "natural-0209",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "根据现有证据为工业机器人方案写一篇可引用的解释文章，用于竞争分析"
+      "text": "计算工业机器人方案在这批 AI 回答中的提及率和引用份额，用于竞争分析"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-105",
       "id": "natural-0210",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "Draft an evidence-backed explainer about 工业机器人方案 for competitive analysis"
+      "text": "Measure mention rate and citation share for 工业机器人方案 for competitive analysis"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-106",
       "id": "natural-0211",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "为健康管理应用制定一轮有测量标准的 GEO 优化实验，用于竞争分析"
+      "text": "围绕健康管理应用挖掘用户在 AI 搜索里会问的问题，用于竞争分析"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-106",
       "id": "natural-0212",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "Plan a bounded GEO experiment roadmap for 健康管理应用 for competitive analysis"
+      "text": "Research buyer questions about 健康管理应用 for AI search for competitive analysis"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-107",
       "id": "natural-0213",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "把developer tools的品牌事实整理成保留冲突的知识图谱，用于竞争分析"
+      "text": "检查developer tools的网站为什么难被 AI 回答引用，用于竞争分析"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-107",
       "id": "natural-0214",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "Build a governed entity graph for developer tools for competitive analysis"
+      "text": "Audit the developer tools website for answer-engine citation gaps for competitive analysis"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-108",
       "id": "natural-0215",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "计算customer support software在这批 AI 回答中的提及率和引用份额，用于竞争分析"
+      "text": "从一个公开网址抓取customer support software典型页面并生成网站 GEO 可视化报告，用于竞争分析"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-108",
       "id": "natural-0216",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "Measure mention rate and citation share for customer support software for competitive analysis"
+      "text": "Crawl representative pages for customer support software and create a full-site visual GEO report for competitive analysis"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-109",
       "id": "natural-0217",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "围绕sustainable packaging挖掘用户在 AI 搜索里会问的问题，用于竞争分析"
+      "text": "根据现有证据为sustainable packaging写一篇可引用的解释文章，用于竞争分析"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-content",
         "workflow_id": null
       },
       "family_id": "single-109",
       "id": "natural-0218",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "Research buyer questions about sustainable packaging for AI search for competitive analysis"
+      "text": "Draft an evidence-backed explainer about sustainable packaging for competitive analysis"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-110",
       "id": "natural-0219",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "检查travel planning services的网站为什么难被 AI 回答引用，用于竞争分析"
+      "text": "为travel planning services制定一轮有测量标准的 GEO 优化实验，用于竞争分析"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
+        "skill_id": "geo-strategy",
         "workflow_id": null
       },
       "family_id": "single-110",
       "id": "natural-0220",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "Audit the travel planning services website for answer-engine citation gaps for competitive analysis"
+      "text": "Plan a bounded GEO experiment roadmap for travel planning services for competitive analysis"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-111",
       "id": "natural-0221",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "根据现有证据为cybersecurity platforms写一篇可引用的解释文章，用于竞争分析"
+      "text": "把cybersecurity platforms的品牌事实整理成保留冲突的知识图谱，用于竞争分析"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-content",
+        "skill_id": "geo-knowledge",
         "workflow_id": null
       },
       "family_id": "single-111",
       "id": "natural-0222",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "Draft an evidence-backed explainer about cybersecurity platforms for competitive analysis"
+      "text": "Build a governed entity graph for cybersecurity platforms for competitive analysis"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-112",
       "id": "natural-0223",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "为cloud data products制定一轮有测量标准的 GEO 优化实验，用于竞争分析"
+      "text": "计算cloud data products在这批 AI 回答中的提及率和引用份额，用于竞争分析"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
+        "skill_id": "geo-measure",
         "workflow_id": null
       },
       "family_id": "single-112",
       "id": "natural-0224",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "Plan a bounded GEO experiment roadmap for cloud data products for competitive analysis"
+      "text": "Measure mention rate and citation share for cloud data products for competitive analysis"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-113",
       "id": "natural-0225",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "把workflow automation的品牌事实整理成保留冲突的知识图谱，用于竞争分析"
+      "text": "围绕workflow automation挖掘用户在 AI 搜索里会问的问题，用于竞争分析"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-113",
       "id": "natural-0226",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "Build a governed entity graph for workflow automation for competitive analysis"
+      "text": "Research buyer questions about workflow automation for AI search for competitive analysis"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-114",
       "id": "natural-0227",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "计算research assistants在这批 AI 回答中的提及率和引用份额，用于竞争分析"
+      "text": "检查research assistants的网站为什么难被 AI 回答引用，用于竞争分析"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-diagnose",
         "workflow_id": null
       },
       "family_id": "single-114",
       "id": "natural-0228",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "Measure mention rate and citation share for research assistants for competitive analysis"
+      "text": "Audit the research assistants website for answer-engine citation gaps for competitive analysis"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-discover",
+        "skill_id": "geo-site-diagnose",
         "workflow_id": null
       },
       "family_id": "single-115",
       "id": "natural-0229",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "围绕marketing analytics挖掘用户在 AI 搜索里会问的问题，用于竞争分析"
+      "text": "从一个公开网址抓取marketing analytics典型页面并生成网站 GEO 可视化报告，用于竞争分析"
+    },
+    {
+      "category": "single-intent",
+      "expected": {
+        "decision_type": "single_skill",
+        "skill_id": "geo-site-diagnose",
+        "workflow_id": null
+      },
+      "family_id": "single-115",
+      "id": "natural-0230",
+      "label_status": "proposed",
+      "split": "private-holdout",
+      "text": "Crawl representative pages for marketing analytics and create a full-site visual GEO report for competitive analysis"
+    },
+    {
+      "category": "single-intent",
+      "expected": {
+        "decision_type": "single_skill",
+        "skill_id": "geo-content",
+        "workflow_id": null
+      },
+      "family_id": "single-116",
+      "id": "natural-0231",
+      "label_status": "proposed",
+      "split": "private-holdout",
+      "text": "根据现有证据为HR technology写一篇可引用的解释文章，用于竞争分析"
+    },
+    {
+      "category": "single-intent",
+      "expected": {
+        "decision_type": "single_skill",
+        "skill_id": "geo-content",
+        "workflow_id": null
+      },
+      "family_id": "single-116",
+      "id": "natural-0232",
+      "label_status": "proposed",
+      "split": "private-holdout",
+      "text": "Draft an evidence-backed explainer about HR technology for competitive analysis"
+    },
+    {
+      "category": "single-intent",
+      "expected": {
+        "decision_type": "single_skill",
+        "skill_id": "geo-strategy",
+        "workflow_id": null
+      },
+      "family_id": "single-117",
+      "id": "natural-0233",
+      "label_status": "proposed",
+      "split": "private-holdout",
+      "text": "为video collaboration制定一轮有测量标准的 GEO 优化实验，用于竞争分析"
+    },
+    {
+      "category": "single-intent",
+      "expected": {
+        "decision_type": "single_skill",
+        "skill_id": "geo-strategy",
+        "workflow_id": null
+      },
+      "family_id": "single-117",
+      "id": "natural-0234",
+      "label_status": "proposed",
+      "split": "private-holdout",
+      "text": "Plan a bounded GEO experiment roadmap for video collaboration for competitive analysis"
+    },
+    {
+      "category": "single-intent",
+      "expected": {
+        "decision_type": "single_skill",
+        "skill_id": "geo-knowledge",
+        "workflow_id": null
+      },
+      "family_id": "single-118",
+      "id": "natural-0235",
+      "label_status": "proposed",
+      "split": "private-holdout",
+      "text": "把electric mobility的品牌事实整理成保留冲突的知识图谱，用于竞争分析"
+    },
+    {
+      "category": "single-intent",
+      "expected": {
+        "decision_type": "single_skill",
+        "skill_id": "geo-knowledge",
+        "workflow_id": null
+      },
+      "family_id": "single-118",
+      "id": "natural-0236",
+      "label_status": "proposed",
+      "split": "private-holdout",
+      "text": "Build a governed entity graph for electric mobility for competitive analysis"
+    },
+    {
+      "category": "single-intent",
+      "expected": {
+        "decision_type": "single_skill",
+        "skill_id": "geo-measure",
+        "workflow_id": null
+      },
+      "family_id": "single-119",
+      "id": "natural-0237",
+      "label_status": "proposed",
+      "split": "private-holdout",
+      "text": "计算financial education在这批 AI 回答中的提及率和引用份额，用于竞争分析"
+    },
+    {
+      "category": "single-intent",
+      "expected": {
+        "decision_type": "single_skill",
+        "skill_id": "geo-measure",
+        "workflow_id": null
+      },
+      "family_id": "single-119",
+      "id": "natural-0238",
+      "label_status": "proposed",
+      "split": "private-holdout",
+      "text": "Measure mention rate and citation share for financial education for competitive analysis"
     },
     {
       "category": "single-intent",
@@ -2984,141 +3101,24 @@
         "skill_id": "geo-discover",
         "workflow_id": null
       },
-      "family_id": "single-115",
-      "id": "natural-0230",
-      "label_status": "proposed",
-      "split": "private-holdout",
-      "text": "Research buyer questions about marketing analytics for AI search for competitive analysis"
-    },
-    {
-      "category": "single-intent",
-      "expected": {
-        "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
-        "workflow_id": null
-      },
-      "family_id": "single-116",
-      "id": "natural-0231",
-      "label_status": "proposed",
-      "split": "private-holdout",
-      "text": "检查HR technology的网站为什么难被 AI 回答引用，用于竞争分析"
-    },
-    {
-      "category": "single-intent",
-      "expected": {
-        "decision_type": "single_skill",
-        "skill_id": "geo-diagnose",
-        "workflow_id": null
-      },
-      "family_id": "single-116",
-      "id": "natural-0232",
-      "label_status": "proposed",
-      "split": "private-holdout",
-      "text": "Audit the HR technology website for answer-engine citation gaps for competitive analysis"
-    },
-    {
-      "category": "single-intent",
-      "expected": {
-        "decision_type": "single_skill",
-        "skill_id": "geo-content",
-        "workflow_id": null
-      },
-      "family_id": "single-117",
-      "id": "natural-0233",
-      "label_status": "proposed",
-      "split": "private-holdout",
-      "text": "根据现有证据为video collaboration写一篇可引用的解释文章，用于竞争分析"
-    },
-    {
-      "category": "single-intent",
-      "expected": {
-        "decision_type": "single_skill",
-        "skill_id": "geo-content",
-        "workflow_id": null
-      },
-      "family_id": "single-117",
-      "id": "natural-0234",
-      "label_status": "proposed",
-      "split": "private-holdout",
-      "text": "Draft an evidence-backed explainer about video collaboration for competitive analysis"
-    },
-    {
-      "category": "single-intent",
-      "expected": {
-        "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
-        "workflow_id": null
-      },
-      "family_id": "single-118",
-      "id": "natural-0235",
-      "label_status": "proposed",
-      "split": "private-holdout",
-      "text": "为electric mobility制定一轮有测量标准的 GEO 优化实验，用于竞争分析"
-    },
-    {
-      "category": "single-intent",
-      "expected": {
-        "decision_type": "single_skill",
-        "skill_id": "geo-strategy",
-        "workflow_id": null
-      },
-      "family_id": "single-118",
-      "id": "natural-0236",
-      "label_status": "proposed",
-      "split": "private-holdout",
-      "text": "Plan a bounded GEO experiment roadmap for electric mobility for competitive analysis"
-    },
-    {
-      "category": "single-intent",
-      "expected": {
-        "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
-        "workflow_id": null
-      },
-      "family_id": "single-119",
-      "id": "natural-0237",
-      "label_status": "proposed",
-      "split": "private-holdout",
-      "text": "把financial education的品牌事实整理成保留冲突的知识图谱，用于竞争分析"
-    },
-    {
-      "category": "single-intent",
-      "expected": {
-        "decision_type": "single_skill",
-        "skill_id": "geo-knowledge",
-        "workflow_id": null
-      },
-      "family_id": "single-119",
-      "id": "natural-0238",
-      "label_status": "proposed",
-      "split": "private-holdout",
-      "text": "Build a governed entity graph for financial education for competitive analysis"
-    },
-    {
-      "category": "single-intent",
-      "expected": {
-        "decision_type": "single_skill",
-        "skill_id": "geo-measure",
-        "workflow_id": null
-      },
       "family_id": "single-120",
       "id": "natural-0239",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "计算product design tools在这批 AI 回答中的提及率和引用份额，用于竞争分析"
+      "text": "围绕product design tools挖掘用户在 AI 搜索里会问的问题，用于竞争分析"
     },
     {
       "category": "single-intent",
       "expected": {
         "decision_type": "single_skill",
-        "skill_id": "geo-measure",
+        "skill_id": "geo-discover",
         "workflow_id": null
       },
       "family_id": "single-120",
       "id": "natural-0240",
       "label_status": "proposed",
       "split": "private-holdout",
-      "text": "Measure mention rate and citation share for product design tools for competitive analysis"
+      "text": "Research buyer questions about product design tools for AI search for competitive analysis"
     },
     {
       "category": "near-neighbor",

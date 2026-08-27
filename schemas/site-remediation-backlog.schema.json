@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yao.example/geo/schemas/site-remediation-backlog.schema.json",
+  "title": "Site diagnosis remediation backlog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "run_id", "actions"],
+  "properties": {
+    "protocol_version": {"const": "1.0.0"},
+    "run_id": {"type": "string", "pattern": "\\S"},
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["action_id", "title", "dimension", "severity", "impact", "effort", "affected_page_ids", "evidence_ids", "priority"],
+        "properties": {
+          "action_id": {"type": "string", "pattern": "\\S"},
+          "title": {"type": "string", "pattern": "\\S"},
+          "dimension": {"type": "string", "pattern": "\\S"},
+          "severity": {"enum": ["critical", "high", "medium", "low"]},
+          "impact": {"type": "integer", "minimum": 1, "maximum": 5},
+          "effort": {"type": "integer", "minimum": 1, "maximum": 5},
+          "affected_page_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "\\S"}},
+          "evidence_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "\\S"}},
+          "priority": {"type": "integer", "minimum": 0, "maximum": 125}
+        }
+      }
+    }
+  }
+}

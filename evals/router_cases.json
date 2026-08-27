@@ -2512,5 +2512,53 @@
     "text": "构建知识库",
     "category": "planned",
     "expected": {"skill_id": "geo-knowledge", "workflow_id": null, "runnable": true}
+  },
+  {
+    "id": "r374",
+    "text": "帮我诊断网站GEO：https://example.com",
+    "category": "site-diagnose",
+    "expected": {"skill_id": "geo-site-diagnose", "workflow_id": null, "runnable": true}
+  },
+  {
+    "id": "r375",
+    "text": "抓取网站典型页面并生成可视化 GEO 报告",
+    "category": "site-diagnose",
+    "expected": {"skill_id": "geo-site-diagnose", "workflow_id": null, "runnable": true}
+  },
+  {
+    "id": "r376",
+    "text": "Audit this public website and create a visual GEO report",
+    "category": "site-diagnose",
+    "expected": {"skill_id": "geo-site-diagnose", "workflow_id": null, "runnable": true}
+  },
+  {
+    "id": "r377",
+    "text": "帮我诊断网站 GEO",
+    "category": "site-diagnose-missing-url",
+    "expected": {"skill_id": "geo-site-diagnose", "workflow_id": null, "runnable": true}
+  },
+  {
+    "id": "r378",
+    "text": "只诊断我提供的这个产品页",
+    "category": "near-neighbor",
+    "expected": {"skill_id": "geo-diagnose", "workflow_id": null, "runnable": true}
+  },
+  {
+    "id": "r379",
+    "text": "给品牌做一次证据诊断",
+    "category": "near-neighbor",
+    "expected": {"skill_id": "geo-diagnose", "workflow_id": null, "runnable": true}
+  },
+  {
+    "id": "r380",
+    "text": "制定网站 SEO 关键词规划",
+    "category": "near-neighbor",
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
+  },
+  {
+    "id": "r381",
+    "text": "统计网站在 AI 回答中的真实引用次数",
+    "category": "near-neighbor",
+    "expected": {"skill_id": "geo", "workflow_id": null, "runnable": false}
   }
 ]

@@ -1375,7 +1375,7 @@
     "upgrade_check": {},
     "manifest": {
       "name": "geo-content",
-      "version": "0.6.0",
+      "version": "0.7.0",
       "owner": "姚金刚 / Yao",
       "updated_at": "2026-08-22",
       "review_cadence": "per-release",

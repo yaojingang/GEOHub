@@ -287,6 +287,7 @@ def _default_fetch(
     max_redirects: int = MAX_REDIRECTS,
     deadline: float | None = None,
     initial_addresses: list[ipaddress.IPv4Address | ipaddress.IPv6Address] | None = None,
+    user_agent: str = "Yao-GEO-Diagnose/0.1 (+explicit-user-url-only)",
 ) -> FetchResult:
     current = url
     source_deadline = min(
@@ -321,7 +322,7 @@ def _default_fetch(
             host_header = f"{host_header}:{parsed.port}"
         headers = {
             "Host": host_header,
-            "User-Agent": "Yao-GEO-Diagnose/0.1 (+explicit-user-url-only)",
+            "User-Agent": user_agent,
             "Accept": "text/html,application/xhtml+xml",
             "Connection": "close",
         }

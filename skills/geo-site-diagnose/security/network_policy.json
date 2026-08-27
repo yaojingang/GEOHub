@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "default_policy": {
+    "require_https": false,
+    "custom_hosts": "explicit-user-approved-public-host",
+    "review_rule": "Each run is limited to one normalized public HTTP(S) host supplied by the user. Redirect targets are revalidated and must stay on that host."
+  },
+  "scripts": {
+    "scripts/run_site_diagnose.py": {
+      "purpose": "Fetch a bounded public website sample and create a local GEO diagnosis artifact directory.",
+      "allowed_hosts": [
+        "runtime-user-approved-public-host"
+      ],
+      "allowed_path_prefixes": [
+        "/"
+      ],
+      "requires_https": "preferred; public HTTP is accepted when explicitly supplied by the user",
+      "custom_url_policy": "GET only; no credentials, fragments, queries, login paths, forms, downloads, off-host redirects, private addresses, or private DNS resolutions; browser dependencies remain same-host and policy-checked",
+      "timeout_seconds": 90,
+      "max_response_bytes": 2097152,
+      "max_total_bytes": 15728640,
+      "max_browser_subrequests": 64,
+      "auth": "none"
+    }
+  }
+}

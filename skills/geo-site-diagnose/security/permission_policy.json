@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "reviewed_at": "2026-08-25",
+  "capabilities": {
+    "network": {
+      "decision": "approved",
+      "reviewer": "GEOHub maintainer",
+      "scope": "Read-only bounded GET access to one user-supplied public HTTP(S) host under security/network_policy.json.",
+      "reason": "Website diagnosis requires current page, robots.txt, sitemap, and same-host rendering evidence.",
+      "expires_at": "2027-08-25",
+      "evidence": [
+        "security/network_policy.json",
+        "references/crawler-policy.md",
+        "scripts/run_site_diagnose.py"
+      ],
+      "target_enforcement": {
+        "openai": "Compiled permission metadata plus the bounded crawler policy in SKILL.md and security/network_policy.json",
+        "claude": "Compiled permission metadata plus the bounded crawler policy in SKILL.md and security/network_policy.json",
+        "generic": "Compiled permission metadata plus the bounded crawler policy in SKILL.md and security/network_policy.json",
+        "vscode": "Compiled permission metadata plus the bounded crawler policy in SKILL.md and security/network_policy.json"
+      }
+    },
+    "file_write": {
+      "decision": "approved",
+      "reviewer": "GEOHub maintainer",
+      "scope": "Create an Artifact Bus run directory under the user-selected output root, including snapshots, JSON evidence, lineage, quality files, and report.html.",
+      "reason": "The public interface promises a reproducible run directory and standalone report.",
+      "expires_at": "2027-08-25",
+      "evidence": [
+        "references/report-contract.md",
+        "scripts/run_site_diagnose.py"
+      ],
+      "target_enforcement": {
+        "openai": "User-selected --output root and Artifact Bus transactional publication",
+        "claude": "User-selected --output root and Artifact Bus transactional publication",
+        "generic": "User-selected --output root and Artifact Bus transactional publication",
+        "vscode": "User-selected --output root and Artifact Bus transactional publication"
+      }
+    },
+    "subprocess": {
+      "decision": "approved",
+      "reviewer": "GEOHub maintainer",
+      "scope": "Argument-list invocation of the installed Python module for the site-diagnose command without a shell.",
+      "reason": "The governed provider wrapper delegates to the canonical installed CLI so every target uses one validated implementation.",
+      "expires_at": "2027-08-25",
+      "evidence": [
+        "scripts/run_site_diagnose.py"
+      ],
+      "target_enforcement": {
+        "openai": "Fixed Python module invocation with shell disabled",
+        "claude": "Fixed Python module invocation with shell disabled",
+        "generic": "Fixed Python module invocation with shell disabled",
+        "vscode": "Fixed Python module invocation with shell disabled"
+      }
+    }
+  }
+}

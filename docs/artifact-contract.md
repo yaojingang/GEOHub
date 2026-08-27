@@ -8,6 +8,8 @@ Evidence states remain explicit: provided, observed, inferred, unverified, sourc
 
 Strategy runs add bounded candidates, fidelity, experiment, publication-handoff, and memory artifacts. Memory begins empty and accepts only positive measured observations that pass fidelity. Knowledge runs add normalized entities, facts, source-lined relations, communities, conflicts, coverage, query results, and evidence gaps. Conflicting values remain available for review.
 
-Release evidence lives outside run directories. The SBOM records build-environment dependency identities. Local provenance binds the staged source digest, commit revision, SBOM digest, and eleven archive digests while declaring an unsigned local builder. Production Readiness separates deterministic passes from missing external evidence.
+Website diagnosis runs add the crawl manifest, sampling plan, site and page diagnoses, evidence ledger, remediation backlog, quality artifacts, and one standalone visual HTML report. Source snapshots and graph inputs stay inside the run directory; the report contains no runtime CDN or local absolute path.
+
+Release evidence lives outside run directories. The SBOM records build-environment dependency identities. Local provenance binds the staged source digest, commit revision, SBOM digest, and twelve archive digests while declaring an unsigned local builder. Production Readiness separates deterministic passes from missing external evidence.
 
 Rollback removes the specific run directory. Code rollback keeps executor, schema, registry, manifest, and wrapper changes together.

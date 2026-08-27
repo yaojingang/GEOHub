@@ -142,9 +142,20 @@ def verify_archive(path: Path) -> dict:
                 if missing_references:
                     raise ValueError(f"{path.name} provider entry {skill['id']} references missing resources: {missing_references}")
             resolved_entries = len(active_entries)
-            expected_wrappers = {f"scripts/run_{name}.py" for name in ("route", "discover", "diagnose", "content", "measure", "strategy", "knowledge")}
+            expected_wrappers = {f"scripts/run_{name}.py" for name in ("route", "discover", "diagnose", "site_diagnose", "content", "measure", "strategy", "knowledge")}
             if not expected_wrappers <= set(members):
                 raise ValueError(f"{path.name} missing provider wrappers")
+            site_security = {
+                "security/providers/geo-site-diagnose/network_policy.json",
+                "security/providers/geo-site-diagnose/permission_policy.json",
+            }
+            if metadata.get("skill_id") == "geo-site-diagnose":
+                site_security = {
+                    "security/network_policy.json",
+                    "security/permission_policy.json",
+                }
+            if not site_security <= set(members):
+                raise ValueError(f"{path.name} missing site diagnosis security policies")
     return {"name": path.name, "sha256": sha256(path), "members": len(names), "skill_count": skill_count, "self_installable": self_installable, "resolved_active_entries": resolved_entries, "status": "pass"}
 
 

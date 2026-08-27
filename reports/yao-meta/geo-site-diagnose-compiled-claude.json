@@ -1,0 +1,513 @@
+{
+  "schema_version": "1.0",
+  "ok": true,
+  "generated_at": "2026-08-27",
+  "skill_dir": "skills/geo-site-diagnose",
+  "summary": {
+    "target_count": 1,
+    "pass_count": 1,
+    "warn_count": 0,
+    "block_count": 0,
+    "failure_count": 0,
+    "warning_count": 0
+  },
+  "targets": [
+    {
+      "schema_version": "1.0",
+      "target": "claude",
+      "status": "pass",
+      "compiler": {
+        "name": "yao-skill-ir-compiler",
+        "schema_version": "1.0",
+        "source": "skill-ir",
+        "ir_source": "reports/skill-ir.json",
+        "ir_schema_version": "2.0.0"
+      },
+      "source": {
+        "skill_dir": "skills/geo-site-diagnose",
+        "canonical_metadata": "agents/interface.yaml",
+        "declared_targets": [
+          "openai",
+          "claude",
+          "generic"
+        ]
+      },
+      "compiled_contract": {
+        "name": "geo-site-diagnose",
+        "title": "GEOHub 网站 GEO 诊断",
+        "version": "0.7.0",
+        "description": "Crawl one public website from a supplied URL, select up to ten representative page types, score evidence-lined GEO readiness, and generate a standalone visual HTML report. Use for 网站 GEO 诊断、全站 GEO 体检、网站 GEO 审计, or requests such as “帮我诊断网站GEO并附上网址”. Excludes single-page or brand-only diagnosis, live AI ranking or citation measurement, authenticated sites, and website modification.",
+        "job_to_be_done": "Crawl one public website from a supplied URL, select up to ten representative page types, score evidence-lined GEO readiness, and generate a standalone visual HTML report. Use for 网站 GEO 诊断、全站 GEO 体检、网站 GEO 审计, or requests such as “帮我诊断网站GEO并附上网址”. Excludes single-page or brand-only diagnosis, live AI ranking or citation measurement, authenticated sites, and website modification.",
+        "trigger": {
+          "description": "Crawl one public website from a supplied URL, select up to ten representative page types, score evidence-lined GEO readiness, and generate a standalone visual HTML report. Use for 网站 GEO 诊断、全站 GEO 体检、网站 GEO 审计, or requests such as “帮我诊断网站GEO并附上网址”. Excludes single-page or brand-only diagnosis, live AI ranking or citation measurement, authenticated sites, and website modification.",
+          "should_trigger": [
+            "帮我诊断网站GEO：https://example.com",
+            "Audit this public website and create a visual GEO report: https://example.com"
+          ],
+          "should_not_trigger": [
+            "只诊断这个产品页面",
+            "统计 ChatGPT 真实引用次数"
+          ],
+          "edge_cases": [
+            "给品牌做一次证据诊断",
+            "规划技术 SEO 迁移排查"
+          ]
+        },
+        "workflow": {
+          "steps": [
+            "Read `references/site-diagnosis-method.md`, `references/crawler-policy.md`, and `references/scoring-policy.md`.",
+            "Extract the single public URL. Ask only for the URL when it is missing.",
+            "Run `python3 scripts/run_site_diagnose.py --url <URL> --output <runs-root> --locale <locale> --max-pages 10 --render auto`.",
+            "Inspect `quality-report.json`, diagnostic confidence, source gaps, and limitations before presenting scores.",
+            "Validate the report against `references/report-module-contract.md` and `references/report-design-system.md`.",
+            "Deliver the complete Artifact Bus run directory and open `report.html` for the user."
+          ],
+          "decision_points": [],
+          "failure_modes": []
+        },
+        "resources": {
+          "references": [
+            "references/crawler-policy.md",
+            "references/input-example.json",
+            "references/report-contract.md",
+            "references/report-design-system.md",
+            "references/report-module-contract.md",
+            "references/scoring-policy.md",
+            "references/site-diagnosis-method.md"
+          ],
+          "scripts": [
+            "scripts/run_site_diagnose.py"
+          ],
+          "assets": [
+            "assets/ECHARTS-LICENSE.txt",
+            "assets/ECHARTS-NOTICE.txt",
+            "assets/echarts.min.js",
+            "assets/report-shell.html",
+            "assets/report.css",
+            "assets/report.js"
+          ],
+          "reports": [
+            "reports/output-risk-profile.md",
+            "reports/artifact-design-profile.md",
+            "reports/output_quality_scorecard.md",
+            "reports/security_trust_report.json",
+            "reports/security_trust_report.md",
+            "reports/runtime_permission_probes.json",
+            "reports/runtime_permission_probes.md"
+          ],
+          "counts": {
+            "references": 7,
+            "scripts": 1,
+            "assets": 6,
+            "reports": 7
+          }
+        },
+        "eval_plan": {
+          "trigger": [
+            "evals/output/cases.jsonl",
+            "evals/semantic_config.json",
+            "evals/trigger_cases.json"
+          ],
+          "output": [
+            "evals/output/cases.jsonl"
+          ],
+          "adversarial": [],
+          "baseline": "without_skill",
+          "counts": {
+            "trigger": 3,
+            "output": 1,
+            "adversarial": 0,
+            "baseline": 1
+          }
+        },
+        "risk": {
+          "output_risk": "low",
+          "execution_risk": "medium",
+          "trust_boundary": "external"
+        },
+        "governance": {
+          "owner": "姚金刚 / Yao",
+          "maturity": "governed",
+          "review_cadence": "per-release",
+          "review_due": ""
+        },
+        "runtime": {
+          "activation": {
+            "mode": "auto",
+            "paths": []
+          },
+          "execution": {
+            "context": "inline",
+            "shell": "bash"
+          },
+          "trust": {
+            "source_tier": "local",
+            "remote_inline_execution": "forbid",
+            "remote_metadata_policy": "allow-metadata-only"
+          },
+          "adapter_targets": [
+            "openai",
+            "claude",
+            "generic"
+          ],
+          "canonical_format": "agent-skills"
+        },
+        "permissions": {
+          "schema_version": "1.0",
+          "source": "reports/security_trust_report.json",
+          "source_available": true,
+          "declared_capabilities": [
+            "network",
+            "file_write",
+            "subprocess"
+          ],
+          "review_required": true,
+          "capabilities": {
+            "network": {
+              "required": true,
+              "script_count": 1,
+              "scripts": [
+                "scripts/run_site_diagnose.py"
+              ],
+              "review_reason": "Outbound hosts must match security/network_policy.json."
+            },
+            "file_write": {
+              "required": true,
+              "script_count": 1,
+              "scripts": [
+                "scripts/run_site_diagnose.py"
+              ],
+              "review_reason": "Scripts write local files or generated artifacts."
+            },
+            "subprocess": {
+              "required": true,
+              "script_count": 1,
+              "scripts": [
+                "scripts/run_site_diagnose.py"
+              ],
+              "review_reason": "Scripts spawn local commands and need operator review."
+            },
+            "interactive": {
+              "required": false,
+              "script_count": 0,
+              "scripts": [],
+              "review_reason": ""
+            }
+          },
+          "network_policy": {
+            "source": "security/network_policy.json",
+            "covered_scripts": [
+              "scripts/run_site_diagnose.py"
+            ],
+            "missing_scripts": [],
+            "mismatches": []
+          },
+          "help_smoke": {
+            "enabled": true,
+            "checked_count": 1,
+            "failed_count": 0,
+            "failed_scripts": []
+          },
+          "trust_summary": {
+            "secret_findings": 0,
+            "network_script_count": 1,
+            "file_write_script_count": 1,
+            "subprocess_script_count": 1,
+            "interactive_script_count": 0,
+            "help_smoke_failed_count": 0
+          }
+        },
+        "source_files_count": 3,
+        "target": "claude",
+        "target_permission_contract": {
+          "schema_version": "1.0",
+          "target": "claude",
+          "permission_model": "neutral-source-plus-adapter",
+          "native_enforcement": false,
+          "representation": "targets/claude/adapter.json::target_permission_contract and README notes",
+          "review_required": true,
+          "declared_capabilities": [
+            "network",
+            "file_write",
+            "subprocess"
+          ],
+          "capability_counts": {
+            "network": 1,
+            "file_write": 1,
+            "subprocess": 1,
+            "interactive": 0
+          },
+          "evidence": "reports/security_trust_report.json",
+          "operator_note": "Claude-compatible package keeps permission intent in adapter metadata for install review."
+        },
+        "target_native_contract": {
+          "schema_version": "1.0",
+          "target": "claude",
+          "native_surface": "Claude-compatible neutral source folder with adapter notes",
+          "activation": {
+            "policy": "Use SKILL.md frontmatter description as the primary activation contract and adapter.json for review metadata.",
+            "trigger_description": "Crawl one public website from a supplied URL, select up to ten representative page types, score evidence-lined GEO readiness, and generate a standalone visual HTML report. Use for 网站 GEO 诊断、全站 GEO 体检、网站 GEO 审计, or requests such as “帮我诊断网站GEO并附上网址”. Excludes single-page or brand-only diagnosis, live AI ranking or citation measurement, authenticated sites, and website modification.",
+            "manual_activation_supported": true,
+            "automatic_activation_note": "Depends on the target client route/catalog implementation."
+          },
+          "resources": {
+            "strategy": "Preserve the source tree directly; write target notes in targets/claude/README.md.",
+            "counts": {
+              "references": 7,
+              "scripts": 1,
+              "assets": 6,
+              "reports": 7
+            },
+            "generated_files": [
+              "targets/claude/adapter.json",
+              "targets/claude/README.md"
+            ]
+          },
+          "scripts": {
+            "strategy": "Scripts remain local package resources and must be reviewed through trust and permission reports before use.",
+            "script_count": 1,
+            "help_smoke_failed_count": 0
+          },
+          "permissions": {
+            "enforcement": "metadata-fallback",
+            "native_enforcement": false,
+            "declared_capabilities": [
+              "network",
+              "file_write",
+              "subprocess"
+            ],
+            "review_required": true
+          },
+          "review": {
+            "artifacts": [
+              "targets/claude/README.md",
+              "targets/claude/adapter.json",
+              "reports/review-studio.html"
+            ],
+            "fallback_behavior": "If Claude-specific metadata is not consumed, SKILL.md and references remain the source of truth.",
+            "unsupported_native_features": [
+              "vendor-native permission enforcement",
+              "provider-specific execution transforms",
+              "vendor-native metadata fields are carried as adapter JSON and README notes"
+            ]
+          },
+          "install_scope": "user or project skill directory"
+        },
+        "degradation_strategy": "neutral-source-plus-adapter",
+        "target_runtime": {
+          "adapter_mode": "neutral-source-plus-adapter",
+          "generated_files": [
+            "targets/claude/adapter.json",
+            "targets/claude/README.md"
+          ],
+          "metadata_mapping": {
+            "display_name": "targets/claude/adapter.json::display_name",
+            "default_prompt": "targets/claude/adapter.json::default_prompt",
+            "activation": "targets/claude/adapter.json::activation_mode",
+            "execution": "targets/claude/adapter.json::execution_context",
+            "trust": "targets/claude/adapter.json::trust_level",
+            "permissions": "targets/claude/adapter.json::target_permission_contract",
+            "degradation": "targets/claude/adapter.json::degradation_strategy"
+          },
+          "preserved_semantics": [
+            "trigger",
+            "workflow-counts",
+            "resources",
+            "eval-plan",
+            "risk",
+            "governance",
+            "runtime",
+            "trust",
+            "permissions"
+          ],
+          "native_surface": "Claude-compatible neutral source folder with adapter notes"
+        }
+      },
+      "permission_contract": {
+        "schema_version": "1.0",
+        "source": "reports/security_trust_report.json",
+        "source_available": true,
+        "declared_capabilities": [
+          "network",
+          "file_write",
+          "subprocess"
+        ],
+        "review_required": true,
+        "capabilities": {
+          "network": {
+            "required": true,
+            "script_count": 1,
+            "scripts": [
+              "scripts/run_site_diagnose.py"
+            ],
+            "review_reason": "Outbound hosts must match security/network_policy.json."
+          },
+          "file_write": {
+            "required": true,
+            "script_count": 1,
+            "scripts": [
+              "scripts/run_site_diagnose.py"
+            ],
+            "review_reason": "Scripts write local files or generated artifacts."
+          },
+          "subprocess": {
+            "required": true,
+            "script_count": 1,
+            "scripts": [
+              "scripts/run_site_diagnose.py"
+            ],
+            "review_reason": "Scripts spawn local commands and need operator review."
+          },
+          "interactive": {
+            "required": false,
+            "script_count": 0,
+            "scripts": [],
+            "review_reason": ""
+          }
+        },
+        "network_policy": {
+          "source": "security/network_policy.json",
+          "covered_scripts": [
+            "scripts/run_site_diagnose.py"
+          ],
+          "missing_scripts": [],
+          "mismatches": []
+        },
+        "help_smoke": {
+          "enabled": true,
+          "checked_count": 1,
+          "failed_count": 0,
+          "failed_scripts": []
+        },
+        "trust_summary": {
+          "secret_findings": 0,
+          "network_script_count": 1,
+          "file_write_script_count": 1,
+          "subprocess_script_count": 1,
+          "interactive_script_count": 0,
+          "help_smoke_failed_count": 0
+        }
+      },
+      "target_permission_contract": {
+        "schema_version": "1.0",
+        "target": "claude",
+        "permission_model": "neutral-source-plus-adapter",
+        "native_enforcement": false,
+        "representation": "targets/claude/adapter.json::target_permission_contract and README notes",
+        "review_required": true,
+        "declared_capabilities": [
+          "network",
+          "file_write",
+          "subprocess"
+        ],
+        "capability_counts": {
+          "network": 1,
+          "file_write": 1,
+          "subprocess": 1,
+          "interactive": 0
+        },
+        "evidence": "reports/security_trust_report.json",
+        "operator_note": "Claude-compatible package keeps permission intent in adapter metadata for install review."
+      },
+      "target_native_contract": {
+        "schema_version": "1.0",
+        "target": "claude",
+        "native_surface": "Claude-compatible neutral source folder with adapter notes",
+        "activation": {
+          "policy": "Use SKILL.md frontmatter description as the primary activation contract and adapter.json for review metadata.",
+          "trigger_description": "Crawl one public website from a supplied URL, select up to ten representative page types, score evidence-lined GEO readiness, and generate a standalone visual HTML report. Use for 网站 GEO 诊断、全站 GEO 体检、网站 GEO 审计, or requests such as “帮我诊断网站GEO并附上网址”. Excludes single-page or brand-only diagnosis, live AI ranking or citation measurement, authenticated sites, and website modification.",
+          "manual_activation_supported": true,
+          "automatic_activation_note": "Depends on the target client route/catalog implementation."
+        },
+        "resources": {
+          "strategy": "Preserve the source tree directly; write target notes in targets/claude/README.md.",
+          "counts": {
+            "references": 7,
+            "scripts": 1,
+            "assets": 6,
+            "reports": 7
+          },
+          "generated_files": [
+            "targets/claude/adapter.json",
+            "targets/claude/README.md"
+          ]
+        },
+        "scripts": {
+          "strategy": "Scripts remain local package resources and must be reviewed through trust and permission reports before use.",
+          "script_count": 1,
+          "help_smoke_failed_count": 0
+        },
+        "permissions": {
+          "enforcement": "metadata-fallback",
+          "native_enforcement": false,
+          "declared_capabilities": [
+            "network",
+            "file_write",
+            "subprocess"
+          ],
+          "review_required": true
+        },
+        "review": {
+          "artifacts": [
+            "targets/claude/README.md",
+            "targets/claude/adapter.json",
+            "reports/review-studio.html"
+          ],
+          "fallback_behavior": "If Claude-specific metadata is not consumed, SKILL.md and references remain the source of truth.",
+          "unsupported_native_features": [
+            "vendor-native permission enforcement",
+            "provider-specific execution transforms",
+            "vendor-native metadata fields are carried as adapter JSON and README notes"
+          ]
+        },
+        "install_scope": "user or project skill directory"
+      },
+      "target_transform": {
+        "target": "claude",
+        "adapter_mode": "neutral-source-plus-adapter",
+        "generated_files": [
+          "targets/claude/adapter.json",
+          "targets/claude/README.md"
+        ],
+        "metadata_mapping": {
+          "display_name": "targets/claude/adapter.json::display_name",
+          "default_prompt": "targets/claude/adapter.json::default_prompt",
+          "activation": "targets/claude/adapter.json::activation_mode",
+          "execution": "targets/claude/adapter.json::execution_context",
+          "trust": "targets/claude/adapter.json::trust_level",
+          "permissions": "targets/claude/adapter.json::target_permission_contract",
+          "degradation": "targets/claude/adapter.json::degradation_strategy"
+        },
+        "preserved_semantics": [
+          "trigger",
+          "workflow-counts",
+          "resources",
+          "eval-plan",
+          "risk",
+          "governance",
+          "runtime",
+          "trust",
+          "permissions"
+        ],
+        "degradation_strategy": "neutral-source-plus-adapter",
+        "permission_representation": "targets/claude/adapter.json::target_permission_contract and README notes",
+        "native_surface": "Claude-compatible neutral source folder with adapter notes",
+        "activation_policy": "Use SKILL.md frontmatter description as the primary activation contract and adapter.json for review metadata.",
+        "resource_strategy": "Preserve the source tree directly; write target notes in targets/claude/README.md.",
+        "script_strategy": "Scripts remain local package resources and must be reviewed through trust and permission reports before use.",
+        "permission_enforcement": "metadata-fallback"
+      },
+      "unsupported_features": [
+        "vendor-native metadata fields are carried as adapter JSON and README notes"
+      ],
+      "warnings": [],
+      "failures": []
+    }
+  ],
+  "failures": [],
+  "warnings": [],
+  "artifacts": {
+    "json": "reports/yao-meta/geo-site-diagnose-compiled-claude.json",
+    "markdown": "reports/yao-meta/geo-site-diagnose-compiled-claude.md"
+  }
+}

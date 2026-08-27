@@ -1,0 +1,97 @@
+{
+  "schema_version": "2.0.0",
+  "name": "geo-site-diagnose",
+  "title": "GEOHub 网站 GEO 诊断",
+  "job_to_be_done": "Crawl one public website from a supplied URL, select up to ten representative page types, score evidence-lined GEO readiness, and generate a standalone visual HTML report. Use for 网站 GEO 诊断、全站 GEO 体检、网站 GEO 审计, or requests such as “帮我诊断网站GEO并附上网址”. Excludes single-page or brand-only diagnosis, live AI ranking or citation measurement, authenticated sites, and website modification.",
+  "trigger_surface": {
+    "description": "Crawl one public website from a supplied URL, select up to ten representative page types, score evidence-lined GEO readiness, and generate a standalone visual HTML report. Use for 网站 GEO 诊断、全站 GEO 体检、网站 GEO 审计, or requests such as “帮我诊断网站GEO并附上网址”. Excludes single-page or brand-only diagnosis, live AI ranking or citation measurement, authenticated sites, and website modification.",
+    "should_trigger": [
+      "帮我诊断网站GEO：https://example.com",
+      "Audit this public website and create a visual GEO report: https://example.com"
+    ],
+    "should_not_trigger": [
+      "只诊断这个产品页面",
+      "统计 ChatGPT 真实引用次数"
+    ],
+    "edge_cases": [
+      "给品牌做一次证据诊断",
+      "规划技术 SEO 迁移排查"
+    ]
+  },
+  "workflow": {
+    "steps": [
+      "Read `references/site-diagnosis-method.md`, `references/crawler-policy.md`, and `references/scoring-policy.md`.",
+      "Extract the single public URL. Ask only for the URL when it is missing.",
+      "Run `python3 scripts/run_site_diagnose.py --url <URL> --output <runs-root> --locale <locale> --max-pages 10 --render auto`.",
+      "Inspect `quality-report.json`, diagnostic confidence, source gaps, and limitations before presenting scores.",
+      "Validate the report against `references/report-module-contract.md` and `references/report-design-system.md`.",
+      "Deliver the complete Artifact Bus run directory and open `report.html` for the user."
+    ],
+    "decision_points": [],
+    "failure_modes": []
+  },
+  "resources": {
+    "references": [
+      "references/crawler-policy.md",
+      "references/input-example.json",
+      "references/report-contract.md",
+      "references/report-design-system.md",
+      "references/report-module-contract.md",
+      "references/scoring-policy.md",
+      "references/site-diagnosis-method.md"
+    ],
+    "scripts": [
+      "scripts/run_site_diagnose.py"
+    ],
+    "assets": [
+      "assets/ECHARTS-LICENSE.txt",
+      "assets/ECHARTS-NOTICE.txt",
+      "assets/echarts.min.js",
+      "assets/report-shell.html",
+      "assets/report.css",
+      "assets/report.js"
+    ],
+    "reports": [
+      "reports/output-risk-profile.md",
+      "reports/artifact-design-profile.md",
+      "reports/output_quality_scorecard.md",
+      "reports/security_trust_report.json",
+      "reports/security_trust_report.md",
+      "reports/runtime_permission_probes.json",
+      "reports/runtime_permission_probes.md"
+    ]
+  },
+  "eval_plan": {
+    "trigger": [
+      "evals/output/cases.jsonl",
+      "evals/semantic_config.json",
+      "evals/trigger_cases.json"
+    ],
+    "output": [
+      "evals/output/cases.jsonl"
+    ],
+    "adversarial": [],
+    "baseline": "without_skill"
+  },
+  "risk": {
+    "output_risk": "low",
+    "execution_risk": "medium",
+    "trust_boundary": "external"
+  },
+  "governance": {
+    "owner": "姚金刚 / Yao",
+    "maturity": "governed",
+    "review_cadence": "per-release",
+    "review_due": ""
+  },
+  "targets": [
+    "openai",
+    "claude",
+    "generic"
+  ],
+  "source_files": [
+    "SKILL.md",
+    "manifest.json",
+    "agents/interface.yaml"
+  ]
+}

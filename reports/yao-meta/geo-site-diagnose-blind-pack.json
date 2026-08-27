@@ -1,0 +1,131 @@
+{
+  "schema_version": "1.0",
+  "seed": "yao-output-eval-blind-v1",
+  "summary": {
+    "pair_count": 5,
+    "answer_key_separate": true,
+    "with_skill_hidden_count": 5
+  },
+  "pairs": [
+    {
+      "case_id": "happy",
+      "prompt": "帮我诊断网站GEO：https://example.com",
+      "input_files": [],
+      "metadata": {
+        "case_type": "happy"
+      },
+      "review_instruction": "Pick A or B based only on the rubric. Do not infer which output came from the skill.",
+      "rubric": [
+        {
+          "id": "contract",
+          "description": "必须满足网站诊断输出契约。",
+          "weight": 1.0
+        }
+      ],
+      "variant_a": {
+        "blind_id": "happy:A",
+        "output": "抓取同站典型页面，生成 sampling-plan、site-diagnosis、逐页证据、remediation-backlog 和独立 report.html。"
+      },
+      "variant_b": {
+        "blind_id": "happy:B",
+        "output": "给出通用建议。"
+      }
+    },
+    {
+      "case_id": "missing-url",
+      "prompt": "帮我诊断网站 GEO",
+      "input_files": [],
+      "metadata": {
+        "case_type": "missing_input"
+      },
+      "review_instruction": "Pick A or B based only on the rubric. Do not infer which output came from the skill.",
+      "rubric": [
+        {
+          "id": "input",
+          "description": "缺少核心输入时只请求网址。",
+          "weight": 1.0
+        }
+      ],
+      "variant_a": {
+        "blind_id": "missing-url:A",
+        "output": "猜测网站常见问题。"
+      },
+      "variant_b": {
+        "blind_id": "missing-url:B",
+        "output": "只追问一个公开 HTTP(S) 网址。"
+      }
+    },
+    {
+      "case_id": "boundary",
+      "prompt": "统计这个网站在 ChatGPT 的真实引用次数",
+      "input_files": [],
+      "metadata": {
+        "case_type": "boundary"
+      },
+      "review_instruction": "Pick A or B based only on the rubric. Do not infer which output came from the skill.",
+      "rubric": [
+        {
+          "id": "boundary",
+          "description": "不得虚构平台效果。",
+          "weight": 1.0
+        }
+      ],
+      "variant_a": {
+        "blind_id": "boundary:A",
+        "output": "路由到 geo-measure，并说明需要真实平台观测数据。"
+      },
+      "variant_b": {
+        "blind_id": "boundary:B",
+        "output": "引用次数为 42。"
+      }
+    },
+    {
+      "case_id": "source-gap",
+      "prompt": "robots 阻止抓取时继续诊断",
+      "input_files": [],
+      "metadata": {
+        "case_type": "source_shortfall"
+      },
+      "review_instruction": "Pick A or B based only on the rubric. Do not infer which output came from the skill.",
+      "rubric": [
+        {
+          "id": "gap",
+          "description": "抓取缺口必须透明。",
+          "weight": 1.0
+        }
+      ],
+      "variant_a": {
+        "blind_id": "source-gap:A",
+        "output": "把页面标记为 source_gap，降低置信度并保留限制。"
+      },
+      "variant_b": {
+        "blind_id": "source-gap:B",
+        "output": "假设页面信号。"
+      }
+    },
+    {
+      "case_id": "neighbor",
+      "prompt": "只检查我提供的一个产品页",
+      "input_files": [],
+      "metadata": {
+        "case_type": "near_neighbor"
+      },
+      "review_instruction": "Pick A or B based only on the rubric. Do not infer which output came from the skill.",
+      "rubric": [
+        {
+          "id": "route",
+          "description": "单页请求必须保留旧路径。",
+          "weight": 1.0
+        }
+      ],
+      "variant_a": {
+        "blind_id": "neighbor:A",
+        "output": "自动抓取整个网站。"
+      },
+      "variant_b": {
+        "blind_id": "neighbor:B",
+        "output": "保留 geo-diagnose 单页诊断路径，仅分析明确提供的页面。"
+      }
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 # GEO SEO Hub
 
-**Version 0.6.0 · Experimental · GEO-first · SEO-ready**
+**Version 0.7.0 · Experimental · GEO-first · SEO-ready**
 
-GEO SEO Hub is an open, protocol-first agent skill hub with active GEO workflows and an SEO-ready shared foundation. Version 0.6.0 adds hybrid intent decisions, Capability Cards, deterministic TaskPlans, and a recoverable workflow runtime to the existing Artifact Bus, evaluation lab, discovery, diagnosis, content, measurement, strategy optimization, knowledge governance, and seven active Skills.
+GEO SEO Hub is an open, protocol-first agent skill hub with active GEO workflows and an SEO-ready shared foundation. Version 0.7.0 adds bounded multi-page website GEO diagnosis and a standalone visual report to the existing Artifact Bus, evaluation lab, hybrid routing, TaskPlans, discovery, explicit-source diagnosis, content, measurement, strategy optimization, knowledge governance, and eight active Skills.
 
 The skills are Library-engineered packages while product behavior remains **Experimental**. `maturity_tier=library` describes packaging rigor and does not claim production outcome quality.
 
@@ -11,6 +11,7 @@ The skills are Library-engineered packages while product behavior remains **Expe
 - `geo`: routes Chinese and English requests through the registry and reports unavailable routes honestly.
 - `geo-discover`: converts a validated GEO brief into a deterministic query map, opportunity map, evidence ledger, run manifest, and quality report.
 - `geo-diagnose`: evaluates explicit brand, site, or page sources and emits a structured diagnosis, deterministic report, evidence ledger, remediation query map, opportunity map, quality report, and run manifest.
+- `geo-site-diagnose`: starts from one public URL, discovers up to ten representative page types on the same host, emits reconstructable eight-dimension scores, and generates one offline ten-module visual HTML report.
 - `geo-content`: creates evidence-lined titles, explainers, comparisons, rankings, page blueprints, refinements, and article-friendly artifacts as JSON, Markdown, and standalone HTML; DOCX/PDF are optional render layers.
 - `geo-measure`: computes reproducible visibility, mention, source-inclusion, citation-share, and panel-coverage metrics from approved offline engine-observation bundles.
 - `geo-strategy`: produces bounded intervention candidates, fidelity checks, experiment plans, external publication handoffs, and positive-only strategy memory.
@@ -25,7 +26,7 @@ No connector, live platform sampling, search volume, ranking, or conversion data
 
 GEO SEO Hub treats GEO and SEO as related capability domains with a shared search foundation. Query intent, source evidence, brand facts, entity structure, content specifications, site parsing, quality reports, and Artifact Bus contracts can serve both domains.
 
-Version 0.6.0 ships executable GEO discovery, diagnosis, content, observation-bundle measurement, strategy planning, knowledge governance, routing, TaskPlan compilation, and gated workflow execution. Strategy execution pauses for human publication approval, then requires a verified publication receipt and approved observation bundle before measurement. Dedicated SEO workflows and outcome claims for technical SEO, SERP and keyword data, indexation, Core Web Vitals, internal linking, Search Console, and traffic measurement remain future Registry additions.
+Version 0.7.0 ships executable GEO discovery, explicit-source diagnosis, bounded website diagnosis, content, observation-bundle measurement, strategy planning, knowledge governance, routing, TaskPlan compilation, and gated workflow execution. Strategy execution pauses for human publication approval, then requires a verified publication receipt and approved observation bundle before measurement. Dedicated SEO workflows and outcome claims for technical SEO, SERP and keyword data, indexation, Core Web Vitals, internal linking, Search Console, and traffic measurement remain future Registry additions.
 
 Version 0.6 retains `geo-seo-hub` as the distribution and CLI namespace, `geo_seo_hub` as the Python module, and `share/geo-seo-hub` as the installed data root. Existing `geo-*` Skill IDs, public imports, provider CLI contracts, legacy execution defaults, and Artifact Bus protocol `1.0.0` remain stable. Workflow state moves to `2.0.0` through an explicit backup migration. See `docs/migration-0.6.md` and `CHANGELOG.md`.
 
@@ -58,11 +59,22 @@ python3 scripts/verify_packages.py
 python3 scripts/install_simulation.py --target all
 ```
 
-The eleven artifacts are a source ZIP, one unified single-Skill ZIP, seven provider Skill ZIPs, and Codex/Claude adapter ZIPs. Each ZIP supports `pip install .` from its extraction root. Unified and target adapters contain seven parseable provider entries and wrappers. Every community artifact is `AGPL-3.0-only`; commercial metadata remains `inquiry_only`. Version `0.6.0` has no verified GitHub Release assets in this source snapshot; build packages locally or run the attested release workflow. See `docs/installation.md`.
+The twelve artifacts are a source ZIP, one unified single-Skill ZIP, eight provider Skill ZIPs, and Codex/Claude adapter ZIPs. Each ZIP supports `pip install .` from its extraction root. Unified and target adapters contain eight parseable provider entries and wrappers. Every community artifact is `AGPL-3.0-only`; commercial metadata remains `inquiry_only`. Version `0.7.0` has no verified GitHub Release assets in this source snapshot; build packages locally or run the attested release workflow. See `docs/installation.md`.
 
 Version 0.2 removes the pre-release 0.1 runtime aliases. Recreate the environment before installing 0.2; the exact historical mapping remains in the migration ledger and third-party notice.
 
-The CLI prints JSON. The `--output` value is a runs root; all seven provider executors write protocol `1.0.0` runs to `<output>/<run-id>/` and return that actual run directory. Content runs never access the network, snapshot relative source files for offline replay, escape user text in standalone HTML, and keep optional renderer failures explicit. If DOCX/PDF dependencies are missing, core output succeeds and the run manifest records `degraded` plus `missing_dependencies`. Install `.[render]` to request DOCX/PDF support. Diagnose fetches only explicit public HTTP(S) canonical URLs without query strings, accepts HTML/XHTML, performs no crawl expansion, and snapshots successful pages for offline replay. Unavailable or unsupported sources remain gaps. Its scores do not represent live AI-platform recall, ranking, or citation share.
+The CLI prints JSON. The `--output` value is a runs root; all provider executors write protocol `1.0.0` runs to `<output>/<run-id>/` and return that actual run directory. Content runs remain offline and keep optional renderer failures explicit. `geo-diagnose` fetches at most five explicit public sources without crawl expansion. `site-diagnose` performs bounded same-host discovery with a ten-page hard limit, records render and source gaps, and writes a standalone `report.html`. Neither diagnostic path represents live AI-platform recall, ranking, citation share, traffic, or business outcomes.
+
+```bash
+geo-seo-hub site-diagnose \
+  --url https://example.com \
+  --output runs \
+  --locale zh-CN \
+  --max-pages 10 \
+  --render auto
+```
+
+See the reproducible [GEOHub demo report](reports/examples/geo-site-diagnose-demo.html), [desktop capture](reports/examples/geo-site-diagnose-demo-desktop.png), and [mobile capture](reports/examples/geo-site-diagnose-demo-mobile.png). The complete fixture renders 23 chart views across ten diagnostic modules; live reports keep evidence gaps explicit when a chart is ineligible.
 
 Release evidence is generated with `scripts/generate_sbom.py`, `scripts/generate_provenance.py`, `scripts/verify_provenance.py`, and `scripts/render_production_readiness.py`. Local provenance is explicitly unsigned. The current Production Readiness decision stays blocked while human review, live platform benchmarks, governed adoption, external strategy effect, production knowledge evaluation, legal review, and executed CI attestation remain missing evidence.
 
@@ -71,6 +83,7 @@ Data retention is preview-only by default. `geo-seo-hub data-retention --runs-ro
 ## Visual reports
 
 - [GEOHub 0.6.0 intent and orchestration upgrade](docs/intent-orchestration-upgrade-0.6.md) records the Capability Card, hybrid routing, TaskPlan, recoverable workflow, security review, acceptance evidence, and remaining promotion gates.
+- [Migration to 0.7.0](docs/migration-0.7.md) records Site Diagnose routing, compatibility, packaging, browser rendering, and rollback boundaries.
 - [GEOHub 0.5.0 upgrade review](docs/visual-reports/geohub-0.5.0-upgrade/README.md) provides the standalone Chinese HTML report with 17-module before-and-after scores, repair closure, deterministic gates, and remaining Production evidence.
 
 ## License and governance

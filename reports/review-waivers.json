@@ -83,6 +83,24 @@
       "recheck": "Record a reviewer decision before any maturity promotion beyond experimental or this expiry date."
     },
     {
+      "id": "geo-site-diagnose-operations-loop",
+      "skill_id": "geo-site-diagnose",
+      "gate": "operations-loop",
+      "owner": "Yao maintainer",
+      "reason": "The governed skill has deterministic fixture evidence and no privacy-approved real-site operations sample yet.",
+      "expires_on": "2026-11-01",
+      "recheck": "Review consented real-site crawl outcomes, render gaps, and remediation usefulness before the next public release."
+    },
+    {
+      "id": "geo-site-diagnose-release-notes",
+      "skill_id": "geo-site-diagnose",
+      "gate": "release-notes",
+      "owner": "Yao maintainer",
+      "reason": "The 0.7.0 governed release keeps production promotion blocked pending external security, accessibility, and human report review.",
+      "expires_on": "2026-11-01",
+      "recheck": "Record reviewer decisions before any maturity promotion or this expiry date."
+    },
+    {
       "id": "geo-content-operations-loop",
       "skill_id": "geo-content",
       "gate": "operations-loop",

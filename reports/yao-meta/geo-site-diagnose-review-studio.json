@@ -1,0 +1,2071 @@
+{
+  "schema_version": "2.0",
+  "ok": true,
+  "skill_dir": ".",
+  "summary": {
+    "decision": "review",
+    "world_class_score": 65,
+    "gate_count": 16,
+    "gate_contract_ok": true,
+    "blocker_count": 0,
+    "warning_count": 14,
+    "action_count": 14,
+    "annotation_count": 0,
+    "open_annotation_count": 0,
+    "open_annotation_blocker_count": 0,
+    "open_annotation_warning_count": 0
+  },
+  "gates": [
+    {
+      "key": "intent-canvas",
+      "label": "意图画布",
+      "status": "warn",
+      "detail": "intent confidence 0/100; clarification legacy; assumptions 0; stop n/a; review current intent frame",
+      "evidence": "reports/intent-confidence.json",
+      "link": "../../skills/geo-site-diagnose/reports/intent-confidence.md",
+      "review_action_id": "review-action-intent-canvas",
+      "review_action_status": "warn",
+      "review_action_title": "意图画布",
+      "review_action_next_step": "收紧真实任务、输入、输出、排除项和成功标准。",
+      "review_action_reason": "低 intent confidence 会让后续 Skill IR、输出评测和 Review Studio 结论建立在模糊意图上。",
+      "review_action_source_ref_count": 2,
+      "review_action_verification_command": "python3 scripts/yao.py intent-confidence . --self"
+    },
+    {
+      "key": "trigger-lab",
+      "label": "触发实验",
+      "status": "warn",
+      "detail": "route scorecard is missing; run route-scorecard before release review",
+      "evidence": "reports/route_scorecard.json",
+      "link": "../../skills/geo-site-diagnose/reports/route_scorecard.md",
+      "review_action_id": "review-action-trigger-lab",
+      "review_action_status": "warn",
+      "review_action_title": "触发实验",
+      "review_action_next_step": "修正 route scorecard 中的误触发、漏触发或 ambiguous case。",
+      "review_action_reason": "触发错误会让正确 Skill 失活，或让相邻 Skill 被错误调用。",
+      "review_action_source_ref_count": 3,
+      "review_action_verification_command": "python3 scripts/build_confusion_matrix.py"
+    },
+    {
+      "key": "output-lab",
+      "label": "输出实验",
+      "status": "warn",
+      "detail": "output eval scorecard is missing; generate it before production review",
+      "evidence": "reports/output_quality_scorecard.json",
+      "link": "../../skills/geo-site-diagnose/reports/output_quality_scorecard.md",
+      "review_action_id": "review-action-output-lab",
+      "review_action_status": "warn",
+      "review_action_title": "输出实验",
+      "review_action_next_step": "补足 output eval 覆盖、execution evidence、blind A/B 和 reviewer adjudication。同步补足盲审声明。",
+      "review_action_reason": "没有输出质量和人工盲评证据时，Skill 只能证明会触发，不能证明输出真的更好且经得起审查。",
+      "review_action_source_ref_count": 6,
+      "review_action_verification_command": "python3 scripts/adjudicate_output_review.py --write-template && python3 scripts/yao.py output-review --self"
+    },
+    {
+      "key": "context-budget",
+      "label": "上下文",
+      "status": "warn",
+      "detail": "initial load n/a/n/a; deferred n/a/n/a; top deferred none; resource governance unknown; quality density n/a",
+      "evidence": "reports/context_budget.json",
+      "link": "../../skills/geo-site-diagnose/reports/context_budget.md",
+      "review_action_id": "review-action-context-budget",
+      "review_action_status": "warn",
+      "review_action_title": "上下文",
+      "review_action_next_step": "压缩或拆分高成本 deferred resources，保留最小可路由上下文。",
+      "review_action_reason": "初始加载可以安全，但后续 references、scripts、evals 体量过大时，reviewer 仍需要看到维护和读取成本。",
+      "review_action_source_ref_count": 4,
+      "review_action_verification_command": "python3 scripts/render_context_reports.py"
+    },
+    {
+      "key": "runtime-matrix",
+      "label": "运行矩阵",
+      "status": "warn",
+      "detail": "runtime conformance matrix is missing",
+      "evidence": "reports/conformance_matrix.json",
+      "link": "../../skills/geo-site-diagnose/reports/conformance_matrix.md",
+      "review_action_id": "review-action-runtime-matrix",
+      "review_action_status": "warn",
+      "review_action_title": "运行矩阵",
+      "review_action_next_step": "修复目标端结构、metadata、相对路径、fallback 或 adapter target 声明。",
+      "review_action_reason": "runtime conformance 失败意味着包可能被目标客户端错误加载或静默降级。",
+      "review_action_source_ref_count": 2,
+      "review_action_verification_command": "python3 scripts/run_conformance_suite.py ."
+    },
+    {
+      "key": "trust-report",
+      "label": "信任报告",
+      "status": "warn",
+      "detail": "0 secrets; 1 scripts; 1 network-capable scripts; 0 help smoke failures",
+      "evidence": "reports/security_trust_report.json",
+      "link": "../../skills/geo-site-diagnose/reports/security_trust_report.md",
+      "review_action_id": "review-action-trust-report",
+      "review_action_status": "warn",
+      "review_action_title": "信任报告",
+      "review_action_next_step": "处理脚本 help surface、依赖 pin、network policy、secret 和权限声明。",
+      "review_action_reason": "团队分发时，脚本和依赖是主要供应链风险面，warning 必须有明确处置。",
+      "review_action_source_ref_count": 3,
+      "review_action_verification_command": "python3 scripts/trust_check.py ."
+    },
+    {
+      "key": "python-compat",
+      "label": "Python 兼容",
+      "status": "warn",
+      "detail": "Python compatibility report is missing",
+      "evidence": "reports/python_compatibility.json",
+      "link": "../../skills/geo-site-diagnose/reports/python_compatibility.md",
+      "review_action_id": "review-action-python-compat",
+      "review_action_status": "warn",
+      "review_action_title": "Python 兼容",
+      "review_action_next_step": "修复 Python 3.11 语法兼容问题，尤其是 f-string 表达式内的反斜杠转义。",
+      "review_action_reason": "目标运行环境可能仍停留在 Python 3.11，语法漂移会让 CLI、报告生成和 CI 在发布后直接失败。",
+      "review_action_source_ref_count": 3,
+      "review_action_verification_command": "python3 scripts/yao.py python-compat . --self"
+    },
+    {
+      "key": "architecture-maintainability",
+      "label": "架构维护",
+      "status": "warn",
+      "detail": "architecture maintainability report is missing for a reusable package",
+      "evidence": "reports/architecture_maintainability.json",
+      "link": "../../skills/geo-site-diagnose/reports/architecture_maintainability.md",
+      "review_action_id": "review-action-architecture-maintainability",
+      "review_action_status": "warn",
+      "review_action_title": "架构维护",
+      "review_action_next_step": "处理大文件和 CLI command surface 的维护性热点，优先拆分稳定职责边界。",
+      "review_action_reason": "Meta Skill 的门禁、报告和 CLI 会持续增长；如果不把架构债纳入审查，后续能力会越来越难验证和迁移。",
+      "review_action_source_ref_count": 5,
+      "review_action_verification_command": "python3 scripts/yao.py architecture-audit . --self"
+    },
+    {
+      "key": "permission-gates",
+      "label": "权限批准",
+      "status": "pass",
+      "detail": "3/3 permissions approved; gaps 0; required file_write, network, subprocess",
+      "evidence": "reports/security_trust_report.json + security/permission_policy.json",
+      "link": "../../skills/geo-site-diagnose/security/permission_policy.md",
+      "review_action_id": "",
+      "review_action_status": "",
+      "review_action_title": "",
+      "review_action_next_step": "",
+      "review_action_reason": "",
+      "review_action_source_ref_count": 0,
+      "review_action_verification_command": ""
+    },
+    {
+      "key": "permission-runtime",
+      "label": "权限探针",
+      "status": "pass",
+      "detail": "3/3 targets probed; native 0; metadata fallback 3; installer 0; residual risks 3",
+      "evidence": "reports/runtime_permission_probes.json",
+      "link": "../../skills/geo-site-diagnose/reports/runtime_permission_probes.md",
+      "review_action_id": "",
+      "review_action_status": "",
+      "review_action_title": "",
+      "review_action_next_step": "",
+      "review_action_reason": "",
+      "review_action_source_ref_count": 0,
+      "review_action_verification_command": ""
+    },
+    {
+      "key": "skill-atlas",
+      "label": "组合治理",
+      "status": "warn",
+      "detail": "skill atlas is missing; portfolio-level conflicts are unknown",
+      "evidence": "reports/skill_atlas.json",
+      "link": "../../skills/geo-site-diagnose/reports/skill_atlas.html",
+      "review_action_id": "review-action-skill-atlas",
+      "review_action_status": "warn",
+      "review_action_title": "组合治理",
+      "review_action_next_step": "处理 portfolio 里的路由冲突、owner 缺口、stale skill 和重复能力。",
+      "review_action_reason": "单个 Skill 质量很高仍可能在团队 skill library 中被相邻 Skill 冲突削弱。",
+      "review_action_source_ref_count": 3,
+      "review_action_verification_command": "python3 scripts/build_skill_atlas.py --workspace-root ."
+    },
+    {
+      "key": "operations-loop",
+      "label": "运营回路",
+      "status": "warn",
+      "detail": "adoption drift report is missing; real usage impact is unknown",
+      "evidence": "reports/adoption_drift_report.json + reports/skillops/daily + reports/skillops/weekly",
+      "link": "../../skills/geo-site-diagnose/reports/adoption_drift_report.md",
+      "review_action_id": "review-action-operations-loop",
+      "review_action_status": "warn",
+      "review_action_title": "运营回路",
+      "review_action_next_step": "记录 metadata-only 使用事件，或明确当前 release 缺少真实使用信号。",
+      "review_action_reason": "没有运营回路时，reviewer 无法判断采用率、误触发、坏输出和 review overdue 的真实影响。",
+      "review_action_source_ref_count": 2,
+      "review_action_verification_command": "python3 scripts/render_adoption_drift_report.py . --record-event skill_activation --activation-type explicit --outcome accepted"
+    },
+    {
+      "key": "review-waivers",
+      "label": "人工批准",
+      "status": "warn",
+      "detail": "review waiver ledger is missing; warning acceptance is not auditable",
+      "evidence": "reports/review_waivers.json",
+      "link": "../../skills/geo-site-diagnose/reports/review_waivers.md",
+      "review_action_id": "review-action-review-waivers",
+      "review_action_status": "warn",
+      "review_action_title": "人工批准",
+      "review_action_next_step": "对保留的 warning 写入 reviewer、理由、范围和到期时间，或修掉 warning。",
+      "review_action_reason": "warning 可以被接受，但必须可审计、会过期，并且不能掩盖 blocker。",
+      "review_action_source_ref_count": 2,
+      "review_action_verification_command": "python3 scripts/render_review_waivers.py ."
+    },
+    {
+      "key": "world-class-evidence",
+      "label": "世界证据",
+      "status": "warn",
+      "detail": "world-class evidence ledger is missing; public world-class readiness cannot be claimed",
+      "evidence": "reports/world_class_evidence_ledger.json",
+      "link": "../../skills/geo-site-diagnose/reports/world_class_evidence_ledger.md",
+      "review_action_id": "review-action-world-class-evidence",
+      "review_action_status": "warn",
+      "review_action_title": "世界证据",
+      "review_action_next_step": "补齐 provider、真人盲评、原生权限执行和真实客户端遥测证据，或明确本次发布不声明 world-class 完成。",
+      "review_action_reason": "世界级结论必须来自已接受的外部/人工证据；计划、metadata fallback、待评审和本地命令都不能替代完成证据。",
+      "review_action_source_ref_count": 16,
+      "review_action_verification_command": "python3 scripts/yao.py world-class-runbook . --submissions-dir evidence/world_class/submissions --self && python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self && python3 scripts/yao.py review-studio . --self"
+    },
+    {
+      "key": "registry-audit",
+      "label": "注册审计",
+      "status": "warn",
+      "detail": "registry audit is missing; package metadata is not reviewable",
+      "evidence": "reports/registry_audit.json + reports/install_simulation.json",
+      "link": "../../skills/geo-site-diagnose/reports/registry_audit.md",
+      "review_action_id": "review-action-registry-audit",
+      "review_action_status": "warn",
+      "review_action_title": "注册审计",
+      "review_action_next_step": "补齐 registry package metadata、checksum、license、owner、review cadence 和 install evidence。",
+      "review_action_reason": "分发元数据不完整时，团队无法安全安装、升级或追溯包体来源。",
+      "review_action_source_ref_count": 3,
+      "review_action_verification_command": "python3 scripts/registry_audit.py ."
+    },
+    {
+      "key": "release-notes",
+      "label": "发布路线",
+      "status": "warn",
+      "detail": "promotion decisions are missing; release notes need reviewer confirmation",
+      "evidence": "reports/promotion_decisions.json + reports/upgrade_check.json + docs/migration-v2.md",
+      "link": "<yao-meta-root>/docs/migration-v2.md",
+      "review_action_id": "review-action-release-notes",
+      "review_action_status": "warn",
+      "review_action_title": "发布路线",
+      "review_action_next_step": "确认 promotion、upgrade diff、breaking changes、migration guide 和 known limitations。",
+      "review_action_reason": "发布说明不完整会让使用者无法判断升级风险和迁移动作。",
+      "review_action_source_ref_count": 3,
+      "review_action_verification_command": "python3 scripts/upgrade_check.py . --previous-package-json registry/examples/yao-meta-skill-1.0.0.json"
+    }
+  ],
+  "gate_contract": {
+    "ok": true,
+    "expected_gate_count": 16,
+    "actual_gate_count": 16,
+    "expected_gate_keys": [
+      "architecture-maintainability",
+      "context-budget",
+      "intent-canvas",
+      "operations-loop",
+      "output-lab",
+      "permission-gates",
+      "permission-runtime",
+      "python-compat",
+      "registry-audit",
+      "release-notes",
+      "review-waivers",
+      "runtime-matrix",
+      "skill-atlas",
+      "trigger-lab",
+      "trust-report",
+      "world-class-evidence"
+    ],
+    "rendered_gate_keys": [
+      "intent-canvas",
+      "trigger-lab",
+      "output-lab",
+      "context-budget",
+      "runtime-matrix",
+      "trust-report",
+      "python-compat",
+      "architecture-maintainability",
+      "permission-gates",
+      "permission-runtime",
+      "skill-atlas",
+      "operations-loop",
+      "review-waivers",
+      "world-class-evidence",
+      "registry-audit",
+      "release-notes"
+    ],
+    "missing_gate_keys": [],
+    "unknown_gate_keys": [],
+    "duplicate_gate_keys": [],
+    "unweighted_gate_keys": []
+  },
+  "blockers": [],
+  "warnings": [
+    {
+      "key": "intent-canvas",
+      "label": "意图画布",
+      "status": "warn",
+      "detail": "intent confidence 0/100; clarification legacy; assumptions 0; stop n/a; review current intent frame",
+      "evidence": "reports/intent-confidence.json",
+      "link": "../../skills/geo-site-diagnose/reports/intent-confidence.md",
+      "review_action_id": "review-action-intent-canvas",
+      "review_action_status": "warn",
+      "review_action_title": "意图画布",
+      "review_action_next_step": "收紧真实任务、输入、输出、排除项和成功标准。",
+      "review_action_reason": "低 intent confidence 会让后续 Skill IR、输出评测和 Review Studio 结论建立在模糊意图上。",
+      "review_action_source_ref_count": 2,
+      "review_action_verification_command": "python3 scripts/yao.py intent-confidence . --self"
+    },
+    {
+      "key": "trigger-lab",
+      "label": "触发实验",
+      "status": "warn",
+      "detail": "route scorecard is missing; run route-scorecard before release review",
+      "evidence": "reports/route_scorecard.json",
+      "link": "../../skills/geo-site-diagnose/reports/route_scorecard.md",
+      "review_action_id": "review-action-trigger-lab",
+      "review_action_status": "warn",
+      "review_action_title": "触发实验",
+      "review_action_next_step": "修正 route scorecard 中的误触发、漏触发或 ambiguous case。",
+      "review_action_reason": "触发错误会让正确 Skill 失活，或让相邻 Skill 被错误调用。",
+      "review_action_source_ref_count": 3,
+      "review_action_verification_command": "python3 scripts/build_confusion_matrix.py"
+    },
+    {
+      "key": "output-lab",
+      "label": "输出实验",
+      "status": "warn",
+      "detail": "output eval scorecard is missing; generate it before production review",
+      "evidence": "reports/output_quality_scorecard.json",
+      "link": "../../skills/geo-site-diagnose/reports/output_quality_scorecard.md",
+      "review_action_id": "review-action-output-lab",
+      "review_action_status": "warn",
+      "review_action_title": "输出实验",
+      "review_action_next_step": "补足 output eval 覆盖、execution evidence、blind A/B 和 reviewer adjudication。同步补足盲审声明。",
+      "review_action_reason": "没有输出质量和人工盲评证据时，Skill 只能证明会触发，不能证明输出真的更好且经得起审查。",
+      "review_action_source_ref_count": 6,
+      "review_action_verification_command": "python3 scripts/adjudicate_output_review.py --write-template && python3 scripts/yao.py output-review --self"
+    },
+    {
+      "key": "context-budget",
+      "label": "上下文",
+      "status": "warn",
+      "detail": "initial load n/a/n/a; deferred n/a/n/a; top deferred none; resource governance unknown; quality density n/a",
+      "evidence": "reports/context_budget.json",
+      "link": "../../skills/geo-site-diagnose/reports/context_budget.md",
+      "review_action_id": "review-action-context-budget",
+      "review_action_status": "warn",
+      "review_action_title": "上下文",
+      "review_action_next_step": "压缩或拆分高成本 deferred resources，保留最小可路由上下文。",
+      "review_action_reason": "初始加载可以安全，但后续 references、scripts、evals 体量过大时，reviewer 仍需要看到维护和读取成本。",
+      "review_action_source_ref_count": 4,
+      "review_action_verification_command": "python3 scripts/render_context_reports.py"
+    },
+    {
+      "key": "runtime-matrix",
+      "label": "运行矩阵",
+      "status": "warn",
+      "detail": "runtime conformance matrix is missing",
+      "evidence": "reports/conformance_matrix.json",
+      "link": "../../skills/geo-site-diagnose/reports/conformance_matrix.md",
+      "review_action_id": "review-action-runtime-matrix",
+      "review_action_status": "warn",
+      "review_action_title": "运行矩阵",
+      "review_action_next_step": "修复目标端结构、metadata、相对路径、fallback 或 adapter target 声明。",
+      "review_action_reason": "runtime conformance 失败意味着包可能被目标客户端错误加载或静默降级。",
+      "review_action_source_ref_count": 2,
+      "review_action_verification_command": "python3 scripts/run_conformance_suite.py ."
+    },
+    {
+      "key": "trust-report",
+      "label": "信任报告",
+      "status": "warn",
+      "detail": "0 secrets; 1 scripts; 1 network-capable scripts; 0 help smoke failures",
+      "evidence": "reports/security_trust_report.json",
+      "link": "../../skills/geo-site-diagnose/reports/security_trust_report.md",
+      "review_action_id": "review-action-trust-report",
+      "review_action_status": "warn",
+      "review_action_title": "信任报告",
+      "review_action_next_step": "处理脚本 help surface、依赖 pin、network policy、secret 和权限声明。",
+      "review_action_reason": "团队分发时，脚本和依赖是主要供应链风险面，warning 必须有明确处置。",
+      "review_action_source_ref_count": 3,
+      "review_action_verification_command": "python3 scripts/trust_check.py ."
+    },
+    {
+      "key": "python-compat",
+      "label": "Python 兼容",
+      "status": "warn",
+      "detail": "Python compatibility report is missing",
+      "evidence": "reports/python_compatibility.json",
+      "link": "../../skills/geo-site-diagnose/reports/python_compatibility.md",
+      "review_action_id": "review-action-python-compat",
+      "review_action_status": "warn",
+      "review_action_title": "Python 兼容",
+      "review_action_next_step": "修复 Python 3.11 语法兼容问题，尤其是 f-string 表达式内的反斜杠转义。",
+      "review_action_reason": "目标运行环境可能仍停留在 Python 3.11，语法漂移会让 CLI、报告生成和 CI 在发布后直接失败。",
+      "review_action_source_ref_count": 3,
+      "review_action_verification_command": "python3 scripts/yao.py python-compat . --self"
+    },
+    {
+      "key": "architecture-maintainability",
+      "label": "架构维护",
+      "status": "warn",
+      "detail": "architecture maintainability report is missing for a reusable package",
+      "evidence": "reports/architecture_maintainability.json",
+      "link": "../../skills/geo-site-diagnose/reports/architecture_maintainability.md",
+      "review_action_id": "review-action-architecture-maintainability",
+      "review_action_status": "warn",
+      "review_action_title": "架构维护",
+      "review_action_next_step": "处理大文件和 CLI command surface 的维护性热点，优先拆分稳定职责边界。",
+      "review_action_reason": "Meta Skill 的门禁、报告和 CLI 会持续增长；如果不把架构债纳入审查，后续能力会越来越难验证和迁移。",
+      "review_action_source_ref_count": 5,
+      "review_action_verification_command": "python3 scripts/yao.py architecture-audit . --self"
+    },
+    {
+      "key": "skill-atlas",
+      "label": "组合治理",
+      "status": "warn",
+      "detail": "skill atlas is missing; portfolio-level conflicts are unknown",
+      "evidence": "reports/skill_atlas.json",
+      "link": "../../skills/geo-site-diagnose/reports/skill_atlas.html",
+      "review_action_id": "review-action-skill-atlas",
+      "review_action_status": "warn",
+      "review_action_title": "组合治理",
+      "review_action_next_step": "处理 portfolio 里的路由冲突、owner 缺口、stale skill 和重复能力。",
+      "review_action_reason": "单个 Skill 质量很高仍可能在团队 skill library 中被相邻 Skill 冲突削弱。",
+      "review_action_source_ref_count": 3,
+      "review_action_verification_command": "python3 scripts/build_skill_atlas.py --workspace-root ."
+    },
+    {
+      "key": "operations-loop",
+      "label": "运营回路",
+      "status": "warn",
+      "detail": "adoption drift report is missing; real usage impact is unknown",
+      "evidence": "reports/adoption_drift_report.json + reports/skillops/daily + reports/skillops/weekly",
+      "link": "../../skills/geo-site-diagnose/reports/adoption_drift_report.md",
+      "review_action_id": "review-action-operations-loop",
+      "review_action_status": "warn",
+      "review_action_title": "运营回路",
+      "review_action_next_step": "记录 metadata-only 使用事件，或明确当前 release 缺少真实使用信号。",
+      "review_action_reason": "没有运营回路时，reviewer 无法判断采用率、误触发、坏输出和 review overdue 的真实影响。",
+      "review_action_source_ref_count": 2,
+      "review_action_verification_command": "python3 scripts/render_adoption_drift_report.py . --record-event skill_activation --activation-type explicit --outcome accepted"
+    },
+    {
+      "key": "review-waivers",
+      "label": "人工批准",
+      "status": "warn",
+      "detail": "review waiver ledger is missing; warning acceptance is not auditable",
+      "evidence": "reports/review_waivers.json",
+      "link": "../../skills/geo-site-diagnose/reports/review_waivers.md",
+      "review_action_id": "review-action-review-waivers",
+      "review_action_status": "warn",
+      "review_action_title": "人工批准",
+      "review_action_next_step": "对保留的 warning 写入 reviewer、理由、范围和到期时间，或修掉 warning。",
+      "review_action_reason": "warning 可以被接受，但必须可审计、会过期，并且不能掩盖 blocker。",
+      "review_action_source_ref_count": 2,
+      "review_action_verification_command": "python3 scripts/render_review_waivers.py ."
+    },
+    {
+      "key": "world-class-evidence",
+      "label": "世界证据",
+      "status": "warn",
+      "detail": "world-class evidence ledger is missing; public world-class readiness cannot be claimed",
+      "evidence": "reports/world_class_evidence_ledger.json",
+      "link": "../../skills/geo-site-diagnose/reports/world_class_evidence_ledger.md",
+      "review_action_id": "review-action-world-class-evidence",
+      "review_action_status": "warn",
+      "review_action_title": "世界证据",
+      "review_action_next_step": "补齐 provider、真人盲评、原生权限执行和真实客户端遥测证据，或明确本次发布不声明 world-class 完成。",
+      "review_action_reason": "世界级结论必须来自已接受的外部/人工证据；计划、metadata fallback、待评审和本地命令都不能替代完成证据。",
+      "review_action_source_ref_count": 16,
+      "review_action_verification_command": "python3 scripts/yao.py world-class-runbook . --submissions-dir evidence/world_class/submissions --self && python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self && python3 scripts/yao.py review-studio . --self"
+    },
+    {
+      "key": "registry-audit",
+      "label": "注册审计",
+      "status": "warn",
+      "detail": "registry audit is missing; package metadata is not reviewable",
+      "evidence": "reports/registry_audit.json + reports/install_simulation.json",
+      "link": "../../skills/geo-site-diagnose/reports/registry_audit.md",
+      "review_action_id": "review-action-registry-audit",
+      "review_action_status": "warn",
+      "review_action_title": "注册审计",
+      "review_action_next_step": "补齐 registry package metadata、checksum、license、owner、review cadence 和 install evidence。",
+      "review_action_reason": "分发元数据不完整时，团队无法安全安装、升级或追溯包体来源。",
+      "review_action_source_ref_count": 3,
+      "review_action_verification_command": "python3 scripts/registry_audit.py ."
+    },
+    {
+      "key": "release-notes",
+      "label": "发布路线",
+      "status": "warn",
+      "detail": "promotion decisions are missing; release notes need reviewer confirmation",
+      "evidence": "reports/promotion_decisions.json + reports/upgrade_check.json + docs/migration-v2.md",
+      "link": "<yao-meta-root>/docs/migration-v2.md",
+      "review_action_id": "review-action-release-notes",
+      "review_action_status": "warn",
+      "review_action_title": "发布路线",
+      "review_action_next_step": "确认 promotion、upgrade diff、breaking changes、migration guide 和 known limitations。",
+      "review_action_reason": "发布说明不完整会让使用者无法判断升级风险和迁移动作。",
+      "review_action_source_ref_count": 3,
+      "review_action_verification_command": "python3 scripts/upgrade_check.py . --previous-package-json registry/examples/yao-meta-skill-1.0.0.json"
+    }
+  ],
+  "review_actions": [
+    {
+      "action_id": "review-action-intent-canvas",
+      "gate_key": "intent-canvas",
+      "title": "意图画布",
+      "label": "意图画布",
+      "status": "warn",
+      "priority": "warning",
+      "next_step": "收紧真实任务、输入、输出、排除项和成功标准。",
+      "summary": "收紧真实任务、输入、输出、排除项和成功标准。",
+      "reason": "低 intent confidence 会让后续 Skill IR、输出评测和 Review Studio 结论建立在模糊意图上。",
+      "why": "低 intent confidence 会让后续 Skill IR、输出评测和 Review Studio 结论建立在模糊意图上。",
+      "source_fix": "reports/intent-dialogue.md + reports/intent-confidence.md",
+      "source_refs": [
+        {
+          "path": "reports/intent-dialogue.md",
+          "label": "intent dialogue",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "reports/intent-confidence.md",
+          "label": "intent confidence",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        }
+      ],
+      "evidence": "reports/intent-confidence.json",
+      "evidence_link": "../../skills/geo-site-diagnose/reports/intent-confidence.md",
+      "verification_command": "python3 scripts/yao.py intent-confidence . --self",
+      "evidence_steps": []
+    },
+    {
+      "action_id": "review-action-trigger-lab",
+      "gate_key": "trigger-lab",
+      "title": "触发实验",
+      "label": "触发实验",
+      "status": "warn",
+      "priority": "warning",
+      "next_step": "修正 route scorecard 中的误触发、漏触发或 ambiguous case。",
+      "summary": "修正 route scorecard 中的误触发、漏触发或 ambiguous case。",
+      "reason": "触发错误会让正确 Skill 失活，或让相邻 Skill 被错误调用。",
+      "why": "触发错误会让正确 Skill 失活，或让相邻 Skill 被错误调用。",
+      "source_fix": "SKILL.md frontmatter description + evals/*/trigger_cases.json",
+      "source_refs": [
+        {
+          "path": "SKILL.md",
+          "label": "frontmatter description",
+          "kind": "source",
+          "line": 3,
+          "matched_pattern": "description:",
+          "excerpt": "description: Crawl one public website from a supplied URL, select up to ten representative page types, score evidence-lined GEO readiness, and generate a standalone visual HTML re…",
+          "exists": true,
+          "link": "../../skills/geo-site-diagnose/SKILL.md"
+        },
+        {
+          "path": "evals/trigger_cases.json",
+          "label": "trigger eval cases",
+          "kind": "eval",
+          "line": 1,
+          "matched_pattern": "should_trigger",
+          "excerpt": "{\"should_trigger\":[{\"text\":\"帮我诊断网站GEO：https://example.com\",\"family\":\"site-diagnose\"},{\"text\":\"Audit this public website and create a visual GEO report: https://example.com\",\"famil…",
+          "exists": true,
+          "link": "../../skills/geo-site-diagnose/evals/trigger_cases.json"
+        },
+        {
+          "path": "reports/route_scorecard.md",
+          "label": "route scorecard",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        }
+      ],
+      "evidence": "reports/route_scorecard.json",
+      "evidence_link": "../../skills/geo-site-diagnose/reports/route_scorecard.md",
+      "verification_command": "python3 scripts/build_confusion_matrix.py",
+      "evidence_steps": []
+    },
+    {
+      "action_id": "review-action-output-lab",
+      "gate_key": "output-lab",
+      "title": "输出实验",
+      "label": "输出实验",
+      "status": "warn",
+      "priority": "warning",
+      "next_step": "补足 output eval 覆盖、execution evidence、blind A/B 和 reviewer adjudication。同步补足盲审声明。",
+      "summary": "补足 output eval 覆盖、execution evidence、blind A/B 和 reviewer adjudication。同步补足盲审声明。",
+      "reason": "没有输出质量和人工盲评证据时，Skill 只能证明会触发，不能证明输出真的更好且经得起审查。",
+      "why": "没有输出质量和人工盲评证据时，Skill 只能证明会触发，不能证明输出真的更好且经得起审查。",
+      "source_fix": "evals/output/cases.jsonl + reports/output_quality_scorecard.md + reports/output_review_kit.html + reports/output_review_adjudication.md + reports/output_review_decisions.json",
+      "source_refs": [
+        {
+          "path": "evals/output/cases.jsonl",
+          "label": "output eval cases",
+          "kind": "eval",
+          "line": 1,
+          "matched_pattern": "\"id\"",
+          "excerpt": "{\"id\":\"happy\",\"prompt\":\"帮我诊断网站GEO：https://example.com\",\"baseline_output\":\"给出通用建议。\",\"with_skill_output\":\"抓取同站典型页面，生成 sampling-plan、site-diagnosis、逐页证据、remediation-backlog 和独立 repor…",
+          "exists": true,
+          "link": "../../skills/geo-site-diagnose/evals/output/cases.jsonl"
+        },
+        {
+          "path": "reports/output_quality_scorecard.md",
+          "label": "output scorecard",
+          "kind": "report",
+          "line": 1,
+          "matched_pattern": "# Output",
+          "excerpt": "# Output Quality Scorecard",
+          "exists": true,
+          "link": "../../skills/geo-site-diagnose/reports/output_quality_scorecard.md"
+        },
+        {
+          "path": "reports/output_execution_runs.md",
+          "label": "output execution runs",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "reports/output_blind_review_pack.md",
+          "label": "blind A/B review pack",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "reports/output_review_kit.html",
+          "label": "reviewer cockpit",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "reports/output_review_adjudication.md",
+          "label": "review adjudication",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        }
+      ],
+      "evidence": "reports/output_quality_scorecard.json",
+      "evidence_link": "../../skills/geo-site-diagnose/reports/output_quality_scorecard.md",
+      "verification_command": "python3 scripts/adjudicate_output_review.py --write-template && python3 scripts/yao.py output-review --self",
+      "evidence_steps": []
+    },
+    {
+      "action_id": "review-action-context-budget",
+      "gate_key": "context-budget",
+      "title": "上下文",
+      "label": "上下文",
+      "status": "warn",
+      "priority": "warning",
+      "next_step": "压缩或拆分高成本 deferred resources，保留最小可路由上下文。",
+      "summary": "压缩或拆分高成本 deferred resources，保留最小可路由上下文。",
+      "reason": "初始加载可以安全，但后续 references、scripts、evals 体量过大时，reviewer 仍需要看到维护和读取成本。",
+      "why": "初始加载可以安全，但后续 references、scripts、evals 体量过大时，reviewer 仍需要看到维护和读取成本。",
+      "source_fix": "SKILL.md + references/ + scripts/ + evals/",
+      "source_refs": [
+        {
+          "path": "SKILL.md",
+          "label": "entrypoint",
+          "kind": "source",
+          "line": 1,
+          "matched_pattern": "",
+          "excerpt": "---",
+          "exists": true,
+          "link": "../../skills/geo-site-diagnose/SKILL.md"
+        },
+        {
+          "path": "reports/context_budget.md",
+          "label": "context budget",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "scripts/resource_boundary_check.py",
+          "label": "resource boundary checker",
+          "kind": "source",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "references/skill-engineering-method.md",
+          "label": "skill engineering method",
+          "kind": "method",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        }
+      ],
+      "evidence": "reports/context_budget.json",
+      "evidence_link": "../../skills/geo-site-diagnose/reports/context_budget.md",
+      "verification_command": "python3 scripts/render_context_reports.py",
+      "evidence_steps": []
+    },
+    {
+      "action_id": "review-action-runtime-matrix",
+      "gate_key": "runtime-matrix",
+      "title": "运行矩阵",
+      "label": "运行矩阵",
+      "status": "warn",
+      "priority": "warning",
+      "next_step": "修复目标端结构、metadata、相对路径、fallback 或 adapter target 声明。",
+      "summary": "修复目标端结构、metadata、相对路径、fallback 或 adapter target 声明。",
+      "reason": "runtime conformance 失败意味着包可能被目标客户端错误加载或静默降级。",
+      "why": "runtime conformance 失败意味着包可能被目标客户端错误加载或静默降级。",
+      "source_fix": "agents/interface.yaml + reports/conformance_matrix.md",
+      "source_refs": [
+        {
+          "path": "agents/interface.yaml",
+          "label": "portable interface",
+          "kind": "source",
+          "line": 30,
+          "matched_pattern": "adapter_targets",
+          "excerpt": "adapter_targets: [openai, claude, generic]",
+          "exists": true,
+          "link": "../../skills/geo-site-diagnose/agents/interface.yaml"
+        },
+        {
+          "path": "reports/conformance_matrix.md",
+          "label": "conformance matrix",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        }
+      ],
+      "evidence": "reports/conformance_matrix.json",
+      "evidence_link": "../../skills/geo-site-diagnose/reports/conformance_matrix.md",
+      "verification_command": "python3 scripts/run_conformance_suite.py .",
+      "evidence_steps": []
+    },
+    {
+      "action_id": "review-action-trust-report",
+      "gate_key": "trust-report",
+      "title": "信任报告",
+      "label": "信任报告",
+      "status": "warn",
+      "priority": "warning",
+      "next_step": "处理脚本 help surface、依赖 pin、network policy、secret 和权限声明。",
+      "summary": "处理脚本 help surface、依赖 pin、network policy、secret 和权限声明。",
+      "reason": "团队分发时，脚本和依赖是主要供应链风险面，warning 必须有明确处置。",
+      "why": "团队分发时，脚本和依赖是主要供应链风险面，warning 必须有明确处置。",
+      "source_fix": "reports/security_trust_report.md + security/*.md + scripts/",
+      "source_refs": [
+        {
+          "path": "reports/security_trust_report.md",
+          "label": "trust report",
+          "kind": "report",
+          "line": 1,
+          "matched_pattern": "# Security",
+          "excerpt": "# Security Trust Report",
+          "exists": true,
+          "link": "../../skills/geo-site-diagnose/reports/security_trust_report.md"
+        },
+        {
+          "path": "security/script_policy.md",
+          "label": "script policy",
+          "kind": "policy",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "security/network_policy.md",
+          "label": "network policy",
+          "kind": "policy",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        }
+      ],
+      "evidence": "reports/security_trust_report.json",
+      "evidence_link": "../../skills/geo-site-diagnose/reports/security_trust_report.md",
+      "verification_command": "python3 scripts/trust_check.py .",
+      "evidence_steps": []
+    },
+    {
+      "action_id": "review-action-python-compat",
+      "gate_key": "python-compat",
+      "title": "Python 兼容",
+      "label": "Python 兼容",
+      "status": "warn",
+      "priority": "warning",
+      "next_step": "修复 Python 3.11 语法兼容问题，尤其是 f-string 表达式内的反斜杠转义。",
+      "summary": "修复 Python 3.11 语法兼容问题，尤其是 f-string 表达式内的反斜杠转义。",
+      "reason": "目标运行环境可能仍停留在 Python 3.11，语法漂移会让 CLI、报告生成和 CI 在发布后直接失败。",
+      "why": "目标运行环境可能仍停留在 Python 3.11，语法漂移会让 CLI、报告生成和 CI 在发布后直接失败。",
+      "source_fix": "reports/python_compatibility.md + scripts/*.py + tests/*.py",
+      "source_refs": [
+        {
+          "path": "reports/python_compatibility.md",
+          "label": "Python compatibility",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "scripts/python_compat_check.py",
+          "label": "compatibility checker",
+          "kind": "source",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": ".github/workflows/test.yml",
+          "label": "CI test workflow",
+          "kind": "ci",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        }
+      ],
+      "evidence": "reports/python_compatibility.json",
+      "evidence_link": "../../skills/geo-site-diagnose/reports/python_compatibility.md",
+      "verification_command": "python3 scripts/yao.py python-compat . --self",
+      "evidence_steps": []
+    },
+    {
+      "action_id": "review-action-architecture-maintainability",
+      "gate_key": "architecture-maintainability",
+      "title": "架构维护",
+      "label": "架构维护",
+      "status": "warn",
+      "priority": "warning",
+      "next_step": "处理大文件和 CLI command surface 的维护性热点，优先拆分稳定职责边界。",
+      "summary": "处理大文件和 CLI command surface 的维护性热点，优先拆分稳定职责边界。",
+      "reason": "Meta Skill 的门禁、报告和 CLI 会持续增长；如果不把架构债纳入审查，后续能力会越来越难验证和迁移。",
+      "why": "Meta Skill 的门禁、报告和 CLI 会持续增长；如果不把架构债纳入审查，后续能力会越来越难验证和迁移。",
+      "source_fix": "reports/architecture_maintainability.md + scripts/yao.py + scripts/render_review_studio.py",
+      "source_refs": [
+        {
+          "path": "reports/architecture_maintainability.md",
+          "label": "architecture maintainability",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "scripts/yao.py",
+          "label": "Yao CLI orchestrator",
+          "kind": "source",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "scripts/render_review_studio.py",
+          "label": "Review Studio renderer",
+          "kind": "source",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "scripts/review_studio_actions.py",
+          "label": "Review Studio actions",
+          "kind": "source",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "scripts/render_review_viewer.py",
+          "label": "review viewer renderer",
+          "kind": "source",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        }
+      ],
+      "evidence": "reports/architecture_maintainability.json",
+      "evidence_link": "../../skills/geo-site-diagnose/reports/architecture_maintainability.md",
+      "verification_command": "python3 scripts/yao.py architecture-audit . --self",
+      "evidence_steps": []
+    },
+    {
+      "action_id": "review-action-skill-atlas",
+      "gate_key": "skill-atlas",
+      "title": "组合治理",
+      "label": "组合治理",
+      "status": "warn",
+      "priority": "warning",
+      "next_step": "处理 portfolio 里的路由冲突、owner 缺口、stale skill 和重复能力。",
+      "summary": "处理 portfolio 里的路由冲突、owner 缺口、stale skill 和重复能力。",
+      "reason": "单个 Skill 质量很高仍可能在团队 skill library 中被相邻 Skill 冲突削弱。",
+      "why": "单个 Skill 质量很高仍可能在团队 skill library 中被相邻 Skill 冲突削弱。",
+      "source_fix": "reports/skill_atlas.html + skill_atlas/catalog.json",
+      "source_refs": [
+        {
+          "path": "skill_atlas/catalog.json",
+          "label": "skill atlas catalog",
+          "kind": "atlas",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "skill_atlas/policy.json",
+          "label": "atlas scope policy",
+          "kind": "policy",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "reports/skill_atlas.html",
+          "label": "skill atlas report",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        }
+      ],
+      "evidence": "reports/skill_atlas.json",
+      "evidence_link": "../../skills/geo-site-diagnose/reports/skill_atlas.html",
+      "verification_command": "python3 scripts/build_skill_atlas.py --workspace-root .",
+      "evidence_steps": []
+    },
+    {
+      "action_id": "review-action-operations-loop",
+      "gate_key": "operations-loop",
+      "title": "运营回路",
+      "label": "运营回路",
+      "status": "warn",
+      "priority": "warning",
+      "next_step": "记录 metadata-only 使用事件，或明确当前 release 缺少真实使用信号。",
+      "summary": "记录 metadata-only 使用事件，或明确当前 release 缺少真实使用信号。",
+      "reason": "没有运营回路时，reviewer 无法判断采用率、误触发、坏输出和 review overdue 的真实影响。",
+      "why": "没有运营回路时，reviewer 无法判断采用率、误触发、坏输出和 review overdue 的真实影响。",
+      "source_fix": "reports/adoption_drift_report.md",
+      "source_refs": [
+        {
+          "path": "reports/adoption_drift_report.md",
+          "label": "adoption drift report",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "references/telemetry-drift-method.md",
+          "label": "telemetry method",
+          "kind": "method",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        }
+      ],
+      "evidence": "reports/adoption_drift_report.json + reports/skillops/daily + reports/skillops/weekly",
+      "evidence_link": "../../skills/geo-site-diagnose/reports/adoption_drift_report.md",
+      "verification_command": "python3 scripts/render_adoption_drift_report.py . --record-event skill_activation --activation-type explicit --outcome accepted",
+      "evidence_steps": []
+    },
+    {
+      "action_id": "review-action-review-waivers",
+      "gate_key": "review-waivers",
+      "title": "人工批准",
+      "label": "人工批准",
+      "status": "warn",
+      "priority": "warning",
+      "next_step": "对保留的 warning 写入 reviewer、理由、范围和到期时间，或修掉 warning。",
+      "summary": "对保留的 warning 写入 reviewer、理由、范围和到期时间，或修掉 warning。",
+      "reason": "warning 可以被接受，但必须可审计、会过期，并且不能掩盖 blocker。",
+      "why": "warning 可以被接受，但必须可审计、会过期，并且不能掩盖 blocker。",
+      "source_fix": "reports/review_waivers.md",
+      "source_refs": [
+        {
+          "path": "reports/review_waivers.md",
+          "label": "waiver ledger",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "references/review-waiver-method.md",
+          "label": "waiver method",
+          "kind": "method",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        }
+      ],
+      "evidence": "reports/review_waivers.json",
+      "evidence_link": "../../skills/geo-site-diagnose/reports/review_waivers.md",
+      "verification_command": "python3 scripts/render_review_waivers.py .",
+      "evidence_steps": []
+    },
+    {
+      "action_id": "review-action-world-class-evidence",
+      "gate_key": "world-class-evidence",
+      "title": "世界证据",
+      "label": "世界证据",
+      "status": "warn",
+      "priority": "warning",
+      "next_step": "补齐 provider、真人盲评、原生权限执行和真实客户端遥测证据，或明确本次发布不声明 world-class 完成。",
+      "summary": "补齐 provider、真人盲评、原生权限执行和真实客户端遥测证据，或明确本次发布不声明 world-class 完成。",
+      "reason": "世界级结论必须来自已接受的外部/人工证据；计划、metadata fallback、待评审和本地命令都不能替代完成证据。",
+      "why": "世界级结论必须来自已接受的外部/人工证据；计划、metadata fallback、待评审和本地命令都不能替代完成证据。",
+      "source_fix": "reports/world_class_operator_runbook.html + reports/world_class_evidence_ledger.md + reports/world_class_evidence_intake.md + reports/world_class_submission_review.md",
+      "source_refs": [
+        {
+          "path": "reports/world_class_evidence_ledger.md",
+          "label": "world-class evidence ledger",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "reports/world_class_evidence_plan.md",
+          "label": "world-class evidence plan",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "reports/world_class_evidence_intake.md",
+          "label": "world-class evidence intake",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "reports/world_class_evidence_preflight.md",
+          "label": "world-class evidence preflight",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "reports/world_class_evidence_preflight.html",
+          "label": "world-class preflight HTML",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "reports/world_class_submission_review.md",
+          "label": "world-class submission review",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "reports/world_class_claim_guard.md",
+          "label": "world-class claim guard",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "evidence/world_class/intake.schema.json",
+          "label": "evidence intake schema",
+          "kind": "schema",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "evidence/world_class/templates/provider-holdout.intake.json",
+          "label": "provider intake template",
+          "kind": "template",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "evidence/world_class/templates/human-adjudication.intake.json",
+          "label": "human intake template",
+          "kind": "template",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "evidence/world_class/templates/native-permission-enforcement.intake.json",
+          "label": "permission intake template",
+          "kind": "template",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "evidence/world_class/templates/native-client-telemetry.intake.json",
+          "label": "telemetry intake template",
+          "kind": "template",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "reports/skill_os2_audit.md",
+          "label": "Skill OS 2.0 audit",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "reports/output_review_decisions.json",
+          "label": "human review decisions",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "reports/runtime_permission_probes.md",
+          "label": "runtime permission probes",
+          "kind": "report",
+          "line": 1,
+          "matched_pattern": "# Runtime",
+          "excerpt": "# Runtime Permission Probes",
+          "exists": true,
+          "link": "../../skills/geo-site-diagnose/reports/runtime_permission_probes.md"
+        },
+        {
+          "path": "reports/adoption_drift_report.md",
+          "label": "adoption drift",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        }
+      ],
+      "evidence": "reports/world_class_evidence_ledger.json",
+      "evidence_link": "../../skills/geo-site-diagnose/reports/world_class_evidence_ledger.md",
+      "verification_command": "python3 scripts/yao.py world-class-runbook . --submissions-dir evidence/world_class/submissions --self && python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self && python3 scripts/yao.py review-studio . --self",
+      "evidence_steps": []
+    },
+    {
+      "action_id": "review-action-registry-audit",
+      "gate_key": "registry-audit",
+      "title": "注册审计",
+      "label": "注册审计",
+      "status": "warn",
+      "priority": "warning",
+      "next_step": "补齐 registry package metadata、checksum、license、owner、review cadence 和 install evidence。",
+      "summary": "补齐 registry package metadata、checksum、license、owner、review cadence 和 install evidence。",
+      "reason": "分发元数据不完整时，团队无法安全安装、升级或追溯包体来源。",
+      "why": "分发元数据不完整时，团队无法安全安装、升级或追溯包体来源。",
+      "source_fix": "registry/ + reports/registry_audit.md",
+      "source_refs": [
+        {
+          "path": "registry/packages/yao-meta-skill.json",
+          "label": "registry package",
+          "kind": "registry",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "reports/registry_audit.md",
+          "label": "registry audit",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "reports/install_simulation.md",
+          "label": "install simulation",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        }
+      ],
+      "evidence": "reports/registry_audit.json + reports/install_simulation.json",
+      "evidence_link": "../../skills/geo-site-diagnose/reports/registry_audit.md",
+      "verification_command": "python3 scripts/registry_audit.py .",
+      "evidence_steps": []
+    },
+    {
+      "action_id": "review-action-release-notes",
+      "gate_key": "release-notes",
+      "title": "发布路线",
+      "label": "发布路线",
+      "status": "warn",
+      "priority": "warning",
+      "next_step": "确认 promotion、upgrade diff、breaking changes、migration guide 和 known limitations。",
+      "summary": "确认 promotion、upgrade diff、breaking changes、migration guide 和 known limitations。",
+      "reason": "发布说明不完整会让使用者无法判断升级风险和迁移动作。",
+      "why": "发布说明不完整会让使用者无法判断升级风险和迁移动作。",
+      "source_fix": "reports/upgrade_check.md + docs/migration-v2.md",
+      "source_refs": [
+        {
+          "path": "reports/upgrade_check.md",
+          "label": "upgrade check",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "docs/migration-v2.md",
+          "label": "migration guide",
+          "kind": "docs",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        },
+        {
+          "path": "reports/promotion_decisions.md",
+          "label": "promotion decisions",
+          "kind": "report",
+          "line": null,
+          "matched_pattern": "",
+          "excerpt": "",
+          "exists": false,
+          "link": ""
+        }
+      ],
+      "evidence": "reports/promotion_decisions.json + reports/upgrade_check.json + docs/migration-v2.md",
+      "evidence_link": "<yao-meta-root>/docs/migration-v2.md",
+      "verification_command": "python3 scripts/upgrade_check.py . --previous-package-json registry/examples/yao-meta-skill-1.0.0.json",
+      "evidence_steps": []
+    }
+  ],
+  "evidence_paths": {
+    "skill_overview": "reports/skill-overview.html",
+    "review_viewer": "reports/review-viewer.html",
+    "phase1_trigger_holdout": "reports/phase1_trigger_holdout.md",
+    "output_eval": "reports/output_quality_scorecard.md",
+    "output_execution": "reports/output_execution_runs.md",
+    "provider_output_evaluation": "reports/provider_output_evaluation.json",
+    "output_blind_review": "reports/output_blind_review_pack.md",
+    "output_review_kit": "reports/output_review_kit.md",
+    "output_review_kit_html": "reports/output_review_kit.html",
+    "output_review_decisions": "reports/output_review_decisions.json",
+    "output_review_adjudication": "reports/output_review_adjudication.md",
+    "benchmark_reproducibility": "reports/benchmark_reproducibility.md",
+    "skill_os2_coverage": "reports/skill_os2_coverage.md",
+    "runtime_conformance": "reports/conformance_matrix.md",
+    "trust_report": "reports/security_trust_report.md",
+    "python_compatibility": "reports/python_compatibility.md",
+    "architecture_maintainability": "reports/architecture_maintainability.md",
+    "permission_policy": "security/permission_policy.md",
+    "runtime_permissions": "reports/runtime_permission_probes.md",
+    "skill_atlas": "reports/skill_atlas.html",
+    "compiled_targets": "reports/compiled_targets.md",
+    "adoption_drift": "reports/adoption_drift_report.md",
+    "review_waivers": "reports/review_waivers.md",
+    "review_annotations": "reports/review_annotations.md",
+    "adaptation_proposals": "reports/adaptation_proposals.md",
+    "adaptation_approval_ledger": "reports/adaptation_approval_ledger.json",
+    "adaptation_regression": "reports/adaptation_regression_report.md",
+    "world_class_evidence_plan": "reports/world_class_evidence_plan.md",
+    "world_class_evidence_ledger": "reports/world_class_evidence_ledger.md",
+    "world_class_evidence_intake": "reports/world_class_evidence_intake.md",
+    "world_class_evidence_preflight": "reports/world_class_evidence_preflight.md",
+    "world_class_evidence_preflight_html": "reports/world_class_evidence_preflight.html",
+    "world_class_submission_review": "reports/world_class_submission_review.md",
+    "world_class_operator_runbook": "reports/world_class_operator_runbook.md",
+    "world_class_operator_runbook_html": "reports/world_class_operator_runbook.html",
+    "world_class_claim_guard": "reports/world_class_claim_guard.md",
+    "registry_audit": "reports/registry_audit.md",
+    "package_verification": "reports/package_verification.md",
+    "install_simulation": "reports/install_simulation.md",
+    "upgrade_check": "reports/upgrade_check.md",
+    "migration": "docs/migration-v2.md",
+    "skill_ir": "reports/skill-ir.json"
+  },
+  "data": {
+    "overview": {},
+    "intent_confidence": {},
+    "intent_dialogue": {},
+    "route_scorecard": {},
+    "phase1_trigger_holdout": {},
+    "output_quality": {},
+    "output_execution": {},
+    "provider_output_evaluation": {},
+    "provider_output_adjudication": {},
+    "output_blind_review": {},
+    "output_review_kit": {},
+    "output_review_adjudication": {},
+    "benchmark_reproducibility": {},
+    "skill_os2_coverage": {},
+    "compiled_targets": {},
+    "conformance": {},
+    "runtime_permissions": {
+      "schema_version": "1.0",
+      "ok": true,
+      "skill_dir": ".",
+      "package_dir": "dist/site-permission-probe-v2",
+      "expected_capabilities": [
+        "file_write",
+        "network",
+        "subprocess"
+      ],
+      "summary": {
+        "target_count": 3,
+        "pass_count": 3,
+        "fail_count": 0,
+        "native_enforcement_count": 0,
+        "metadata_fallback_count": 3,
+        "residual_risk_count": 3,
+        "required_capability_count": 3,
+        "failure_count": 0,
+        "installer_enforcement_source_status": "package-mismatch",
+        "installer_enforcement_target_count": 3,
+        "installer_enforcement_pass_count": 0,
+        "installer_permission_enforced_count": 0,
+        "installer_permission_failure_count": 0,
+        "installer_permission_capability_count": 0,
+        "world_class_native_evidence_ready": false,
+        "installer_enforcement_ready": false
+      },
+      "installer_enforcement": {
+        "source": "reports/install-simulation.json",
+        "source_status": "package-mismatch",
+        "package_dir_matches": false,
+        "summary": {
+          "installer_permission_enforced_count": 0,
+          "installer_permission_failure_count": 0,
+          "permission_target_count": 0,
+          "permission_capability_count": 0,
+          "failure_count": 0
+        }
+      },
+      "targets": [
+        {
+          "target": "openai",
+          "status": "pass",
+          "adapter": "dist/site-permission-probe-v2/targets/openai/adapter.json",
+          "permission_model": "metadata-only",
+          "native_enforcement": false,
+          "metadata_fallback_explicit": true,
+          "installer_enforcement": {
+            "target": "openai",
+            "source_status": "package-mismatch",
+            "enforced": false,
+            "enforced_capabilities": [],
+            "missing_capabilities": [
+              "file_write",
+              "network",
+              "subprocess"
+            ],
+            "failure_details": [
+              "install simulation package_dir missing does not match probed package_dir dist/site-permission-probe-v2"
+            ]
+          },
+          "assurance": "metadata-fallback-explicit",
+          "declared_capabilities": [
+            "file_write",
+            "network",
+            "subprocess"
+          ],
+          "checks": [
+            {
+              "key": "adapter-present",
+              "passed": true,
+              "detail": "openai adapter.json is readable"
+            },
+            {
+              "key": "permission-contract-present",
+              "passed": true,
+              "detail": "openai adapter includes permission_contract"
+            },
+            {
+              "key": "target-contract-present",
+              "passed": true,
+              "detail": "openai adapter includes target_permission_contract"
+            },
+            {
+              "key": "source-available",
+              "passed": true,
+              "detail": "openai permission_contract links to an available trust report"
+            },
+            {
+              "key": "declared-capabilities-match",
+              "passed": true,
+              "detail": "openai target_permission_contract mirrors expected capabilities"
+            },
+            {
+              "key": "capability-counts-present",
+              "passed": true,
+              "detail": "openai target_permission_contract includes capability_counts"
+            },
+            {
+              "key": "native-enforcement-boolean",
+              "passed": true,
+              "detail": "openai target_permission_contract declares native_enforcement as a boolean"
+            },
+            {
+              "key": "representation-present",
+              "passed": true,
+              "detail": "openai target_permission_contract declares where permission metadata is represented"
+            },
+            {
+              "key": "operator-note-present",
+              "passed": true,
+              "detail": "openai target_permission_contract includes an operator_note"
+            },
+            {
+              "key": "review-required-matches",
+              "passed": true,
+              "detail": "openai review_required matches whether capabilities are required"
+            },
+            {
+              "key": "openai-yaml-present",
+              "passed": true,
+              "detail": "OpenAI permission metadata YAML is readable"
+            },
+            {
+              "key": "openai-yaml-permissions",
+              "passed": true,
+              "detail": "OpenAI YAML permission contract mirrors expected capabilities"
+            },
+            {
+              "key": "openai-yaml-native-flag",
+              "passed": true,
+              "detail": "OpenAI YAML declares native_enforcement as a boolean"
+            }
+          ],
+          "failures": [],
+          "residual_risks": [
+            "Client-native permission enforcement is not provided by this target; installer or operator must honor metadata."
+          ]
+        },
+        {
+          "target": "claude",
+          "status": "pass",
+          "adapter": "dist/site-permission-probe-v2/targets/claude/adapter.json",
+          "permission_model": "neutral-source-plus-adapter",
+          "native_enforcement": false,
+          "metadata_fallback_explicit": true,
+          "installer_enforcement": {
+            "target": "claude",
+            "source_status": "package-mismatch",
+            "enforced": false,
+            "enforced_capabilities": [],
+            "missing_capabilities": [
+              "file_write",
+              "network",
+              "subprocess"
+            ],
+            "failure_details": [
+              "install simulation package_dir missing does not match probed package_dir dist/site-permission-probe-v2"
+            ]
+          },
+          "assurance": "metadata-fallback-explicit",
+          "declared_capabilities": [
+            "file_write",
+            "network",
+            "subprocess"
+          ],
+          "checks": [
+            {
+              "key": "adapter-present",
+              "passed": true,
+              "detail": "claude adapter.json is readable"
+            },
+            {
+              "key": "permission-contract-present",
+              "passed": true,
+              "detail": "claude adapter includes permission_contract"
+            },
+            {
+              "key": "target-contract-present",
+              "passed": true,
+              "detail": "claude adapter includes target_permission_contract"
+            },
+            {
+              "key": "source-available",
+              "passed": true,
+              "detail": "claude permission_contract links to an available trust report"
+            },
+            {
+              "key": "declared-capabilities-match",
+              "passed": true,
+              "detail": "claude target_permission_contract mirrors expected capabilities"
+            },
+            {
+              "key": "capability-counts-present",
+              "passed": true,
+              "detail": "claude target_permission_contract includes capability_counts"
+            },
+            {
+              "key": "native-enforcement-boolean",
+              "passed": true,
+              "detail": "claude target_permission_contract declares native_enforcement as a boolean"
+            },
+            {
+              "key": "representation-present",
+              "passed": true,
+              "detail": "claude target_permission_contract declares where permission metadata is represented"
+            },
+            {
+              "key": "operator-note-present",
+              "passed": true,
+              "detail": "claude target_permission_contract includes an operator_note"
+            },
+            {
+              "key": "review-required-matches",
+              "passed": true,
+              "detail": "claude review_required matches whether capabilities are required"
+            }
+          ],
+          "failures": [],
+          "residual_risks": [
+            "Client-native permission enforcement is not provided by this target; installer or operator must honor metadata."
+          ]
+        },
+        {
+          "target": "generic",
+          "status": "pass",
+          "adapter": "dist/site-permission-probe-v2/targets/generic/adapter.json",
+          "permission_model": "agent-skills-compatible-metadata",
+          "native_enforcement": false,
+          "metadata_fallback_explicit": true,
+          "installer_enforcement": {
+            "target": "generic",
+            "source_status": "package-mismatch",
+            "enforced": false,
+            "enforced_capabilities": [],
+            "missing_capabilities": [
+              "file_write",
+              "network",
+              "subprocess"
+            ],
+            "failure_details": [
+              "install simulation package_dir missing does not match probed package_dir dist/site-permission-probe-v2"
+            ]
+          },
+          "assurance": "metadata-fallback-explicit",
+          "declared_capabilities": [
+            "file_write",
+            "network",
+            "subprocess"
+          ],
+          "checks": [
+            {
+              "key": "adapter-present",
+              "passed": true,
+              "detail": "generic adapter.json is readable"
+            },
+            {
+              "key": "permission-contract-present",
+              "passed": true,
+              "detail": "generic adapter includes permission_contract"
+            },
+            {
+              "key": "target-contract-present",
+              "passed": true,
+              "detail": "generic adapter includes target_permission_contract"
+            },
+            {
+              "key": "source-available",
+              "passed": true,
+              "detail": "generic permission_contract links to an available trust report"
+            },
+            {
+              "key": "declared-capabilities-match",
+              "passed": true,
+              "detail": "generic target_permission_contract mirrors expected capabilities"
+            },
+            {
+              "key": "capability-counts-present",
+              "passed": true,
+              "detail": "generic target_permission_contract includes capability_counts"
+            },
+            {
+              "key": "native-enforcement-boolean",
+              "passed": true,
+              "detail": "generic target_permission_contract declares native_enforcement as a boolean"
+            },
+            {
+              "key": "representation-present",
+              "passed": true,
+              "detail": "generic target_permission_contract declares where permission metadata is represented"
+            },
+            {
+              "key": "operator-note-present",
+              "passed": true,
+              "detail": "generic target_permission_contract includes an operator_note"
+            },
+            {
+              "key": "review-required-matches",
+              "passed": true,
+              "detail": "generic review_required matches whether capabilities are required"
+            }
+          ],
+          "failures": [],
+          "residual_risks": [
+            "Client-native permission enforcement is not provided by this target; installer or operator must honor metadata."
+          ]
+        }
+      ],
+      "failures": [],
+      "artifacts": {
+        "json": "reports/runtime_permission_probes.json",
+        "markdown": "reports/runtime_permission_probes.md"
+      }
+    },
+    "trust": {
+      "ok": true,
+      "skill_dir": "skills/geo-site-diagnose",
+      "summary": {
+        "scanned_files": 16,
+        "script_count": 1,
+        "internal_module_count": 0,
+        "secret_findings": 0,
+        "dependency_files": [],
+        "network_script_count": 1,
+        "network_policy_covered_count": 1,
+        "network_policy_missing_count": 0,
+        "file_write_script_count": 1,
+        "permission_required_count": 3,
+        "permission_approved_count": 3,
+        "permission_missing_count": 0,
+        "permission_invalid_count": 0,
+        "permission_expired_count": 0,
+        "help_smoke_checked_count": 1,
+        "help_smoke_failed_count": 0,
+        "interactive_script_count": 0,
+        "package_hash_scope": "source-contract-without-generated-reports",
+        "package_hash_file_count": 16,
+        "package_sha256": "d4906efdcd1f088f76c1886bf1fb0c1db10d00ebaae20778b4786f3f32d3cab2"
+      },
+      "failures": [],
+      "warnings": [
+        "No dependency or lock file detected"
+      ],
+      "secrets": [],
+      "scripts": [
+        {
+          "path": "scripts/run_site_diagnose.py",
+          "interface": "cli",
+          "interface_declared": true,
+          "interface_reason": "The wrapper validates public HTTP input and delegates to the installed bounded crawler.",
+          "has_argparse": true,
+          "has_main_guard": true,
+          "uses_input": false,
+          "uses_network": true,
+          "uses_file_write": true,
+          "uses_subprocess": true,
+          "network_urls": [],
+          "network_hosts": []
+        }
+      ],
+      "dependencies": {
+        "present": [],
+        "pinned": [],
+        "unpinned": []
+      },
+      "network_policy": {
+        "present": true,
+        "path": "security/network_policy.json",
+        "schema_version": "1.0",
+        "network_script_count": 1,
+        "covered_scripts": [
+          "scripts/run_site_diagnose.py"
+        ],
+        "missing_scripts": [],
+        "mismatches": [],
+        "default_policy": {
+          "require_https": false,
+          "custom_hosts": "explicit-user-approved-public-host",
+          "review_rule": "Each run is limited to one normalized public HTTP(S) host supplied by the user. Redirect targets are revalidated and must stay on that host."
+        }
+      },
+      "help_smoke": {
+        "enabled": true,
+        "timeout_seconds": 5.0,
+        "candidate_count": 1,
+        "checked_count": 1,
+        "passed_count": 1,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "failed_scripts": [],
+        "results": [
+          {
+            "path": "scripts/run_site_diagnose.py",
+            "command": "python3 scripts/run_site_diagnose.py --help",
+            "returncode": 0,
+            "timed_out": false,
+            "passed": true,
+            "has_help_text": true,
+            "stdout_excerpt": "usage: run_site_diagnose.py [-h] --url URL --output OUTPUT [--locale LOCALE]\n                            [--max-pages MAX_PAGES]\n                            [--render {auto,http,browser}]\n\nCreate a bounded multi-page website GEO diagnosis.\n",
+            "stderr_excerpt": ""
+          }
+        ],
+        "skipped": []
+      },
+      "permission_governance": {
+        "present": true,
+        "path": "security/permission_policy.json",
+        "schema_version": "1.0",
+        "reviewed_at": "2026-08-25",
+        "required_capabilities": [
+          "file_write",
+          "network",
+          "subprocess"
+        ],
+        "approved_capabilities": [
+          "file_write",
+          "network",
+          "subprocess"
+        ],
+        "missing_capabilities": [],
+        "invalid_capabilities": [],
+        "expired_capabilities": [],
+        "approval_count": 3,
+        "required_count": 3,
+        "missing_count": 0,
+        "invalid_count": 0,
+        "expired_count": 0,
+        "approvals": [
+          {
+            "capability": "network",
+            "status": "approved",
+            "scripts": [
+              "scripts/run_site_diagnose.py"
+            ],
+            "reviewer": "GEOHub maintainer",
+            "scope": "Read-only bounded GET access to one user-supplied public HTTP(S) host under security/network_policy.json.",
+            "reason": "Website diagnosis requires current page, robots.txt, sitemap, and same-host rendering evidence.",
+            "expires_at": "2027-08-25",
+            "evidence": [
+              "security/network_policy.json",
+              "references/crawler-policy.md",
+              "scripts/run_site_diagnose.py"
+            ],
+            "target_enforcement": {
+              "openai": "Compiled permission metadata plus the bounded crawler policy in SKILL.md and security/network_policy.json",
+              "claude": "Compiled permission metadata plus the bounded crawler policy in SKILL.md and security/network_policy.json",
+              "generic": "Compiled permission metadata plus the bounded crawler policy in SKILL.md and security/network_policy.json",
+              "vscode": "Compiled permission metadata plus the bounded crawler policy in SKILL.md and security/network_policy.json"
+            },
+            "validation": []
+          },
+          {
+            "capability": "file_write",
+            "status": "approved",
+            "scripts": [
+              "scripts/run_site_diagnose.py"
+            ],
+            "reviewer": "GEOHub maintainer",
+            "scope": "Create an Artifact Bus run directory under the user-selected output root, including snapshots, JSON evidence, lineage, quality files, and report.html.",
+            "reason": "The public interface promises a reproducible run directory and standalone report.",
+            "expires_at": "2027-08-25",
+            "evidence": [
+              "references/report-contract.md",
+              "scripts/run_site_diagnose.py"
+            ],
+            "target_enforcement": {
+              "openai": "User-selected --output root and Artifact Bus transactional publication",
+              "claude": "User-selected --output root and Artifact Bus transactional publication",
+              "generic": "User-selected --output root and Artifact Bus transactional publication",
+              "vscode": "User-selected --output root and Artifact Bus transactional publication"
+            },
+            "validation": []
+          },
+          {
+            "capability": "subprocess",
+            "status": "approved",
+            "scripts": [
+              "scripts/run_site_diagnose.py"
+            ],
+            "reviewer": "GEOHub maintainer",
+            "scope": "Argument-list invocation of the installed Python module for the site-diagnose command without a shell.",
+            "reason": "The governed provider wrapper delegates to the canonical installed CLI so every target uses one validated implementation.",
+            "expires_at": "2027-08-25",
+            "evidence": [
+              "scripts/run_site_diagnose.py"
+            ],
+            "target_enforcement": {
+              "openai": "Fixed Python module invocation with shell disabled",
+              "claude": "Fixed Python module invocation with shell disabled",
+              "generic": "Fixed Python module invocation with shell disabled",
+              "vscode": "Fixed Python module invocation with shell disabled"
+            },
+            "validation": []
+          }
+        ]
+      },
+      "trust_metadata": {
+        "source_tier": "local",
+        "remote_inline_execution": "forbid",
+        "remote_metadata_policy": "allow-metadata-only"
+      },
+      "artifacts": {
+        "json": "reports/security_trust_report.json",
+        "markdown": "reports/security_trust_report.md"
+      }
+    },
+    "python_compatibility": {},
+    "architecture_maintainability": {},
+    "context_budget": {},
+    "promotion": {},
+    "atlas": {},
+    "adoption_drift": {},
+    "daily_skillops": {},
+    "weekly_curator": {},
+    "review_waivers": {},
+    "review_annotations": {},
+    "adaptation_proposals": {},
+    "adaptation_approval_ledger": {},
+    "adaptation_regression": {},
+    "world_class_evidence_ledger": {},
+    "world_class_evidence_intake": {},
+    "world_class_evidence_preflight": {},
+    "world_class_submission_review": {},
+    "world_class_operator_runbook": {},
+    "world_class_claim_guard": {},
+    "registry": {},
+    "package_verification": {},
+    "install_simulation": {},
+    "upgrade_check": {},
+    "manifest": {
+      "name": "geo-site-diagnose",
+      "version": "0.7.0",
+      "owner": "姚金刚 / Yao",
+      "updated_at": "2026-08-27",
+      "review_cadence": "per-release",
+      "status": "experimental",
+      "maturity": "experimental",
+      "maturity_tier": "governed",
+      "lifecycle_stage": "governed",
+      "context_budget_tier": "production",
+      "contract_version": "1.0.0",
+      "availability": "active",
+      "entrypoint": "SKILL.md",
+      "target_platforms": [
+        "openai",
+        "claude",
+        "generic"
+      ],
+      "permission_profile": {
+        "filesystem": "read-write-output",
+        "network": "explicit-public-http-only",
+        "shell": "bash"
+      },
+      "license_expression": "AGPL-3.0-only",
+      "commercial_license_available": true,
+      "commercial_license_status": "inquiry_only",
+      "copyright_owner": "姚金刚 / Yao",
+      "third_party_notice_required": true,
+      "input_files": [
+        "file-backed fixture: bounded replay HTML, robots.txt, and sitemap snapshots for governed evaluation"
+      ],
+      "output_contract": [
+        "sampling-plan",
+        "site-diagnosis",
+        "page-diagnoses",
+        "evidence-ledger",
+        "remediation-backlog",
+        "standalone-html-report",
+        "quality-report",
+        "run-lineage",
+        "run-manifest"
+      ],
+      "rollback_boundary": "Remove generated site-diagnosis run directories and revert the site-diagnose runtime, Registry entry, schemas, packaging, and provider package together.",
+      "factory_components": [
+        "references",
+        "scripts",
+        "evals",
+        "assets",
+        "reports",
+        "agents",
+        "security"
+      ]
+    },
+    "frontmatter": {
+      "name": "geo-site-diagnose",
+      "description": "Crawl one public website from a supplied URL, select up to ten representative page types, score evidence-lined GEO readiness, and generate a standalone visual HTML report. Use for 网站 GEO 诊断、全站 GEO 体检、网站 GEO 审计, or requests such as “帮我诊断网站GEO并附上网址”. Excludes single-page or brand-only diagnosis, live AI ranking or citation measurement, authenticated sites, and website modification."
+    },
+    "interface": {
+      "interface": {
+        "display_name": "GEOHub 网站 GEO 诊断",
+        "short_description": "从一个网址生成最多十类页面的 GEO 可视化诊断报告",
+        "default_prompt": "Use $geo-site-diagnose to crawl this public website within the governed limits and return the standalone visual GEO diagnosis report.",
+        "input_contract": {
+          "required": {
+            "url": "one public HTTP(S) website URL"
+          },
+          "optional": {
+            "locale": "Chinese or English locale; defaults to zh-CN for Chinese requests and normalizes English requests to en-US",
+            "max_pages": "integer from 1 to 10; defaults to 10",
+            "render": "auto | http | browser; defaults to auto"
+          }
+        },
+        "output_contract": [
+          "input/site-diagnosis-brief.json",
+          "input/sources/*",
+          "crawl-manifest.json",
+          "sampling-plan.json",
+          "site-diagnosis.json",
+          "pages/*.json",
+          "evidence-ledger.json",
+          "remediation-backlog.json",
+          "report.html",
+          "quality-report.json",
+          "run-lineage.json",
+          "run-manifest.json"
+        ],
+        "permission_contract": {
+          "filesystem": "read packaged assets and write the selected runs root",
+          "network": "one explicit public website and same-host bounded discovery only"
+        }
+      },
+      "compatibility": {
+        "canonical_format": "agent-skills",
+        "adapter_targets": [
+          "openai",
+          "claude",
+          "generic"
+        ],
+        "activation": {
+          "mode": "auto",
+          "paths": []
+        },
+        "execution": {
+          "context": "inline",
+          "shell": "bash"
+        },
+        "trust": {
+          "source_tier": "local",
+          "remote_inline_execution": "forbid",
+          "remote_metadata_policy": "allow-metadata-only"
+        },
+        "degradation": {
+          "openai": "metadata-adapter",
+          "claude": "neutral-source-plus-adapter",
+          "generic": "neutral-source"
+        }
+      }
+    }
+  },
+  "artifacts": {
+    "html": "reports/yao-meta/geo-site-diagnose-review-studio.html",
+    "json": "reports/yao-meta/geo-site-diagnose-review-studio.json"
+  }
+}
