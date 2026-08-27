@@ -25,6 +25,7 @@ from geo_seo_hub.registry import load_registry  # noqa: E402
 ARTIFACTS = {
     "geo-discover": {"query-map.json", "opportunity-map.json", "evidence-ledger.json", "quality-report.json", "run-lineage.json", "run-manifest.json"},
     "geo-diagnose": {"diagnosis.json", "report.md", "evidence-ledger.json", "quality-report.json", "run-lineage.json", "run-manifest.json"},
+    "geo-site-diagnose": {"sampling-plan.json", "site-diagnosis.json", "evidence-ledger.json", "remediation-backlog.json", "report.html", "quality-report.json", "run-lineage.json", "run-manifest.json"},
     "geo-content": {"content-spec.json", "content.json", "content.md", "content.html", "evidence-ledger.json", "quality-report.json", "run-lineage.json", "run-manifest.json"},
     "geo-measure": {"visibility-report.json", "quality-report.json", "run-lineage.json", "run-manifest.json"},
     "geo-strategy": {"strategy-candidates.json", "fidelity-report.json", "experiment-plan.json", "publication-handoff.json", "strategy-memory.json", "quality-report.json", "run-lineage.json", "run-manifest.json"},
@@ -62,7 +63,7 @@ def evaluate_router() -> dict:
 
 def evaluate_skill_triggers() -> dict:
     results = []
-    for skill_id in ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure", "geo-strategy", "geo-knowledge"):
+    for skill_id in ("geo", "geo-discover", "geo-diagnose", "geo-site-diagnose", "geo-content", "geo-measure", "geo-strategy", "geo-knowledge"):
         cases = read_json(ROOT / "skills" / skill_id / "evals" / "trigger_cases.json")
         for item in cases["should_trigger"]:
             actual = route(item["text"])["skill_id"]

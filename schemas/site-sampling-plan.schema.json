@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yao.example/geo/schemas/site-sampling-plan.schema.json",
+  "title": "Site diagnosis sampling plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "run_id", "root_url", "inventory_count", "selected_count", "max_pages", "page_types", "candidates", "selected"],
+  "properties": {
+    "protocol_version": {"const": "1.0.0"},
+    "run_id": {"type": "string", "pattern": "\\S"},
+    "root_url": {"type": "string", "format": "uri", "pattern": "^https?://"},
+    "inventory_count": {"type": "integer", "minimum": 1, "maximum": 500},
+    "selected_count": {"type": "integer", "minimum": 1, "maximum": 10},
+    "max_pages": {"type": "integer", "minimum": 1, "maximum": 10},
+    "page_types": {"type": "array", "minItems": 10, "maxItems": 10, "items": {"type": "object"}},
+    "candidates": {"type": "array", "maxItems": 500, "items": {"type": "object"}},
+    "selected": {"type": "array", "maxItems": 10, "items": {"type": "object"}}
+  }
+}

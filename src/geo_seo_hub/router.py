@@ -1121,6 +1121,23 @@ def route(
         alternatives = []
 
     distinct_intents = list(dict.fromkeys(ordered_intents))
+    # A specialized intent may deliberately contain a maintained broad intent,
+    # such as "诊断" inside "帮我诊断网站 GEO". Treat a fully subsumed,
+    # lower-scoring lexical match as routing context for the specialized Skill.
+    distinct_intents = [
+        skill_id
+        for skill_id in distinct_intents
+        if not any(
+            other_id != skill_id
+            and scores.get(other_id, 0) > scores.get(skill_id, 0)
+            and spans_by_skill.get(skill_id)
+            and all(
+                any(other_start <= start and end <= other_end for other_start, other_end in spans_by_skill.get(other_id, []))
+                for start, end in spans_by_skill[skill_id]
+            )
+            for other_id in distinct_intents
+        )
+    ]
     if workflow is not None:
         decision_type = "workflow" if workflow["status"] == "active" else "unavailable"
     elif selected["status"] != "active":

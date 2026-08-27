@@ -11,7 +11,7 @@ Routing uses normalized phrase matching plus an optional cache-only semantic sco
 
 The router may suggest 'geo-discover' when a downstream route is unavailable. A suggestion is not an assertion that discovery fulfills the unavailable stage.
 
-`geo-discover`, `geo-diagnose`, `geo-content`, `geo-measure`, `geo-strategy`, and `geo-knowledge` are active alongside the `geo` umbrella router. `geo-publish` remains a planned route with no runnable entry. `seo` is a compatibility package and is not a Registry route in 0.6.0.
+`geo-discover`, `geo-diagnose`, `geo-site-diagnose`, `geo-content`, `geo-measure`, `geo-strategy`, and `geo-knowledge` are active alongside the `geo` umbrella router. `geo-publish` remains a planned route with no runnable entry. `seo` is a compatibility package and is not a Registry route in 0.7.0. Specialized Site Diagnose phrases may fully contain broad diagnosis phrases; the higher-scoring specialized span wins without creating a false multi-intent clarification.
 
 Workflow recipes carry their own status. The router exposes `workflow` for an exact recipe match, including its status and runnable state. A pending workflow keeps every step disabled as a group, even when its individual skills are active. The top-level `skill_id` identifies the first actual Skill node.
 

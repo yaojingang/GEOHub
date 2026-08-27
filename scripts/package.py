@@ -90,7 +90,7 @@ def packaged_pyproject(entries: dict[str, bytes]) -> bytes:
     source = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
     base = source.split("[tool.setuptools.data-files]", 1)[0].replace('readme = "README.md"', 'readme = "SKILL.md"')
     runtime_roots = {"SKILL.md", "PACKAGE-METADATA.json", "TARGET.md"}
-    runtime_prefixes = ("registry/", "schemas/", "references/", "scripts/", "agents/", "manifests/")
+    runtime_prefixes = ("registry/", "schemas/", "references/", "scripts/", "agents/", "assets/", "security/", "manifests/")
     groups: dict[str, list[str]] = {}
     for name in sorted(entries):
         if name not in runtime_roots and not name.startswith(runtime_prefixes):
@@ -113,11 +113,17 @@ def adapter_runtime(files: list[Path], root_skill_id: str) -> dict[str, bytes]:
     for skill_id in SKILLS:
         entries[f"references/providers/{skill_id}.md"] = packaged_skill(skill_id, nested=True)
         source_prefix = f"skills/{skill_id}/references/"
+        asset_prefix = f"skills/{skill_id}/assets/"
+        security_prefix = f"skills/{skill_id}/security/"
         for path in files:
             raw = path.as_posix()
             if raw.startswith(source_prefix):
                 entries[f"references/providers/{skill_id}/{raw[len(source_prefix):]}"] = (ROOT / path).read_bytes()
-        wrapper = "route" if skill_id == "geo" else skill_id.removeprefix("geo-")
+            elif raw.startswith(asset_prefix):
+                entries[f"assets/providers/{skill_id}/{raw[len(asset_prefix):]}"] = (ROOT / path).read_bytes()
+            elif raw.startswith(security_prefix):
+                entries[f"security/providers/{skill_id}/{raw[len(security_prefix):]}"] = (ROOT / path).read_bytes()
+        wrapper = "route" if skill_id == "geo" else skill_id.removeprefix("geo-").replace("-", "_")
         entries[f"scripts/run_{wrapper}.py"] = (ROOT / "skills" / skill_id / "scripts" / f"run_{wrapper}.py").read_bytes()
     entries["references/providers/geo/RESOLVER.md"] = (ROOT / "skills" / "RESOLVER.md").read_bytes()
     return entries
@@ -166,7 +172,12 @@ def provider_package(files: list[Path], skill_id: str) -> Path:
     for path in files:
         prefix = f"skills/{skill_id}/"
         raw = path.as_posix()
-        if raw.startswith(prefix + "references/") or raw.startswith(prefix + "scripts/"):
+        if (
+            raw.startswith(prefix + "references/")
+            or raw.startswith(prefix + "scripts/")
+            or raw.startswith(prefix + "assets/")
+            or raw.startswith(prefix + "security/")
+        ):
             entries[raw[len(prefix):]] = (ROOT / path).read_bytes()
     if skill_id == "geo":
         entries["references/RESOLVER.md"] = (ROOT / "skills" / "RESOLVER.md").read_bytes()

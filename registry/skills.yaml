@@ -1,5 +1,5 @@
 protocol_version: 1.0.0
-registry_version: 0.6.0
+registry_version: 0.7.0
 workflows:
   - id: brand-baseline-lite
     status: active
@@ -74,13 +74,29 @@ skills:
     intents: [diagnose, audit, brand diagnosis, brand audit, site diagnosis, site audit, website diagnosis, website audit, page diagnosis, page audit, 诊断, 审计, 差距分析, 品牌诊断, 网站诊断, 页面诊断]
     outputs: [report, diagnosis, evidence-ledger, query-map, opportunity-map, quality-report, run-lineage, run-manifest]
     positive_examples: ["检查这个网站在 AI 搜索中的引用障碍", "给品牌做一次 GEO 差距诊断", "Audit this page for answer-engine visibility gaps", "Explain why this site is difficult for AI answers to cite"]
-    negative_examples: ["为这个品类扩展搜索问题", "根据观察数据计算品牌提及率"]
+    negative_examples: ["为这个品类扩展搜索问题", "从一个网址自动发现全站典型页面并生成可视化报告", "根据观察数据计算品牌提及率"]
     input_artifacts: [{name: diagnosis-brief, schema: null, required: true}]
     output_artifacts: [{name: diagnosis, schema: null, required: true}, {name: report, schema: null, required: true}]
     permissions: {filesystem: read-write-output, network: explicit-public-http-only, shell: bash, approval_required: false}
     side_effects: [writes-artifacts, reads-approved-public-http]
     preconditions: ["The request supplies approved source snapshots, evidence, or explicit public URLs."]
     execution: {executor: diagnose, timeout_seconds: 600, max_attempts: 2, idempotent: true}
+    routing: {semantic_threshold: 0.62, ambiguity_margin: 0.05, threshold_version: semantic-provisional-v1}
+  - id: geo-site-diagnose
+    status: active
+    active_placeholder: false
+    entry: skills/geo-site-diagnose/SKILL.md
+    summary: Bounded same-host discovery, representative-page GEO scoring, and standalone visual reporting from one public URL.
+    intents: [site diagnose, site diagnosis report, website geo audit, website geo diagnosis, multipage website audit, full site geo audit, audit this public website, visual geo report, crawl website for geo, 帮我诊断网站 GEO, 帮我诊断网站GEO, 诊断网站 GEO, 诊断网站GEO, 网站 GEO 诊断, 网站GEO诊断, 全站 GEO 体检, 全站GEO体检, 网站 GEO 审计, 多页面网站诊断, 抓取网站典型页面]
+    outputs: [sampling-plan, site-diagnosis, page-diagnoses, evidence-ledger, remediation-backlog, report, quality-report, run-lineage, run-manifest]
+    positive_examples: ["帮我诊断网站GEO，网址是 https://example.com", "抓取这个网站的典型页面并生成详细 GEO 可视化报告", "Audit this public website across representative page types for GEO readiness", "Run a full-site GEO diagnosis from this URL and give me an HTML dashboard"]
+    negative_examples: ["只诊断我提供的这个产品页", "给品牌做一次基于现有证据的差距诊断", "统计网站在 AI 回答中的真实引用次数", "制定网站 SEO 关键词规划"]
+    input_artifacts: [{name: site-diagnosis-brief, schema: null, required: true}]
+    output_artifacts: [{name: sampling-plan, schema: site-sampling-plan, required: true}, {name: site-diagnosis, schema: site-diagnosis, required: true}, {name: remediation-backlog, schema: site-remediation-backlog, required: true}, {name: report, schema: null, required: true}]
+    permissions: {filesystem: read-write-output, network: explicit-public-http-only, shell: bash, approval_required: false}
+    side_effects: [writes-artifacts, reads-approved-public-http]
+    preconditions: ["The request supplies one explicit public HTTP(S) URL and authorizes bounded same-host discovery."]
+    execution: {executor: site-diagnose, timeout_seconds: 600, max_attempts: 2, idempotent: true}
     routing: {semantic_threshold: 0.62, ambiguity_margin: 0.05, threshold_version: semantic-provisional-v1}
   - id: geo-content
     status: active

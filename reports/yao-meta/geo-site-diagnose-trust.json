@@ -1,0 +1,192 @@
+{
+  "ok": true,
+  "skill_dir": "skills/geo-site-diagnose",
+  "summary": {
+    "scanned_files": 20,
+    "script_count": 1,
+    "internal_module_count": 0,
+    "secret_findings": 0,
+    "dependency_files": [],
+    "network_script_count": 1,
+    "network_policy_covered_count": 1,
+    "network_policy_missing_count": 0,
+    "file_write_script_count": 1,
+    "permission_required_count": 3,
+    "permission_approved_count": 3,
+    "permission_missing_count": 0,
+    "permission_invalid_count": 0,
+    "permission_expired_count": 0,
+    "help_smoke_checked_count": 1,
+    "help_smoke_failed_count": 0,
+    "interactive_script_count": 0,
+    "package_hash_scope": "source-contract-without-generated-reports",
+    "package_hash_file_count": 20,
+    "package_sha256": "f31f88be1784f2b9558a6d9a247f89e2a3eac4445a01a56e559504f2d3d36ab6"
+  },
+  "failures": [],
+  "warnings": [
+    "No dependency or lock file detected"
+  ],
+  "secrets": [],
+  "scripts": [
+    {
+      "path": "scripts/run_site_diagnose.py",
+      "interface": "cli",
+      "interface_declared": true,
+      "interface_reason": "The wrapper validates public HTTP input and delegates to the installed bounded crawler.",
+      "has_argparse": true,
+      "has_main_guard": true,
+      "uses_input": false,
+      "uses_network": true,
+      "uses_file_write": true,
+      "uses_subprocess": true,
+      "network_urls": [],
+      "network_hosts": []
+    }
+  ],
+  "dependencies": {
+    "present": [],
+    "pinned": [],
+    "unpinned": []
+  },
+  "network_policy": {
+    "present": true,
+    "path": "security/network_policy.json",
+    "schema_version": "1.0",
+    "network_script_count": 1,
+    "covered_scripts": [
+      "scripts/run_site_diagnose.py"
+    ],
+    "missing_scripts": [],
+    "mismatches": [],
+    "default_policy": {
+      "require_https": false,
+      "custom_hosts": "explicit-user-approved-public-host",
+      "review_rule": "Each run is limited to one normalized public HTTP(S) host supplied by the user. Redirect targets are revalidated and must stay on that host."
+    }
+  },
+  "help_smoke": {
+    "enabled": true,
+    "timeout_seconds": 5.0,
+    "candidate_count": 1,
+    "checked_count": 1,
+    "passed_count": 1,
+    "failed_count": 0,
+    "skipped_count": 0,
+    "failed_scripts": [],
+    "results": [
+      {
+        "path": "scripts/run_site_diagnose.py",
+        "command": "python3 scripts/run_site_diagnose.py --help",
+        "returncode": 0,
+        "timed_out": false,
+        "passed": true,
+        "has_help_text": true,
+        "stdout_excerpt": "usage: run_site_diagnose.py [-h] --url URL --output OUTPUT [--locale LOCALE]\n                            [--max-pages MAX_PAGES]\n                            [--render {auto,http,browser}]\n\nCreate a bounded multi-page website GEO diagnosis.\n",
+        "stderr_excerpt": ""
+      }
+    ],
+    "skipped": []
+  },
+  "permission_governance": {
+    "present": true,
+    "path": "security/permission_policy.json",
+    "schema_version": "1.0",
+    "reviewed_at": "2026-08-25",
+    "required_capabilities": [
+      "file_write",
+      "network",
+      "subprocess"
+    ],
+    "approved_capabilities": [
+      "file_write",
+      "network",
+      "subprocess"
+    ],
+    "missing_capabilities": [],
+    "invalid_capabilities": [],
+    "expired_capabilities": [],
+    "approval_count": 3,
+    "required_count": 3,
+    "missing_count": 0,
+    "invalid_count": 0,
+    "expired_count": 0,
+    "approvals": [
+      {
+        "capability": "network",
+        "status": "approved",
+        "scripts": [
+          "scripts/run_site_diagnose.py"
+        ],
+        "reviewer": "GEOHub maintainer",
+        "scope": "Read-only bounded GET access to one user-supplied public HTTP(S) host under security/network_policy.json.",
+        "reason": "Website diagnosis requires current page, robots.txt, sitemap, and same-host rendering evidence.",
+        "expires_at": "2027-08-25",
+        "evidence": [
+          "security/network_policy.json",
+          "references/crawler-policy.md",
+          "scripts/run_site_diagnose.py"
+        ],
+        "target_enforcement": {
+          "openai": "Compiled permission metadata plus the bounded crawler policy in SKILL.md and security/network_policy.json",
+          "claude": "Compiled permission metadata plus the bounded crawler policy in SKILL.md and security/network_policy.json",
+          "generic": "Compiled permission metadata plus the bounded crawler policy in SKILL.md and security/network_policy.json",
+          "vscode": "Compiled permission metadata plus the bounded crawler policy in SKILL.md and security/network_policy.json"
+        },
+        "validation": []
+      },
+      {
+        "capability": "file_write",
+        "status": "approved",
+        "scripts": [
+          "scripts/run_site_diagnose.py"
+        ],
+        "reviewer": "GEOHub maintainer",
+        "scope": "Create an Artifact Bus run directory under the user-selected output root, including snapshots, JSON evidence, lineage, quality files, and report.html.",
+        "reason": "The public interface promises a reproducible run directory and standalone report.",
+        "expires_at": "2027-08-25",
+        "evidence": [
+          "references/report-contract.md",
+          "scripts/run_site_diagnose.py"
+        ],
+        "target_enforcement": {
+          "openai": "User-selected --output root and Artifact Bus transactional publication",
+          "claude": "User-selected --output root and Artifact Bus transactional publication",
+          "generic": "User-selected --output root and Artifact Bus transactional publication",
+          "vscode": "User-selected --output root and Artifact Bus transactional publication"
+        },
+        "validation": []
+      },
+      {
+        "capability": "subprocess",
+        "status": "approved",
+        "scripts": [
+          "scripts/run_site_diagnose.py"
+        ],
+        "reviewer": "GEOHub maintainer",
+        "scope": "Argument-list invocation of the installed Python module for the site-diagnose command without a shell.",
+        "reason": "The governed provider wrapper delegates to the canonical installed CLI so every target uses one validated implementation.",
+        "expires_at": "2027-08-25",
+        "evidence": [
+          "scripts/run_site_diagnose.py"
+        ],
+        "target_enforcement": {
+          "openai": "Fixed Python module invocation with shell disabled",
+          "claude": "Fixed Python module invocation with shell disabled",
+          "generic": "Fixed Python module invocation with shell disabled",
+          "vscode": "Fixed Python module invocation with shell disabled"
+        },
+        "validation": []
+      }
+    ]
+  },
+  "trust_metadata": {
+    "source_tier": "local",
+    "remote_inline_execution": "forbid",
+    "remote_metadata_policy": "allow-metadata-only"
+  },
+  "artifacts": {
+    "json": "reports/yao-meta/geo-site-diagnose-trust.json",
+    "markdown": "reports/yao-meta/geo-site-diagnose-trust.md"
+  }
+}

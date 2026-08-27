@@ -1,0 +1,343 @@
+{
+  "ok": true,
+  "cases": "skills/geo-site-diagnose/evals/output/cases.jsonl",
+  "summary": {
+    "case_count": 5,
+    "file_backed_case_count": 0,
+    "near_neighbor_case_count": 1,
+    "boundary_case_count": 1,
+    "baseline_pass_rate": 0.0,
+    "with_skill_pass_rate": 100.0,
+    "delta": 100.0,
+    "regression_count": 0,
+    "gate_pass": true,
+    "failure_taxonomy": [],
+    "blind_pair_count": 5
+  },
+  "results": [
+    {
+      "id": "happy",
+      "prompt": "帮我诊断网站GEO：https://example.com",
+      "input_files": [],
+      "metadata": {
+        "case_type": "happy"
+      },
+      "baseline": {
+        "score": 0.0,
+        "passed_count": 0,
+        "failed_count": 1,
+        "checks": [
+          {
+            "id": "contract",
+            "description": "必须满足网站诊断输出契约。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": false,
+            "missing": [
+              "sampling-plan",
+              "site-diagnosis",
+              "report.html",
+              "逐页证据"
+            ],
+            "present_forbidden": []
+          }
+        ],
+        "failed": [
+          {
+            "id": "contract",
+            "description": "必须满足网站诊断输出契约。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": false,
+            "missing": [
+              "sampling-plan",
+              "site-diagnosis",
+              "report.html",
+              "逐页证据"
+            ],
+            "present_forbidden": []
+          }
+        ]
+      },
+      "with_skill": {
+        "score": 100.0,
+        "passed_count": 1,
+        "failed_count": 0,
+        "checks": [
+          {
+            "id": "contract",
+            "description": "必须满足网站诊断输出契约。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": true,
+            "missing": [],
+            "present_forbidden": []
+          }
+        ],
+        "failed": []
+      },
+      "delta": 100.0,
+      "winner": "with_skill",
+      "failure_taxonomy": []
+    },
+    {
+      "id": "missing-url",
+      "prompt": "帮我诊断网站 GEO",
+      "input_files": [],
+      "metadata": {
+        "case_type": "missing_input"
+      },
+      "baseline": {
+        "score": 0.0,
+        "passed_count": 0,
+        "failed_count": 1,
+        "checks": [
+          {
+            "id": "input",
+            "description": "缺少核心输入时只请求网址。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": false,
+            "missing": [
+              "公开",
+              "网址"
+            ],
+            "present_forbidden": []
+          }
+        ],
+        "failed": [
+          {
+            "id": "input",
+            "description": "缺少核心输入时只请求网址。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": false,
+            "missing": [
+              "公开",
+              "网址"
+            ],
+            "present_forbidden": []
+          }
+        ]
+      },
+      "with_skill": {
+        "score": 100.0,
+        "passed_count": 1,
+        "failed_count": 0,
+        "checks": [
+          {
+            "id": "input",
+            "description": "缺少核心输入时只请求网址。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": true,
+            "missing": [],
+            "present_forbidden": []
+          }
+        ],
+        "failed": []
+      },
+      "delta": 100.0,
+      "winner": "with_skill",
+      "failure_taxonomy": []
+    },
+    {
+      "id": "boundary",
+      "prompt": "统计这个网站在 ChatGPT 的真实引用次数",
+      "input_files": [],
+      "metadata": {
+        "case_type": "boundary"
+      },
+      "baseline": {
+        "score": 0.0,
+        "passed_count": 0,
+        "failed_count": 1,
+        "checks": [
+          {
+            "id": "boundary",
+            "description": "不得虚构平台效果。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": false,
+            "missing": [
+              "geo-measure",
+              "真实平台观测"
+            ],
+            "present_forbidden": []
+          }
+        ],
+        "failed": [
+          {
+            "id": "boundary",
+            "description": "不得虚构平台效果。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": false,
+            "missing": [
+              "geo-measure",
+              "真实平台观测"
+            ],
+            "present_forbidden": []
+          }
+        ]
+      },
+      "with_skill": {
+        "score": 100.0,
+        "passed_count": 1,
+        "failed_count": 0,
+        "checks": [
+          {
+            "id": "boundary",
+            "description": "不得虚构平台效果。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": true,
+            "missing": [],
+            "present_forbidden": []
+          }
+        ],
+        "failed": []
+      },
+      "delta": 100.0,
+      "winner": "with_skill",
+      "failure_taxonomy": []
+    },
+    {
+      "id": "source-gap",
+      "prompt": "robots 阻止抓取时继续诊断",
+      "input_files": [],
+      "metadata": {
+        "case_type": "source_shortfall"
+      },
+      "baseline": {
+        "score": 0.0,
+        "passed_count": 0,
+        "failed_count": 1,
+        "checks": [
+          {
+            "id": "gap",
+            "description": "抓取缺口必须透明。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": false,
+            "missing": [
+              "source_gap",
+              "置信度",
+              "限制"
+            ],
+            "present_forbidden": []
+          }
+        ],
+        "failed": [
+          {
+            "id": "gap",
+            "description": "抓取缺口必须透明。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": false,
+            "missing": [
+              "source_gap",
+              "置信度",
+              "限制"
+            ],
+            "present_forbidden": []
+          }
+        ]
+      },
+      "with_skill": {
+        "score": 100.0,
+        "passed_count": 1,
+        "failed_count": 0,
+        "checks": [
+          {
+            "id": "gap",
+            "description": "抓取缺口必须透明。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": true,
+            "missing": [],
+            "present_forbidden": []
+          }
+        ],
+        "failed": []
+      },
+      "delta": 100.0,
+      "winner": "with_skill",
+      "failure_taxonomy": []
+    },
+    {
+      "id": "neighbor",
+      "prompt": "只检查我提供的一个产品页",
+      "input_files": [],
+      "metadata": {
+        "case_type": "near_neighbor"
+      },
+      "baseline": {
+        "score": 0.0,
+        "passed_count": 0,
+        "failed_count": 1,
+        "checks": [
+          {
+            "id": "route",
+            "description": "单页请求必须保留旧路径。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": false,
+            "missing": [
+              "geo-diagnose",
+              "单页"
+            ],
+            "present_forbidden": []
+          }
+        ],
+        "failed": [
+          {
+            "id": "route",
+            "description": "单页请求必须保留旧路径。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": false,
+            "missing": [
+              "geo-diagnose",
+              "单页"
+            ],
+            "present_forbidden": []
+          }
+        ]
+      },
+      "with_skill": {
+        "score": 100.0,
+        "passed_count": 1,
+        "failed_count": 0,
+        "checks": [
+          {
+            "id": "route",
+            "description": "单页请求必须保留旧路径。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": true,
+            "missing": [],
+            "present_forbidden": []
+          }
+        ],
+        "failed": []
+      },
+      "delta": 100.0,
+      "winner": "with_skill",
+      "failure_taxonomy": []
+    }
+  ],
+  "failures": [],
+  "blind_review": {
+    "pack": "reports/yao-meta/geo-site-diagnose-blind-pack.json",
+    "answer_key": "reports/yao-meta/geo-site-diagnose-blind-answer-key.json",
+    "pair_count": 5
+  },
+  "artifacts": {
+    "json": "reports/yao-meta/geo-site-diagnose-output-eval.json",
+    "markdown": "reports/yao-meta/geo-site-diagnose-output-eval.md",
+    "blind_review_pack_json": "reports/yao-meta/geo-site-diagnose-blind-pack.json",
+    "blind_review_pack_md": "reports/yao-meta/geo-site-diagnose-blind-pack.md",
+    "blind_answer_key_json": "reports/yao-meta/geo-site-diagnose-blind-answer-key.json"
+  }
+}

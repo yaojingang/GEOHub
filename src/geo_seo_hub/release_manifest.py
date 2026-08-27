@@ -30,13 +30,20 @@ SOURCE_EXACT = frozenset(
 )
 SOURCE_PREFIXES = ("src/", "schemas/", "registry/", "skills/", "scripts/", "docs/", "tests/", "evals/")
 EXCLUDED_PARTS = frozenset({".git", "__pycache__", ".pytest_cache", "runs", "dist"})
+REPORT_EXAMPLES = frozenset(
+    {
+        "reports/examples/geo-site-diagnose-demo.html",
+        "reports/examples/geo-site-diagnose-demo-desktop.png",
+        "reports/examples/geo-site-diagnose-demo-mobile.png",
+    }
+)
 
 
 def is_release_source(relative: Path) -> bool:
     raw = relative.as_posix()
-    if "reports" in relative.parts and (not relative.parts or relative.parts[0] != "skills"):
+    if "reports" in relative.parts and (not relative.parts or relative.parts[0] != "skills") and raw not in REPORT_EXAMPLES:
         return False
-    return not (set(relative.parts) & EXCLUDED_PARTS) and (raw in SOURCE_EXACT or raw.startswith(SOURCE_PREFIXES))
+    return not (set(relative.parts) & EXCLUDED_PARTS) and (raw in SOURCE_EXACT or raw in REPORT_EXAMPLES or raw.startswith(SOURCE_PREFIXES))
 
 
 def expected_archive_names(version: str, active_skill_ids: tuple[str, ...]) -> frozenset[str]:

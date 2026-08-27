@@ -22,6 +22,15 @@ def test_single_skill_plan_is_deterministic_and_valid():
     validate_artifact("task-plan", first)
 
 
+def test_site_diagnosis_route_compiles_to_a_runnable_executor():
+    request = "帮我诊断网站GEO，网址是 https://example.com"
+    plan = compile_task_plan(request, route(request))
+    assert plan["status"] == "ready"
+    assert plan["required_inputs"] == ["site-diagnosis-brief"]
+    assert [node["skill_id"] for node in plan["nodes"]] == ["geo-site-diagnose"]
+    assert plan["nodes"][0]["execution"]["executor"] == "site-diagnose"
+
+
 def test_exact_workflow_compiles_dependencies_and_inputs():
     request = "先拓词，再诊断网站"
     plan = compile_task_plan(request, route(request))

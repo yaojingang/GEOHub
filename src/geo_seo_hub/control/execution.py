@@ -18,7 +18,7 @@ from ..validation import load_bounded_json, read_bounded_regular_file, strict_js
 from .workflow import WorkflowRunner, create_workflow_state_from_plan, validate_task_plan_semantics
 
 
-EXECUTORS = frozenset({"content", "diagnose", "discover", "knowledge", "measure", "strategy"})
+EXECUTORS = frozenset({"content", "diagnose", "discover", "knowledge", "measure", "site-diagnose", "strategy"})
 MAX_EXECUTOR_CAPTURE_BYTES = 1024 * 1024
 MAX_EXECUTOR_ARTIFACT_BYTES = 64 * 1024 * 1024
 MAX_EXECUTOR_ARTIFACTS = 500
@@ -198,16 +198,42 @@ def _execute_skill(
     output_root: Path,
     timeout_seconds: int | None,
 ) -> dict[str, Any]:
-    command = [
-        sys.executable,
-        "-m",
-        "geo_seo_hub",
-        executor_name,
-        "--input",
-        str(input_path),
-        "--output",
-        str(output_root),
-    ]
+    if executor_name == "site-diagnose":
+        brief = load_bounded_json(input_path, max_bytes=1024 * 1024, field="site diagnosis brief")
+        if not isinstance(brief, dict) or not isinstance(brief.get("url"), str):
+            raise NonRetryableExecutionError("site diagnosis brief requires a string url")
+        locale = brief.get("locale", "zh-CN")
+        max_pages = brief.get("max_pages", 10)
+        render_mode = brief.get("render_mode", brief.get("render", "auto"))
+        if not isinstance(locale, str) or isinstance(max_pages, bool) or not isinstance(max_pages, int) or not isinstance(render_mode, str):
+            raise NonRetryableExecutionError("site diagnosis brief contains invalid execution options")
+        command = [
+            sys.executable,
+            "-m",
+            "geo_seo_hub",
+            "site-diagnose",
+            "--url",
+            brief["url"],
+            "--output",
+            str(output_root),
+            "--locale",
+            locale,
+            "--max-pages",
+            str(max_pages),
+            "--render",
+            render_mode,
+        ]
+    else:
+        command = [
+            sys.executable,
+            "-m",
+            "geo_seo_hub",
+            executor_name,
+            "--input",
+            str(input_path),
+            "--output",
+            str(output_root),
+        ]
     process = subprocess.Popen(
         command,
         stdout=subprocess.PIPE,
@@ -339,7 +365,7 @@ def _continue_workflow_unlocked(state_path: Path) -> dict[str, Any]:
                 bounded_output,
                 step["timeout_seconds"],
             )
-            raw_run_dir = result.get("output")
+            raw_run_dir = result.get("output") or result.get("run_directory")
             if not isinstance(raw_run_dir, str):
                 raise NonRetryableExecutionError(
                     f"executor {executor_name} omitted its output directory"

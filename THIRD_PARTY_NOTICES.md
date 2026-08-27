@@ -8,8 +8,11 @@ GEOHub declares runtime dependencies in `pyproject.toml`:
 Optional local rendering dependencies are declared under the `render` extra:
 
 - python-docx: MIT License
+- Playwright for Python: Apache License 2.0
 - WeasyPrint: BSD 3-Clause License
 - ReportLab: BSD License
+
+The `geo-site-diagnose` provider bundles Apache ECharts `5.6.0` as `assets/echarts.min.js` so generated reports remain offline and self-contained. Apache ECharts is licensed under the Apache License 2.0. The upstream package is `echarts@5.6.0`, npm source archive SHA-1 `2377874dca9fb50f104051c3553544752da3c9d6`. The upstream license and notice are preserved beside the bundled runtime as `ECHARTS-LICENSE.txt` and `ECHARTS-NOTICE.txt`.
 
 Development and packaging tools may add their own transitive dependencies. Their copyright notices and license terms remain with their respective distributions. This file should be reviewed before each public release and updated when dependencies or bundled assets change.
 

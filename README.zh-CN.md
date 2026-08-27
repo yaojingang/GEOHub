@@ -4,13 +4,13 @@
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [可视化指南](https://htmlpreview.github.io/?https://raw.githubusercontent.com/yaojingang/GEOHub/main/reports/geohub-visual-guide.html#lang=zh-CN) · [架构说明](docs/architecture.md) · [安装说明](docs/installation.md)
 
-**版本 0.3.1 · 实验性 · GEO 优先 · SEO 已启用 · 协议优先**
+**版本 0.7.0 · 实验性 · GEO 优先 · SEO 已启用 · 协议优先**
 
 ![GEOHub 概览](docs/assets/geohub-overview-zh-CN.png)
 
 GEOHub 是一个面向 GEO 与 SEO 工作流的开放式 Agent Skill 合集。用户输入自然语言请求后，注册表路由器会选择最小可执行 Skill 或稳定工作流。每次能力执行都会生成一个自包含的 Artifact Bus 运行目录，集中保存结构化结果、证据血缘、质量状态与运行清单。科研对齐能力还会写入研究上下文。
 
-`0.3.1` 版本包含 6 个可执行 Skill、3 个规划中路由、7 种内容模式、离线测量能力和独立的一句话 SEO 规划入口。当前产品成熟度为 **Experimental**。Library 级工程门禁代表打包与验证强度，不代表线上效果承诺。
+`0.7.0` 版本包含 8 个活动子 Skill、7 种内容模式、离线测量能力、受限网站抓取诊断和独立的一句话 SEO 规划入口。当前产品成熟度为 **Experimental**。工程门禁代表打包与验证强度，不代表线上效果承诺。
 
 项目与超级 Skill 的公共品牌统一为 **GEOHub**。为保持兼容，Python 分发名、CLI、模块、安装数据路径、安装包与 Artifact Bus 标识继续使用 `geo-seo-hub` 或 `geo_seo_hub`。
 
@@ -25,13 +25,14 @@ GEOHub 是一个面向 GEO 与 SEO 工作流的开放式 Agent Skill 合集。�
 | 目标 | 提示词示例 | 路由结果 |
 | --- | --- | --- |
 | 发现 GEO 机会 | `围绕“GEO 优化公司”拓展受众、对比、场景和决策类问题` | `geo-discover` |
-| 诊断页面或网站 | `诊断这个产品文档页的可提取性、证据清晰度和引用准备度` | `geo-diagnose` |
+| 诊断明确页面或品牌 | `诊断这个产品文档页的可提取性、证据清晰度和引用准备度` | `geo-diagnose` |
+| 自动诊断公开网站 | `帮我诊断网站GEO：https://example.com` | `geo-site-diagnose` |
 | 生成证据约束内容 | `根据这些证据生成两个产品的中立对比页` | `geo-content` |
 | 测量离线观测 | `按照平台汇总这份离线回答与引用观测文件` | `geo-measure` |
 | 规划 SEO 工作 | `网站迁移后流量下降，检查收录、重定向、规范链接、模板和 Search Console 证据` | `seo` |
 | 执行基线工作流 | `先发现这个品牌的核心问题，再诊断网站` | `brand-baseline-lite` |
 
-策略、知识和发布类规划中请求会返回可用状态、所需输入与最接近的可执行能力，不会执行未完成的隐藏逻辑。
+发布类规划中请求会返回可用状态、所需输入与最接近的可执行能力，不会执行未完成的隐藏逻辑。
 
 ## 工作原理
 
@@ -43,7 +44,7 @@ GEOHub 是一个面向 GEO 与 SEO 工作流的开放式 Agent Skill 合集。�
 4. 研究证据内核附加来源范围、因果状态、代理变量限制和证据规则。
 5. Artifact Bus 完成文件集与运行清单校验后，原子发布完整运行目录。
 
-协议版本保持为 `1.0.0`。现有 Artifact Bus 消费者可以读取 `0.3.1` 运行结果，新版产物增加研究上下文、测量报告、诊断漏斗、内容证据单元和 SEO 计划。
+协议版本保持为 `1.0.0`。现有 Artifact Bus 消费者可以继续读取旧运行结果。网站诊断新增抽样计划、页面分析、证据账本、修复清单、质量血缘与单文件可视化报告。
 
 ## 当前可执行能力
 
@@ -52,11 +53,14 @@ GEOHub 是一个面向 GEO 与 SEO 工作流的开放式 Agent Skill 合集。�
 | `geo` | 中英文路由、planned 状态说明、工作流选择 | 路由决策、可选执行图 |
 | `geo-discover` | 根据有限 Brief 拓展查询并发现机会 | 查询地图、机会地图、证据账本 |
 | `geo-diagnose` | 根据明确来源完成品牌、站点和页面诊断 | 诊断结果、资格到吸收漏斗、修复地图 |
+| `geo-site-diagnose` | 从一个公开网址发现并诊断最多十类典型页面 | 抽样计划、八维评分、逐页分析、十模块可视化 HTML 报告 |
 | `geo-content` | 生成 7 类证据约束内容 | 内容规格、证据单元、Markdown、JSON、HTML、可选 DOCX/PDF |
 | `geo-measure` | 聚合用户提供的离线观测 | 测量报告、区间、平台分层 |
+| `geo-strategy` | 从诊断证据生成有界优化实验 | 策略候选、保真报告、实验计划、发布交接 |
+| `geo-knowledge` | 治理实体、关系与冲突事实 | 知识图谱、查询结果、证据账本 |
 | `seo` | 将一句话 SEO 请求转成范围明确的行动计划 | SEO 计划、覆盖账本、证据缺口、执行边界 |
 
-3 个规划中路由为 `geo-strategy`、`geo-knowledge` 和 `geo-publish`。
+规划中路由 `geo-publish` 保持不可执行状态。
 
 ### 七种内容模式
 
@@ -67,7 +71,7 @@ GEOHub 是一个面向 GEO 与 SEO 工作流的开放式 Agent Skill 合集。�
 | 能力范围 | 支持的场景 |
 | --- | --- |
 | GEO 发现 | 词根拓展、受众问题、对比问题、场景聚类、决策问题、内容机会 |
-| GEO 诊断 | 品牌基线、网站诊断、页面诊断、证据缺口、实体清晰度、结构化可提取性 |
+| GEO 诊断 | 品牌基线、明确来源诊断、十类典型页面网站诊断、证据缺口、实体清晰度、结构化可提取性 |
 | 内容生产 | 标题、解释型内容、中立对比、证据完整榜单、页面蓝图、已有内容优化 |
 | 测量分析 | 离线回答率、引用率、缺失回答、排除原因、平台分层、Wilson 区间 |
 | SEO | 技术审计规划、关键词与页面映射、迁移恢复、Search Console 异常、实验、国际 SEO、电商 SEO、授权实施计划 |
@@ -115,7 +119,8 @@ runs/run-<id>/
 ## 安全边界
 
 - 缺失证据会保留为 `unknown`、`unverified`、`source_gap` 或 `blocked-by-evidence`。
-- 诊断能力只读取用户明确提供的公开规范 HTTP(S) 地址，不接受查询参数，也不会扩展爬取范围。
+- `geo-diagnose` 只读取用户明确提供的最多 5 个公开来源，不扩展抓取范围。
+- `geo-site-diagnose` 仅在已批准主机内受限发现，最多选择 10 个典型页面，并记录 robots、超时、渲染和来源缺口。
 - 内容能力离线运行，会保存相对来源文件快照，并在独立 HTML 中转义用户文本。
 - 测量能力只接受有界的本地观测文件，不连接外部平台。
 - SEO 能力只生成确定性的范围和规划产物，不执行实时采集或修改。
@@ -134,6 +139,19 @@ python3 -m venv .venv
 .venv/bin/geo-seo-hub route --text "帮我拓展团队知识库相关的 AI 搜索问题"
 ```
 
+网站 GEO 诊断：
+
+```bash
+.venv/bin/geo-seo-hub site-diagnose \
+  --url https://example.com \
+  --output runs \
+  --locale zh-CN \
+  --max-pages 10 \
+  --render auto
+```
+
+可直接查看可复现的[实例报告](reports/examples/geo-site-diagnose-demo.html)、[桌面截图](reports/examples/geo-site-diagnose-demo-desktop.png)和[移动端截图](reports/examples/geo-site-diagnose-demo-mobile.png)。完整固件在十个诊断模块中渲染 23 个图表视图，真实站点遇到证据不足时会保留明确缺口说明。
+
 开发模式：
 
 ```bash
@@ -145,9 +163,9 @@ python3 -m venv .venv
 
 ## 打包与质量门禁
 
-`0.3.1` 可以构建 10 个确定性社区安装包，包括源码包、统一包、6 个能力包、Codex 适配包和 Claude 适配包。发布门禁会在隔离环境中安装并执行 9 个非源码包。
+`0.7.0` 可以构建 12 个确定性社区安装包，包括源码包、统一包、8 个能力包、Codex 适配包和 Claude 适配包。发布门禁会在隔离环境中安装、解析并验证各类安装包。
 
-当前固定评估集包含 374 条路由用例、40 条触发用例和 30 条确定性输出用例。门禁要求路由精确率与召回率均为 `1.0`，触发与输出契约合规率均为 `1.0`，虚构引用数量为 0。外部 `yao-meta-skill` 共执行 79 项命令，登记 15 项明确证据豁免，发布阻断项为 0。
+当前固定评估集覆盖中英文路由、近邻请求、网站抓取边界、十类抽样、评分重建、离线图表和响应式输出。门禁要求路由与触发契约通过，虚构引用数量为 0，并保留所有外部证据缺口与复核项。
 
 ```bash
 python3 scripts/package.py --target all --channel community
@@ -155,7 +173,7 @@ python3 scripts/verify_packages.py
 python3 scripts/install_simulation.py --target all
 ```
 
-`0.3.1` 暂无 GitHub Release 或预构建发布资产，请从源码仓库构建安装包。
+`0.7.0` 暂无 GitHub Release 或预构建发布资产，请从源码仓库构建安装包。
 
 ## 授权与治理
 

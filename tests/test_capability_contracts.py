@@ -17,6 +17,7 @@ def test_capability_contracts_match_packaged_skill_projections():
         "geo-discover",
         "geo-knowledge",
         "geo-measure",
+        "geo-site-diagnose",
         "geo-strategy",
     ]
     assert result["errors"] == []

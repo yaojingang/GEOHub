@@ -3,11 +3,12 @@
 The registry is the single capability source. Resolution preserves the existing route fields and adds a typed `decision`; exact recipes also add `workflow`.
 
 - A single intent selects the smallest matching active skill.
+- A specialized lexical intent wins when it fully contains a lower-scoring broad intent. This routes explicit one-URL, multi-page visual website requests to `geo-site-diagnose` while preserving `geo-diagnose` for brand, page, replay, and explicit-source audits.
 - `brand-baseline-lite` requires explicit discovery and diagnosis language. Its stable DAG is `discover` followed by `diagnose`.
 - `content-campaign` requires explicit discovery and content language. Its stable DAG is `discover` followed by `content`.
 - `brand-baseline-content` requires discovery, diagnosis, and content in discovery-first order. `discover` fans out to `diagnose` and `content`.
 - `strategy-observation-loop` requires strategy followed by measurement. Its executable TaskPlan inserts human approval, publication-receipt, and engine-observation-bundle gates between those Skill nodes.
-- A planned route is never runnable. A positive planned match prevents an active entry or workflow in the same request from overriding this boundary. In 0.6.0 this rule applies to `geo-publish`, which returns `geo-content`, `required_inputs`, and `closest_v0_artifact`.
+- A planned route is never runnable. A positive planned match prevents an active entry or workflow in the same request from overriding this boundary. In 0.7.0 this rule applies to `geo-publish`, which returns `geo-content`, `required_inputs`, and `closest_v0_artifact`.
 - Unknown or fully negated language returns `abstain` with `runnable=false`. Broad explicit GEO capability requests may select the active `geo` selector.
 - Multiple connected intents without one exact active recipe return `clarify` with alternatives and uncovered intents. A semantic score inside the configured ambiguity margin also returns `clarify`.
 - Cached local FastEmbed scoring may supplement unmatched clauses. Runtime model loading is cache-only and never downloads. Planned candidates stay unavailable regardless of semantic score.

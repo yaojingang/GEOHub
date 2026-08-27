@@ -93,6 +93,58 @@ def source_smoke(source_zip: Path, temp_root: Path, wheelhouse: Path) -> dict:
     strategy_request.write_text(json.dumps({"protocol_version":"1.0.0","subject":"Synthetic","goals":["improve visibility"],"audience":["tester"],"constraints":["offline"],"risks":["unsupported attribution"],"brand_rules":["preserve name"],"metric_weights":{"mention_rate":1.0},"baseline":{"semantic_digest":"a"*64,"query_panel":["What is Synthetic?"],"metrics":{"mention_rate":0.0}},"diagnosis_actions":["add approved definition"],"evidence_ids":["synthetic-evidence"],"observation_window_days":7}, allow_nan=False), encoding="utf-8")
     knowledge_request = fixtures / "knowledge.json"
     knowledge_request.write_text(json.dumps({"protocol_version":"1.0.0","subject":"Synthetic","query":{"mode":"local","value":"Synthetic"},"sources":[{"source_id":"synthetic-source","source_uri":"https://example.invalid/synthetic","source_hash":"b"*64,"reviewed_at":"2026-08-12T00:00:00Z","entities":[{"entity_id":"synthetic","type":"product","canonical_name":"Synthetic","aliases":[],"valid_from":"2026-01-01"}],"facts":[],"relations":[]}]}, allow_nan=False), encoding="utf-8")
+    site_fixture_runner = fixtures / "site_fixture_runner.py"
+    site_fixture_runner.write_text(
+        '''from __future__ import annotations
+import json
+import socket
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+from urllib.parse import urlsplit
+from geo_seo_hub.diagnose import FetchResult, SourceUnavailable
+from geo_seo_hub.site_diagnose import site_diagnose
+
+ROOT = "https://install.example.test/"
+HTML = b"""<!doctype html><html><head><title>Installed GEO fixture</title><meta name='description' content='Installed package audit fixture.'><link rel='canonical' href='https://install.example.test/'><script type='application/ld+json'>{\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\"name\":\"Installed Fixture\"}</script></head><body><main><article><h1>Installed GEO fixture</h1><h2>Evidence</h2><p>Author: GEOHub. Updated 2026-08-25. This source and method note documents 72 percent coverage with stable evidence for an installed package fixture.</p><ul><li>Public definition</li><li>Primary source</li></ul><table><tr><th>Metric</th><th>Value</th></tr><tr><td>Coverage</td><td>72%</td></tr></table><a href='https://example.org/source'>Primary source</a></article></main></body></html>"""
+ROBOTS = b"User-agent: *\\nAllow: /\\nSitemap: https://install.example.test/sitemap.xml\\n"
+SITEMAP = b"<?xml version='1.0'?><urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'><url><loc>https://install.example.test/</loc><lastmod>2026-08-25</lastmod></url></urlset>"
+
+def resolver(host: str, port: int, *_args, **_kwargs):
+    return [(socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP, "", ("93.184.216.34", port))]
+
+def fetcher(url: str) -> FetchResult:
+    path = urlsplit(url).path
+    if path == "/":
+        return FetchResult(url, HTML, "text/html; charset=utf-8")
+    if path == "/robots.txt":
+        return FetchResult(url, ROBOTS, "text/plain; charset=utf-8")
+    if path == "/sitemap.xml":
+        return FetchResult(url, SITEMAP, "application/xml; charset=utf-8")
+    raise SourceUnavailable("fixture URL is unavailable")
+
+result = site_diagnose(
+    ROOT,
+    Path(sys.argv[1]),
+    locale="en-US",
+    max_pages=1,
+    render_mode="http",
+    clock=lambda: datetime(2026, 8, 25, tzinfo=timezone.utc),
+    fetcher=fetcher,
+    resolver=resolver,
+    demo_fixture=True,
+)
+run = Path(result["run_directory"])
+required = {"sampling-plan.json", "site-diagnosis.json", "evidence-ledger.json", "remediation-backlog.json", "quality-report.json", "run-lineage.json", "run-manifest.json", "report.html"}
+assert required.issubset({path.name for path in run.iterdir()})
+report = (run / "report.html").read_text(encoding="utf-8")
+assert report.count('data-chart="') == 23
+assert 'data-report-format-version="2"' in report
+assert '<html lang="en-US">' in report and "Website GEO Diagnosis" in report
+print(json.dumps({"status": result["status"], "charts": report.count('data-chart="'), "run_id": result["run_id"]}))
+''',
+        encoding="utf-8",
+    )
     runs = temp_root / "runs"
     workflow_root = temp_root / "workflow"
     workflow_root.mkdir()
@@ -110,6 +162,8 @@ def source_smoke(source_zip: Path, temp_root: Path, wheelhouse: Path) -> dict:
         [str(python), "-m", "geo_seo_hub", "workflow", "start", "--plan", str(plan_path), "--state", str(state_path), "--inputs", str(workflow_inputs), "--output", str(workflow_root / "runs")],
         [str(python), "-m", "geo_seo_hub", "discover", "--input", str(brief), "--output", str(runs)],
         [str(python), "-m", "geo_seo_hub", "diagnose", "--input", str(diagnosis), "--output", str(runs)],
+        [str(python), "-m", "geo_seo_hub", "site-diagnose", "--help"],
+        [str(python), str(site_fixture_runner), str(runs / "site-fixture")],
         [str(python), "-m", "geo_seo_hub", "content", "--input", str(content), "--output", str(runs)],
         [str(python), "-m", "geo_seo_hub", "measure", "--input", str(measure_bundle), "--output", str(runs)],
         [str(python), "-m", "geo_seo_hub", "strategy", "--input", str(strategy_request), "--output", str(runs)],
@@ -127,10 +181,13 @@ def source_smoke(source_zip: Path, temp_root: Path, wheelhouse: Path) -> dict:
     state_payload = json.loads(state_path.read_text(encoding="utf-8"))
     if plan_payload.get("status") != "ready" or state_payload.get("status") != "completed":
         raise ValueError("installed TaskPlan workflow smoke did not complete")
+    site_payload = json.loads(results[7].stdout)
+    if site_payload.get("status") not in {"completed", "completed-with-warnings"} or site_payload.get("charts") != 23:
+        raise ValueError(f"installed site diagnosis fixture smoke failed: {site_payload}")
     return {
         "package": source_zip.name,
         "installed_from": ".",
-        "cli_smokes": ["version", "route", "route-plan", "workflow-start", "discover", "diagnose", "content", "measure", "strategy", "knowledge"],
+        "cli_smokes": ["version", "route", "route-plan", "workflow-start", "discover", "diagnose", "site-diagnose-help", "site-diagnose-fixture", "content", "measure", "strategy", "knowledge"],
         "status": "pass",
     }
 
@@ -150,7 +207,7 @@ def structural_smoke(path: Path, temp_root: Path, wheelhouse: Path) -> dict:
     if missing:
         raise ValueError(f"entry references missing packaged files for {path.name}: {missing}")
     wrappers = {wrapper.name: wrapper for wrapper in destination.glob("scripts/run_*.py")}
-    expected_wrappers = {"run_route.py", "run_discover.py", "run_diagnose.py", "run_content.py", "run_measure.py", "run_strategy.py", "run_knowledge.py"}
+    expected_wrappers = {"run_route.py", "run_discover.py", "run_diagnose.py", "run_site_diagnose.py", "run_content.py", "run_measure.py", "run_strategy.py", "run_knowledge.py"}
     if set(wrappers) != expected_wrappers:
         raise ValueError(f"expected provider wrappers in {path.name}; found {sorted(wrappers)}")
     clean_env = os.environ.copy()
@@ -186,6 +243,7 @@ def structural_smoke(path: Path, temp_root: Path, wheelhouse: Path) -> dict:
     routed = {
         "geo-discover": ("Discover AI search questions", "run_discover.py"),
         "geo-diagnose": ("Audit this website", "run_diagnose.py"),
+        "geo-site-diagnose": ("Audit this public website and create a visual GEO report", "run_site_diagnose.py"),
         "geo-content": ("Write an explainer", "run_content.py"),
         "geo-measure": ("Monitor AI visibility", "run_measure.py"),
         "geo-strategy": ("Build a GEO strategy", "run_strategy.py"),
@@ -204,8 +262,21 @@ def structural_smoke(path: Path, temp_root: Path, wheelhouse: Path) -> dict:
         missing_entry_references = sorted(relative for relative in entry_references if not (installed_root / relative).is_file())
         if missing_entry_references:
             raise ValueError(f"routed entry references missing resources for {path.name}: {missing_entry_references}")
-        provider_run = run([str(python), str(wrappers[wrapper_name]), "--input", str(fixtures[skill_id]), "--output", str(runs)], destination, clean_env)
-        provider_result = json.loads(provider_run.stdout)
+        if skill_id == "geo-site-diagnose":
+            provider_run = run([str(python), str(wrappers[wrapper_name]), "--help"], destination, clean_env)
+            provider_result = {"status": "completed"}
+            for asset_name in ("echarts.min.js", "report-shell.html", "report.css", "report.js"):
+                installed_asset = installed_root / "assets" / "providers" / "geo-site-diagnose" / asset_name
+                provider_asset = installed_root / "assets" / asset_name
+                if not installed_asset.is_file() and not provider_asset.is_file():
+                    raise ValueError(f"site diagnose report asset {asset_name} missing in {path.name}")
+            installed_policy = installed_root / "security" / "providers" / "geo-site-diagnose" / "network_policy.json"
+            provider_policy = installed_root / "security" / "network_policy.json"
+            if not installed_policy.is_file() and not provider_policy.is_file():
+                raise ValueError(f"site diagnose network policy missing in {path.name}")
+        else:
+            provider_run = run([str(python), str(wrappers[wrapper_name]), "--input", str(fixtures[skill_id]), "--output", str(runs)], destination, clean_env)
+            provider_result = json.loads(provider_run.stdout)
         if provider_result.get("status") not in {"completed", "completed-with-warnings"}:
             raise ValueError(f"provider wrapper execution failed for {path.name}: {provider_result}")
         resolved_entries.append(route_result["entry"])

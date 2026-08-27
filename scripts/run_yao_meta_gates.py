@@ -14,7 +14,7 @@ import yaml
 from jsonschema import Draft202012Validator, FormatChecker
 
 ROOT = Path(__file__).resolve().parents[1]
-SKILLS = ("geo", "geo-discover", "geo-diagnose", "geo-content", "geo-measure", "geo-strategy", "geo-knowledge")
+SKILLS = ("geo", "geo-discover", "geo-diagnose", "geo-site-diagnose", "geo-content", "geo-measure", "geo-strategy", "geo-knowledge")
 REPORT_SCHEMA_VERSION = "2.0.0"
 WAIVER_PATH = ROOT / "reports" / "review-waivers.json"
 WAIVER_SCHEMA_PATH = ROOT / "reports" / "review-waivers.schema.json"
@@ -457,6 +457,12 @@ def deterministic_review_evidence(skill_id: str, gate: str) -> list[Path]:
         "skill-atlas": [ROOT / "reports" / "skill-atlas.json"],
         "review-waivers": [WAIVER_PATH, WAIVER_SCHEMA_PATH],
         "registry-audit": [ROOT / "reports" / "package-verification.json", ROOT / "reports" / "install-simulation.json"],
+        "world-class-evidence": [
+            skill / "reports" / "output_quality_scorecard.md",
+            skill / "reports" / "trust-report.md",
+            skill / "reports" / "output-risk-profile.md",
+            skill / "reports" / "artifact-design-profile.md",
+        ],
     }
     return mapping.get(gate, [])
 

@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="%%LANG%%">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="report-format-version" content="%%REPORT_FORMAT_VERSION%%">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>%%TITLE%%</title>
+  <style>%%REPORT_CSS%%</style>
+</head>
+<body data-report-format-version="%%REPORT_FORMAT_VERSION%%">
+%%REPORT_BODY%%
+<script>%%ECHARTS_JS%%</script>
+<script>const GEO_REPORT_DATA=%%REPORT_DATA%%;</script>
+<script>%%REPORT_JS%%</script>
+</body>
+</html>

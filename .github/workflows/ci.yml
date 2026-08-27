@@ -27,6 +27,26 @@ jobs:
       - run: python scripts/package.py --target all --channel community
       - run: python scripts/verify_packages.py
 
+  visual-report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: python -m pip install -e '.[dev,render]'
+      - run: python -m playwright install --with-deps chromium
+      - run: python scripts/generate_site_diagnose_demo.py
+      - run: python scripts/capture_site_diagnose_demo.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: geo-site-diagnose-visual-report
+          path: |
+            reports/examples/geo-site-diagnose-demo.html
+            reports/examples/geo-site-diagnose-demo-desktop.png
+            reports/examples/geo-site-diagnose-demo-mobile.png
+
   macos-install:
     runs-on: macos-latest
     steps:

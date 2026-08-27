@@ -15,7 +15,7 @@
       "status": "pass",
       "structured_status": null,
       "report_path": null,
-      "stdout_tail": "e_score\": 80,\n          \"declared_maturity_minimum\": 85,\n          \"computed_governance_band\": \"production\",\n          \"computed_maturity_tier\": \"production\",\n          \"score_breakdown\": {\n            \"metadata_integrity\": 20,\n            \"ownership_and_review\": 20,\n            \"boundary_and_eval\": 15,\n            \"operational_assets\": 20,\n            \"maintenance_evidence\": 5\n          }\n        }\n      }\n    },\n    {\n      \"command\": \"resource_boundary_check.py skills/geo\",\n      \"ok\": true,\n      \"returncode\": 0,\n      \"payload\": {\n        \"ok\": true,\n        \"failures\": [],\n        \"warnings\": [],\n        \"stats\": {\n          \"context_budget_tier\": \"production\",\n          \"context_budget_limit\": 1000,\n          \"skill_body_tokens\": 356,\n          \"other_text_tokens\": 2124,\n          \"estimated_initial_load_tokens\": 584,\n          \"estimated_total_text_tokens\": 2480,\n          \"deferred_resource_tokens\": 798,\n          \"deferred_resource_warn_threshold\": 120000,\n          \"deferred_resource_dirs\": [\n            {\n              \"path\": \"references\",\n              \"estimated_tokens\": 493,\n              \"file_count\": 1\n            },\n            {\n              \"path\": \"evals\",\n              \"estimated_tokens\": 204,\n              \"file_count\": 2\n            },\n            {\n              \"path\": \"scripts\",\n              \"estimated_tokens\": 101,\n              \"file_count\": 1\n            }\n          ],\n          \"large_deferred_resource_dirs\": [],\n          \"deferred_resource_governance\": {\n            \"status\": \"not-required\",\n            \"large_dir_count\": 0,\n            \"governed_large_dir_count\": 0,\n            \"directories\": [],\n            \"summary\": \"No large deferred resource directory exceeds the per-dir threshold.\"\n          },\n          \"relevant_file_count\": 11,\n          \"unused_resource_dirs\": [],\n          \"quality_signal_points\": 115,\n          \"quality_density\": 196.9\n        }\n      }\n    }\n  ]\n}\n",
+      "stdout_tail": "e_score\": 80,\n          \"declared_maturity_minimum\": 85,\n          \"computed_governance_band\": \"production\",\n          \"computed_maturity_tier\": \"production\",\n          \"score_breakdown\": {\n            \"metadata_integrity\": 20,\n            \"ownership_and_review\": 20,\n            \"boundary_and_eval\": 15,\n            \"operational_assets\": 20,\n            \"maintenance_evidence\": 5\n          }\n        }\n      }\n    },\n    {\n      \"command\": \"resource_boundary_check.py skills/geo\",\n      \"ok\": true,\n      \"returncode\": 0,\n      \"payload\": {\n        \"ok\": true,\n        \"failures\": [],\n        \"warnings\": [],\n        \"stats\": {\n          \"context_budget_tier\": \"production\",\n          \"context_budget_limit\": 1000,\n          \"skill_body_tokens\": 363,\n          \"other_text_tokens\": 2187,\n          \"estimated_initial_load_tokens\": 591,\n          \"estimated_total_text_tokens\": 2550,\n          \"deferred_resource_tokens\": 846,\n          \"deferred_resource_warn_threshold\": 120000,\n          \"deferred_resource_dirs\": [\n            {\n              \"path\": \"references\",\n              \"estimated_tokens\": 541,\n              \"file_count\": 1\n            },\n            {\n              \"path\": \"evals\",\n              \"estimated_tokens\": 204,\n              \"file_count\": 2\n            },\n            {\n              \"path\": \"scripts\",\n              \"estimated_tokens\": 101,\n              \"file_count\": 1\n            }\n          ],\n          \"large_deferred_resource_dirs\": [],\n          \"deferred_resource_governance\": {\n            \"status\": \"not-required\",\n            \"large_dir_count\": 0,\n            \"governed_large_dir_count\": 0,\n            \"directories\": [],\n            \"summary\": \"No large deferred resource directory exceeds the per-dir threshold.\"\n          },\n          \"relevant_file_count\": 11,\n          \"unused_resource_dirs\": [],\n          \"quality_signal_points\": 115,\n          \"quality_density\": 194.6\n        }\n      }\n    }\n  ]\n}\n",
       "stderr_tail": "",
       "report_digest": null
     },
@@ -25,7 +25,7 @@
         ".venv/bin/python",
         "<yao-meta-root>/scripts/trigger_eval.py",
         "--description",
-        "Route GEO and generative engine optimization requests to an available GEOHub capability. Use for broad GEO requests, GEOHub workflow selection, capability checks, or requests spanning discovery, brand/site/page diagnosis, content, strategy, knowledge, publishing, and measurement.",
+        "Route GEO and generative engine optimization requests to an available GEOHub capability. Use for broad GEO requests, GEOHub workflow selection, capability checks, or requests spanning discovery, brand/site/page diagnosis, multi-page website diagnosis, content, strategy, knowledge, publishing, and measurement.",
         "--cases",
         "skills/geo/evals/trigger_cases.json",
         "--semantic-config",
@@ -57,7 +57,7 @@
       "report_path": "skills/geo/reports/skill-ir.json",
       "stdout_tail": "{\n  \"ok\": true,\n  \"schema\": \"<yao-meta-root>/skill-ir/schema.json\",\n  \"skill_dir\": \"skills/geo\",\n  \"artifacts\": {\n    \"json\": \"skills/geo/reports/skill-ir.json\"\n  },\n  \"summary\": {\n    \"name\": \"geo\",\n    \"maturity\": \"library\",\n    \"target_count\": 3,\n    \"trigger_samples\": 3,\n    \"resource_count\": 3\n  },\n  \"failures\": []\n}\n",
       "stderr_tail": "",
-      "report_digest": "7edcf3dc680419f56d6dcf102403c3a70cfa20f231650f60e2f685fc7385d3fa"
+      "report_digest": "3d47665e941d9d574a2bbbea4682ed8a27d3ff4fce8546a01a7f61512d7cf27d"
     },
     {
       "skill_id": "geo",
@@ -75,7 +75,7 @@
       "report_path": "reports/yao-meta/geo-skill-ir.json",
       "stdout_tail": "{\n  \"ok\": true,\n  \"schema\": \"<yao-meta-root>/skill-ir/schema.json\",\n  \"skill_dir\": \"skills/geo\",\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-skill-ir.json\"\n  },\n  \"summary\": {\n    \"name\": \"geo\",\n    \"maturity\": \"library\",\n    \"target_count\": 3,\n    \"trigger_samples\": 3,\n    \"resource_count\": 3\n  },\n  \"failures\": []\n}\n",
       "stderr_tail": "",
-      "report_digest": "7edcf3dc680419f56d6dcf102403c3a70cfa20f231650f60e2f685fc7385d3fa"
+      "report_digest": "3d47665e941d9d574a2bbbea4682ed8a27d3ff4fce8546a01a7f61512d7cf27d"
     },
     {
       "skill_id": "geo",
@@ -123,7 +123,7 @@
       "report_path": "reports/yao-meta/geo-trust.json",
       "stdout_tail": "crets\": [],\n  \"scripts\": [\n    {\n      \"path\": \"scripts/run_route.py\",\n      \"interface\": \"cli\",\n      \"interface_declared\": false,\n      \"interface_reason\": \"Default CLI classification; add SCRIPT_INTERFACE for internal modules.\",\n      \"has_argparse\": false,\n      \"has_main_guard\": true,\n      \"uses_input\": false,\n      \"uses_network\": false,\n      \"uses_file_write\": false,\n      \"uses_subprocess\": false,\n      \"network_urls\": [],\n      \"network_hosts\": []\n    }\n  ],\n  \"dependencies\": {\n    \"present\": [],\n    \"pinned\": [],\n    \"unpinned\": []\n  },\n  \"network_policy\": {\n    \"present\": false,\n    \"path\": \"security/network_policy.json\",\n    \"schema_version\": \"\",\n    \"network_script_count\": 0,\n    \"covered_scripts\": [],\n    \"missing_scripts\": [],\n    \"mismatches\": [],\n    \"default_policy\": {}\n  },\n  \"help_smoke\": {\n    \"enabled\": true,\n    \"timeout_seconds\": 5.0,\n    \"candidate_count\": 0,\n    \"checked_count\": 0,\n    \"passed_count\": 0,\n    \"failed_count\": 0,\n    \"skipped_count\": 1,\n    \"failed_scripts\": [],\n    \"results\": [],\n    \"skipped\": [\n      {\n        \"path\": \"scripts/run_route.py\",\n        \"reason\": \"missing argparse/help surface\"\n      }\n    ]\n  },\n  \"permission_governance\": {\n    \"present\": false,\n    \"path\": \"security/permission_policy.json\",\n    \"schema_version\": \"\",\n    \"reviewed_at\": \"\",\n    \"required_capabilities\": [],\n    \"approved_capabilities\": [],\n    \"missing_capabilities\": [],\n    \"invalid_capabilities\": [],\n    \"expired_capabilities\": [],\n    \"approval_count\": 0,\n    \"required_count\": 0,\n    \"missing_count\": 0,\n    \"invalid_count\": 0,\n    \"expired_count\": 0,\n    \"approvals\": []\n  },\n  \"trust_metadata\": {\n    \"source_tier\": \"local\",\n    \"remote_inline_execution\": \"forbid\",\n    \"remote_metadata_policy\": \"allow-metadata-only\"\n  },\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-trust.json\",\n    \"markdown\": \"reports/yao-meta/geo-trust.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "a8436a3cbfe2ef6041828d3542247f54e7cfe5eb124993ecce86dc914cbde41b"
+      "report_digest": "51a6b3d784123971f6be42a15b62e08efba9c353b4db088a84a4f2c9ac4122ee"
     },
     {
       "skill_id": "geo",
@@ -143,7 +143,7 @@
       "report_path": "reports/yao-meta/geo-review-studio.json",
       "stdout_tail": "n_compatibility\": \"reports/python_compatibility.md\",\n    \"architecture_maintainability\": \"reports/architecture_maintainability.md\",\n    \"permission_policy\": \"security/permission_policy.md\",\n    \"runtime_permissions\": \"reports/runtime_permission_probes.md\",\n    \"skill_atlas\": \"reports/skill_atlas.html\",\n    \"compiled_targets\": \"reports/compiled_targets.md\",\n    \"adoption_drift\": \"reports/adoption_drift_report.md\",\n    \"review_waivers\": \"reports/review_waivers.md\",\n    \"review_annotations\": \"reports/review_annotations.md\",\n    \"adaptation_proposals\": \"reports/adaptation_proposals.md\",\n    \"adaptation_approval_ledger\": \"reports/adaptation_approval_ledger.json\",\n    \"adaptation_regression\": \"reports/adaptation_regression_report.md\",\n    \"world_class_evidence_plan\": \"reports/world_class_evidence_plan.md\",\n    \"world_class_evidence_ledger\": \"reports/world_class_evidence_ledger.md\",\n    \"world_class_evidence_intake\": \"reports/world_class_evidence_intake.md\",\n    \"world_class_evidence_preflight\": \"reports/world_class_evidence_preflight.md\",\n    \"world_class_evidence_preflight_html\": \"reports/world_class_evidence_preflight.html\",\n    \"world_class_submission_review\": \"reports/world_class_submission_review.md\",\n    \"world_class_operator_runbook\": \"reports/world_class_operator_runbook.md\",\n    \"world_class_operator_runbook_html\": \"reports/world_class_operator_runbook.html\",\n    \"world_class_claim_guard\": \"reports/world_class_claim_guard.md\",\n    \"registry_audit\": \"reports/registry_audit.md\",\n    \"package_verification\": \"reports/package_verification.md\",\n    \"install_simulation\": \"reports/install_simulation.md\",\n    \"upgrade_check\": \"reports/upgrade_check.md\",\n    \"migration\": \"docs/migration-v2.md\",\n    \"skill_ir\": \"reports/skill-ir.json\"\n  },\n  \"artifacts\": {\n    \"html\": \"reports/yao-meta/geo-review-studio.html\",\n    \"json\": \"reports/yao-meta/geo-review-studio.json\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "b58a26ef963f109ed5200124881afbe27801ccb5dfef4e78233b258fcc6e0388"
+      "report_digest": "1a8fe9b79043fa19606c4555a9412a701ada86f95cd8999401c88fccc7dfe4b8"
     },
     {
       "skill_id": "geo",
@@ -165,7 +165,7 @@
       "report_path": "reports/yao-meta/geo-compiled-generic.json",
       "stdout_tail": " \"target\": \"generic\",\n        \"adapter_mode\": \"agent-skills-compatible\",\n        \"generated_files\": [\n          \"targets/generic/adapter.json\"\n        ],\n        \"metadata_mapping\": {\n          \"display_name\": \"targets/generic/adapter.json::display_name\",\n          \"default_prompt\": \"targets/generic/adapter.json::default_prompt\",\n          \"activation\": \"targets/generic/adapter.json::activation_mode\",\n          \"execution\": \"targets/generic/adapter.json::execution_context\",\n          \"trust\": \"targets/generic/adapter.json::trust_level\",\n          \"permissions\": \"targets/generic/adapter.json::target_permission_contract\",\n          \"degradation\": \"targets/generic/adapter.json::degradation_strategy\"\n        },\n        \"preserved_semantics\": [\n          \"trigger\",\n          \"workflow-counts\",\n          \"resources\",\n          \"eval-plan\",\n          \"risk\",\n          \"governance\",\n          \"runtime\",\n          \"trust\",\n          \"permissions\"\n        ],\n        \"degradation_strategy\": \"neutral-source\",\n        \"permission_representation\": \"targets/generic/adapter.json::target_permission_contract\",\n        \"native_surface\": \"Agent Skills compatible neutral package\",\n        \"activation_policy\": \"Use SKILL.md name and description; consumers decide automatic or manual activation.\",\n        \"resource_strategy\": \"Preserve references, scripts, assets, evals, reports, and adapter metadata as relative package resources.\",\n        \"script_strategy\": \"Expose script and permission metadata for downstream clients or installers to enforce.\",\n        \"permission_enforcement\": \"consumer-enforced-or-metadata-only\"\n      },\n      \"unsupported_features\": [],\n      \"warnings\": [],\n      \"failures\": []\n    }\n  ],\n  \"failures\": [],\n  \"warnings\": [],\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-compiled-generic.json\",\n    \"markdown\": \"reports/yao-meta/geo-compiled-generic.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "f9a5ae704ed506f39061d010af61a3de12974b3a3369c96f7af4deaf914a33d6"
+      "report_digest": "1d78c2a0ae023ae113099f97ea98f11d8e008495ce58842eaaa362f2fa6c86d9"
     },
     {
       "skill_id": "geo",
@@ -209,7 +209,7 @@
       "report_path": "reports/yao-meta/geo-compiled-openai.json",
       "stdout_tail": "ompt\",\n          \"activation\": \"targets/openai/agents/openai.yaml::compatibility.activation_mode\",\n          \"execution\": \"targets/openai/agents/openai.yaml::compatibility.execution_context\",\n          \"trust\": \"targets/openai/agents/openai.yaml::compatibility.trust_level\",\n          \"permissions\": \"targets/openai/agents/openai.yaml::compatibility.permission_contract\",\n          \"degradation\": \"targets/openai/agents/openai.yaml::compatibility.degradation_strategy\"\n        },\n        \"preserved_semantics\": [\n          \"trigger\",\n          \"workflow-counts\",\n          \"resources\",\n          \"eval-plan\",\n          \"risk\",\n          \"governance\",\n          \"runtime\",\n          \"trust\",\n          \"permissions\"\n        ],\n        \"degradation_strategy\": \"metadata-adapter\",\n        \"permission_representation\": \"targets/openai/agents/openai.yaml::compatibility.permission_contract plus adapter.json\",\n        \"native_surface\": \"OpenAI-style interface metadata plus neutral Agent Skills source\",\n        \"activation_policy\": \"Use frontmatter description for catalog routing and targets/openai/agents/openai.yaml for display name, default prompt, and compatibility metadata.\",\n        \"resource_strategy\": \"Ship the neutral source tree and expose OpenAI-facing interface metadata as a generated companion file.\",\n        \"script_strategy\": \"Keep scripts as local package resources; expose help-smoke and permission metadata for reviewer approval before execution.\",\n        \"permission_enforcement\": \"metadata-only\"\n      },\n      \"unsupported_features\": [\n        \"client-native script permission prompts are represented as permission contract metadata\"\n      ],\n      \"warnings\": [],\n      \"failures\": []\n    }\n  ],\n  \"failures\": [],\n  \"warnings\": [],\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-compiled-openai.json\",\n    \"markdown\": \"reports/yao-meta/geo-compiled-openai.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "000df9f0441d58e76fb05b662288aaceedab0cc45fb4decb16f2470e2de21e81"
+      "report_digest": "253cb7794e27d788024af3a0d8629651ba72c951ed7757c7465baa0ca2559ca3"
     },
     {
       "skill_id": "geo",
@@ -253,7 +253,7 @@
       "report_path": "reports/yao-meta/geo-compiled-claude.json",
       "stdout_tail": "md\"\n        ],\n        \"metadata_mapping\": {\n          \"display_name\": \"targets/claude/adapter.json::display_name\",\n          \"default_prompt\": \"targets/claude/adapter.json::default_prompt\",\n          \"activation\": \"targets/claude/adapter.json::activation_mode\",\n          \"execution\": \"targets/claude/adapter.json::execution_context\",\n          \"trust\": \"targets/claude/adapter.json::trust_level\",\n          \"permissions\": \"targets/claude/adapter.json::target_permission_contract\",\n          \"degradation\": \"targets/claude/adapter.json::degradation_strategy\"\n        },\n        \"preserved_semantics\": [\n          \"trigger\",\n          \"workflow-counts\",\n          \"resources\",\n          \"eval-plan\",\n          \"risk\",\n          \"governance\",\n          \"runtime\",\n          \"trust\",\n          \"permissions\"\n        ],\n        \"degradation_strategy\": \"neutral-source-plus-adapter\",\n        \"permission_representation\": \"targets/claude/adapter.json::target_permission_contract and README notes\",\n        \"native_surface\": \"Claude-compatible neutral source folder with adapter notes\",\n        \"activation_policy\": \"Use SKILL.md frontmatter description as the primary activation contract and adapter.json for review metadata.\",\n        \"resource_strategy\": \"Preserve the source tree directly; write target notes in targets/claude/README.md.\",\n        \"script_strategy\": \"Scripts remain local package resources and must be reviewed through trust and permission reports before use.\",\n        \"permission_enforcement\": \"metadata-fallback\"\n      },\n      \"unsupported_features\": [\n        \"vendor-native metadata fields are carried as adapter JSON and README notes\"\n      ],\n      \"warnings\": [],\n      \"failures\": []\n    }\n  ],\n  \"failures\": [],\n  \"warnings\": [],\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-compiled-claude.json\",\n    \"markdown\": \"reports/yao-meta/geo-compiled-claude.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "138bb6ccba66e95b983f3d72b5c79af7a279b9e318a2b34a1b1c80621f037012"
+      "report_digest": "33bde0f8a8b0c3ce864c341e414bc598d1a8b8d905f3dfe58e367175488b3745"
     },
     {
       "skill_id": "geo",
@@ -398,7 +398,7 @@
       "report_path": "reports/yao-meta/geo-discover-trust.json",
       "stdout_tail": " [\n    {\n      \"path\": \"scripts/run_discover.py\",\n      \"interface\": \"cli\",\n      \"interface_declared\": false,\n      \"interface_reason\": \"Default CLI classification; add SCRIPT_INTERFACE for internal modules.\",\n      \"has_argparse\": false,\n      \"has_main_guard\": true,\n      \"uses_input\": false,\n      \"uses_network\": false,\n      \"uses_file_write\": false,\n      \"uses_subprocess\": false,\n      \"network_urls\": [],\n      \"network_hosts\": []\n    }\n  ],\n  \"dependencies\": {\n    \"present\": [],\n    \"pinned\": [],\n    \"unpinned\": []\n  },\n  \"network_policy\": {\n    \"present\": false,\n    \"path\": \"security/network_policy.json\",\n    \"schema_version\": \"\",\n    \"network_script_count\": 0,\n    \"covered_scripts\": [],\n    \"missing_scripts\": [],\n    \"mismatches\": [],\n    \"default_policy\": {}\n  },\n  \"help_smoke\": {\n    \"enabled\": true,\n    \"timeout_seconds\": 5.0,\n    \"candidate_count\": 0,\n    \"checked_count\": 0,\n    \"passed_count\": 0,\n    \"failed_count\": 0,\n    \"skipped_count\": 1,\n    \"failed_scripts\": [],\n    \"results\": [],\n    \"skipped\": [\n      {\n        \"path\": \"scripts/run_discover.py\",\n        \"reason\": \"missing argparse/help surface\"\n      }\n    ]\n  },\n  \"permission_governance\": {\n    \"present\": false,\n    \"path\": \"security/permission_policy.json\",\n    \"schema_version\": \"\",\n    \"reviewed_at\": \"\",\n    \"required_capabilities\": [],\n    \"approved_capabilities\": [],\n    \"missing_capabilities\": [],\n    \"invalid_capabilities\": [],\n    \"expired_capabilities\": [],\n    \"approval_count\": 0,\n    \"required_count\": 0,\n    \"missing_count\": 0,\n    \"invalid_count\": 0,\n    \"expired_count\": 0,\n    \"approvals\": []\n  },\n  \"trust_metadata\": {\n    \"source_tier\": \"local\",\n    \"remote_inline_execution\": \"forbid\",\n    \"remote_metadata_policy\": \"allow-metadata-only\"\n  },\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-discover-trust.json\",\n    \"markdown\": \"reports/yao-meta/geo-discover-trust.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "b5d2cd1cedaffa54dc3bcad3f7e9c487323006b4f5b6d541bdddc9c0f76896ed"
+      "report_digest": "4e54ae2e8eea0ee6b100c81f96773edbe27b158048a756f67d6e79d9cd5e978f"
     },
     {
       "skill_id": "geo-discover",
@@ -418,7 +418,7 @@
       "report_path": "reports/yao-meta/geo-discover-review-studio.json",
       "stdout_tail": "\"reports/python_compatibility.md\",\n    \"architecture_maintainability\": \"reports/architecture_maintainability.md\",\n    \"permission_policy\": \"security/permission_policy.md\",\n    \"runtime_permissions\": \"reports/runtime_permission_probes.md\",\n    \"skill_atlas\": \"reports/skill_atlas.html\",\n    \"compiled_targets\": \"reports/compiled_targets.md\",\n    \"adoption_drift\": \"reports/adoption_drift_report.md\",\n    \"review_waivers\": \"reports/review_waivers.md\",\n    \"review_annotations\": \"reports/review_annotations.md\",\n    \"adaptation_proposals\": \"reports/adaptation_proposals.md\",\n    \"adaptation_approval_ledger\": \"reports/adaptation_approval_ledger.json\",\n    \"adaptation_regression\": \"reports/adaptation_regression_report.md\",\n    \"world_class_evidence_plan\": \"reports/world_class_evidence_plan.md\",\n    \"world_class_evidence_ledger\": \"reports/world_class_evidence_ledger.md\",\n    \"world_class_evidence_intake\": \"reports/world_class_evidence_intake.md\",\n    \"world_class_evidence_preflight\": \"reports/world_class_evidence_preflight.md\",\n    \"world_class_evidence_preflight_html\": \"reports/world_class_evidence_preflight.html\",\n    \"world_class_submission_review\": \"reports/world_class_submission_review.md\",\n    \"world_class_operator_runbook\": \"reports/world_class_operator_runbook.md\",\n    \"world_class_operator_runbook_html\": \"reports/world_class_operator_runbook.html\",\n    \"world_class_claim_guard\": \"reports/world_class_claim_guard.md\",\n    \"registry_audit\": \"reports/registry_audit.md\",\n    \"package_verification\": \"reports/package_verification.md\",\n    \"install_simulation\": \"reports/install_simulation.md\",\n    \"upgrade_check\": \"reports/upgrade_check.md\",\n    \"migration\": \"docs/migration-v2.md\",\n    \"skill_ir\": \"reports/skill-ir.json\"\n  },\n  \"artifacts\": {\n    \"html\": \"reports/yao-meta/geo-discover-review-studio.html\",\n    \"json\": \"reports/yao-meta/geo-discover-review-studio.json\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "b3885d3163bd93e47a65530abbd8803a2c5914af3b8db7c0ff699edb8cb4291e"
+      "report_digest": "9c70495264ff1db6cc4d881fc2ba1a00b3ffe9ce45f6a2bf18af8279d14f3bc0"
     },
     {
       "skill_id": "geo-discover",
@@ -440,7 +440,7 @@
       "report_path": "reports/yao-meta/geo-discover-compiled-generic.json",
       "stdout_tail": "c\",\n        \"adapter_mode\": \"agent-skills-compatible\",\n        \"generated_files\": [\n          \"targets/generic/adapter.json\"\n        ],\n        \"metadata_mapping\": {\n          \"display_name\": \"targets/generic/adapter.json::display_name\",\n          \"default_prompt\": \"targets/generic/adapter.json::default_prompt\",\n          \"activation\": \"targets/generic/adapter.json::activation_mode\",\n          \"execution\": \"targets/generic/adapter.json::execution_context\",\n          \"trust\": \"targets/generic/adapter.json::trust_level\",\n          \"permissions\": \"targets/generic/adapter.json::target_permission_contract\",\n          \"degradation\": \"targets/generic/adapter.json::degradation_strategy\"\n        },\n        \"preserved_semantics\": [\n          \"trigger\",\n          \"workflow-counts\",\n          \"resources\",\n          \"eval-plan\",\n          \"risk\",\n          \"governance\",\n          \"runtime\",\n          \"trust\",\n          \"permissions\"\n        ],\n        \"degradation_strategy\": \"neutral-source\",\n        \"permission_representation\": \"targets/generic/adapter.json::target_permission_contract\",\n        \"native_surface\": \"Agent Skills compatible neutral package\",\n        \"activation_policy\": \"Use SKILL.md name and description; consumers decide automatic or manual activation.\",\n        \"resource_strategy\": \"Preserve references, scripts, assets, evals, reports, and adapter metadata as relative package resources.\",\n        \"script_strategy\": \"Expose script and permission metadata for downstream clients or installers to enforce.\",\n        \"permission_enforcement\": \"consumer-enforced-or-metadata-only\"\n      },\n      \"unsupported_features\": [],\n      \"warnings\": [],\n      \"failures\": []\n    }\n  ],\n  \"failures\": [],\n  \"warnings\": [],\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-discover-compiled-generic.json\",\n    \"markdown\": \"reports/yao-meta/geo-discover-compiled-generic.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "62883e9f4ed7200361ded0afaa7f2edb5ca5f7787523dd32938d6afda5573004"
+      "report_digest": "964387c179a8122c8c9983de5dc47f6ebd2ce1e0b3efc05d5bdd5690ecdd8bf6"
     },
     {
       "skill_id": "geo-discover",
@@ -484,7 +484,7 @@
       "report_path": "reports/yao-meta/geo-discover-compiled-openai.json",
       "stdout_tail": "activation\": \"targets/openai/agents/openai.yaml::compatibility.activation_mode\",\n          \"execution\": \"targets/openai/agents/openai.yaml::compatibility.execution_context\",\n          \"trust\": \"targets/openai/agents/openai.yaml::compatibility.trust_level\",\n          \"permissions\": \"targets/openai/agents/openai.yaml::compatibility.permission_contract\",\n          \"degradation\": \"targets/openai/agents/openai.yaml::compatibility.degradation_strategy\"\n        },\n        \"preserved_semantics\": [\n          \"trigger\",\n          \"workflow-counts\",\n          \"resources\",\n          \"eval-plan\",\n          \"risk\",\n          \"governance\",\n          \"runtime\",\n          \"trust\",\n          \"permissions\"\n        ],\n        \"degradation_strategy\": \"metadata-adapter\",\n        \"permission_representation\": \"targets/openai/agents/openai.yaml::compatibility.permission_contract plus adapter.json\",\n        \"native_surface\": \"OpenAI-style interface metadata plus neutral Agent Skills source\",\n        \"activation_policy\": \"Use frontmatter description for catalog routing and targets/openai/agents/openai.yaml for display name, default prompt, and compatibility metadata.\",\n        \"resource_strategy\": \"Ship the neutral source tree and expose OpenAI-facing interface metadata as a generated companion file.\",\n        \"script_strategy\": \"Keep scripts as local package resources; expose help-smoke and permission metadata for reviewer approval before execution.\",\n        \"permission_enforcement\": \"metadata-only\"\n      },\n      \"unsupported_features\": [\n        \"client-native script permission prompts are represented as permission contract metadata\"\n      ],\n      \"warnings\": [],\n      \"failures\": []\n    }\n  ],\n  \"failures\": [],\n  \"warnings\": [],\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-discover-compiled-openai.json\",\n    \"markdown\": \"reports/yao-meta/geo-discover-compiled-openai.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "ceabcfe98bc08bb3b7018f34ab43bc39b439b7207a4e027941548796eb5d5bbf"
+      "report_digest": "55706c1a9b3d21e0aa02815a2fafe1eb25c0ed59ca1d168e25d4c2234ea3c370"
     },
     {
       "skill_id": "geo-discover",
@@ -528,7 +528,7 @@
       "report_path": "reports/yao-meta/geo-discover-compiled-claude.json",
       "stdout_tail": "     \"metadata_mapping\": {\n          \"display_name\": \"targets/claude/adapter.json::display_name\",\n          \"default_prompt\": \"targets/claude/adapter.json::default_prompt\",\n          \"activation\": \"targets/claude/adapter.json::activation_mode\",\n          \"execution\": \"targets/claude/adapter.json::execution_context\",\n          \"trust\": \"targets/claude/adapter.json::trust_level\",\n          \"permissions\": \"targets/claude/adapter.json::target_permission_contract\",\n          \"degradation\": \"targets/claude/adapter.json::degradation_strategy\"\n        },\n        \"preserved_semantics\": [\n          \"trigger\",\n          \"workflow-counts\",\n          \"resources\",\n          \"eval-plan\",\n          \"risk\",\n          \"governance\",\n          \"runtime\",\n          \"trust\",\n          \"permissions\"\n        ],\n        \"degradation_strategy\": \"neutral-source-plus-adapter\",\n        \"permission_representation\": \"targets/claude/adapter.json::target_permission_contract and README notes\",\n        \"native_surface\": \"Claude-compatible neutral source folder with adapter notes\",\n        \"activation_policy\": \"Use SKILL.md frontmatter description as the primary activation contract and adapter.json for review metadata.\",\n        \"resource_strategy\": \"Preserve the source tree directly; write target notes in targets/claude/README.md.\",\n        \"script_strategy\": \"Scripts remain local package resources and must be reviewed through trust and permission reports before use.\",\n        \"permission_enforcement\": \"metadata-fallback\"\n      },\n      \"unsupported_features\": [\n        \"vendor-native metadata fields are carried as adapter JSON and README notes\"\n      ],\n      \"warnings\": [],\n      \"failures\": []\n    }\n  ],\n  \"failures\": [],\n  \"warnings\": [],\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-discover-compiled-claude.json\",\n    \"markdown\": \"reports/yao-meta/geo-discover-compiled-claude.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "3da78c80a91b29cc779edfa515508a89809e33bc68399f92140b7735fc5ae33d"
+      "report_digest": "b80b0d7f8418be60d277bca5457b3110cdfc5ea1410dfaa563f3b7d1d4d5d37c"
     },
     {
       "skill_id": "geo-discover",
@@ -673,7 +673,7 @@
       "report_path": "reports/yao-meta/geo-diagnose-trust.json",
       "stdout_tail": " [\n    {\n      \"path\": \"scripts/run_diagnose.py\",\n      \"interface\": \"cli\",\n      \"interface_declared\": false,\n      \"interface_reason\": \"Default CLI classification; add SCRIPT_INTERFACE for internal modules.\",\n      \"has_argparse\": false,\n      \"has_main_guard\": true,\n      \"uses_input\": false,\n      \"uses_network\": false,\n      \"uses_file_write\": false,\n      \"uses_subprocess\": false,\n      \"network_urls\": [],\n      \"network_hosts\": []\n    }\n  ],\n  \"dependencies\": {\n    \"present\": [],\n    \"pinned\": [],\n    \"unpinned\": []\n  },\n  \"network_policy\": {\n    \"present\": false,\n    \"path\": \"security/network_policy.json\",\n    \"schema_version\": \"\",\n    \"network_script_count\": 0,\n    \"covered_scripts\": [],\n    \"missing_scripts\": [],\n    \"mismatches\": [],\n    \"default_policy\": {}\n  },\n  \"help_smoke\": {\n    \"enabled\": true,\n    \"timeout_seconds\": 5.0,\n    \"candidate_count\": 0,\n    \"checked_count\": 0,\n    \"passed_count\": 0,\n    \"failed_count\": 0,\n    \"skipped_count\": 1,\n    \"failed_scripts\": [],\n    \"results\": [],\n    \"skipped\": [\n      {\n        \"path\": \"scripts/run_diagnose.py\",\n        \"reason\": \"missing argparse/help surface\"\n      }\n    ]\n  },\n  \"permission_governance\": {\n    \"present\": false,\n    \"path\": \"security/permission_policy.json\",\n    \"schema_version\": \"\",\n    \"reviewed_at\": \"\",\n    \"required_capabilities\": [],\n    \"approved_capabilities\": [],\n    \"missing_capabilities\": [],\n    \"invalid_capabilities\": [],\n    \"expired_capabilities\": [],\n    \"approval_count\": 0,\n    \"required_count\": 0,\n    \"missing_count\": 0,\n    \"invalid_count\": 0,\n    \"expired_count\": 0,\n    \"approvals\": []\n  },\n  \"trust_metadata\": {\n    \"source_tier\": \"local\",\n    \"remote_inline_execution\": \"forbid\",\n    \"remote_metadata_policy\": \"allow-metadata-only\"\n  },\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-diagnose-trust.json\",\n    \"markdown\": \"reports/yao-meta/geo-diagnose-trust.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "aad10e84a18ad961e7e42890338cb270be26acbe00b503da70fa074a19e60dda"
+      "report_digest": "419ee1dc83961708e1c521a4bb24613ea2bd4a60df2c6089b73a71bca1f72922"
     },
     {
       "skill_id": "geo-diagnose",
@@ -693,7 +693,7 @@
       "report_path": "reports/yao-meta/geo-diagnose-review-studio.json",
       "stdout_tail": "\"reports/python_compatibility.md\",\n    \"architecture_maintainability\": \"reports/architecture_maintainability.md\",\n    \"permission_policy\": \"security/permission_policy.md\",\n    \"runtime_permissions\": \"reports/runtime_permission_probes.md\",\n    \"skill_atlas\": \"reports/skill_atlas.html\",\n    \"compiled_targets\": \"reports/compiled_targets.md\",\n    \"adoption_drift\": \"reports/adoption_drift_report.md\",\n    \"review_waivers\": \"reports/review_waivers.md\",\n    \"review_annotations\": \"reports/review_annotations.md\",\n    \"adaptation_proposals\": \"reports/adaptation_proposals.md\",\n    \"adaptation_approval_ledger\": \"reports/adaptation_approval_ledger.json\",\n    \"adaptation_regression\": \"reports/adaptation_regression_report.md\",\n    \"world_class_evidence_plan\": \"reports/world_class_evidence_plan.md\",\n    \"world_class_evidence_ledger\": \"reports/world_class_evidence_ledger.md\",\n    \"world_class_evidence_intake\": \"reports/world_class_evidence_intake.md\",\n    \"world_class_evidence_preflight\": \"reports/world_class_evidence_preflight.md\",\n    \"world_class_evidence_preflight_html\": \"reports/world_class_evidence_preflight.html\",\n    \"world_class_submission_review\": \"reports/world_class_submission_review.md\",\n    \"world_class_operator_runbook\": \"reports/world_class_operator_runbook.md\",\n    \"world_class_operator_runbook_html\": \"reports/world_class_operator_runbook.html\",\n    \"world_class_claim_guard\": \"reports/world_class_claim_guard.md\",\n    \"registry_audit\": \"reports/registry_audit.md\",\n    \"package_verification\": \"reports/package_verification.md\",\n    \"install_simulation\": \"reports/install_simulation.md\",\n    \"upgrade_check\": \"reports/upgrade_check.md\",\n    \"migration\": \"docs/migration-v2.md\",\n    \"skill_ir\": \"reports/skill-ir.json\"\n  },\n  \"artifacts\": {\n    \"html\": \"reports/yao-meta/geo-diagnose-review-studio.html\",\n    \"json\": \"reports/yao-meta/geo-diagnose-review-studio.json\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "54a6c2d4d41150182c19fa2dab87c74275655d83d755d57cb8d6cb26a5dd12af"
+      "report_digest": "e09421f339f7dd8e01855f5a2058c14509490b290474e92492e658bfa9c1757c"
     },
     {
       "skill_id": "geo-diagnose",
@@ -715,7 +715,7 @@
       "report_path": "reports/yao-meta/geo-diagnose-compiled-generic.json",
       "stdout_tail": "c\",\n        \"adapter_mode\": \"agent-skills-compatible\",\n        \"generated_files\": [\n          \"targets/generic/adapter.json\"\n        ],\n        \"metadata_mapping\": {\n          \"display_name\": \"targets/generic/adapter.json::display_name\",\n          \"default_prompt\": \"targets/generic/adapter.json::default_prompt\",\n          \"activation\": \"targets/generic/adapter.json::activation_mode\",\n          \"execution\": \"targets/generic/adapter.json::execution_context\",\n          \"trust\": \"targets/generic/adapter.json::trust_level\",\n          \"permissions\": \"targets/generic/adapter.json::target_permission_contract\",\n          \"degradation\": \"targets/generic/adapter.json::degradation_strategy\"\n        },\n        \"preserved_semantics\": [\n          \"trigger\",\n          \"workflow-counts\",\n          \"resources\",\n          \"eval-plan\",\n          \"risk\",\n          \"governance\",\n          \"runtime\",\n          \"trust\",\n          \"permissions\"\n        ],\n        \"degradation_strategy\": \"neutral-source\",\n        \"permission_representation\": \"targets/generic/adapter.json::target_permission_contract\",\n        \"native_surface\": \"Agent Skills compatible neutral package\",\n        \"activation_policy\": \"Use SKILL.md name and description; consumers decide automatic or manual activation.\",\n        \"resource_strategy\": \"Preserve references, scripts, assets, evals, reports, and adapter metadata as relative package resources.\",\n        \"script_strategy\": \"Expose script and permission metadata for downstream clients or installers to enforce.\",\n        \"permission_enforcement\": \"consumer-enforced-or-metadata-only\"\n      },\n      \"unsupported_features\": [],\n      \"warnings\": [],\n      \"failures\": []\n    }\n  ],\n  \"failures\": [],\n  \"warnings\": [],\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-diagnose-compiled-generic.json\",\n    \"markdown\": \"reports/yao-meta/geo-diagnose-compiled-generic.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "b1ccab1b22b05191788046146672b0884678b44b907f2f8564c23825ec10a46d"
+      "report_digest": "7256d5f3b023fb39889a5980da5c01a8198e343f5b13d5532e5b5ffedf66b2f6"
     },
     {
       "skill_id": "geo-diagnose",
@@ -759,7 +759,7 @@
       "report_path": "reports/yao-meta/geo-diagnose-compiled-openai.json",
       "stdout_tail": "activation\": \"targets/openai/agents/openai.yaml::compatibility.activation_mode\",\n          \"execution\": \"targets/openai/agents/openai.yaml::compatibility.execution_context\",\n          \"trust\": \"targets/openai/agents/openai.yaml::compatibility.trust_level\",\n          \"permissions\": \"targets/openai/agents/openai.yaml::compatibility.permission_contract\",\n          \"degradation\": \"targets/openai/agents/openai.yaml::compatibility.degradation_strategy\"\n        },\n        \"preserved_semantics\": [\n          \"trigger\",\n          \"workflow-counts\",\n          \"resources\",\n          \"eval-plan\",\n          \"risk\",\n          \"governance\",\n          \"runtime\",\n          \"trust\",\n          \"permissions\"\n        ],\n        \"degradation_strategy\": \"metadata-adapter\",\n        \"permission_representation\": \"targets/openai/agents/openai.yaml::compatibility.permission_contract plus adapter.json\",\n        \"native_surface\": \"OpenAI-style interface metadata plus neutral Agent Skills source\",\n        \"activation_policy\": \"Use frontmatter description for catalog routing and targets/openai/agents/openai.yaml for display name, default prompt, and compatibility metadata.\",\n        \"resource_strategy\": \"Ship the neutral source tree and expose OpenAI-facing interface metadata as a generated companion file.\",\n        \"script_strategy\": \"Keep scripts as local package resources; expose help-smoke and permission metadata for reviewer approval before execution.\",\n        \"permission_enforcement\": \"metadata-only\"\n      },\n      \"unsupported_features\": [\n        \"client-native script permission prompts are represented as permission contract metadata\"\n      ],\n      \"warnings\": [],\n      \"failures\": []\n    }\n  ],\n  \"failures\": [],\n  \"warnings\": [],\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-diagnose-compiled-openai.json\",\n    \"markdown\": \"reports/yao-meta/geo-diagnose-compiled-openai.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "73fcc2659aabaaf0ee2803a7a42832aea0f4f3884417ed97bbf839fd8ffcf3c0"
+      "report_digest": "0f79c2ae286a330f33bbf68de1ef9cde7c170d77f5dabe459d2876a128973485"
     },
     {
       "skill_id": "geo-diagnose",
@@ -803,7 +803,7 @@
       "report_path": "reports/yao-meta/geo-diagnose-compiled-claude.json",
       "stdout_tail": "     \"metadata_mapping\": {\n          \"display_name\": \"targets/claude/adapter.json::display_name\",\n          \"default_prompt\": \"targets/claude/adapter.json::default_prompt\",\n          \"activation\": \"targets/claude/adapter.json::activation_mode\",\n          \"execution\": \"targets/claude/adapter.json::execution_context\",\n          \"trust\": \"targets/claude/adapter.json::trust_level\",\n          \"permissions\": \"targets/claude/adapter.json::target_permission_contract\",\n          \"degradation\": \"targets/claude/adapter.json::degradation_strategy\"\n        },\n        \"preserved_semantics\": [\n          \"trigger\",\n          \"workflow-counts\",\n          \"resources\",\n          \"eval-plan\",\n          \"risk\",\n          \"governance\",\n          \"runtime\",\n          \"trust\",\n          \"permissions\"\n        ],\n        \"degradation_strategy\": \"neutral-source-plus-adapter\",\n        \"permission_representation\": \"targets/claude/adapter.json::target_permission_contract and README notes\",\n        \"native_surface\": \"Claude-compatible neutral source folder with adapter notes\",\n        \"activation_policy\": \"Use SKILL.md frontmatter description as the primary activation contract and adapter.json for review metadata.\",\n        \"resource_strategy\": \"Preserve the source tree directly; write target notes in targets/claude/README.md.\",\n        \"script_strategy\": \"Scripts remain local package resources and must be reviewed through trust and permission reports before use.\",\n        \"permission_enforcement\": \"metadata-fallback\"\n      },\n      \"unsupported_features\": [\n        \"vendor-native metadata fields are carried as adapter JSON and README notes\"\n      ],\n      \"warnings\": [],\n      \"failures\": []\n    }\n  ],\n  \"failures\": [],\n  \"warnings\": [],\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-diagnose-compiled-claude.json\",\n    \"markdown\": \"reports/yao-meta/geo-diagnose-compiled-claude.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "d4566851bccaf150b34466929fcefdca3ba12eeed5c991fcd63a83f63a8c51a3"
+      "report_digest": "0568c59e5459ec359c4bb6084134227fced00db0fc0971cedd5f4483c0b231dd"
     },
     {
       "skill_id": "geo-diagnose",
@@ -826,6 +826,281 @@
       "stdout_tail": "{\n  \"ok\": true,\n  \"skill\": \"geo-diagnose\",\n  \"targets\": [\n    {\n      \"target\": \"claude\",\n      \"status\": \"pass\",\n      \"checks\": [\n        \"SKILL.md exists\",\n        \"frontmatter name exists\",\n        \"frontmatter description exists\",\n        \"description length <= 1024\",\n        \"name is runtime-safe\",\n        \"manifest.name exists\",\n        \"manifest.version exists\",\n        \"manifest.owner exists\",\n        \"manifest.status exists\",\n        \"manifest.maturity_tier exists\",\n        \"manifest.review_cadence exists\",\n        \"manifest declares claude\",\n        \"interface.display_name exists\",\n        \"interface.short_description exists\",\n        \"interface.default_prompt exists\",\n        \"adapter target declares claude\",\n        \"activation mode exists\",\n        \"execution context exists\",\n        \"execution shell exists\",\n        \"trust source tier exists\",\n        \"claude degradation note exists\",\n        \"Skill IR schema_version is 2.0.0\",\n        \"Skill IR name matches frontmatter\",\n        \"Skill IR description matches frontmatter\",\n        \"references resource resolves: references/audit-catalog.md\",\n        \"references resource resolves: references/diagnosis-method.md\",\n        \"references resource resolves: references/input-example.json\",\n        \"scripts resource resolves: scripts/run_diagnose.py\",\n        \"reports resource resolves: reports/output_quality_scorecard.md\"\n      ],\n      \"failures\": [],\n      \"warnings\": []\n    }\n  ],\n  \"summary\": {\n    \"target_count\": 1,\n    \"pass_count\": 1,\n    \"fail_count\": 0\n  },\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-diagnose-conformance-claude.json\",\n    \"markdown\": \"reports/yao-meta/geo-diagnose-conformance-claude.md\"\n  }\n}\n",
       "stderr_tail": "",
       "report_digest": "54a0a4437f297d13de3b97ce6da53998b140688aa11ae45eeca3437fda815ff5"
+    },
+    {
+      "skill_id": "geo-site-diagnose",
+      "command": [
+        ".venv/bin/python",
+        "<yao-meta-root>/scripts/yao.py",
+        "validate",
+        "skills/geo-site-diagnose",
+        "--require-manifest"
+      ],
+      "exit_code": 0,
+      "status": "pass",
+      "structured_status": null,
+      "report_path": null,
+      "stdout_tail": "8,\n          \"estimated_total_text_tokens\": 281726,\n          \"deferred_resource_tokens\": 273728,\n          \"deferred_resource_warn_threshold\": 120000,\n          \"deferred_resource_dirs\": [\n            {\n              \"path\": \"assets\",\n              \"estimated_tokens\": 270298,\n              \"file_count\": 5\n            },\n            {\n              \"path\": \"references\",\n              \"estimated_tokens\": 2708,\n              \"file_count\": 7\n            },\n            {\n              \"path\": \"scripts\",\n              \"estimated_tokens\": 520,\n              \"file_count\": 1\n            },\n            {\n              \"path\": \"evals\",\n              \"estimated_tokens\": 202,\n              \"file_count\": 2\n            }\n          ],\n          \"large_deferred_resource_dirs\": [\n            {\n              \"path\": \"assets\",\n              \"estimated_tokens\": 270298,\n              \"file_count\": 5\n            }\n          ],\n          \"deferred_resource_governance\": {\n            \"status\": \"governed\",\n            \"large_dir_count\": 1,\n            \"governed_large_dir_count\": 1,\n            \"directories\": [\n              {\n                \"path\": \"assets\",\n                \"status\": \"governed\",\n                \"estimated_tokens\": 270298,\n                \"file_count\": 5,\n                \"evidence\": [\n                  \"SKILL.md\",\n                  \"manifest.json\"\n                ],\n                \"reasons\": [\n                  \"directory is explicitly referenced or declared as a factory component\"\n                ],\n                \"missing\": [],\n                \"rationale\": \"Deferred resources are acceptable when they are discoverable and intentionally part of the package contract.\"\n              }\n            ],\n            \"summary\": \"Large deferred resources are indexed and backed by evidence.\"\n          },\n          \"relevant_file_count\": 30,\n          \"unused_resource_dirs\": [],\n          \"quality_signal_points\": 120,\n          \"quality_density\": 144.9\n        }\n      }\n    }\n  ]\n}\n",
+      "stderr_tail": "",
+      "report_digest": null
+    },
+    {
+      "skill_id": "geo-site-diagnose",
+      "command": [
+        ".venv/bin/python",
+        "<yao-meta-root>/scripts/trigger_eval.py",
+        "--description",
+        "Crawl one public website from a supplied URL, select up to ten representative page types, score evidence-lined GEO readiness, and generate a standalone visual HTML report. Use for 网站 GEO 诊断、全站 GEO 体检、网站 GEO 审计, or requests such as “帮我诊断网站GEO并附上网址”. Excludes single-page or brand-only diagnosis, live AI ranking or citation measurement, authenticated sites, and website modification.",
+        "--cases",
+        "skills/geo-site-diagnose/evals/trigger_cases.json",
+        "--semantic-config",
+        "skills/geo-site-diagnose/evals/semantic_config.json",
+        "--threshold",
+        "0.2"
+      ],
+      "exit_code": 0,
+      "status": "pass",
+      "structured_status": null,
+      "report_path": null,
+      "stdout_tail": "         \"neighbor\"\n          ],\n          \"semantic_coverage\": 0.0,\n          \"support_score\": 0,\n          \"lexical_support\": 0.0,\n          \"negative_penalty\": 1.0,\n          \"coverage_boost\": 0.0,\n          \"concept_evidence\": {\n            \"positive\": {},\n            \"negative\": {\n              \"neighbor\": [\n                \"真实引用次数\"\n              ]\n            }\n          }\n        }\n      }\n    ],\n    \"near_neighbor\": [\n      {\n        \"prompt\": \"给品牌做一次证据诊断\",\n        \"family\": \"default\",\n        \"score\": 0.0,\n        \"predicted_trigger\": false,\n        \"expected_trigger\": false,\n        \"passed\": true,\n        \"score_detail\": {\n          \"mode\": \"semantic-intent\",\n          \"desired_positive_concepts\": [\n            \"owned\"\n          ],\n          \"matched_desired_concepts\": [],\n          \"extra_positive_concepts\": [],\n          \"matched_negative_concepts\": [],\n          \"exclusive_negative_concepts\": [],\n          \"semantic_coverage\": 0.0,\n          \"support_score\": 0,\n          \"lexical_support\": 0.0,\n          \"negative_penalty\": 0,\n          \"coverage_boost\": 0.0,\n          \"concept_evidence\": {\n            \"positive\": {},\n            \"negative\": {}\n          }\n        }\n      },\n      {\n        \"prompt\": \"规划技术 SEO 迁移排查\",\n        \"family\": \"default\",\n        \"score\": 0.0,\n        \"predicted_trigger\": false,\n        \"expected_trigger\": false,\n        \"passed\": true,\n        \"score_detail\": {\n          \"mode\": \"semantic-intent\",\n          \"desired_positive_concepts\": [\n            \"owned\"\n          ],\n          \"matched_desired_concepts\": [],\n          \"extra_positive_concepts\": [],\n          \"matched_negative_concepts\": [],\n          \"exclusive_negative_concepts\": [],\n          \"semantic_coverage\": 0.0,\n          \"support_score\": 0,\n          \"lexical_support\": 0.0,\n          \"negative_penalty\": 0,\n          \"coverage_boost\": 0.0,\n          \"concept_evidence\": {\n            \"positive\": {},\n            \"negative\": {}\n          }\n        }\n      }\n    ]\n  }\n}\n",
+      "stderr_tail": "",
+      "report_digest": null
+    },
+    {
+      "skill_id": "geo-site-diagnose",
+      "command": [
+        ".venv/bin/python",
+        "<yao-meta-root>/scripts/yao.py",
+        "skill-ir",
+        "skills/geo-site-diagnose",
+        "--output-json",
+        "skills/geo-site-diagnose/reports/skill-ir.json"
+      ],
+      "exit_code": 0,
+      "status": "pass",
+      "structured_status": "pass",
+      "report_path": "skills/geo-site-diagnose/reports/skill-ir.json",
+      "stdout_tail": "{\n  \"ok\": true,\n  \"schema\": \"<yao-meta-root>/skill-ir/schema.json\",\n  \"skill_dir\": \"skills/geo-site-diagnose\",\n  \"artifacts\": {\n    \"json\": \"skills/geo-site-diagnose/reports/skill-ir.json\"\n  },\n  \"summary\": {\n    \"name\": \"geo-site-diagnose\",\n    \"maturity\": \"governed\",\n    \"target_count\": 3,\n    \"trigger_samples\": 2,\n    \"resource_count\": 21\n  },\n  \"failures\": []\n}\n",
+      "stderr_tail": "",
+      "report_digest": "3a03a6e1c6e1588b2f141b32ebeb4c31c970144e180f6e24454ad8f4ba73d7ff"
+    },
+    {
+      "skill_id": "geo-site-diagnose",
+      "command": [
+        ".venv/bin/python",
+        "<yao-meta-root>/scripts/yao.py",
+        "skill-ir",
+        "skills/geo-site-diagnose",
+        "--output-json",
+        "reports/yao-meta/geo-site-diagnose-skill-ir.json"
+      ],
+      "exit_code": 0,
+      "status": "pass",
+      "structured_status": "pass",
+      "report_path": "reports/yao-meta/geo-site-diagnose-skill-ir.json",
+      "stdout_tail": "{\n  \"ok\": true,\n  \"schema\": \"<yao-meta-root>/skill-ir/schema.json\",\n  \"skill_dir\": \"skills/geo-site-diagnose\",\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-site-diagnose-skill-ir.json\"\n  },\n  \"summary\": {\n    \"name\": \"geo-site-diagnose\",\n    \"maturity\": \"governed\",\n    \"target_count\": 3,\n    \"trigger_samples\": 2,\n    \"resource_count\": 21\n  },\n  \"failures\": []\n}\n",
+      "stderr_tail": "",
+      "report_digest": "3a03a6e1c6e1588b2f141b32ebeb4c31c970144e180f6e24454ad8f4ba73d7ff"
+    },
+    {
+      "skill_id": "geo-site-diagnose",
+      "command": [
+        ".venv/bin/python",
+        "<yao-meta-root>/scripts/yao.py",
+        "output-eval",
+        "--self",
+        "--cases",
+        "skills/geo-site-diagnose/evals/output/cases.jsonl",
+        "--output-json",
+        "reports/yao-meta/geo-site-diagnose-output-eval.json",
+        "--output-md",
+        "reports/yao-meta/geo-site-diagnose-output-eval.md",
+        "--blind-pack-json",
+        "reports/yao-meta/geo-site-diagnose-blind-pack.json",
+        "--blind-pack-md",
+        "reports/yao-meta/geo-site-diagnose-blind-pack.md",
+        "--blind-answer-key-json",
+        "reports/yao-meta/geo-site-diagnose-blind-answer-key.json"
+      ],
+      "exit_code": 0,
+      "status": "pass",
+      "structured_status": "pass",
+      "report_path": "reports/yao-meta/geo-site-diagnose-output-eval.json",
+      "stdout_tail": "\"missing\": [\n              \"geo-diagnose\",\n              \"单页\"\n            ],\n            \"present_forbidden\": []\n          }\n        ],\n        \"failed\": [\n          {\n            \"id\": \"route\",\n            \"description\": \"单页请求必须保留旧路径。\",\n            \"weight\": 1.0,\n            \"failure_type\": \"assertion_failed\",\n            \"passed\": false,\n            \"missing\": [\n              \"geo-diagnose\",\n              \"单页\"\n            ],\n            \"present_forbidden\": []\n          }\n        ]\n      },\n      \"with_skill\": {\n        \"score\": 100.0,\n        \"passed_count\": 1,\n        \"failed_count\": 0,\n        \"checks\": [\n          {\n            \"id\": \"route\",\n            \"description\": \"单页请求必须保留旧路径。\",\n            \"weight\": 1.0,\n            \"failure_type\": \"assertion_failed\",\n            \"passed\": true,\n            \"missing\": [],\n            \"present_forbidden\": []\n          }\n        ],\n        \"failed\": []\n      },\n      \"delta\": 100.0,\n      \"winner\": \"with_skill\",\n      \"failure_taxonomy\": []\n    }\n  ],\n  \"failures\": [],\n  \"blind_review\": {\n    \"pack\": \"reports/yao-meta/geo-site-diagnose-blind-pack.json\",\n    \"answer_key\": \"reports/yao-meta/geo-site-diagnose-blind-answer-key.json\",\n    \"pair_count\": 5\n  },\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-site-diagnose-output-eval.json\",\n    \"markdown\": \"reports/yao-meta/geo-site-diagnose-output-eval.md\",\n    \"blind_review_pack_json\": \"reports/yao-meta/geo-site-diagnose-blind-pack.json\",\n    \"blind_review_pack_md\": \"reports/yao-meta/geo-site-diagnose-blind-pack.md\",\n    \"blind_answer_key_json\": \"reports/yao-meta/geo-site-diagnose-blind-answer-key.json\"\n  }\n}\n",
+      "stderr_tail": "",
+      "report_digest": "597e3917f1d6198180b97c06209b78423ee671ac7258ed5c4c3b14a0544c3dc5"
+    },
+    {
+      "skill_id": "geo-site-diagnose",
+      "command": [
+        ".venv/bin/python",
+        "<yao-meta-root>/scripts/yao.py",
+        "trust",
+        "skills/geo-site-diagnose",
+        "--output-json",
+        "reports/yao-meta/geo-site-diagnose-trust.json",
+        "--output-md",
+        "reports/yao-meta/geo-site-diagnose-trust.md"
+      ],
+      "exit_code": 0,
+      "status": "pass",
+      "structured_status": "pass",
+      "report_path": "reports/yao-meta/geo-site-diagnose-trust.json",
+      "stdout_tail": "ducible run directory and standalone report.\",\n        \"expires_at\": \"2027-08-25\",\n        \"evidence\": [\n          \"references/report-contract.md\",\n          \"scripts/run_site_diagnose.py\"\n        ],\n        \"target_enforcement\": {\n          \"openai\": \"User-selected --output root and Artifact Bus transactional publication\",\n          \"claude\": \"User-selected --output root and Artifact Bus transactional publication\",\n          \"generic\": \"User-selected --output root and Artifact Bus transactional publication\",\n          \"vscode\": \"User-selected --output root and Artifact Bus transactional publication\"\n        },\n        \"validation\": []\n      },\n      {\n        \"capability\": \"subprocess\",\n        \"status\": \"approved\",\n        \"scripts\": [\n          \"scripts/run_site_diagnose.py\"\n        ],\n        \"reviewer\": \"GEOHub maintainer\",\n        \"scope\": \"Argument-list invocation of the installed Python module for the site-diagnose command without a shell.\",\n        \"reason\": \"The governed provider wrapper delegates to the canonical installed CLI so every target uses one validated implementation.\",\n        \"expires_at\": \"2027-08-25\",\n        \"evidence\": [\n          \"scripts/run_site_diagnose.py\"\n        ],\n        \"target_enforcement\": {\n          \"openai\": \"Fixed Python module invocation with shell disabled\",\n          \"claude\": \"Fixed Python module invocation with shell disabled\",\n          \"generic\": \"Fixed Python module invocation with shell disabled\",\n          \"vscode\": \"Fixed Python module invocation with shell disabled\"\n        },\n        \"validation\": []\n      }\n    ]\n  },\n  \"trust_metadata\": {\n    \"source_tier\": \"local\",\n    \"remote_inline_execution\": \"forbid\",\n    \"remote_metadata_policy\": \"allow-metadata-only\"\n  },\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-site-diagnose-trust.json\",\n    \"markdown\": \"reports/yao-meta/geo-site-diagnose-trust.md\"\n  }\n}\n",
+      "stderr_tail": "",
+      "report_digest": "c43930fd893d6c29563256e787d63562d1a01122793e998b998f77b777ade72e"
+    },
+    {
+      "skill_id": "geo-site-diagnose",
+      "command": [
+        ".venv/bin/python",
+        "<yao-meta-root>/scripts/yao.py",
+        "review-studio",
+        "skills/geo-site-diagnose",
+        "--output-json",
+        "reports/yao-meta/geo-site-diagnose-review-studio.json",
+        "--output-html",
+        "reports/yao-meta/geo-site-diagnose-review-studio.html"
+      ],
+      "exit_code": 0,
+      "status": "review",
+      "structured_status": "review",
+      "report_path": "reports/yao-meta/geo-site-diagnose-review-studio.json",
+      "stdout_tail": "ython_compatibility.md\",\n    \"architecture_maintainability\": \"reports/architecture_maintainability.md\",\n    \"permission_policy\": \"security/permission_policy.md\",\n    \"runtime_permissions\": \"reports/runtime_permission_probes.md\",\n    \"skill_atlas\": \"reports/skill_atlas.html\",\n    \"compiled_targets\": \"reports/compiled_targets.md\",\n    \"adoption_drift\": \"reports/adoption_drift_report.md\",\n    \"review_waivers\": \"reports/review_waivers.md\",\n    \"review_annotations\": \"reports/review_annotations.md\",\n    \"adaptation_proposals\": \"reports/adaptation_proposals.md\",\n    \"adaptation_approval_ledger\": \"reports/adaptation_approval_ledger.json\",\n    \"adaptation_regression\": \"reports/adaptation_regression_report.md\",\n    \"world_class_evidence_plan\": \"reports/world_class_evidence_plan.md\",\n    \"world_class_evidence_ledger\": \"reports/world_class_evidence_ledger.md\",\n    \"world_class_evidence_intake\": \"reports/world_class_evidence_intake.md\",\n    \"world_class_evidence_preflight\": \"reports/world_class_evidence_preflight.md\",\n    \"world_class_evidence_preflight_html\": \"reports/world_class_evidence_preflight.html\",\n    \"world_class_submission_review\": \"reports/world_class_submission_review.md\",\n    \"world_class_operator_runbook\": \"reports/world_class_operator_runbook.md\",\n    \"world_class_operator_runbook_html\": \"reports/world_class_operator_runbook.html\",\n    \"world_class_claim_guard\": \"reports/world_class_claim_guard.md\",\n    \"registry_audit\": \"reports/registry_audit.md\",\n    \"package_verification\": \"reports/package_verification.md\",\n    \"install_simulation\": \"reports/install_simulation.md\",\n    \"upgrade_check\": \"reports/upgrade_check.md\",\n    \"migration\": \"docs/migration-v2.md\",\n    \"skill_ir\": \"reports/skill-ir.json\"\n  },\n  \"artifacts\": {\n    \"html\": \"reports/yao-meta/geo-site-diagnose-review-studio.html\",\n    \"json\": \"reports/yao-meta/geo-site-diagnose-review-studio.json\"\n  }\n}\n",
+      "stderr_tail": "",
+      "report_digest": "b4ea3f608a0eccd94ef37f52ae110261e8ec0f1358386f03361dc6f9a95832a2"
+    },
+    {
+      "skill_id": "geo-site-diagnose",
+      "command": [
+        ".venv/bin/python",
+        "<yao-meta-root>/scripts/yao.py",
+        "compile-skill",
+        "skills/geo-site-diagnose",
+        "--target",
+        "generic",
+        "--output-json",
+        "reports/yao-meta/geo-site-diagnose-compiled-generic.json",
+        "--output-md",
+        "reports/yao-meta/geo-site-diagnose-compiled-generic.md"
+      ],
+      "exit_code": 0,
+      "status": "pass",
+      "structured_status": "pass",
+      "report_path": "reports/yao-meta/geo-site-diagnose-compiled-generic.json",
+      "stdout_tail": "  \"adapter_mode\": \"agent-skills-compatible\",\n        \"generated_files\": [\n          \"targets/generic/adapter.json\"\n        ],\n        \"metadata_mapping\": {\n          \"display_name\": \"targets/generic/adapter.json::display_name\",\n          \"default_prompt\": \"targets/generic/adapter.json::default_prompt\",\n          \"activation\": \"targets/generic/adapter.json::activation_mode\",\n          \"execution\": \"targets/generic/adapter.json::execution_context\",\n          \"trust\": \"targets/generic/adapter.json::trust_level\",\n          \"permissions\": \"targets/generic/adapter.json::target_permission_contract\",\n          \"degradation\": \"targets/generic/adapter.json::degradation_strategy\"\n        },\n        \"preserved_semantics\": [\n          \"trigger\",\n          \"workflow-counts\",\n          \"resources\",\n          \"eval-plan\",\n          \"risk\",\n          \"governance\",\n          \"runtime\",\n          \"trust\",\n          \"permissions\"\n        ],\n        \"degradation_strategy\": \"neutral-source\",\n        \"permission_representation\": \"targets/generic/adapter.json::target_permission_contract\",\n        \"native_surface\": \"Agent Skills compatible neutral package\",\n        \"activation_policy\": \"Use SKILL.md name and description; consumers decide automatic or manual activation.\",\n        \"resource_strategy\": \"Preserve references, scripts, assets, evals, reports, and adapter metadata as relative package resources.\",\n        \"script_strategy\": \"Expose script and permission metadata for downstream clients or installers to enforce.\",\n        \"permission_enforcement\": \"consumer-enforced-or-metadata-only\"\n      },\n      \"unsupported_features\": [],\n      \"warnings\": [],\n      \"failures\": []\n    }\n  ],\n  \"failures\": [],\n  \"warnings\": [],\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-site-diagnose-compiled-generic.json\",\n    \"markdown\": \"reports/yao-meta/geo-site-diagnose-compiled-generic.md\"\n  }\n}\n",
+      "stderr_tail": "",
+      "report_digest": "ecec3bebc62b92818ce56735f2137b14c4b521133497a77fdaee723d757d0468"
+    },
+    {
+      "skill_id": "geo-site-diagnose",
+      "command": [
+        ".venv/bin/python",
+        "<yao-meta-root>/scripts/yao.py",
+        "conformance",
+        "skills/geo-site-diagnose",
+        "--target",
+        "generic",
+        "--output-json",
+        "reports/yao-meta/geo-site-diagnose-conformance-generic.json",
+        "--output-md",
+        "reports/yao-meta/geo-site-diagnose-conformance-generic.md"
+      ],
+      "exit_code": 0,
+      "status": "pass",
+      "structured_status": "pass",
+      "report_path": "reports/yao-meta/geo-site-diagnose-conformance-generic.json",
+      "stdout_tail": "   \"manifest.name exists\",\n        \"manifest.version exists\",\n        \"manifest.owner exists\",\n        \"manifest.status exists\",\n        \"manifest.maturity_tier exists\",\n        \"manifest.review_cadence exists\",\n        \"manifest declares generic\",\n        \"interface.display_name exists\",\n        \"interface.short_description exists\",\n        \"interface.default_prompt exists\",\n        \"adapter target declares generic\",\n        \"activation mode exists\",\n        \"execution context exists\",\n        \"execution shell exists\",\n        \"trust source tier exists\",\n        \"generic degradation note exists\",\n        \"Skill IR schema_version is 2.0.0\",\n        \"Skill IR name matches frontmatter\",\n        \"Skill IR description matches frontmatter\",\n        \"references resource resolves: references/crawler-policy.md\",\n        \"references resource resolves: references/input-example.json\",\n        \"references resource resolves: references/report-contract.md\",\n        \"references resource resolves: references/report-design-system.md\",\n        \"references resource resolves: references/report-module-contract.md\",\n        \"references resource resolves: references/scoring-policy.md\",\n        \"references resource resolves: references/site-diagnosis-method.md\",\n        \"scripts resource resolves: scripts/run_site_diagnose.py\",\n        \"assets resource resolves: assets/ECHARTS-LICENSE.txt\",\n        \"assets resource resolves: assets/ECHARTS-NOTICE.txt\",\n        \"assets resource resolves: assets/echarts.min.js\",\n        \"assets resource resolves: assets/report-shell.html\"\n      ],\n      \"failures\": [],\n      \"warnings\": []\n    }\n  ],\n  \"summary\": {\n    \"target_count\": 1,\n    \"pass_count\": 1,\n    \"fail_count\": 0\n  },\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-site-diagnose-conformance-generic.json\",\n    \"markdown\": \"reports/yao-meta/geo-site-diagnose-conformance-generic.md\"\n  }\n}\n",
+      "stderr_tail": "",
+      "report_digest": "d9cf44acf813d85b2a4904d4ec3cbab9bb9a6885db57e4579141e9dd33e0e521"
+    },
+    {
+      "skill_id": "geo-site-diagnose",
+      "command": [
+        ".venv/bin/python",
+        "<yao-meta-root>/scripts/yao.py",
+        "compile-skill",
+        "skills/geo-site-diagnose",
+        "--target",
+        "openai",
+        "--output-json",
+        "reports/yao-meta/geo-site-diagnose-compiled-openai.json",
+        "--output-md",
+        "reports/yao-meta/geo-site-diagnose-compiled-openai.md"
+      ],
+      "exit_code": 0,
+      "status": "pass",
+      "structured_status": "pass",
+      "report_path": "reports/yao-meta/geo-site-diagnose-compiled-openai.json",
+      "stdout_tail": "\": \"targets/openai/agents/openai.yaml::compatibility.activation_mode\",\n          \"execution\": \"targets/openai/agents/openai.yaml::compatibility.execution_context\",\n          \"trust\": \"targets/openai/agents/openai.yaml::compatibility.trust_level\",\n          \"permissions\": \"targets/openai/agents/openai.yaml::compatibility.permission_contract\",\n          \"degradation\": \"targets/openai/agents/openai.yaml::compatibility.degradation_strategy\"\n        },\n        \"preserved_semantics\": [\n          \"trigger\",\n          \"workflow-counts\",\n          \"resources\",\n          \"eval-plan\",\n          \"risk\",\n          \"governance\",\n          \"runtime\",\n          \"trust\",\n          \"permissions\"\n        ],\n        \"degradation_strategy\": \"metadata-adapter\",\n        \"permission_representation\": \"targets/openai/agents/openai.yaml::compatibility.permission_contract plus adapter.json\",\n        \"native_surface\": \"OpenAI-style interface metadata plus neutral Agent Skills source\",\n        \"activation_policy\": \"Use frontmatter description for catalog routing and targets/openai/agents/openai.yaml for display name, default prompt, and compatibility metadata.\",\n        \"resource_strategy\": \"Ship the neutral source tree and expose OpenAI-facing interface metadata as a generated companion file.\",\n        \"script_strategy\": \"Keep scripts as local package resources; expose help-smoke and permission metadata for reviewer approval before execution.\",\n        \"permission_enforcement\": \"metadata-only\"\n      },\n      \"unsupported_features\": [\n        \"client-native script permission prompts are represented as permission contract metadata\"\n      ],\n      \"warnings\": [],\n      \"failures\": []\n    }\n  ],\n  \"failures\": [],\n  \"warnings\": [],\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-site-diagnose-compiled-openai.json\",\n    \"markdown\": \"reports/yao-meta/geo-site-diagnose-compiled-openai.md\"\n  }\n}\n",
+      "stderr_tail": "",
+      "report_digest": "9751a7cc0012fdc3554961f0dfce43f0b885b17090e6f622f6b97396b3ca62e2"
+    },
+    {
+      "skill_id": "geo-site-diagnose",
+      "command": [
+        ".venv/bin/python",
+        "<yao-meta-root>/scripts/yao.py",
+        "conformance",
+        "skills/geo-site-diagnose",
+        "--target",
+        "openai",
+        "--output-json",
+        "reports/yao-meta/geo-site-diagnose-conformance-openai.json",
+        "--output-md",
+        "reports/yao-meta/geo-site-diagnose-conformance-openai.md"
+      ],
+      "exit_code": 0,
+      "status": "pass",
+      "structured_status": "pass",
+      "report_path": "reports/yao-meta/geo-site-diagnose-conformance-openai.json",
+      "stdout_tail": "        \"manifest.name exists\",\n        \"manifest.version exists\",\n        \"manifest.owner exists\",\n        \"manifest.status exists\",\n        \"manifest.maturity_tier exists\",\n        \"manifest.review_cadence exists\",\n        \"manifest declares openai\",\n        \"interface.display_name exists\",\n        \"interface.short_description exists\",\n        \"interface.default_prompt exists\",\n        \"adapter target declares openai\",\n        \"activation mode exists\",\n        \"execution context exists\",\n        \"execution shell exists\",\n        \"trust source tier exists\",\n        \"openai degradation note exists\",\n        \"Skill IR schema_version is 2.0.0\",\n        \"Skill IR name matches frontmatter\",\n        \"Skill IR description matches frontmatter\",\n        \"references resource resolves: references/crawler-policy.md\",\n        \"references resource resolves: references/input-example.json\",\n        \"references resource resolves: references/report-contract.md\",\n        \"references resource resolves: references/report-design-system.md\",\n        \"references resource resolves: references/report-module-contract.md\",\n        \"references resource resolves: references/scoring-policy.md\",\n        \"references resource resolves: references/site-diagnosis-method.md\",\n        \"scripts resource resolves: scripts/run_site_diagnose.py\",\n        \"assets resource resolves: assets/ECHARTS-LICENSE.txt\",\n        \"assets resource resolves: assets/ECHARTS-NOTICE.txt\",\n        \"assets resource resolves: assets/echarts.min.js\",\n        \"assets resource resolves: assets/report-shell.html\"\n      ],\n      \"failures\": [],\n      \"warnings\": []\n    }\n  ],\n  \"summary\": {\n    \"target_count\": 1,\n    \"pass_count\": 1,\n    \"fail_count\": 0\n  },\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-site-diagnose-conformance-openai.json\",\n    \"markdown\": \"reports/yao-meta/geo-site-diagnose-conformance-openai.md\"\n  }\n}\n",
+      "stderr_tail": "",
+      "report_digest": "d9310d1836321dfaba6a672ccda41d51bc9cfd76f0ce4165bf6fdf8a3986b066"
+    },
+    {
+      "skill_id": "geo-site-diagnose",
+      "command": [
+        ".venv/bin/python",
+        "<yao-meta-root>/scripts/yao.py",
+        "compile-skill",
+        "skills/geo-site-diagnose",
+        "--target",
+        "claude",
+        "--output-json",
+        "reports/yao-meta/geo-site-diagnose-compiled-claude.json",
+        "--output-md",
+        "reports/yao-meta/geo-site-diagnose-compiled-claude.md"
+      ],
+      "exit_code": 0,
+      "status": "pass",
+      "structured_status": "pass",
+      "report_path": "reports/yao-meta/geo-site-diagnose-compiled-claude.json",
+      "stdout_tail": "data_mapping\": {\n          \"display_name\": \"targets/claude/adapter.json::display_name\",\n          \"default_prompt\": \"targets/claude/adapter.json::default_prompt\",\n          \"activation\": \"targets/claude/adapter.json::activation_mode\",\n          \"execution\": \"targets/claude/adapter.json::execution_context\",\n          \"trust\": \"targets/claude/adapter.json::trust_level\",\n          \"permissions\": \"targets/claude/adapter.json::target_permission_contract\",\n          \"degradation\": \"targets/claude/adapter.json::degradation_strategy\"\n        },\n        \"preserved_semantics\": [\n          \"trigger\",\n          \"workflow-counts\",\n          \"resources\",\n          \"eval-plan\",\n          \"risk\",\n          \"governance\",\n          \"runtime\",\n          \"trust\",\n          \"permissions\"\n        ],\n        \"degradation_strategy\": \"neutral-source-plus-adapter\",\n        \"permission_representation\": \"targets/claude/adapter.json::target_permission_contract and README notes\",\n        \"native_surface\": \"Claude-compatible neutral source folder with adapter notes\",\n        \"activation_policy\": \"Use SKILL.md frontmatter description as the primary activation contract and adapter.json for review metadata.\",\n        \"resource_strategy\": \"Preserve the source tree directly; write target notes in targets/claude/README.md.\",\n        \"script_strategy\": \"Scripts remain local package resources and must be reviewed through trust and permission reports before use.\",\n        \"permission_enforcement\": \"metadata-fallback\"\n      },\n      \"unsupported_features\": [\n        \"vendor-native metadata fields are carried as adapter JSON and README notes\"\n      ],\n      \"warnings\": [],\n      \"failures\": []\n    }\n  ],\n  \"failures\": [],\n  \"warnings\": [],\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-site-diagnose-compiled-claude.json\",\n    \"markdown\": \"reports/yao-meta/geo-site-diagnose-compiled-claude.md\"\n  }\n}\n",
+      "stderr_tail": "",
+      "report_digest": "cd7839393ed7bc4d690fb7964e29406cb0fd0f28af4c0c1165d40c7ab7385257"
+    },
+    {
+      "skill_id": "geo-site-diagnose",
+      "command": [
+        ".venv/bin/python",
+        "<yao-meta-root>/scripts/yao.py",
+        "conformance",
+        "skills/geo-site-diagnose",
+        "--target",
+        "claude",
+        "--output-json",
+        "reports/yao-meta/geo-site-diagnose-conformance-claude.json",
+        "--output-md",
+        "reports/yao-meta/geo-site-diagnose-conformance-claude.md"
+      ],
+      "exit_code": 0,
+      "status": "pass",
+      "structured_status": "pass",
+      "report_path": "reports/yao-meta/geo-site-diagnose-conformance-claude.json",
+      "stdout_tail": "        \"manifest.name exists\",\n        \"manifest.version exists\",\n        \"manifest.owner exists\",\n        \"manifest.status exists\",\n        \"manifest.maturity_tier exists\",\n        \"manifest.review_cadence exists\",\n        \"manifest declares claude\",\n        \"interface.display_name exists\",\n        \"interface.short_description exists\",\n        \"interface.default_prompt exists\",\n        \"adapter target declares claude\",\n        \"activation mode exists\",\n        \"execution context exists\",\n        \"execution shell exists\",\n        \"trust source tier exists\",\n        \"claude degradation note exists\",\n        \"Skill IR schema_version is 2.0.0\",\n        \"Skill IR name matches frontmatter\",\n        \"Skill IR description matches frontmatter\",\n        \"references resource resolves: references/crawler-policy.md\",\n        \"references resource resolves: references/input-example.json\",\n        \"references resource resolves: references/report-contract.md\",\n        \"references resource resolves: references/report-design-system.md\",\n        \"references resource resolves: references/report-module-contract.md\",\n        \"references resource resolves: references/scoring-policy.md\",\n        \"references resource resolves: references/site-diagnosis-method.md\",\n        \"scripts resource resolves: scripts/run_site_diagnose.py\",\n        \"assets resource resolves: assets/ECHARTS-LICENSE.txt\",\n        \"assets resource resolves: assets/ECHARTS-NOTICE.txt\",\n        \"assets resource resolves: assets/echarts.min.js\",\n        \"assets resource resolves: assets/report-shell.html\"\n      ],\n      \"failures\": [],\n      \"warnings\": []\n    }\n  ],\n  \"summary\": {\n    \"target_count\": 1,\n    \"pass_count\": 1,\n    \"fail_count\": 0\n  },\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-site-diagnose-conformance-claude.json\",\n    \"markdown\": \"reports/yao-meta/geo-site-diagnose-conformance-claude.md\"\n  }\n}\n",
+      "stderr_tail": "",
+      "report_digest": "821a786dd9310be3de770575aecfbfc7d81b57899031f8156549c8493f6735d6"
     },
     {
       "skill_id": "geo-content",
@@ -948,7 +1223,7 @@
       "report_path": "reports/yao-meta/geo-content-trust.json",
       "stdout_tail": "ts\": [\n    {\n      \"path\": \"scripts/run_content.py\",\n      \"interface\": \"cli\",\n      \"interface_declared\": false,\n      \"interface_reason\": \"Default CLI classification; add SCRIPT_INTERFACE for internal modules.\",\n      \"has_argparse\": false,\n      \"has_main_guard\": true,\n      \"uses_input\": false,\n      \"uses_network\": false,\n      \"uses_file_write\": false,\n      \"uses_subprocess\": false,\n      \"network_urls\": [],\n      \"network_hosts\": []\n    }\n  ],\n  \"dependencies\": {\n    \"present\": [],\n    \"pinned\": [],\n    \"unpinned\": []\n  },\n  \"network_policy\": {\n    \"present\": false,\n    \"path\": \"security/network_policy.json\",\n    \"schema_version\": \"\",\n    \"network_script_count\": 0,\n    \"covered_scripts\": [],\n    \"missing_scripts\": [],\n    \"mismatches\": [],\n    \"default_policy\": {}\n  },\n  \"help_smoke\": {\n    \"enabled\": true,\n    \"timeout_seconds\": 5.0,\n    \"candidate_count\": 0,\n    \"checked_count\": 0,\n    \"passed_count\": 0,\n    \"failed_count\": 0,\n    \"skipped_count\": 1,\n    \"failed_scripts\": [],\n    \"results\": [],\n    \"skipped\": [\n      {\n        \"path\": \"scripts/run_content.py\",\n        \"reason\": \"missing argparse/help surface\"\n      }\n    ]\n  },\n  \"permission_governance\": {\n    \"present\": false,\n    \"path\": \"security/permission_policy.json\",\n    \"schema_version\": \"\",\n    \"reviewed_at\": \"\",\n    \"required_capabilities\": [],\n    \"approved_capabilities\": [],\n    \"missing_capabilities\": [],\n    \"invalid_capabilities\": [],\n    \"expired_capabilities\": [],\n    \"approval_count\": 0,\n    \"required_count\": 0,\n    \"missing_count\": 0,\n    \"invalid_count\": 0,\n    \"expired_count\": 0,\n    \"approvals\": []\n  },\n  \"trust_metadata\": {\n    \"source_tier\": \"local\",\n    \"remote_inline_execution\": \"forbid\",\n    \"remote_metadata_policy\": \"allow-metadata-only\"\n  },\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-content-trust.json\",\n    \"markdown\": \"reports/yao-meta/geo-content-trust.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "2718ccaa4e3d3fea21fd0c6251bbcaa113099a8cce05415445010277b9ea55fb"
+      "report_digest": "e4ab5ee51794f711592dca6436d5a3bc6fdc0a4c5427d2f4a671a52876d60697"
     },
     {
       "skill_id": "geo-content",
@@ -968,7 +1243,7 @@
       "report_path": "reports/yao-meta/geo-content-review-studio.json",
       "stdout_tail": ": \"reports/python_compatibility.md\",\n    \"architecture_maintainability\": \"reports/architecture_maintainability.md\",\n    \"permission_policy\": \"security/permission_policy.md\",\n    \"runtime_permissions\": \"reports/runtime_permission_probes.md\",\n    \"skill_atlas\": \"reports/skill_atlas.html\",\n    \"compiled_targets\": \"reports/compiled_targets.md\",\n    \"adoption_drift\": \"reports/adoption_drift_report.md\",\n    \"review_waivers\": \"reports/review_waivers.md\",\n    \"review_annotations\": \"reports/review_annotations.md\",\n    \"adaptation_proposals\": \"reports/adaptation_proposals.md\",\n    \"adaptation_approval_ledger\": \"reports/adaptation_approval_ledger.json\",\n    \"adaptation_regression\": \"reports/adaptation_regression_report.md\",\n    \"world_class_evidence_plan\": \"reports/world_class_evidence_plan.md\",\n    \"world_class_evidence_ledger\": \"reports/world_class_evidence_ledger.md\",\n    \"world_class_evidence_intake\": \"reports/world_class_evidence_intake.md\",\n    \"world_class_evidence_preflight\": \"reports/world_class_evidence_preflight.md\",\n    \"world_class_evidence_preflight_html\": \"reports/world_class_evidence_preflight.html\",\n    \"world_class_submission_review\": \"reports/world_class_submission_review.md\",\n    \"world_class_operator_runbook\": \"reports/world_class_operator_runbook.md\",\n    \"world_class_operator_runbook_html\": \"reports/world_class_operator_runbook.html\",\n    \"world_class_claim_guard\": \"reports/world_class_claim_guard.md\",\n    \"registry_audit\": \"reports/registry_audit.md\",\n    \"package_verification\": \"reports/package_verification.md\",\n    \"install_simulation\": \"reports/install_simulation.md\",\n    \"upgrade_check\": \"reports/upgrade_check.md\",\n    \"migration\": \"docs/migration-v2.md\",\n    \"skill_ir\": \"reports/skill-ir.json\"\n  },\n  \"artifacts\": {\n    \"html\": \"reports/yao-meta/geo-content-review-studio.html\",\n    \"json\": \"reports/yao-meta/geo-content-review-studio.json\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "6e534d2cd4ff96b9ec6512e8902ebd0916b14d0309fcc84856e35af3bc644ded"
+      "report_digest": "9863cac9020c3325ef2fd5f8f760b52928453f4ec5fd596f62348ce2ae15fb48"
     },
     {
       "skill_id": "geo-content",
@@ -990,7 +1265,7 @@
       "report_path": "reports/yao-meta/geo-content-compiled-generic.json",
       "stdout_tail": "ric\",\n        \"adapter_mode\": \"agent-skills-compatible\",\n        \"generated_files\": [\n          \"targets/generic/adapter.json\"\n        ],\n        \"metadata_mapping\": {\n          \"display_name\": \"targets/generic/adapter.json::display_name\",\n          \"default_prompt\": \"targets/generic/adapter.json::default_prompt\",\n          \"activation\": \"targets/generic/adapter.json::activation_mode\",\n          \"execution\": \"targets/generic/adapter.json::execution_context\",\n          \"trust\": \"targets/generic/adapter.json::trust_level\",\n          \"permissions\": \"targets/generic/adapter.json::target_permission_contract\",\n          \"degradation\": \"targets/generic/adapter.json::degradation_strategy\"\n        },\n        \"preserved_semantics\": [\n          \"trigger\",\n          \"workflow-counts\",\n          \"resources\",\n          \"eval-plan\",\n          \"risk\",\n          \"governance\",\n          \"runtime\",\n          \"trust\",\n          \"permissions\"\n        ],\n        \"degradation_strategy\": \"neutral-source\",\n        \"permission_representation\": \"targets/generic/adapter.json::target_permission_contract\",\n        \"native_surface\": \"Agent Skills compatible neutral package\",\n        \"activation_policy\": \"Use SKILL.md name and description; consumers decide automatic or manual activation.\",\n        \"resource_strategy\": \"Preserve references, scripts, assets, evals, reports, and adapter metadata as relative package resources.\",\n        \"script_strategy\": \"Expose script and permission metadata for downstream clients or installers to enforce.\",\n        \"permission_enforcement\": \"consumer-enforced-or-metadata-only\"\n      },\n      \"unsupported_features\": [],\n      \"warnings\": [],\n      \"failures\": []\n    }\n  ],\n  \"failures\": [],\n  \"warnings\": [],\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-content-compiled-generic.json\",\n    \"markdown\": \"reports/yao-meta/geo-content-compiled-generic.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "c55d8d6643db6bb45b8f268698db8ddde2512c842057689736925cfb23dfe75b"
+      "report_digest": "118628ce7cec4ea80a7682d3e25578484b28a2a9881c54e0993f02efb5a52a5c"
     },
     {
       "skill_id": "geo-content",
@@ -1034,7 +1309,7 @@
       "report_path": "reports/yao-meta/geo-content-compiled-openai.json",
       "stdout_tail": " \"activation\": \"targets/openai/agents/openai.yaml::compatibility.activation_mode\",\n          \"execution\": \"targets/openai/agents/openai.yaml::compatibility.execution_context\",\n          \"trust\": \"targets/openai/agents/openai.yaml::compatibility.trust_level\",\n          \"permissions\": \"targets/openai/agents/openai.yaml::compatibility.permission_contract\",\n          \"degradation\": \"targets/openai/agents/openai.yaml::compatibility.degradation_strategy\"\n        },\n        \"preserved_semantics\": [\n          \"trigger\",\n          \"workflow-counts\",\n          \"resources\",\n          \"eval-plan\",\n          \"risk\",\n          \"governance\",\n          \"runtime\",\n          \"trust\",\n          \"permissions\"\n        ],\n        \"degradation_strategy\": \"metadata-adapter\",\n        \"permission_representation\": \"targets/openai/agents/openai.yaml::compatibility.permission_contract plus adapter.json\",\n        \"native_surface\": \"OpenAI-style interface metadata plus neutral Agent Skills source\",\n        \"activation_policy\": \"Use frontmatter description for catalog routing and targets/openai/agents/openai.yaml for display name, default prompt, and compatibility metadata.\",\n        \"resource_strategy\": \"Ship the neutral source tree and expose OpenAI-facing interface metadata as a generated companion file.\",\n        \"script_strategy\": \"Keep scripts as local package resources; expose help-smoke and permission metadata for reviewer approval before execution.\",\n        \"permission_enforcement\": \"metadata-only\"\n      },\n      \"unsupported_features\": [\n        \"client-native script permission prompts are represented as permission contract metadata\"\n      ],\n      \"warnings\": [],\n      \"failures\": []\n    }\n  ],\n  \"failures\": [],\n  \"warnings\": [],\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-content-compiled-openai.json\",\n    \"markdown\": \"reports/yao-meta/geo-content-compiled-openai.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "f65ac56a9eee7fcab02286062aa732b153562755d8edff9e06ea5ecbafa05ac6"
+      "report_digest": "df7f2bc9b2604b71f6ede876c86b413edda7c6fb1f9e4e0db2f625596ec07582"
     },
     {
       "skill_id": "geo-content",
@@ -1078,7 +1353,7 @@
       "report_path": "reports/yao-meta/geo-content-compiled-claude.json",
       "stdout_tail": "       \"metadata_mapping\": {\n          \"display_name\": \"targets/claude/adapter.json::display_name\",\n          \"default_prompt\": \"targets/claude/adapter.json::default_prompt\",\n          \"activation\": \"targets/claude/adapter.json::activation_mode\",\n          \"execution\": \"targets/claude/adapter.json::execution_context\",\n          \"trust\": \"targets/claude/adapter.json::trust_level\",\n          \"permissions\": \"targets/claude/adapter.json::target_permission_contract\",\n          \"degradation\": \"targets/claude/adapter.json::degradation_strategy\"\n        },\n        \"preserved_semantics\": [\n          \"trigger\",\n          \"workflow-counts\",\n          \"resources\",\n          \"eval-plan\",\n          \"risk\",\n          \"governance\",\n          \"runtime\",\n          \"trust\",\n          \"permissions\"\n        ],\n        \"degradation_strategy\": \"neutral-source-plus-adapter\",\n        \"permission_representation\": \"targets/claude/adapter.json::target_permission_contract and README notes\",\n        \"native_surface\": \"Claude-compatible neutral source folder with adapter notes\",\n        \"activation_policy\": \"Use SKILL.md frontmatter description as the primary activation contract and adapter.json for review metadata.\",\n        \"resource_strategy\": \"Preserve the source tree directly; write target notes in targets/claude/README.md.\",\n        \"script_strategy\": \"Scripts remain local package resources and must be reviewed through trust and permission reports before use.\",\n        \"permission_enforcement\": \"metadata-fallback\"\n      },\n      \"unsupported_features\": [\n        \"vendor-native metadata fields are carried as adapter JSON and README notes\"\n      ],\n      \"warnings\": [],\n      \"failures\": []\n    }\n  ],\n  \"failures\": [],\n  \"warnings\": [],\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-content-compiled-claude.json\",\n    \"markdown\": \"reports/yao-meta/geo-content-compiled-claude.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "f44f827c42fe7b4fb0b82db5c889c3fe1ab74048428182aa1af270d1bc19481b"
+      "report_digest": "2d91d13f4daceaa292328d84bf0d24c325b798294d7ce5250d5a445b6dd8b050"
     },
     {
       "skill_id": "geo-content",
@@ -1223,7 +1498,7 @@
       "report_path": "reports/yao-meta/geo-measure-trust.json",
       "stdout_tail": "\n      \"network_urls\": [],\n      \"network_hosts\": []\n    }\n  ],\n  \"dependencies\": {\n    \"present\": [],\n    \"pinned\": [],\n    \"unpinned\": []\n  },\n  \"network_policy\": {\n    \"present\": false,\n    \"path\": \"security/network_policy.json\",\n    \"schema_version\": \"\",\n    \"network_script_count\": 0,\n    \"covered_scripts\": [],\n    \"missing_scripts\": [],\n    \"mismatches\": [],\n    \"default_policy\": {}\n  },\n  \"help_smoke\": {\n    \"enabled\": true,\n    \"timeout_seconds\": 5.0,\n    \"candidate_count\": 1,\n    \"checked_count\": 1,\n    \"passed_count\": 1,\n    \"failed_count\": 0,\n    \"skipped_count\": 0,\n    \"failed_scripts\": [],\n    \"results\": [\n      {\n        \"path\": \"scripts/run_measure.py\",\n        \"command\": \"python3 scripts/run_measure.py --help\",\n        \"returncode\": 0,\n        \"timed_out\": false,\n        \"passed\": true,\n        \"has_help_text\": true,\n        \"stdout_excerpt\": \"usage: run_measure.py [-h] --input INPUT --output OUTPUT\\n\\nRun GEO measurement from an approved observation bundle\\n\\noptions:\\n  -h, --help       show this help message and exit\\n  --input INPUT\\n  --output OUTPUT\",\n        \"stderr_excerpt\": \"\"\n      }\n    ],\n    \"skipped\": []\n  },\n  \"permission_governance\": {\n    \"present\": false,\n    \"path\": \"security/permission_policy.json\",\n    \"schema_version\": \"\",\n    \"reviewed_at\": \"\",\n    \"required_capabilities\": [],\n    \"approved_capabilities\": [],\n    \"missing_capabilities\": [],\n    \"invalid_capabilities\": [],\n    \"expired_capabilities\": [],\n    \"approval_count\": 0,\n    \"required_count\": 0,\n    \"missing_count\": 0,\n    \"invalid_count\": 0,\n    \"expired_count\": 0,\n    \"approvals\": []\n  },\n  \"trust_metadata\": {\n    \"source_tier\": \"local\",\n    \"remote_inline_execution\": \"forbid\",\n    \"remote_metadata_policy\": \"allow-metadata-only\"\n  },\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-measure-trust.json\",\n    \"markdown\": \"reports/yao-meta/geo-measure-trust.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "3d2a1410bb7a48892012f56f81f6255a115debe58c6785cf82083e7ff7070f78"
+      "report_digest": "1daae1eff7de582be10625b524784e9f37b75c1397f333dc797cc5f035b5d3a7"
     },
     {
       "skill_id": "geo-measure",
@@ -1243,7 +1518,7 @@
       "report_path": "reports/yao-meta/geo-measure-review-studio.json",
       "stdout_tail": ": \"reports/python_compatibility.md\",\n    \"architecture_maintainability\": \"reports/architecture_maintainability.md\",\n    \"permission_policy\": \"security/permission_policy.md\",\n    \"runtime_permissions\": \"reports/runtime_permission_probes.md\",\n    \"skill_atlas\": \"reports/skill_atlas.html\",\n    \"compiled_targets\": \"reports/compiled_targets.md\",\n    \"adoption_drift\": \"reports/adoption_drift_report.md\",\n    \"review_waivers\": \"reports/review_waivers.md\",\n    \"review_annotations\": \"reports/review_annotations.md\",\n    \"adaptation_proposals\": \"reports/adaptation_proposals.md\",\n    \"adaptation_approval_ledger\": \"reports/adaptation_approval_ledger.json\",\n    \"adaptation_regression\": \"reports/adaptation_regression_report.md\",\n    \"world_class_evidence_plan\": \"reports/world_class_evidence_plan.md\",\n    \"world_class_evidence_ledger\": \"reports/world_class_evidence_ledger.md\",\n    \"world_class_evidence_intake\": \"reports/world_class_evidence_intake.md\",\n    \"world_class_evidence_preflight\": \"reports/world_class_evidence_preflight.md\",\n    \"world_class_evidence_preflight_html\": \"reports/world_class_evidence_preflight.html\",\n    \"world_class_submission_review\": \"reports/world_class_submission_review.md\",\n    \"world_class_operator_runbook\": \"reports/world_class_operator_runbook.md\",\n    \"world_class_operator_runbook_html\": \"reports/world_class_operator_runbook.html\",\n    \"world_class_claim_guard\": \"reports/world_class_claim_guard.md\",\n    \"registry_audit\": \"reports/registry_audit.md\",\n    \"package_verification\": \"reports/package_verification.md\",\n    \"install_simulation\": \"reports/install_simulation.md\",\n    \"upgrade_check\": \"reports/upgrade_check.md\",\n    \"migration\": \"docs/migration-v2.md\",\n    \"skill_ir\": \"reports/skill-ir.json\"\n  },\n  \"artifacts\": {\n    \"html\": \"reports/yao-meta/geo-measure-review-studio.html\",\n    \"json\": \"reports/yao-meta/geo-measure-review-studio.json\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "b61472c43136e043c59a92d85ad8453466b59621736d98de5a31a35dccdfb491"
+      "report_digest": "d8212ab38fa636d3c6cea11c40e6e5054c72ed25c2cfe95cfd911b2cb7e5c93a"
     },
     {
       "skill_id": "geo-measure",
@@ -1265,7 +1540,7 @@
       "report_path": "reports/yao-meta/geo-measure-compiled-generic.json",
       "stdout_tail": "ric\",\n        \"adapter_mode\": \"agent-skills-compatible\",\n        \"generated_files\": [\n          \"targets/generic/adapter.json\"\n        ],\n        \"metadata_mapping\": {\n          \"display_name\": \"targets/generic/adapter.json::display_name\",\n          \"default_prompt\": \"targets/generic/adapter.json::default_prompt\",\n          \"activation\": \"targets/generic/adapter.json::activation_mode\",\n          \"execution\": \"targets/generic/adapter.json::execution_context\",\n          \"trust\": \"targets/generic/adapter.json::trust_level\",\n          \"permissions\": \"targets/generic/adapter.json::target_permission_contract\",\n          \"degradation\": \"targets/generic/adapter.json::degradation_strategy\"\n        },\n        \"preserved_semantics\": [\n          \"trigger\",\n          \"workflow-counts\",\n          \"resources\",\n          \"eval-plan\",\n          \"risk\",\n          \"governance\",\n          \"runtime\",\n          \"trust\",\n          \"permissions\"\n        ],\n        \"degradation_strategy\": \"neutral-source\",\n        \"permission_representation\": \"targets/generic/adapter.json::target_permission_contract\",\n        \"native_surface\": \"Agent Skills compatible neutral package\",\n        \"activation_policy\": \"Use SKILL.md name and description; consumers decide automatic or manual activation.\",\n        \"resource_strategy\": \"Preserve references, scripts, assets, evals, reports, and adapter metadata as relative package resources.\",\n        \"script_strategy\": \"Expose script and permission metadata for downstream clients or installers to enforce.\",\n        \"permission_enforcement\": \"consumer-enforced-or-metadata-only\"\n      },\n      \"unsupported_features\": [],\n      \"warnings\": [],\n      \"failures\": []\n    }\n  ],\n  \"failures\": [],\n  \"warnings\": [],\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-measure-compiled-generic.json\",\n    \"markdown\": \"reports/yao-meta/geo-measure-compiled-generic.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "81ba861b53e094fd1b6f0eb97758178fe259f3ae9c89c2b52425a6747ca73a7e"
+      "report_digest": "965a8a50f7bf9e8d15ba32275ead0376c2cd19bae7a588851c276cfbbee9419d"
     },
     {
       "skill_id": "geo-measure",
@@ -1309,7 +1584,7 @@
       "report_path": "reports/yao-meta/geo-measure-compiled-openai.json",
       "stdout_tail": " \"activation\": \"targets/openai/agents/openai.yaml::compatibility.activation_mode\",\n          \"execution\": \"targets/openai/agents/openai.yaml::compatibility.execution_context\",\n          \"trust\": \"targets/openai/agents/openai.yaml::compatibility.trust_level\",\n          \"permissions\": \"targets/openai/agents/openai.yaml::compatibility.permission_contract\",\n          \"degradation\": \"targets/openai/agents/openai.yaml::compatibility.degradation_strategy\"\n        },\n        \"preserved_semantics\": [\n          \"trigger\",\n          \"workflow-counts\",\n          \"resources\",\n          \"eval-plan\",\n          \"risk\",\n          \"governance\",\n          \"runtime\",\n          \"trust\",\n          \"permissions\"\n        ],\n        \"degradation_strategy\": \"metadata-adapter\",\n        \"permission_representation\": \"targets/openai/agents/openai.yaml::compatibility.permission_contract plus adapter.json\",\n        \"native_surface\": \"OpenAI-style interface metadata plus neutral Agent Skills source\",\n        \"activation_policy\": \"Use frontmatter description for catalog routing and targets/openai/agents/openai.yaml for display name, default prompt, and compatibility metadata.\",\n        \"resource_strategy\": \"Ship the neutral source tree and expose OpenAI-facing interface metadata as a generated companion file.\",\n        \"script_strategy\": \"Keep scripts as local package resources; expose help-smoke and permission metadata for reviewer approval before execution.\",\n        \"permission_enforcement\": \"metadata-only\"\n      },\n      \"unsupported_features\": [\n        \"client-native script permission prompts are represented as permission contract metadata\"\n      ],\n      \"warnings\": [],\n      \"failures\": []\n    }\n  ],\n  \"failures\": [],\n  \"warnings\": [],\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-measure-compiled-openai.json\",\n    \"markdown\": \"reports/yao-meta/geo-measure-compiled-openai.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "f7c1a792525f78598affd0ed43f21555f8dcf38de42c471d7324137b6e88b549"
+      "report_digest": "0437c429eb7678562559540a9696a69993d71392ea0acc28550a57277d133230"
     },
     {
       "skill_id": "geo-measure",
@@ -1353,7 +1628,7 @@
       "report_path": "reports/yao-meta/geo-measure-compiled-claude.json",
       "stdout_tail": "       \"metadata_mapping\": {\n          \"display_name\": \"targets/claude/adapter.json::display_name\",\n          \"default_prompt\": \"targets/claude/adapter.json::default_prompt\",\n          \"activation\": \"targets/claude/adapter.json::activation_mode\",\n          \"execution\": \"targets/claude/adapter.json::execution_context\",\n          \"trust\": \"targets/claude/adapter.json::trust_level\",\n          \"permissions\": \"targets/claude/adapter.json::target_permission_contract\",\n          \"degradation\": \"targets/claude/adapter.json::degradation_strategy\"\n        },\n        \"preserved_semantics\": [\n          \"trigger\",\n          \"workflow-counts\",\n          \"resources\",\n          \"eval-plan\",\n          \"risk\",\n          \"governance\",\n          \"runtime\",\n          \"trust\",\n          \"permissions\"\n        ],\n        \"degradation_strategy\": \"neutral-source-plus-adapter\",\n        \"permission_representation\": \"targets/claude/adapter.json::target_permission_contract and README notes\",\n        \"native_surface\": \"Claude-compatible neutral source folder with adapter notes\",\n        \"activation_policy\": \"Use SKILL.md frontmatter description as the primary activation contract and adapter.json for review metadata.\",\n        \"resource_strategy\": \"Preserve the source tree directly; write target notes in targets/claude/README.md.\",\n        \"script_strategy\": \"Scripts remain local package resources and must be reviewed through trust and permission reports before use.\",\n        \"permission_enforcement\": \"metadata-fallback\"\n      },\n      \"unsupported_features\": [\n        \"vendor-native metadata fields are carried as adapter JSON and README notes\"\n      ],\n      \"warnings\": [],\n      \"failures\": []\n    }\n  ],\n  \"failures\": [],\n  \"warnings\": [],\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-measure-compiled-claude.json\",\n    \"markdown\": \"reports/yao-meta/geo-measure-compiled-claude.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "f3afd3a0156153c11357992d963b5b4175553a3740c8f58760dd86ec62345ead"
+      "report_digest": "6d1b603c0733f109bb63406717286eaa3a5b697c9527d3027cc009cf349b1ae4"
     },
     {
       "skill_id": "geo-measure",
@@ -1498,7 +1773,7 @@
       "report_path": "reports/yao-meta/geo-strategy-trust.json",
       "stdout_tail": "es_file_write\": false,\n      \"uses_subprocess\": false,\n      \"network_urls\": [],\n      \"network_hosts\": []\n    }\n  ],\n  \"dependencies\": {\n    \"present\": [],\n    \"pinned\": [],\n    \"unpinned\": []\n  },\n  \"network_policy\": {\n    \"present\": false,\n    \"path\": \"security/network_policy.json\",\n    \"schema_version\": \"\",\n    \"network_script_count\": 0,\n    \"covered_scripts\": [],\n    \"missing_scripts\": [],\n    \"mismatches\": [],\n    \"default_policy\": {}\n  },\n  \"help_smoke\": {\n    \"enabled\": true,\n    \"timeout_seconds\": 5.0,\n    \"candidate_count\": 1,\n    \"checked_count\": 1,\n    \"passed_count\": 1,\n    \"failed_count\": 0,\n    \"skipped_count\": 0,\n    \"failed_scripts\": [],\n    \"results\": [\n      {\n        \"path\": \"scripts/run_strategy.py\",\n        \"command\": \"python3 scripts/run_strategy.py --help\",\n        \"returncode\": 0,\n        \"timed_out\": false,\n        \"passed\": true,\n        \"has_help_text\": true,\n        \"stdout_excerpt\": \"usage: run_strategy.py [-h] --input INPUT --output OUTPUT\\n\\noptions:\\n  -h, --help       show this help message and exit\\n  --input INPUT\\n  --output OUTPUT\",\n        \"stderr_excerpt\": \"\"\n      }\n    ],\n    \"skipped\": []\n  },\n  \"permission_governance\": {\n    \"present\": false,\n    \"path\": \"security/permission_policy.json\",\n    \"schema_version\": \"\",\n    \"reviewed_at\": \"\",\n    \"required_capabilities\": [],\n    \"approved_capabilities\": [],\n    \"missing_capabilities\": [],\n    \"invalid_capabilities\": [],\n    \"expired_capabilities\": [],\n    \"approval_count\": 0,\n    \"required_count\": 0,\n    \"missing_count\": 0,\n    \"invalid_count\": 0,\n    \"expired_count\": 0,\n    \"approvals\": []\n  },\n  \"trust_metadata\": {\n    \"source_tier\": \"local\",\n    \"remote_inline_execution\": \"forbid\",\n    \"remote_metadata_policy\": \"allow-metadata-only\"\n  },\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-strategy-trust.json\",\n    \"markdown\": \"reports/yao-meta/geo-strategy-trust.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "15f9217f454ff4a7f6917748e20d5951841b0b9491648f493500671c33c833c0"
+      "report_digest": "db0cfd5e16dbb027abbbae225201421888883dedf44d0c28cad7455f48e646de"
     },
     {
       "skill_id": "geo-strategy",
@@ -1518,7 +1793,7 @@
       "report_path": "reports/yao-meta/geo-strategy-review-studio.json",
       "stdout_tail": "\"reports/python_compatibility.md\",\n    \"architecture_maintainability\": \"reports/architecture_maintainability.md\",\n    \"permission_policy\": \"security/permission_policy.md\",\n    \"runtime_permissions\": \"reports/runtime_permission_probes.md\",\n    \"skill_atlas\": \"reports/skill_atlas.html\",\n    \"compiled_targets\": \"reports/compiled_targets.md\",\n    \"adoption_drift\": \"reports/adoption_drift_report.md\",\n    \"review_waivers\": \"reports/review_waivers.md\",\n    \"review_annotations\": \"reports/review_annotations.md\",\n    \"adaptation_proposals\": \"reports/adaptation_proposals.md\",\n    \"adaptation_approval_ledger\": \"reports/adaptation_approval_ledger.json\",\n    \"adaptation_regression\": \"reports/adaptation_regression_report.md\",\n    \"world_class_evidence_plan\": \"reports/world_class_evidence_plan.md\",\n    \"world_class_evidence_ledger\": \"reports/world_class_evidence_ledger.md\",\n    \"world_class_evidence_intake\": \"reports/world_class_evidence_intake.md\",\n    \"world_class_evidence_preflight\": \"reports/world_class_evidence_preflight.md\",\n    \"world_class_evidence_preflight_html\": \"reports/world_class_evidence_preflight.html\",\n    \"world_class_submission_review\": \"reports/world_class_submission_review.md\",\n    \"world_class_operator_runbook\": \"reports/world_class_operator_runbook.md\",\n    \"world_class_operator_runbook_html\": \"reports/world_class_operator_runbook.html\",\n    \"world_class_claim_guard\": \"reports/world_class_claim_guard.md\",\n    \"registry_audit\": \"reports/registry_audit.md\",\n    \"package_verification\": \"reports/package_verification.md\",\n    \"install_simulation\": \"reports/install_simulation.md\",\n    \"upgrade_check\": \"reports/upgrade_check.md\",\n    \"migration\": \"docs/migration-v2.md\",\n    \"skill_ir\": \"reports/skill-ir.json\"\n  },\n  \"artifacts\": {\n    \"html\": \"reports/yao-meta/geo-strategy-review-studio.html\",\n    \"json\": \"reports/yao-meta/geo-strategy-review-studio.json\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "77f36d18cbe72afffb55def6d3e45dd0025baf9477df628a0722c03e3096f675"
+      "report_digest": "3f7ce8fb3b211c442f8549bd5aa08b20d3c3f5a02e7b8795b52b022dc2332525"
     },
     {
       "skill_id": "geo-strategy",
@@ -1540,7 +1815,7 @@
       "report_path": "reports/yao-meta/geo-strategy-compiled-generic.json",
       "stdout_tail": "c\",\n        \"adapter_mode\": \"agent-skills-compatible\",\n        \"generated_files\": [\n          \"targets/generic/adapter.json\"\n        ],\n        \"metadata_mapping\": {\n          \"display_name\": \"targets/generic/adapter.json::display_name\",\n          \"default_prompt\": \"targets/generic/adapter.json::default_prompt\",\n          \"activation\": \"targets/generic/adapter.json::activation_mode\",\n          \"execution\": \"targets/generic/adapter.json::execution_context\",\n          \"trust\": \"targets/generic/adapter.json::trust_level\",\n          \"permissions\": \"targets/generic/adapter.json::target_permission_contract\",\n          \"degradation\": \"targets/generic/adapter.json::degradation_strategy\"\n        },\n        \"preserved_semantics\": [\n          \"trigger\",\n          \"workflow-counts\",\n          \"resources\",\n          \"eval-plan\",\n          \"risk\",\n          \"governance\",\n          \"runtime\",\n          \"trust\",\n          \"permissions\"\n        ],\n        \"degradation_strategy\": \"neutral-source\",\n        \"permission_representation\": \"targets/generic/adapter.json::target_permission_contract\",\n        \"native_surface\": \"Agent Skills compatible neutral package\",\n        \"activation_policy\": \"Use SKILL.md name and description; consumers decide automatic or manual activation.\",\n        \"resource_strategy\": \"Preserve references, scripts, assets, evals, reports, and adapter metadata as relative package resources.\",\n        \"script_strategy\": \"Expose script and permission metadata for downstream clients or installers to enforce.\",\n        \"permission_enforcement\": \"consumer-enforced-or-metadata-only\"\n      },\n      \"unsupported_features\": [],\n      \"warnings\": [],\n      \"failures\": []\n    }\n  ],\n  \"failures\": [],\n  \"warnings\": [],\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-strategy-compiled-generic.json\",\n    \"markdown\": \"reports/yao-meta/geo-strategy-compiled-generic.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "45d35122985036a16f4be56dc9007e90287e6d8277e85ac45030d24b920312c9"
+      "report_digest": "116913e5b6937c9a4f356e132a3e122ddd9fc5d577e279546c05df7f8907f858"
     },
     {
       "skill_id": "geo-strategy",
@@ -1584,7 +1859,7 @@
       "report_path": "reports/yao-meta/geo-strategy-compiled-openai.json",
       "stdout_tail": "activation\": \"targets/openai/agents/openai.yaml::compatibility.activation_mode\",\n          \"execution\": \"targets/openai/agents/openai.yaml::compatibility.execution_context\",\n          \"trust\": \"targets/openai/agents/openai.yaml::compatibility.trust_level\",\n          \"permissions\": \"targets/openai/agents/openai.yaml::compatibility.permission_contract\",\n          \"degradation\": \"targets/openai/agents/openai.yaml::compatibility.degradation_strategy\"\n        },\n        \"preserved_semantics\": [\n          \"trigger\",\n          \"workflow-counts\",\n          \"resources\",\n          \"eval-plan\",\n          \"risk\",\n          \"governance\",\n          \"runtime\",\n          \"trust\",\n          \"permissions\"\n        ],\n        \"degradation_strategy\": \"metadata-adapter\",\n        \"permission_representation\": \"targets/openai/agents/openai.yaml::compatibility.permission_contract plus adapter.json\",\n        \"native_surface\": \"OpenAI-style interface metadata plus neutral Agent Skills source\",\n        \"activation_policy\": \"Use frontmatter description for catalog routing and targets/openai/agents/openai.yaml for display name, default prompt, and compatibility metadata.\",\n        \"resource_strategy\": \"Ship the neutral source tree and expose OpenAI-facing interface metadata as a generated companion file.\",\n        \"script_strategy\": \"Keep scripts as local package resources; expose help-smoke and permission metadata for reviewer approval before execution.\",\n        \"permission_enforcement\": \"metadata-only\"\n      },\n      \"unsupported_features\": [\n        \"client-native script permission prompts are represented as permission contract metadata\"\n      ],\n      \"warnings\": [],\n      \"failures\": []\n    }\n  ],\n  \"failures\": [],\n  \"warnings\": [],\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-strategy-compiled-openai.json\",\n    \"markdown\": \"reports/yao-meta/geo-strategy-compiled-openai.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "433fd4c9502d96ac04f2ea903b3db11e214fadb57873dcd304dc0be5fc23445c"
+      "report_digest": "7091ab6a5aeb5f321b4eafbb74b56dbea90a8dfcead8925f17e52c05b87b8f32"
     },
     {
       "skill_id": "geo-strategy",
@@ -1628,7 +1903,7 @@
       "report_path": "reports/yao-meta/geo-strategy-compiled-claude.json",
       "stdout_tail": "     \"metadata_mapping\": {\n          \"display_name\": \"targets/claude/adapter.json::display_name\",\n          \"default_prompt\": \"targets/claude/adapter.json::default_prompt\",\n          \"activation\": \"targets/claude/adapter.json::activation_mode\",\n          \"execution\": \"targets/claude/adapter.json::execution_context\",\n          \"trust\": \"targets/claude/adapter.json::trust_level\",\n          \"permissions\": \"targets/claude/adapter.json::target_permission_contract\",\n          \"degradation\": \"targets/claude/adapter.json::degradation_strategy\"\n        },\n        \"preserved_semantics\": [\n          \"trigger\",\n          \"workflow-counts\",\n          \"resources\",\n          \"eval-plan\",\n          \"risk\",\n          \"governance\",\n          \"runtime\",\n          \"trust\",\n          \"permissions\"\n        ],\n        \"degradation_strategy\": \"neutral-source-plus-adapter\",\n        \"permission_representation\": \"targets/claude/adapter.json::target_permission_contract and README notes\",\n        \"native_surface\": \"Claude-compatible neutral source folder with adapter notes\",\n        \"activation_policy\": \"Use SKILL.md frontmatter description as the primary activation contract and adapter.json for review metadata.\",\n        \"resource_strategy\": \"Preserve the source tree directly; write target notes in targets/claude/README.md.\",\n        \"script_strategy\": \"Scripts remain local package resources and must be reviewed through trust and permission reports before use.\",\n        \"permission_enforcement\": \"metadata-fallback\"\n      },\n      \"unsupported_features\": [\n        \"vendor-native metadata fields are carried as adapter JSON and README notes\"\n      ],\n      \"warnings\": [],\n      \"failures\": []\n    }\n  ],\n  \"failures\": [],\n  \"warnings\": [],\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-strategy-compiled-claude.json\",\n    \"markdown\": \"reports/yao-meta/geo-strategy-compiled-claude.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "5eeecdb4c7bf26d24945ac2dd7f38250c058e31105e62a7d04e66249a6e201e1"
+      "report_digest": "42c5b81dc4effc9487d246534faca2d0d2d6f167edbc179464aca429b87d2e62"
     },
     {
       "skill_id": "geo-strategy",
@@ -1773,7 +2048,7 @@
       "report_path": "reports/yao-meta/geo-knowledge-trust.json",
       "stdout_tail": "le_write\": false,\n      \"uses_subprocess\": false,\n      \"network_urls\": [],\n      \"network_hosts\": []\n    }\n  ],\n  \"dependencies\": {\n    \"present\": [],\n    \"pinned\": [],\n    \"unpinned\": []\n  },\n  \"network_policy\": {\n    \"present\": false,\n    \"path\": \"security/network_policy.json\",\n    \"schema_version\": \"\",\n    \"network_script_count\": 0,\n    \"covered_scripts\": [],\n    \"missing_scripts\": [],\n    \"mismatches\": [],\n    \"default_policy\": {}\n  },\n  \"help_smoke\": {\n    \"enabled\": true,\n    \"timeout_seconds\": 5.0,\n    \"candidate_count\": 1,\n    \"checked_count\": 1,\n    \"passed_count\": 1,\n    \"failed_count\": 0,\n    \"skipped_count\": 0,\n    \"failed_scripts\": [],\n    \"results\": [\n      {\n        \"path\": \"scripts/run_knowledge.py\",\n        \"command\": \"python3 scripts/run_knowledge.py --help\",\n        \"returncode\": 0,\n        \"timed_out\": false,\n        \"passed\": true,\n        \"has_help_text\": true,\n        \"stdout_excerpt\": \"usage: run_knowledge.py [-h] --input INPUT --output OUTPUT\\n\\noptions:\\n  -h, --help       show this help message and exit\\n  --input INPUT\\n  --output OUTPUT\",\n        \"stderr_excerpt\": \"\"\n      }\n    ],\n    \"skipped\": []\n  },\n  \"permission_governance\": {\n    \"present\": false,\n    \"path\": \"security/permission_policy.json\",\n    \"schema_version\": \"\",\n    \"reviewed_at\": \"\",\n    \"required_capabilities\": [],\n    \"approved_capabilities\": [],\n    \"missing_capabilities\": [],\n    \"invalid_capabilities\": [],\n    \"expired_capabilities\": [],\n    \"approval_count\": 0,\n    \"required_count\": 0,\n    \"missing_count\": 0,\n    \"invalid_count\": 0,\n    \"expired_count\": 0,\n    \"approvals\": []\n  },\n  \"trust_metadata\": {\n    \"source_tier\": \"local\",\n    \"remote_inline_execution\": \"forbid\",\n    \"remote_metadata_policy\": \"allow-metadata-only\"\n  },\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-knowledge-trust.json\",\n    \"markdown\": \"reports/yao-meta/geo-knowledge-trust.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "029082da001138a808c663a3681fcc191b280c766f6d3c0ef7e0a6f29b3d7657"
+      "report_digest": "8be719e85319f879ecd68b646397bef7f4e55b302bf693f5ab26bcc6c6156246"
     },
     {
       "skill_id": "geo-knowledge",
@@ -1793,7 +2068,7 @@
       "report_path": "reports/yao-meta/geo-knowledge-review-studio.json",
       "stdout_tail": "eports/python_compatibility.md\",\n    \"architecture_maintainability\": \"reports/architecture_maintainability.md\",\n    \"permission_policy\": \"security/permission_policy.md\",\n    \"runtime_permissions\": \"reports/runtime_permission_probes.md\",\n    \"skill_atlas\": \"reports/skill_atlas.html\",\n    \"compiled_targets\": \"reports/compiled_targets.md\",\n    \"adoption_drift\": \"reports/adoption_drift_report.md\",\n    \"review_waivers\": \"reports/review_waivers.md\",\n    \"review_annotations\": \"reports/review_annotations.md\",\n    \"adaptation_proposals\": \"reports/adaptation_proposals.md\",\n    \"adaptation_approval_ledger\": \"reports/adaptation_approval_ledger.json\",\n    \"adaptation_regression\": \"reports/adaptation_regression_report.md\",\n    \"world_class_evidence_plan\": \"reports/world_class_evidence_plan.md\",\n    \"world_class_evidence_ledger\": \"reports/world_class_evidence_ledger.md\",\n    \"world_class_evidence_intake\": \"reports/world_class_evidence_intake.md\",\n    \"world_class_evidence_preflight\": \"reports/world_class_evidence_preflight.md\",\n    \"world_class_evidence_preflight_html\": \"reports/world_class_evidence_preflight.html\",\n    \"world_class_submission_review\": \"reports/world_class_submission_review.md\",\n    \"world_class_operator_runbook\": \"reports/world_class_operator_runbook.md\",\n    \"world_class_operator_runbook_html\": \"reports/world_class_operator_runbook.html\",\n    \"world_class_claim_guard\": \"reports/world_class_claim_guard.md\",\n    \"registry_audit\": \"reports/registry_audit.md\",\n    \"package_verification\": \"reports/package_verification.md\",\n    \"install_simulation\": \"reports/install_simulation.md\",\n    \"upgrade_check\": \"reports/upgrade_check.md\",\n    \"migration\": \"docs/migration-v2.md\",\n    \"skill_ir\": \"reports/skill-ir.json\"\n  },\n  \"artifacts\": {\n    \"html\": \"reports/yao-meta/geo-knowledge-review-studio.html\",\n    \"json\": \"reports/yao-meta/geo-knowledge-review-studio.json\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "235e5f306fd4222dd77cf265e4f61bb590f70dd8c899ed67bc5df35a8073d601"
+      "report_digest": "94ea9d46b3df13bebe5a9421aaa344e65c1a6c693a0e5390e3e9237b1cb766e1"
     },
     {
       "skill_id": "geo-knowledge",
@@ -1815,7 +2090,7 @@
       "report_path": "reports/yao-meta/geo-knowledge-compiled-generic.json",
       "stdout_tail": ",\n        \"adapter_mode\": \"agent-skills-compatible\",\n        \"generated_files\": [\n          \"targets/generic/adapter.json\"\n        ],\n        \"metadata_mapping\": {\n          \"display_name\": \"targets/generic/adapter.json::display_name\",\n          \"default_prompt\": \"targets/generic/adapter.json::default_prompt\",\n          \"activation\": \"targets/generic/adapter.json::activation_mode\",\n          \"execution\": \"targets/generic/adapter.json::execution_context\",\n          \"trust\": \"targets/generic/adapter.json::trust_level\",\n          \"permissions\": \"targets/generic/adapter.json::target_permission_contract\",\n          \"degradation\": \"targets/generic/adapter.json::degradation_strategy\"\n        },\n        \"preserved_semantics\": [\n          \"trigger\",\n          \"workflow-counts\",\n          \"resources\",\n          \"eval-plan\",\n          \"risk\",\n          \"governance\",\n          \"runtime\",\n          \"trust\",\n          \"permissions\"\n        ],\n        \"degradation_strategy\": \"neutral-source\",\n        \"permission_representation\": \"targets/generic/adapter.json::target_permission_contract\",\n        \"native_surface\": \"Agent Skills compatible neutral package\",\n        \"activation_policy\": \"Use SKILL.md name and description; consumers decide automatic or manual activation.\",\n        \"resource_strategy\": \"Preserve references, scripts, assets, evals, reports, and adapter metadata as relative package resources.\",\n        \"script_strategy\": \"Expose script and permission metadata for downstream clients or installers to enforce.\",\n        \"permission_enforcement\": \"consumer-enforced-or-metadata-only\"\n      },\n      \"unsupported_features\": [],\n      \"warnings\": [],\n      \"failures\": []\n    }\n  ],\n  \"failures\": [],\n  \"warnings\": [],\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-knowledge-compiled-generic.json\",\n    \"markdown\": \"reports/yao-meta/geo-knowledge-compiled-generic.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "b8979c9a8e47306a809d9fb0bb95b2019820751984bc313cec70ba6ef4763076"
+      "report_digest": "a3f48f1043137bf956374cc12114565401b6546a76a454ef6cd80d6170c9dc14"
     },
     {
       "skill_id": "geo-knowledge",
@@ -1859,7 +2134,7 @@
       "report_path": "reports/yao-meta/geo-knowledge-compiled-openai.json",
       "stdout_tail": "tivation\": \"targets/openai/agents/openai.yaml::compatibility.activation_mode\",\n          \"execution\": \"targets/openai/agents/openai.yaml::compatibility.execution_context\",\n          \"trust\": \"targets/openai/agents/openai.yaml::compatibility.trust_level\",\n          \"permissions\": \"targets/openai/agents/openai.yaml::compatibility.permission_contract\",\n          \"degradation\": \"targets/openai/agents/openai.yaml::compatibility.degradation_strategy\"\n        },\n        \"preserved_semantics\": [\n          \"trigger\",\n          \"workflow-counts\",\n          \"resources\",\n          \"eval-plan\",\n          \"risk\",\n          \"governance\",\n          \"runtime\",\n          \"trust\",\n          \"permissions\"\n        ],\n        \"degradation_strategy\": \"metadata-adapter\",\n        \"permission_representation\": \"targets/openai/agents/openai.yaml::compatibility.permission_contract plus adapter.json\",\n        \"native_surface\": \"OpenAI-style interface metadata plus neutral Agent Skills source\",\n        \"activation_policy\": \"Use frontmatter description for catalog routing and targets/openai/agents/openai.yaml for display name, default prompt, and compatibility metadata.\",\n        \"resource_strategy\": \"Ship the neutral source tree and expose OpenAI-facing interface metadata as a generated companion file.\",\n        \"script_strategy\": \"Keep scripts as local package resources; expose help-smoke and permission metadata for reviewer approval before execution.\",\n        \"permission_enforcement\": \"metadata-only\"\n      },\n      \"unsupported_features\": [\n        \"client-native script permission prompts are represented as permission contract metadata\"\n      ],\n      \"warnings\": [],\n      \"failures\": []\n    }\n  ],\n  \"failures\": [],\n  \"warnings\": [],\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-knowledge-compiled-openai.json\",\n    \"markdown\": \"reports/yao-meta/geo-knowledge-compiled-openai.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "b3c19ccd42257f666cfa12f2ffbcc94a496d04b9ee0aac71ffcc6f04f6d44369"
+      "report_digest": "37f3e92ec467fc33c53b0076b23ead4f9076892fe7cdcacc1c1f3de38eb1ba6d"
     },
     {
       "skill_id": "geo-knowledge",
@@ -1903,7 +2178,7 @@
       "report_path": "reports/yao-meta/geo-knowledge-compiled-claude.json",
       "stdout_tail": "   \"metadata_mapping\": {\n          \"display_name\": \"targets/claude/adapter.json::display_name\",\n          \"default_prompt\": \"targets/claude/adapter.json::default_prompt\",\n          \"activation\": \"targets/claude/adapter.json::activation_mode\",\n          \"execution\": \"targets/claude/adapter.json::execution_context\",\n          \"trust\": \"targets/claude/adapter.json::trust_level\",\n          \"permissions\": \"targets/claude/adapter.json::target_permission_contract\",\n          \"degradation\": \"targets/claude/adapter.json::degradation_strategy\"\n        },\n        \"preserved_semantics\": [\n          \"trigger\",\n          \"workflow-counts\",\n          \"resources\",\n          \"eval-plan\",\n          \"risk\",\n          \"governance\",\n          \"runtime\",\n          \"trust\",\n          \"permissions\"\n        ],\n        \"degradation_strategy\": \"neutral-source-plus-adapter\",\n        \"permission_representation\": \"targets/claude/adapter.json::target_permission_contract and README notes\",\n        \"native_surface\": \"Claude-compatible neutral source folder with adapter notes\",\n        \"activation_policy\": \"Use SKILL.md frontmatter description as the primary activation contract and adapter.json for review metadata.\",\n        \"resource_strategy\": \"Preserve the source tree directly; write target notes in targets/claude/README.md.\",\n        \"script_strategy\": \"Scripts remain local package resources and must be reviewed through trust and permission reports before use.\",\n        \"permission_enforcement\": \"metadata-fallback\"\n      },\n      \"unsupported_features\": [\n        \"vendor-native metadata fields are carried as adapter JSON and README notes\"\n      ],\n      \"warnings\": [],\n      \"failures\": []\n    }\n  ],\n  \"failures\": [],\n  \"warnings\": [],\n  \"artifacts\": {\n    \"json\": \"reports/yao-meta/geo-knowledge-compiled-claude.json\",\n    \"markdown\": \"reports/yao-meta/geo-knowledge-compiled-claude.md\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "f7897ac6bfc072de9a177e918fa0d266cc5a7aea13d6501fcdef7e5d1f4bfaae"
+      "report_digest": "8bce9273d4e91f396897ca977dbce8be95d7cd35537ee63935f2b8dbc13c9148"
     },
     {
       "skill_id": "geo-knowledge",
@@ -1948,19 +2223,19 @@
       "report_path": "reports/skill-atlas.json",
       "stdout_tail": "h\": \"geo-strategy\",\n      \"source\": \"geo-strategy/reports/adoption_drift_report.json\",\n      \"risk_band\": \"no-data\",\n      \"signal_types\": [\n        \"no telemetry\"\n      ],\n      \"recommendation\": \"Render adoption drift evidence or record a small metadata-only sample before release review.\",\n      \"actionable\": true,\n      \"scope\": \"release\",\n      \"summary\": {\n        \"event_count\": 0,\n        \"adoption_sample_count\": 0\n      }\n    },\n    {\n      \"name\": \"seo\",\n      \"path\": \"seo\",\n      \"source\": \"seo/reports/adoption_drift_report.json\",\n      \"risk_band\": \"no-data\",\n      \"signal_types\": [\n        \"no telemetry\"\n      ],\n      \"recommendation\": \"Render adoption drift evidence or record a small metadata-only sample before release review.\",\n      \"actionable\": true,\n      \"scope\": \"release\",\n      \"summary\": {\n        \"event_count\": 0,\n        \"adoption_sample_count\": 0\n      }\n    }\n  ],\n  \"no_route_opportunities\": [],\n  \"artifacts\": {\n    \"catalog\": \"reports/skill-atlas/catalog.json\",\n    \"route_overlap_matrix\": \"reports/skill-atlas/route_overlap_matrix.csv\",\n    \"dependency_graph\": \"reports/skill-atlas/dependency_graph.json\",\n    \"stale_skills\": \"reports/skill-atlas/stale_skills.json\",\n    \"owner_review_gaps\": \"reports/skill-atlas/owner_review_gaps.json\",\n    \"drift_signals\": \"reports/skill-atlas/drift_signals.json\",\n    \"no_route_opportunities\": \"reports/skill-atlas/no_route_opportunities.json\",\n    \"report_json\": \"reports/skill-atlas.json\",\n    \"report_html\": \"reports/skill-atlas.html\"\n  }\n}\n",
       "stderr_tail": "",
-      "report_digest": "8b1f6bc95e92715e64fc9fb2cb896631669a286bd85b310c7f13ae6e0eeb9c10"
+      "report_digest": "b2c24e588e30e1706ff16fbe74afa2da0ecb58144c5089d8bd953e49686ca02d"
     }
   ],
   "failed_commands": 0,
-  "source_digest": "f5e2d540f8310afb064c24f6004398322c425adf40d650c7c17401aad5609796",
+  "source_digest": "d3e663bc662d8db35c4101248dd7501e26977dc125faa1d4d476abc30688572a",
   "evidence_digests": {
-    "reports/eval-summary.json": "7cb8d5984c3fb0c8225076c82d0c285c193740a8d98229076182c2af8d134f9f",
-    "reports/package-verification.json": "cebf9c1c8eca4458400d968bfaac044b22c03c046d99b49c09117578d6156927",
-    "reports/install-simulation.json": "4fc679ec42e6278e29e977a99b6474ff2de829eb9e6698bc02ce8921e3cface3",
+    "reports/eval-summary.json": "b75dac69ca3b05c31411319a9c996e8651a281af5f355916def47ca7098751b2",
+    "reports/package-verification.json": "d772ecf93093b39f767c1a101c988f064befbdefe34b302355b811fde46f0bbe",
+    "reports/install-simulation.json": "0bbda078f7e96030e3f0a09e62bed562ad02389261c80407f06d59bcd7ffecd5",
     "reports/python-compatibility.json": "5dd00183725afecab9ca97a3ddf24008d7383ce23f07e21b433543260b79c16b"
   },
-  "gate_schema_digest": "4b098dc1203b4c7821f64672db9820c2f47782bfeed91d514471476b2ec8ebd3",
-  "waiver_digest": "8d56751e8db4f3555054787fdc55dfc2d2462b7eea280f9d6eaf8fc6bfea33ad",
+  "gate_schema_digest": "482c9e48cc4ac7cb4b3a1d4412b02d85660bb8cf0a9e3e32c75fd7a52e756ed2",
+  "waiver_digest": "dc1cc3207485d7660d82573e3854b603d386c1fd6e9d4f8d0181fa0da437c754",
   "deterministic_pass": [
     "geo-content:architecture-maintainability",
     "geo-content:context-budget",
@@ -2027,6 +2302,18 @@
     "geo-measure:skill-atlas",
     "geo-measure:trigger-lab",
     "geo-measure:trust-report",
+    "geo-site-diagnose:architecture-maintainability",
+    "geo-site-diagnose:context-budget",
+    "geo-site-diagnose:intent-canvas",
+    "geo-site-diagnose:output-lab",
+    "geo-site-diagnose:python-compat",
+    "geo-site-diagnose:registry-audit",
+    "geo-site-diagnose:review-waivers",
+    "geo-site-diagnose:runtime-matrix",
+    "geo-site-diagnose:skill-atlas",
+    "geo-site-diagnose:trigger-lab",
+    "geo-site-diagnose:trust-report",
+    "geo-site-diagnose:world-class-evidence",
     "geo-strategy:architecture-maintainability",
     "geo-strategy:context-budget",
     "geo-strategy:intent-canvas",
@@ -2065,6 +2352,8 @@
     "geo-knowledge:release-notes",
     "geo-measure:operations-loop",
     "geo-measure:release-notes",
+    "geo-site-diagnose:operations-loop",
+    "geo-site-diagnose:release-notes",
     "geo-strategy:operations-loop",
     "geo-strategy:release-notes",
     "geo:operations-loop",
@@ -2146,6 +2435,29 @@
       "release_blocking": [],
       "review_warning_count": 15,
       "classified_warning_count": 15
+    },
+    "geo-site-diagnose": {
+      "deterministic_pass": [
+        "architecture-maintainability",
+        "context-budget",
+        "intent-canvas",
+        "output-lab",
+        "python-compat",
+        "registry-audit",
+        "review-waivers",
+        "runtime-matrix",
+        "skill-atlas",
+        "trigger-lab",
+        "trust-report",
+        "world-class-evidence"
+      ],
+      "waived_missing_evidence": [
+        "operations-loop",
+        "release-notes"
+      ],
+      "release_blocking": [],
+      "review_warning_count": 14,
+      "classified_warning_count": 14
     },
     "geo-content": {
       "deterministic_pass": [

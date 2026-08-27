@@ -111,11 +111,11 @@
       "verification_command": "python scripts/run_yao_meta_gates.py --verify-existing"
     }
   ],
-  "generated_at": "2026-08-22T15:45:27.853001Z",
+  "generated_at": "2026-08-27T07:06:10.800604Z",
   "product": {
     "maturity": "Experimental",
     "name": "GEO SEO Hub",
-    "version": "0.6.0"
+    "version": "0.7.0"
   },
   "production_decision": "blocked",
   "schema_version": "1.0.0",

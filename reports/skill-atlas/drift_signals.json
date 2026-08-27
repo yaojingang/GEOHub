@@ -96,6 +96,22 @@
     }
   },
   {
+    "name": "geo-site-diagnose",
+    "path": "geo-site-diagnose",
+    "source": "geo-site-diagnose/reports/adoption_drift_report.json",
+    "risk_band": "no-data",
+    "signal_types": [
+      "no telemetry"
+    ],
+    "recommendation": "Render adoption drift evidence or record a small metadata-only sample before release review.",
+    "actionable": true,
+    "scope": "release",
+    "summary": {
+      "event_count": 0,
+      "adoption_sample_count": 0
+    }
+  },
+  {
     "name": "geo-strategy",
     "path": "geo-strategy",
     "source": "geo-strategy/reports/adoption_drift_report.json",

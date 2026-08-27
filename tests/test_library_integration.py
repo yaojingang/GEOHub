@@ -315,7 +315,7 @@ def test_package_allowlist_excludes_private_surfaces_and_keeps_public_verificati
     package = load_script("package")
     for path in package.tracked_files():
         assert not ({".git", "runs", "dist"} & set(path.parts))
-        assert "reports" not in path.parts or path.parts[0] == "skills"
+        assert "reports" not in path.parts or path.parts[0] == "skills" or path.parts[:2] == ("reports", "examples")
     assert package.source_allowed(Path("tests/test_router.py"))
     assert package.source_allowed(Path("evals/router_cases.json"))
 
@@ -455,9 +455,38 @@ def test_install_simulation_uses_each_extracted_package_and_real_provider_execut
     assert 'wrappers["run_route.py"]' in source
     assert all(f'"run_{provider}.py"' in source for provider in ("discover", "diagnose", "content", "measure", "strategy", "knowledge"))
     report = json.loads((ROOT / "reports" / "install-simulation.json").read_text())
-    assert report["source"]["cli_smokes"] == ["version", "route", "route-plan", "workflow-start", "discover", "diagnose", "content", "measure", "strategy", "knowledge"]
-    assert len(report["structural_packages"]) == 10
-    assert all(item["installed_from"] == "." and item["installed_share_resolved"] and item["resolved_entry"] and item["provider_executions"] == ["geo-discover", "geo-diagnose", "geo-content", "geo-measure", "geo-strategy", "geo-knowledge"] for item in report["structural_packages"])
+    assert report["source"]["cli_smokes"] == [
+        "version",
+        "route",
+        "route-plan",
+        "workflow-start",
+        "discover",
+        "diagnose",
+        "site-diagnose-help",
+        "site-diagnose-fixture",
+        "content",
+        "measure",
+        "strategy",
+        "knowledge",
+    ]
+    assert "site_fixture_runner" in inspect.getsource(installer.source_smoke)
+    assert len(report["structural_packages"]) == 11
+    assert all(
+        item["installed_from"] == "."
+        and item["installed_share_resolved"]
+        and item["resolved_entry"]
+        and item["provider_executions"]
+        == [
+            "geo-discover",
+            "geo-diagnose",
+            "geo-site-diagnose",
+            "geo-content",
+            "geo-measure",
+            "geo-strategy",
+            "geo-knowledge",
+        ]
+        for item in report["structural_packages"]
+    )
 
 
 def test_supported_python_range_and_governance_contracts():

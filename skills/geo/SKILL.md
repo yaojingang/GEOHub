@@ -1,6 +1,6 @@
 ---
 name: geo
-description: Route GEO and generative engine optimization requests to an available GEOHub capability. Use for broad GEO requests, GEOHub workflow selection, capability checks, or requests spanning discovery, brand/site/page diagnosis, content, strategy, knowledge, publishing, and measurement.
+description: Route GEO and generative engine optimization requests to an available GEOHub capability. Use for broad GEO requests, GEOHub workflow selection, capability checks, or requests spanning discovery, brand/site/page diagnosis, multi-page website diagnosis, content, strategy, knowledge, publishing, and measurement.
 ---
 
 # GEOHub

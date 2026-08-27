@@ -1,0 +1,19 @@
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: GPTBot
+Disallow: /docs/
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: *
+Allow: /
+
+Sitemap: https://demo.geohub.invalid/sitemap.xml

@@ -1,0 +1,15 @@
+{
+  "base_url": "https://demo.geohub.invalid/",
+  "pages": {
+    "/": "index.html",
+    "/about": "about.html",
+    "/product/atlas": "product.html",
+    "/resources": "resources.html",
+    "/blog/evidence-design": "article.html",
+    "/docs/grounding": "guide.html",
+    "/case/harbor-clinic": "case.html",
+    "/compare/search-tools": "comparison.html",
+    "/pricing": "pricing.html",
+    "/faq": "faq.html"
+  }
+}

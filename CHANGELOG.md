@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.7.0 - 2026-08-25
+
+- Added the governed `geo-site-diagnose` Skill and public `site-diagnose` CLI for bounded same-host website GEO diagnosis from one public URL.
+- Added robots and sitemap discovery, ten representative page types, fixed representative-page ranking, HTTP-first collection, optional restricted browser rendering for JavaScript shells, and explicit source-gap handling.
+- Added reconstructable eight-dimension scoring with evidence-linked checks, confidence handling, crawler access controls, and prioritized remediation artifacts.
+- Added a standalone offline HTML report with bundled Apache ECharts, ten diagnostic modules, 23 chart views in the complete demo, page-level chapters, accessible data tables, responsive layouts, and print styling.
+- Refined report format 2 with a pure-white editorial canvas, a top eight-dimension radar, right-aligned sticky navigation, explicit chart eligibility, and isolated-browser checks at 1280 px, 375 px, and 320 px while keeping public protocol `1.0.0` compatible.
+- Added a ten-page reproducible demo fixture plus desktop and mobile example report captures.
+- Expanded the Registry, packages, evaluation gates, and installation surface to eight active Skills while preserving `geo-diagnose` inputs and existing run artifacts.
+
+Product maturity remains Experimental. The new site diagnosis is a readiness audit based on captured public pages. Live platform ranking, recall, citation counts, traffic, and business effect remain outside the score boundary.
+
 ## 0.6.0 — 2026-08-22
 
 - Added registry Capability Cards with positive and negative examples, typed artifact contracts, permission boundaries, side effects, preconditions, execution policy, and versioned semantic thresholds.

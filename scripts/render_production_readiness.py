@@ -30,7 +30,7 @@ def main() -> int:
     sbom = _load("reports/release-sbom.json")
     deterministic = {
         "output-eval": "pass" if eval_report.get("status") == "pass" else "fail",
-        "package": "pass" if package_report.get("status") == "pass" and package_report.get("package_count") == 11 else "fail",
+        "package": "pass" if package_report.get("status") == "pass" and package_report.get("package_count") == 12 else "fail",
         "install": "pass" if install_report.get("status") == "pass" else "fail",
         "provenance": "pass" if provenance_report.get("status") == "pass" else "fail",
         "sbom": "pass" if len(sbom.get("components", [])) >= 2 else "fail",

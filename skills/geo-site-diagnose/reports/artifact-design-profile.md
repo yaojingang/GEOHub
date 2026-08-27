@@ -1,0 +1,3 @@
+# Artifact Design Profile
+
+Artifact family: high-trust diagnostic dashboard and report. Visual direction: pure white canvas, ink-blue primary data, restrained green, amber, and rust status marks, with whitespace and type hierarchy separating primary sections. Neutral hairlines are reserved for sticky navigation, chart containers, dense tables, and explicit gap states. The ten-module sequence moves from summary through evidence and page validation to remediation. The full fixture carries 23 question-led chart views, while live evidence gaps remain visible. Tables, page checks, sticky navigation, and narrow-width layouts preserve review access.

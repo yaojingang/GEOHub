@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yao.example/geo/schemas/site-diagnosis.schema.json",
+  "title": "Website GEO diagnosis",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "run_id", "subject", "root_url", "locale", "status", "overall_score", "confidence", "dimensions", "dimension_weights", "crawler_matrix", "site_checks", "pages", "limitations"],
+  "properties": {
+    "protocol_version": {"const": "1.0.0"},
+    "run_id": {"type": "string", "pattern": "\\S"},
+    "subject": {"type": "string", "pattern": "\\S"},
+    "root_url": {"type": "string", "format": "uri", "pattern": "^https?://"},
+    "locale": {"type": "string", "pattern": "\\S"},
+    "status": {"enum": ["completed", "degraded"]},
+    "overall_score": {"type": ["integer", "null"], "minimum": 0, "maximum": 100},
+    "confidence": {"type": "integer", "minimum": 0, "maximum": 100},
+    "dimensions": {"type": "object", "minProperties": 8, "additionalProperties": {"type": ["integer", "null"], "minimum": 0, "maximum": 100}},
+    "dimension_weights": {"type": "object", "minProperties": 8, "additionalProperties": {"type": "integer", "minimum": 1, "maximum": 100}},
+    "crawler_matrix": {"type": "array", "minItems": 5, "items": {"type": "object"}},
+    "site_checks": {"type": "array", "items": {"type": "object"}},
+    "pages": {"type": "array", "minItems": 1, "maxItems": 10, "items": {"type": "object"}},
+    "limitations": {"type": "array", "minItems": 1, "items": {"type": "string", "pattern": "\\S"}}
+  }
+}

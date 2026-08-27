@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "geo-seo-hub"
-version = "0.6.0"
+version = "0.7.0"
 description = "Experimental, GEO-first agent skill hub with an SEO-ready architecture"
 readme = "README.md"
 requires-python = ">=3.11,<3.15"
@@ -26,6 +26,7 @@ dev = [
 ]
 render = [
   "python-docx>=1.1,<2",
+  "playwright>=1.50,<2",
   "weasyprint>=62,<70",
   "reportlab>=4,<5",
 ]
@@ -75,6 +76,9 @@ where = ["src"]
   "schemas/run-lineage.schema.json",
   "schemas/seo-brief.schema.json",
   "schemas/seo-plan.schema.json",
+  "schemas/site-diagnosis.schema.json",
+  "schemas/site-remediation-backlog.schema.json",
+  "schemas/site-sampling-plan.schema.json",
   "schemas/strategy-memory.schema.json",
   "schemas/task-plan.schema.json",
   "schemas/strategy-candidates.schema.json",
@@ -110,6 +114,33 @@ where = ["src"]
   "skills/geo-diagnose/references/input-example.json",
 ]
 "share/geo-seo-hub/skills/geo-diagnose/scripts" = ["skills/geo-diagnose/scripts/run_diagnose.py"]
+"share/geo-seo-hub/skills/geo-site-diagnose" = [
+  "skills/geo-site-diagnose/SKILL.md",
+  "skills/geo-site-diagnose/manifest.json",
+]
+"share/geo-seo-hub/skills/geo-site-diagnose/agents" = ["skills/geo-site-diagnose/agents/interface.yaml"]
+"share/geo-seo-hub/skills/geo-site-diagnose/references" = [
+  "skills/geo-site-diagnose/references/site-diagnosis-method.md",
+  "skills/geo-site-diagnose/references/crawler-policy.md",
+  "skills/geo-site-diagnose/references/scoring-policy.md",
+  "skills/geo-site-diagnose/references/report-contract.md",
+  "skills/geo-site-diagnose/references/report-design-system.md",
+  "skills/geo-site-diagnose/references/report-module-contract.md",
+  "skills/geo-site-diagnose/references/input-example.json",
+]
+"share/geo-seo-hub/skills/geo-site-diagnose/scripts" = ["skills/geo-site-diagnose/scripts/run_site_diagnose.py"]
+"share/geo-seo-hub/skills/geo-site-diagnose/security" = [
+  "skills/geo-site-diagnose/security/network_policy.json",
+  "skills/geo-site-diagnose/security/permission_policy.json",
+]
+"share/geo-seo-hub/skills/geo-site-diagnose/assets" = [
+  "skills/geo-site-diagnose/assets/echarts.min.js",
+  "skills/geo-site-diagnose/assets/ECHARTS-LICENSE.txt",
+  "skills/geo-site-diagnose/assets/ECHARTS-NOTICE.txt",
+  "skills/geo-site-diagnose/assets/report-shell.html",
+  "skills/geo-site-diagnose/assets/report.css",
+  "skills/geo-site-diagnose/assets/report.js",
+]
 "share/geo-seo-hub/skills/geo-content" = [
   "skills/geo-content/SKILL.md",
   "skills/geo-content/manifest.json",

@@ -313,7 +313,7 @@ def verify_release_provenance(
 
 _GATE_GUIDANCE = {
     "output-eval": ("evaluation owner", "reports/eval-summary.json", "python scripts/run_evals.py", "Restore all output and router gates."),
-    "package": ("release owner", "reports/package-verification.json", "python scripts/verify_packages.py", "Rebuild and verify all eleven archives."),
+    "package": ("release owner", "reports/package-verification.json", "python scripts/verify_packages.py", "Rebuild and verify all twelve archives."),
     "install": ("release owner", "reports/install-simulation.json", "python scripts/install_simulation.py --target all", "Restore fresh-install and provider wrapper smokes."),
     "provenance": ("release owner", "reports/release-provenance-verification.json", "python scripts/verify_provenance.py", "Regenerate source, SBOM, and artifact provenance."),
     "sbom": ("release owner", "reports/release-sbom.json", "python scripts/generate_sbom.py", "Restore the complete declared dependency inventory."),
