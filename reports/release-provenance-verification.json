@@ -2,6 +2,6 @@
   "artifact_count": 12,
   "builder_trust": "local-unsigned",
   "slsa_level_claim": null,
-  "source_revision": "84569251caa4b34febe954bb169a6453878c5a94",
+  "source_revision": "aae1116eb21f57184ecb17b7cdc3e31d9c17316a",
   "status": "pass"
 }

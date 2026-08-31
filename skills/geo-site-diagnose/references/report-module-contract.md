@@ -17,10 +17,26 @@ The report format version is `2`. Artifact Bus protocol and Skill manifest contr
 
 The reproducible ten-page fixture renders 23 chart views. A live report may show fewer rendered charts when evidence is insufficient. Every omitted chart keeps its module slot, displays a concrete gap reason, and preserves the adjacent table. The renderer never turns missing dimensions or page checks into zero.
 
+## Fixed chart vocabulary
+
+- GEO conclusion: marker-free eight-dimension radar and weighted dimension bars
+- Access and discovery: crawler access heatmap and true-proportion retention funnel
+- Architecture coverage: page-family status bars, representative-page lollipop ranking, and numbered internal-link matrix
+- Entity clarity: entity signal heatmap and entity clarity ranking
+- Answerability: answerability ranking and content-depth versus structure scatter
+- Evidence and citability: citation evidence heatmap and citability ranking
+- Authority and trust: trust signal heatmap and authority readiness ranking
+- Structure and freshness: Schema treemap, structured-check heatmap, and update-date scatter
+- Page diagnosis: page-dimension heatmap and score distribution or small-sample ranking
+- Remediation roadmap: issue-severity stacked bars, aggregated circular impact-effort scatter, and remediation ranking
+
+All chart choices follow `report-design-system.md`. A replacement chart must preserve the module question, exact values, evidence table, gap behavior, and the total of 23 chart slots.
+
 ## Eligibility rules
 
 - The radar requires all eight numeric dimension scores
-- The internal-link graph requires at least two observed nodes and one observed edge
+- The readiness funnel requires four numeric stage counts. Its retention percentage uses the first valid stage as the denominator and never uses a visual minimum width that distorts the ratio
+- The internal-link matrix requires at least two observed nodes and one observed edge
 - Page score distribution uses a histogram for three or more observed pages and a ranked-bar fallback for smaller samples
 - Schema structure requires at least one observed Schema type
 - Freshness distribution requires at least one valid sitemap `lastmod`

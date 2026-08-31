@@ -74,7 +74,7 @@ geo-seo-hub site-diagnose \
   --render auto
 ```
 
-See the reproducible [GEOHub demo report](reports/examples/geo-site-diagnose-demo.html), [desktop capture](reports/examples/geo-site-diagnose-demo-desktop.png), and [mobile capture](reports/examples/geo-site-diagnose-demo-mobile.png). The complete fixture renders 23 chart views across ten diagnostic modules; live reports keep evidence gaps explicit when a chart is ineligible.
+See the reproducible [GEOHub demo report](reports/examples/geo-site-diagnose-demo.html), [desktop capture](reports/examples/geo-site-diagnose-demo-desktop.png), [mobile capture](reports/examples/geo-site-diagnose-demo-mobile.png), [discovery-module capture](reports/examples/geo-site-diagnose-demo-discovery.png), and [remediation-module capture](reports/examples/geo-site-diagnose-demo-actions.png). The complete fixture renders 23 chart views across ten diagnostic modules; live reports keep evidence gaps explicit when a chart is ineligible.
 
 Release evidence is generated with `scripts/generate_sbom.py`, `scripts/generate_provenance.py`, `scripts/verify_provenance.py`, and `scripts/render_production_readiness.py`. Local provenance is explicitly unsigned. The current Production Readiness decision stays blocked while human review, live platform benchmarks, governed adoption, external strategy effect, production knowledge evaluation, legal review, and executed CI attestation remain missing evidence.
 

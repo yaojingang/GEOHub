@@ -2,8 +2,8 @@
   "ok": true,
   "cases": "skills/geo-site-diagnose/evals/output/cases.jsonl",
   "summary": {
-    "case_count": 5,
-    "file_backed_case_count": 0,
+    "case_count": 6,
+    "file_backed_case_count": 1,
     "near_neighbor_case_count": 1,
     "boundary_case_count": 1,
     "baseline_pass_rate": 0.0,
@@ -12,7 +12,7 @@
     "regression_count": 0,
     "gate_pass": true,
     "failure_taxonomy": [],
-    "blind_pair_count": 5
+    "blind_pair_count": 6
   },
   "results": [
     {
@@ -325,13 +325,215 @@
       "delta": 100.0,
       "winner": "with_skill",
       "failure_taxonomy": []
+    },
+    {
+      "id": "visual-quality",
+      "prompt": "用演示固件生成网站 GEO 报告并检查图表是否清晰、比例是否准确",
+      "input_files": [
+        "fixtures/visual-quality.json"
+      ],
+      "metadata": {
+        "case_type": "visual_quality",
+        "fixture_kind": "file-backed fixture"
+      },
+      "baseline": {
+        "score": 0.0,
+        "passed_count": 0,
+        "failed_count": 5,
+        "checks": [
+          {
+            "id": "artifact",
+            "description": "必须生成可复现的独立实例报告。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": false,
+            "missing": [
+              "reports/examples/geo-site-diagnose-demo.html",
+              "纯白"
+            ],
+            "present_forbidden": []
+          },
+          {
+            "id": "encoding",
+            "description": "图表编码必须清晰且无装饰性纹理。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": false,
+            "missing": [
+              "无纹理",
+              "统一圆形",
+              "完整换行标签"
+            ],
+            "present_forbidden": []
+          },
+          {
+            "id": "module-heading",
+            "description": "十个模块必须共用清晰的标题与结论对齐规则。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": false,
+            "missing": [
+              "编号上置",
+              "统一左对齐",
+              "结论正文另起一行"
+            ],
+            "present_forbidden": []
+          },
+          {
+            "id": "funnel-ratio",
+            "description": "漏斗必须忠实表达阶段保留比例。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": false,
+            "missing": [
+              "10 → 9",
+              "90%"
+            ],
+            "present_forbidden": []
+          },
+          {
+            "id": "responsive",
+            "description": "窄屏必须保持可读。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": false,
+            "missing": [
+              "375 px",
+              "320 px",
+              "无横向溢出"
+            ],
+            "present_forbidden": []
+          }
+        ],
+        "failed": [
+          {
+            "id": "artifact",
+            "description": "必须生成可复现的独立实例报告。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": false,
+            "missing": [
+              "reports/examples/geo-site-diagnose-demo.html",
+              "纯白"
+            ],
+            "present_forbidden": []
+          },
+          {
+            "id": "encoding",
+            "description": "图表编码必须清晰且无装饰性纹理。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": false,
+            "missing": [
+              "无纹理",
+              "统一圆形",
+              "完整换行标签"
+            ],
+            "present_forbidden": []
+          },
+          {
+            "id": "module-heading",
+            "description": "十个模块必须共用清晰的标题与结论对齐规则。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": false,
+            "missing": [
+              "编号上置",
+              "统一左对齐",
+              "结论正文另起一行"
+            ],
+            "present_forbidden": []
+          },
+          {
+            "id": "funnel-ratio",
+            "description": "漏斗必须忠实表达阶段保留比例。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": false,
+            "missing": [
+              "10 → 9",
+              "90%"
+            ],
+            "present_forbidden": []
+          },
+          {
+            "id": "responsive",
+            "description": "窄屏必须保持可读。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": false,
+            "missing": [
+              "375 px",
+              "320 px",
+              "无横向溢出"
+            ],
+            "present_forbidden": []
+          }
+        ]
+      },
+      "with_skill": {
+        "score": 100.0,
+        "passed_count": 5,
+        "failed_count": 0,
+        "checks": [
+          {
+            "id": "artifact",
+            "description": "必须生成可复现的独立实例报告。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": true,
+            "missing": [],
+            "present_forbidden": []
+          },
+          {
+            "id": "encoding",
+            "description": "图表编码必须清晰且无装饰性纹理。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": true,
+            "missing": [],
+            "present_forbidden": []
+          },
+          {
+            "id": "module-heading",
+            "description": "十个模块必须共用清晰的标题与结论对齐规则。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": true,
+            "missing": [],
+            "present_forbidden": []
+          },
+          {
+            "id": "funnel-ratio",
+            "description": "漏斗必须忠实表达阶段保留比例。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": true,
+            "missing": [],
+            "present_forbidden": []
+          },
+          {
+            "id": "responsive",
+            "description": "窄屏必须保持可读。",
+            "weight": 1.0,
+            "failure_type": "assertion_failed",
+            "passed": true,
+            "missing": [],
+            "present_forbidden": []
+          }
+        ],
+        "failed": []
+      },
+      "delta": 100.0,
+      "winner": "with_skill",
+      "failure_taxonomy": []
     }
   ],
   "failures": [],
   "blind_review": {
     "pack": "reports/yao-meta/geo-site-diagnose-blind-pack.json",
     "answer_key": "reports/yao-meta/geo-site-diagnose-blind-answer-key.json",
-    "pair_count": 5
+    "pair_count": 6
   },
   "artifacts": {
     "json": "reports/yao-meta/geo-site-diagnose-output-eval.json",

@@ -117,6 +117,14 @@ def test_report_is_offline_escaped_responsive_and_printable(tmp_path):
     assert report.count('<section class="module') == 10
     assert 'data-report-format-version="2"' in report
     assert "Content-Security-Policy" in report and "connect-src 'none'" in report
+    assert "decal: { show: false }" in report
+    assert "decal: { show: true }" not in report
+    assert 'type: "sunburst"' not in report
+    assert "symbol: action.severity" not in report
+    assert 'symbol: "circle", data: priorityPoints' in report
+    assert "short(action.title, 12)" not in report
+    assert 'stack: "severity"' in report
+    assert "wrapAxisLabel" in report
     report_css = (Path(__file__).parents[1] / "skills/geo-site-diagnose/assets/report.css").read_text(encoding="utf-8")
     assert "linear-gradient" not in report_css and "box-shadow" not in report_css
     for selector in (
@@ -138,6 +146,67 @@ def test_report_is_offline_escaped_responsive_and_printable(tmp_path):
     assert "background: #ffffff" in report
     assert 'class="nav-links"' in report and 'class="nav-mobile"' in report
     assert "原始正文摘录" in report
+
+
+def test_report_chart_source_uses_clear_solid_visual_encodings():
+    report_js = (Path(__file__).parents[1] / "skills/geo-site-diagnose/assets/report.js").read_text(encoding="utf-8")
+    assert "decal: { show: false }" in report_js
+    assert 'type: "sunburst"' not in report_js
+    assert "symbol: action.severity" not in report_js
+    assert 'symbol: "circle", data: priorityPoints' in report_js
+    assert "const pageTypeData" in report_js
+    assert "const linkMatrix" in report_js
+    assert 'stack: "severity"' in report_js
+    assert 'type: "funnel"' not in report_js
+    assert "const funnelStages" in report_js
+    assert 'barGap: "-100%"' in report_js
+
+
+def test_module_heading_and_verdict_share_one_left_edge():
+    report_css = (Path(__file__).parents[1] / "skills/geo-site-diagnose/assets/report.css").read_text(encoding="utf-8")
+    header = re.search(r"\.module-header\s*\{([^}]*)\}", report_css).group(1)
+    index_rules = re.findall(r"\.module-index\s*\{([^}]*)\}", report_css)
+    index = next(rule for rule in index_rules if "position: absolute" in rule)
+    verdict = re.search(r"\.module-verdict\s*\{([^}]*)\}", report_css).group(1)
+    verdict_blocks = re.search(r"\.module-verdict strong, \.module-verdict span\s*\{([^}]*)\}", report_css).group(1)
+    assert "position: relative" in header and "display: block" in header
+    assert "position: absolute" in index and "left: 0" in index and "top: -24px" in index
+    assert "display: block" in verdict and "margin: 0 0 22px" in verdict
+    assert "display: block" in verdict_blocks
+
+
+def test_report_visual_rules_and_example_captures_are_governed():
+    root = Path(__file__).parents[1]
+    design = (root / "skills/geo-site-diagnose/references/report-design-system.md").read_text(encoding="utf-8")
+    modules = (root / "skills/geo-site-diagnose/references/report-module-contract.md").read_text(encoding="utf-8")
+    risks = (root / "skills/geo-site-diagnose/reports/output-risk-profile.md").read_text(encoding="utf-8")
+    for phrase in (
+        "decal.show",
+        "one circular symbol",
+        "never truncate controlled chart labels with an ellipsis",
+        "marker-free eight-dimension radar",
+        "numbered heatmap",
+        "true-proportion retention funnel",
+        "one shared left edge",
+        "verdict text on the next line",
+    ):
+        assert phrase in design or phrase in modules
+    assert "internal-link graph" not in modules
+    assert "internal-link matrix" in modules
+    assert "minimum segment widths" in risks
+    eval_fixture = root / "skills/geo-site-diagnose/evals/output/fixtures/visual-quality.json"
+    eval_cases = (root / "skills/geo-site-diagnose/evals/output/cases.jsonl").read_text(encoding="utf-8")
+    assert eval_fixture.is_file()
+    assert '"input_files":["fixtures/visual-quality.json"]' in eval_cases
+    for name in (
+        "geo-site-diagnose-demo.html",
+        "geo-site-diagnose-demo-desktop.png",
+        "geo-site-diagnose-demo-mobile.png",
+        "geo-site-diagnose-demo-discovery.png",
+        "geo-site-diagnose-demo-actions.png",
+    ):
+        path = root / "reports/examples" / name
+        assert path.is_file() and path.stat().st_size > 1_000
 
 
 def test_page_limit_and_same_snapshot_are_deterministic(tmp_path):

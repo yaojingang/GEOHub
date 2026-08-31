@@ -318,6 +318,8 @@ def test_package_allowlist_excludes_private_surfaces_and_keeps_public_verificati
         assert "reports" not in path.parts or path.parts[0] == "skills" or path.parts[:2] == ("reports", "examples")
     assert package.source_allowed(Path("tests/test_router.py"))
     assert package.source_allowed(Path("evals/router_cases.json"))
+    assert package.source_allowed(Path("reports/examples/geo-site-diagnose-demo-discovery.png"))
+    assert package.source_allowed(Path("reports/examples/geo-site-diagnose-demo-actions.png"))
 
 
 def test_source_package_allowlist_includes_security_and_governance():

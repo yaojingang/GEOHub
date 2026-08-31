@@ -150,7 +150,7 @@ python3 -m venv .venv
   --render auto
 ```
 
-可直接查看可复现的[实例报告](reports/examples/geo-site-diagnose-demo.html)、[桌面截图](reports/examples/geo-site-diagnose-demo-desktop.png)和[移动端截图](reports/examples/geo-site-diagnose-demo-mobile.png)。完整固件在十个诊断模块中渲染 23 个图表视图，真实站点遇到证据不足时会保留明确缺口说明。
+可直接查看可复现的[实例报告](reports/examples/geo-site-diagnose-demo.html)、[桌面截图](reports/examples/geo-site-diagnose-demo-desktop.png)、[移动端截图](reports/examples/geo-site-diagnose-demo-mobile.png)、[发现模块示范](reports/examples/geo-site-diagnose-demo-discovery.png)和[修复模块示范](reports/examples/geo-site-diagnose-demo-actions.png)。完整固件在十个诊断模块中渲染 23 个图表视图，真实站点遇到证据不足时会保留明确缺口说明。
 
 开发模式：
 

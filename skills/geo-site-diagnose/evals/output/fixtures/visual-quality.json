@@ -1,0 +1,14 @@
+{
+  "fixture": "tests/fixtures/site-diagnose-demo",
+  "fixture_label": "GEOHub 演示固件",
+  "selected_pages": 10,
+  "successfully_analyzed_pages": 9,
+  "expected_retention_percent": 90,
+  "required_viewports": [1280, 375, 320],
+  "module_heading_layout": {
+    "index": "above-title",
+    "left_edge": "shared",
+    "verdict_text": "new-line"
+  },
+  "required_example": "reports/examples/geo-site-diagnose-demo.html"
+}

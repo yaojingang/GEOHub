@@ -33,7 +33,9 @@ EXCLUDED_PARTS = frozenset({".git", "__pycache__", ".pytest_cache", "runs", "dis
 REPORT_EXAMPLES = frozenset(
     {
         "reports/examples/geo-site-diagnose-demo.html",
+        "reports/examples/geo-site-diagnose-demo-actions.png",
         "reports/examples/geo-site-diagnose-demo-desktop.png",
+        "reports/examples/geo-site-diagnose-demo-discovery.png",
         "reports/examples/geo-site-diagnose-demo-mobile.png",
     }
 )

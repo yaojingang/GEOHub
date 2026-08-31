@@ -1,6 +1,6 @@
 {
   "workspace_root": "skills",
-  "generated_at": "2026-08-27",
+  "generated_at": "2026-08-31",
   "skills": [
     {
       "name": "geo",
@@ -418,7 +418,7 @@
       "version": "0.7.0",
       "status": "experimental",
       "maturity": "governed",
-      "updated_at": "2026-08-27",
+      "updated_at": "2026-08-31",
       "review_cadence": "per-release",
       "targets": [
         "openai",

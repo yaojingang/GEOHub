@@ -153,24 +153,29 @@ h4 { margin: 24px 0 8px; font-size: 15px }
   background: #ffffff;
 }
 .module-header {
-  display: grid;
-  grid-template-columns: 40px minmax(0, 1fr);
-  column-gap: 10px;
-  align-items: baseline;
+  position: relative;
+  display: block;
   margin-bottom: 14px;
 }
-.module-header h2 { grid-column: 2; width: 100%; margin-bottom: 5px }
-.module-header p { grid-column: 2; width: 100%; margin-bottom: 0; color: var(--muted) }
-.module-index { grid-row: 1; grid-column: 1; padding-top: 8px }
+.module-header h2 { width: 100%; margin-bottom: 5px }
+.module-header p { width: 100%; margin-bottom: 0; color: var(--muted) }
+.module-index {
+  position: absolute;
+  top: -24px;
+  left: 0;
+  display: block;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
 .module-verdict {
-  display: grid;
-  grid-template-columns: 92px minmax(0, 1fr);
-  gap: 12px;
-  margin: 0 0 22px 50px;
-  padding: 2px 0 0;
+  display: block;
+  margin: 0 0 22px;
+  padding: 4px 0 0;
   color: var(--muted);
 }
+.module-verdict strong, .module-verdict span { display: block }
 .module-verdict strong { color: var(--ink); font-size: 12px; letter-spacing: .04em }
+.module-verdict span { margin-top: 5px }
 
 .chart-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px; align-items: stretch }
 .chart-panel {
@@ -284,8 +289,7 @@ footer p { max-width: 960px; color: var(--muted) }
   .metric-strip > div:nth-child(odd) { border-left: 0; padding-left: 0 }
   .metric-strip { row-gap: 10px }
   .module { padding: 38px 0 }
-  .module-header { grid-template-columns: 32px minmax(0, 1fr); column-gap: 6px }
-  .module-verdict { margin-left: 38px; grid-template-columns: 1fr; gap: 4px }
+  .module-index { top: -21px }
   .chart-panel, .span-4, .span-5, .span-6, .span-7, .span-8,
   .module#architecture .chart-panel:last-child, .module#structure .chart-panel:last-child, .module#actions .chart-panel:last-child { grid-column: 1 / -1 }
   .chart, .chart-large { height: 300px }

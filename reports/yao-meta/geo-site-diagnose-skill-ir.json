@@ -64,11 +64,13 @@
   "eval_plan": {
     "trigger": [
       "evals/output/cases.jsonl",
+      "evals/output/fixtures/visual-quality.json",
       "evals/semantic_config.json",
       "evals/trigger_cases.json"
     ],
     "output": [
-      "evals/output/cases.jsonl"
+      "evals/output/cases.jsonl",
+      "evals/output/fixtures/visual-quality.json"
     ],
     "adversarial": [],
     "baseline": "without_skill"

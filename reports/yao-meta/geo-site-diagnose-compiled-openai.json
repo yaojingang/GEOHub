@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-27",
+  "generated_at": "2026-08-31",
   "skill_dir": "skills/geo-site-diagnose",
   "summary": {
     "target_count": 1,
@@ -105,17 +105,19 @@
         "eval_plan": {
           "trigger": [
             "evals/output/cases.jsonl",
+            "evals/output/fixtures/visual-quality.json",
             "evals/semantic_config.json",
             "evals/trigger_cases.json"
           ],
           "output": [
-            "evals/output/cases.jsonl"
+            "evals/output/cases.jsonl",
+            "evals/output/fixtures/visual-quality.json"
           ],
           "adversarial": [],
           "baseline": "without_skill",
           "counts": {
-            "trigger": 3,
-            "output": 1,
+            "trigger": 4,
+            "output": 2,
             "adversarial": 0,
             "baseline": 1
           }

@@ -1948,7 +1948,7 @@
       "name": "geo-site-diagnose",
       "version": "0.7.0",
       "owner": "姚金刚 / Yao",
-      "updated_at": "2026-08-27",
+      "updated_at": "2026-08-31",
       "review_cadence": "per-release",
       "status": "experimental",
       "maturity": "experimental",
@@ -1958,6 +1958,7 @@
       "contract_version": "1.0.0",
       "availability": "active",
       "entrypoint": "SKILL.md",
+      "skill_ir_source": "reports/skill-ir.json",
       "target_platforms": [
         "openai",
         "claude",
@@ -1974,7 +1975,7 @@
       "copyright_owner": "姚金刚 / Yao",
       "third_party_notice_required": true,
       "input_files": [
-        "file-backed fixture: bounded replay HTML, robots.txt, and sitemap snapshots for governed evaluation"
+        "evals/output/fixtures/visual-quality.json"
       ],
       "output_contract": [
         "sampling-plan",

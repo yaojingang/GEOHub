@@ -2,9 +2,9 @@
   "schema_version": "1.0",
   "seed": "yao-output-eval-blind-v1",
   "summary": {
-    "pair_count": 5,
+    "pair_count": 6,
     "answer_key_separate": true,
-    "with_skill_hidden_count": 5
+    "with_skill_hidden_count": 6
   },
   "pairs": [
     {
@@ -125,6 +125,53 @@
       "variant_b": {
         "blind_id": "neighbor:B",
         "output": "保留 geo-diagnose 单页诊断路径，仅分析明确提供的页面。"
+      }
+    },
+    {
+      "case_id": "visual-quality",
+      "prompt": "用演示固件生成网站 GEO 报告并检查图表是否清晰、比例是否准确",
+      "input_files": [
+        "fixtures/visual-quality.json"
+      ],
+      "metadata": {
+        "case_type": "visual_quality",
+        "fixture_kind": "file-backed fixture"
+      },
+      "review_instruction": "Pick A or B based only on the rubric. Do not infer which output came from the skill.",
+      "rubric": [
+        {
+          "id": "artifact",
+          "description": "必须生成可复现的独立实例报告。",
+          "weight": 1.0
+        },
+        {
+          "id": "encoding",
+          "description": "图表编码必须清晰且无装饰性纹理。",
+          "weight": 1.0
+        },
+        {
+          "id": "module-heading",
+          "description": "十个模块必须共用清晰的标题与结论对齐规则。",
+          "weight": 1.0
+        },
+        {
+          "id": "funnel-ratio",
+          "description": "漏斗必须忠实表达阶段保留比例。",
+          "weight": 1.0
+        },
+        {
+          "id": "responsive",
+          "description": "窄屏必须保持可读。",
+          "weight": 1.0
+        }
+      ],
+      "variant_a": {
+        "blind_id": "visual-quality:A",
+        "output": "生成 reports/examples/geo-site-diagnose-demo.html，使用纯白画布、无纹理纯色图表、统一圆形散点和完整换行标签；模块编号上置，标题、说明和结论统一左对齐，结论正文另起一行；10 → 9 的诊断漏斗显示 90% 保留率，并在 375 px 与 320 px 下保持无横向溢出。"
+      },
+      "variant_b": {
+        "blind_id": "visual-quality:B",
+        "output": "输出带斜纹、三角形标记、标签省略和比例失真的漏斗图，模块编号与标题错位，诊断结论挤在同一行。"
       }
     }
   ]

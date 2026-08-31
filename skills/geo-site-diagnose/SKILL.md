@@ -18,6 +18,10 @@ description: Crawl one public website from a supplied URL, select up to ten repr
 
 Return a bounded run containing source snapshots, crawl and sampling manifests, structured site and page diagnoses, evidence ledger, remediation backlog, quality and lineage artifacts, and one offline `report.html`. Read `references/report-contract.md` for the file contract and report format boundary.
 
+The offline report runtime is packaged under `assets/`. Governed trigger and output cases are stored under `evals/`.
+
 ## Boundaries
 
 Fetch only public HTTP(S) resources on the approved canonical host. Discovery is bounded to 500 inventory URLs, five sitemaps, ten representative pages, 15 MB, and 90 seconds. Preserve blocked or unavailable pages as `source_gap`. Scores describe observed readiness signals and never claim live AI ranking, recall, citations, traffic, or business effects.
+
+Do not use this Skill for single-page diagnosis, brand-only diagnosis, authenticated sources, live citation measurement, or website modification.

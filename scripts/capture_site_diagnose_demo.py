@@ -12,8 +12,13 @@ OUTPUTS = (
     ("desktop", 1440, 1000, ROOT / "reports" / "examples" / "geo-site-diagnose-demo-desktop.png"),
     ("mobile", 390, 844, ROOT / "reports" / "examples" / "geo-site-diagnose-demo-mobile.png"),
 )
+MODULE_OUTPUTS = (
+    ("discovery", "#discovery", ROOT / "reports" / "examples" / "geo-site-diagnose-demo-discovery.png"),
+    ("actions", "#actions", ROOT / "reports" / "examples" / "geo-site-diagnose-demo-actions.png"),
+)
 VALIDATION_VIEWPORTS = (("desktop-1280", 1280, 900), ("mobile-375", 375, 812), ("narrow-320", 320, 740))
 EXPECTED_CHARTS = 23
+EXPECTED_FUNNEL_RETENTION = [90, 100, 100, 100]
 
 
 def _validate(page, label: str, width: int) -> None:
@@ -27,6 +32,42 @@ def _validate(page, label: str, width: int) -> None:
         raise RuntimeError(f"{label} horizontal overflow={overflow}px")
     if page.locator(".report-nav").evaluate("element => getComputedStyle(element).position") != "sticky":
         raise RuntimeError(f"{label} navigation is not sticky")
+    funnel_retention = page.evaluate(
+        """() => {
+          const element = document.querySelector('[data-chart="funnel"]');
+          const chart = element && echarts.getInstanceByDom(element);
+          if (!chart) return null;
+          const data = chart.getOption().series[1].data;
+          return data.map(item => typeof item === "object" ? item.value : item);
+        }"""
+    )
+    if funnel_retention != EXPECTED_FUNNEL_RETENTION:
+        raise RuntimeError(f"{label} funnel retention is distorted: {funnel_retention}")
+    heading_geometry = page.locator(".module").evaluate_all(
+        """modules => modules.map(module => {
+          const box = selector => module.querySelector(selector).getBoundingClientRect();
+          const title = box('.module-header h2');
+          const description = box('.module-header p');
+          const index = box('.module-index');
+          const verdictLabel = box('.module-verdict strong');
+          const verdictText = box('.module-verdict span');
+          return {
+            id: module.id,
+            lefts: [title.left, description.left, index.left, verdictLabel.left, verdictText.left],
+            indexBottom: index.bottom,
+            titleTop: title.top,
+            verdictLabelBottom: verdictLabel.bottom,
+            verdictTextTop: verdictText.top,
+          };
+        })"""
+    )
+    for geometry in heading_geometry:
+        if max(geometry["lefts"]) - min(geometry["lefts"]) > 1:
+            raise RuntimeError(f"{label} module {geometry['id']} heading left edges diverge: {geometry['lefts']}")
+        if geometry["indexBottom"] >= geometry["titleTop"]:
+            raise RuntimeError(f"{label} module {geometry['id']} index is not above its title")
+        if geometry["verdictTextTop"] <= geometry["verdictLabelBottom"]:
+            raise RuntimeError(f"{label} module {geometry['id']} verdict content did not wrap to a new line")
     mobile_display = page.locator(".nav-mobile").evaluate("element => getComputedStyle(element).display")
     if (width < 1024 and mobile_display == "none") or (width >= 1024 and mobile_display != "none"):
         raise RuntimeError(f"{label} navigation breakpoint is inconsistent")
@@ -91,6 +132,24 @@ def main() -> int:
                 page.evaluate("window.scrollTo(0, 0)")
                 page.wait_for_timeout(100)
                 page.screenshot(path=str(output), full_page=False)
+                page.close()
+            for label, selector, output in MODULE_OUTPUTS:
+                page = browser.new_page(viewport={"width": 1440, "height": 1000}, device_scale_factor=1)
+                console_errors: list[str] = []
+                external_requests: list[str] = []
+                page.on("console", lambda message: console_errors.append(message.text) if message.type == "error" else None)
+                page.on("request", lambda request: external_requests.append(request.url) if request.url.startswith(("http://", "https://")) else None)
+                page.goto(REPORT.resolve().as_uri(), wait_until="networkidle")
+                _validate(page, label, 1440)
+                if console_errors or external_requests:
+                    raise RuntimeError(f"{label} report browser errors={console_errors}, external_requests={external_requests}")
+                page.locator(".report-nav").evaluate("element => { element.style.visibility = 'hidden'; }")
+                if selector == "#actions":
+                    page.locator("#actions details").evaluate_all("elements => elements.forEach(element => { element.open = false; })")
+                target = page.locator(selector)
+                target.scroll_into_view_if_needed()
+                page.wait_for_timeout(100)
+                target.screenshot(path=str(output))
                 page.close()
         finally:
             browser.close()
